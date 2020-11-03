@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">DouYinTouTiao</string>
+
+
+
+
+
+
+
+
+
+
+    <!-- 个人资料页面 -->
+    <string name="user_name">用户名</string>
+    <string name="user_description">个性签名</string>
+    <string name="following">关注</string>
+    <string name="help">帮助反馈</string>
+    <string name="setting">设置中心</string>
+
+
+
+    <!-- 临时字符串 -->
+    <string name="view_user_main_page">点击预览个人资料界面</string>
+
+
+
 </resources>
