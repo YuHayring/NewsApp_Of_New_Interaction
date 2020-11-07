@@ -29,19 +29,21 @@ public class UserMainModel {
 
     public static final int SUCCESS = 1;
 
-    Context context;
 
-    public UserMainModel(Context context, OnUserGotCallBack callBack) {
+    public UserMainModel(OnUserGotCallBack callBack) {
         this.callBack = callBack;
-        this.context = context;
     }
 
     private UserApi userApi = UserApi.getUserApi();
 
 
+    //获取用户信息
     public void getUser(String userId) {
+        //执行网络请求，输入回调接口
         userApi.getUser().enqueue(netCallBack);
     }
+
+
 
 
     public interface OnUserGotCallBack {
@@ -51,10 +53,14 @@ public class UserMainModel {
     }
 
 
+    /**
+     * 网络请求-用户信息-回调
+     */
     Callback<User> netCallBack = new Callback<User>() {
 
         @Override
         public void onResponse(Call call, Response response) {
+            //回调 ViewModel 模块
             callBack.onSuccess((User) response.body());
         }
 
@@ -66,6 +72,7 @@ public class UserMainModel {
 
 
 
+    //Handler 机制
     private class GetUserHandler extends Handler {
         @Override
         public void handleMessage(@NonNull Message msg) {

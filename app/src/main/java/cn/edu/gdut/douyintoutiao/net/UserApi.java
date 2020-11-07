@@ -14,12 +14,17 @@ public interface UserApi {
 
 
 
-    static UserApi getUserApi() {
-        return Singleton.userApi;
-    }
 
+
+    /**
+     * 单例内部类
+     */
     class Singleton {
         static UserApi userApi = RetrofitSingleton.getInstance().create(UserApi.class);
+    }
+
+    static UserApi getUserApi() {
+        return Singleton.userApi;
     }
 }
 
