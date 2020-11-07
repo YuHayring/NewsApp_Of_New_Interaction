@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hayring
  * @date 2020/11/6 16:13
  * 事件实体(tag)
  */
-public class Tag {
+public class Tag implements Serializable {
 
     /**
      * 事件 id

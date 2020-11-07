@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hayring
  * @date 2020/11/6 16:27
  * 关注资讯
  */
-public class Focus {
+public class Focus implements Serializable {
 
     /**
      * 关注者 Id

@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hayring
  * @date 2020/11/6 16:15
  * 资讯实体
  */
-public class News {
+public class News implements Serializable {
 
     /**
      * 资讯 id

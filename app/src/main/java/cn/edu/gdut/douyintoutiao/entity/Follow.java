@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hayring
  * @date 2020/11/6 16:26
  * 关注关系
  */
-public class Follow {
+public class Follow implements Serializable {
 
     /**
      * 关注者 id

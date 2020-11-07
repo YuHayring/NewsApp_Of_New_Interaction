@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hayring
  * @date 2020/11/6 16:04
  * 用户实体
  */
-public class User {
+public class User implements Serializable {
 
     /**
      * 用户id

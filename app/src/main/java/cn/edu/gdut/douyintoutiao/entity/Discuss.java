@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
  * @date 2020/11/6 16:30
  * 评论
  */
-public class Discuss {
+public class Discuss implements Serializable {
 
     /**
      * 资讯 id
