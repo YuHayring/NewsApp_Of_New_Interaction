@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button userMainPageEnter;
+    Button resignPageEnter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +25,22 @@ public class MainActivity extends AppCompatActivity {
             intent.setClass(this, UserMainActivity.class);
             MainActivity.this.startActivity(intent);
         }));
+
+
+    }
+
+    //@author:huqp
+    //跳转登陆的一个方法
+    private void enter(String page){
+        switch (page){
+            case "user_resign_page_enter": {
+                resignPageEnter = findViewById(R.id.user_resign_page_enter);
+                resignPageEnter.setOnClickListener((view -> {
+                    Intent intent = new Intent();
+                    intent.setClass(this, ResignActivity.class);
+                    MainActivity.this.startActivity(intent);
+                }));
+            }
+        }
     }
 }
