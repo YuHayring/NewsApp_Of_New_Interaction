@@ -1,28 +1,85 @@
 package cn.edu.gdut.douyintoutiao;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.MenuItem;
 
-import cn.edu.gdut.douyintoutiao.view.UserMainActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import cn.edu.gdut.douyintoutiao.view.MainFragment;
+import cn.edu.gdut.douyintoutiao.view.UserMainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    Button userMainPageEnter;
+    Fragment mainFragment;
+
+    Fragment userMainFragment;
+
+
+    protected Fragment lastFragment;
+
+
+    protected BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.navigation);
 
-        userMainPageEnter = findViewById(R.id.user_main_page_enter);
-        userMainPageEnter.setOnClickListener((view -> {
-            Intent intent = new Intent();
-            intent.setClass(this, UserMainActivity.class);
-            MainActivity.this.startActivity(intent);
-        }));
+        userMainFragment = new UserMainFragment(this);
+        mainFragment = new MainFragment();
+
+
+        lastFragment = mainFragment;
+        //显示 Fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainview, mainFragment).show(mainFragment).commitNow();
+
+        bottomNavigationView = findViewById(R.id.navigation);
+        //注册导航栏点击监听器
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+
+    }
+
+    /**
+     * 导航栏点击监听器
+     */
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            if (item.getItemId() == R.id.main_page_switch) {
+                switchFragment(mainFragment);
+                return true;
+            } else if (item.getItemId() == R.id.user_main_page_switch) {
+                switchFragment(userMainFragment);
+                return true;
+            }
+            return false;
+        }
+    };
+
+    /**
+     * Fragment 切换方法
+     * @param nextfragment
+     */
+    private void switchFragment(Fragment nextfragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(lastFragment);//隐藏上个Fragment
+        if (nextfragment.isAdded() == false) {
+            transaction.add(R.id.mainview, nextfragment);
+        }
+
+        transaction.show(nextfragment).commitAllowingStateLoss();
+
+        lastFragment = nextfragment;
     }
 }

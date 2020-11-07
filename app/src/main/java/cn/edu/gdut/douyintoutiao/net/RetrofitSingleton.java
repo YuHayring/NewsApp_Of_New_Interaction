@@ -8,6 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @date 2020/11/7 16:09
  */
 public class RetrofitSingleton {
+
+    /**
+     * 单例内部类
+     */
     private static class Singleton {
         public static Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://af8b15.fn.thelarkcloud.com/")

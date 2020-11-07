@@ -17,6 +17,10 @@
     <string name="help">帮助反馈</string>
     <string name="setting">设置中心</string>
 
+    <!-- 导航栏 -->
+    <string name="main_page">首页</string>
+    <string name="my_page">我的</string>
+
 
 
     <!-- 临时字符串 -->

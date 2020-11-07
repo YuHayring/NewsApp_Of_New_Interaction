@@ -1,15 +1,9 @@
 package cn.edu.gdut.douyintoutiao.viewmodel;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.widget.Toast;
-
 import androidx.databinding.ObservableField;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.model.UserMainModel;
-import cn.edu.gdut.douyintoutiao.view.UserMainActivity;
 
 /**
  * @author hayring
@@ -17,14 +11,17 @@ import cn.edu.gdut.douyintoutiao.view.UserMainActivity;
  */
 public class UserMainViewModel {
 
-    public UserMainActivity activity;
-
 
     public ObservableField<String> userName = new ObservableField<>();
 
     public ObservableField<String> userDescription = new ObservableField<>();
 
-    public UserMainModel userMainModel = new UserMainModel(activity, new UserMainModel.OnUserGotCallBack() {
+    public UserMainModel userMainModel = new UserMainModel(new UserMainModel.OnUserGotCallBack() {
+
+        /**
+         * 获取到用户信息，将其显示在界面上
+         * @param user
+         */
         @Override
         public void onSuccess(User user) {
             userName.set(user.getUserName());
@@ -33,13 +30,11 @@ public class UserMainViewModel {
 
         @Override
         public void onFaile(String errorInfo) {
-            Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
+            //TODO
         }
     });
 
-    public UserMainViewModel(UserMainActivity activity) {
-        this.activity = activity;
-    }
 
 
 }
