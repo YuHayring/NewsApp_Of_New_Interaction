@@ -7,8 +7,65 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢迎来到字节"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:shadowRadius="2"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="5.0"
+        android:shadowDy="1.0"
+        android:layout_marginTop="160dp"
+        android:layout_centerHorizontal="true"
+
+       />
+
+
+    <RelativeLayout
+        android:layout_height="55dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text1">
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/input"
+            android:layout_centerHorizontal="true">
+
+        </TextView>
+        <EditText
+            android:id="@+id/phone"
+            android:hint="手机号"
+            android:paddingLeft="10dp"
+            android:textColorHint="#95A1AA"
+            android:layout_centerVertical="true"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/phone_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/phone"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/shouji"/>
+
+    </RelativeLayout>
+
+
+
+
+
+    <botton/>
 
 </FrameLayout>
