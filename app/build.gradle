@@ -48,7 +48,13 @@ dependencies {
     /*rxjava框架*/
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
 
+    implementation files('android-support-v4')
+    implementation fileTree(dir: '/Users/admin/Downloads/android-process-button-master', include: ['*.aar', '*.jar'], exclude: [])
+
+
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
+
 }

@@ -1,12 +1,13 @@
 package cn.edu.gdut.douyintoutiao;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected Fragment lastFragment;
 
-
+    protected Button resign_enter;
     protected BottomNavigationView bottomNavigationView;
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //注册导航栏点击监听器
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
+        //跳转到注册页的跳转监听
 
     }
 
