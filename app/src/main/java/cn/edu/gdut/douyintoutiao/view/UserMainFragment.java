@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -41,16 +42,18 @@ public class UserMainFragment extends Fragment {
 
         mUserInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_main, container, false);
         mUserInfoBinding.setUserMainViewModel(userMainViewModel);
-        userMainViewModel.userMainModel.getUser("");
 
         return mUserInfoBinding.getRoot();
 
-
-
     }
 
+    /**
+     * 加载完成
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-
-
-
+        userMainViewModel.userMainModel.getUser("");
+    }
 }

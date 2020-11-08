@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import cn.edu.gdut.douyintoutiao.view.MainFragment;
 import cn.edu.gdut.douyintoutiao.view.UserMainFragment;
+import cn.edu.gdut.douyintoutiao.view.VideoPlayerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
     Fragment mainFragment;
 
     Fragment userMainFragment;
+
+    /**
+     * 用于测试，后期要删除
+     */
+    Fragment videoPlayerFragment;
 
 
     protected Fragment lastFragment;
@@ -33,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
 
         userMainFragment = new UserMainFragment(this);
-        mainFragment = new MainFragment();
+        mainFragment = new VideoPlayerFragment(this);//MainFragment();
+
+
 
 
         lastFragment = mainFragment;
@@ -74,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(Fragment nextfragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.hide(lastFragment);//隐藏上个Fragment
+        //生命周期
+        lastFragment.onPause();
         if (nextfragment.isAdded() == false) {
             transaction.add(R.id.mainview, nextfragment);
         }
 
         transaction.show(nextfragment).commitAllowingStateLoss();
-
+        //生命周期
+        nextfragment.onResume();
         lastFragment = nextfragment;
     }
 }
