@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
             />
 
         <ImageView
@@ -58,7 +59,7 @@
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/phone"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="3dp"
             android:src="@drawable/shouji"/>
 
     </RelativeLayout>
