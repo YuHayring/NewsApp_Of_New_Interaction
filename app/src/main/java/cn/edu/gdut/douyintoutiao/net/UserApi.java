@@ -8,8 +8,14 @@ public interface UserApi {
     @GET("user")
     Call<User> getUser();
 
-
-
+    /**
+     * 检查登录数据是否有效接口
+     * @author 彭俊源
+     * @date 2020年11月8日 17:51:49
+     * @return true or false
+     */
+    @GET("checkValidate")
+    Call<String> validateUser();
 
 
 
