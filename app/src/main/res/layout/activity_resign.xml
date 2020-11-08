@@ -29,6 +29,7 @@
     <RelativeLayout
         android:layout_height="55dp"
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/text1">
 
         <TextView
@@ -44,11 +45,12 @@
             android:hint="手机号"
             android:paddingLeft="10dp"
             android:textColorHint="#95A1AA"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:inputType="phone"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            />
 
         <ImageView
             android:id="@+id/phone_icon"
