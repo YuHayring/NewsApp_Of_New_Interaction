@@ -1,13 +1,16 @@
 <resources>
-    <string name="app_name">DouYinTouTiao</string>
+    <string name="app_name">抖音头条版</string>
 
 
-
-
-
-
-
-
+    <!--登录页面-->
+    <string name="login_button_msg">登录</string>
+    <string name="login_username_hint">请输入用户名</string>
+    <string name="login_password_hint">请输入密码</string>
+    <string name="login_to_sign_up_msg">注册</string>
+    <string name="login_header_msg">欢迎来到字节</string>
+    <string name="login_notification_msg">未注册的手机号验证后将自动创建账号</string>
+    <string name="login_photo_msg">笑脸</string>
+    <string name="login_copy_right_msg">版权所有 翻版必究</string>
 
 
     <!-- 个人资料页面 -->
@@ -22,10 +25,10 @@
     <string name="my_page">我的</string>
 
 
-
     <!-- 临时字符串 -->
     <string name="view_user_main_page">点击预览个人资料界面</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
