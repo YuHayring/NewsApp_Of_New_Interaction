@@ -29,6 +29,11 @@
 
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.FollowListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

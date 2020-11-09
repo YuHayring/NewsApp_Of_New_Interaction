@@ -66,11 +66,5 @@ public class FollowTagsListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        getView().findViewById(R.id.buttontest).setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_followTagsList_to_firstActivity ));
-        getView().findViewById(R.id.buttontest2).setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_followTagsList_to_mainActivity ));
 
-    }
 }
