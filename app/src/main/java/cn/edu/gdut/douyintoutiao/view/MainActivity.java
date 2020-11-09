@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao;
+package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.MainFragment;
 import cn.edu.gdut.douyintoutiao.view.UserMainFragment;
 import cn.edu.gdut.douyintoutiao.view.VideoPlayerFragment;

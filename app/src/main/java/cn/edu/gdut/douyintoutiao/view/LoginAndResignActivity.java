@@ -1,9 +1,10 @@
-package cn.edu.gdut.douyintoutiao;
+package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.LoginFragment;
 import cn.edu.gdut.douyintoutiao.view.ResignFragment;
 /**

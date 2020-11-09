@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao;
+package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import cn.edu.gdut.douyintoutiao.R;
 
 /**
  * A simple {@link Fragment} subclass.
