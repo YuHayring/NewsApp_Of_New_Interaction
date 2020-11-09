@@ -2,6 +2,9 @@
     <string name="app_name">抖音头条版</string>
 
 
+<!--启动界面-->
+    <string name="start_to_login_msg">去登录</string>
+
     <!--登录页面-->
     <string name="login_button_msg">登录</string>
     <string name="login_username_hint">请输入用户名</string>
