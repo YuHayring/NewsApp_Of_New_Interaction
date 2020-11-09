@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
 
         userMainFragment = new UserMainFragment(this);
-        mainFragment = new VideoPlayerFragment(this);//MainFragment();
+        mainFragment = new MainFragment(this);//VideoPlayerFragment(this);
 
 
 

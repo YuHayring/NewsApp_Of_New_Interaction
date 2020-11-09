@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
@@ -76,6 +78,8 @@ public class VideoPlayerFragment extends Fragment {
             } else {
                 play();
             }
+
+            Log.d("systemUiVisibility onClick",""+((AppCompatActivity)context).getWindow().getDecorView().getSystemUiVisibility());
         }
     };
 
