@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao;
+package cn.edu.gdut.douyintoutiao.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.MainFragment;
 import cn.edu.gdut.douyintoutiao.view.UserMainFragment;
 import cn.edu.gdut.douyintoutiao.view.VideoPlayerFragment;
