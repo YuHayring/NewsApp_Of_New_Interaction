@@ -20,5 +20,19 @@
         android:id="@+id/loginFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.LoginFragment"
         android:label="登录页面"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_resignFragment"
+            app:destination="@id/resignFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resignFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.ResignFragment"
+        android:label="注册页面"
+        tools:layout="@layout/fragment_resign" >
+        <action
+            android:id="@+id/action_resignFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

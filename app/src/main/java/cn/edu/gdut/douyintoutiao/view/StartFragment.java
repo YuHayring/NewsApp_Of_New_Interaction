@@ -1,17 +1,14 @@
 package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.google.android.material.navigation.NavigationView;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
@@ -83,5 +80,7 @@ public class StartFragment extends Fragment {
                 controller.navigate(R.id.action_startFragment_to_loginFragment);
             }
         });
+
+
     }
 }

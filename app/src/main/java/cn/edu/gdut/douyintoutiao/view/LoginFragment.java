@@ -12,11 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
@@ -44,6 +42,8 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //
 
     public LoginFragment() {
         // Required empty public constructor
@@ -87,6 +87,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //登陆按钮
         binding.button.setOnClickListener(v -> {
             String userName = binding.editTextTextPersonName.getText().toString();
             String password = binding.editTextTextPassword.getText().toString();
@@ -97,6 +98,7 @@ public class LoginFragment extends Fragment {
             User user = new User();
             user.setUserName(userName);
             user.setUserPassword(password);
+
             Retrofit retrofit = RetrofitSingleton.getInstance();
             UserApi api = retrofit.create(UserApi.class);
             Call<Result> stringCall = api.validateUser(user);
@@ -121,6 +123,12 @@ public class LoginFragment extends Fragment {
                 }
             });
         });
-
+        //跳转注册按钮
+        binding.button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_resignFragment);
+            }
+        });
     }
 }

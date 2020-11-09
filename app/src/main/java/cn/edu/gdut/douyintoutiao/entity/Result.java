@@ -3,7 +3,6 @@ package cn.edu.gdut.douyintoutiao.entity;
 public class Result {
     private String msg;
     private String code;
-
     @Override
     public String toString() {
         return "Result{" +
