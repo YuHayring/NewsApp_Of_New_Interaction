@@ -1,8 +1,11 @@
 package cn.edu.gdut.douyintoutiao.net;
 
+import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface UserApi {
     @GET("user")
@@ -14,8 +17,8 @@ public interface UserApi {
      * @date 2020年11月8日 17:51:49
      * @return true or false
      */
-    @GET("checkValidate")
-    Call<String> validateUser();
+    @POST("checkValidate")
+    Call<Result> validateUser(@Body User user);
 
 
 
