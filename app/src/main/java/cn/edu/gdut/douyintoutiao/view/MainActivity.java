@@ -1,5 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected Fragment lastFragment;
 
-    protected Button resign_enter;
+
     protected BottomNavigationView bottomNavigationView;
 
     @Override

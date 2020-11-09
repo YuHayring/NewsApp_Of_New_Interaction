@@ -29,13 +29,6 @@
         app:menu="@menu/navigation"
          />
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/resign_enter"
-        tools:ignore="MissingConstraints">
-
-    </Button>
 
 
 

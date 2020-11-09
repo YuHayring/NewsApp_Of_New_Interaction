@@ -18,7 +18,7 @@ public class LoginAndResignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_LoginAndResign);
+        setContentView(R.layout.activity_loginandresign);
     }
 
     //UI组件初始化与事件绑定
