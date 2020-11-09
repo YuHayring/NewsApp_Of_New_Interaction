@@ -7,13 +7,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import cn.edu.gdut.douyintoutiao.MainActivity;
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
+import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
+import cn.edu.gdut.douyintoutiao.net.RetrofitSingleton;
+import cn.edu.gdut.douyintoutiao.net.UserApi;
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +38,8 @@ public class LoginFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String TAG = "myTag";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,8 +90,34 @@ public class LoginFragment extends Fragment {
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                String userName = binding.editTextTextPersonName.getText().toString();
+                String password = binding.editTextTextPassword.getText().toString();
+                User user = new User();
+                user.setUserName(userName);
+                user.setUserPassword(password);
+                Retrofit retrofit = RetrofitSingleton.getInstance();
+                UserApi api = retrofit.create(UserApi.class);
+                Call<Result> stringCall = api.validateUser(user);
+                Log.d(TAG, "onClick: " + userName + " " + password);
+                stringCall.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        Log.d(TAG, "onResponse: " + response.body().getMsg() + " " + response.body().getCode());
+                        assert response.body() != null;
+                        if("true".equals(response.body().getMsg())){
+                            Toasty.success(requireContext(),"登录成功!", Toast.LENGTH_SHORT, true).show();
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toasty.error(requireContext(), "登录失败！",Toast.LENGTH_SHORT, true).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+
+                    }
+                });
             }
         });
 

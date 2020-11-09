@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        android:label="欢迎页面"
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -19,6 +19,6 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.LoginFragment"
-        android:label="fragment_login"
+        android:label="登录页面"
         tools:layout="@layout/fragment_login" />
 </navigation>
