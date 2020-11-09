@@ -2,7 +2,7 @@
     <string name="app_name">抖音头条版</string>
 
 
-<!--启动界面-->
+    <!--启动界面-->
     <string name="start_to_login_msg">去登录</string>
 
     <!--登录页面-->
@@ -32,6 +32,8 @@
     <string name="view_user_main_page">点击预览个人资料界面</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="followTagsList">事件</string>
+    <string name="followAuthorList">用户</string>
 
     <string name="play_video">播放视频</string>
     <!--注册页-->
