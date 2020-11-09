@@ -4,6 +4,14 @@ public class Result {
     private String msg;
     private String code;
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
+
     public String getMsg() {
         return msg;
     }

@@ -2,16 +2,16 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import cn.edu.gdut.douyintoutiao.MainActivity;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
@@ -32,15 +32,12 @@ import retrofit2.Retrofit;
  */
 public class LoginFragment extends Fragment {
 
-    private FragmentLoginBinding binding;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private static final String TAG = "myTag";
-
+    private FragmentLoginBinding binding;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -87,38 +84,39 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userName = binding.editTextTextPersonName.getText().toString();
-                String password = binding.editTextTextPassword.getText().toString();
-                User user = new User();
-                user.setUserName(userName);
-                user.setUserPassword(password);
-                Retrofit retrofit = RetrofitSingleton.getInstance();
-                UserApi api = retrofit.create(UserApi.class);
-                Call<Result> stringCall = api.validateUser(user);
-                Log.d(TAG, "onClick: " + userName + " " + password);
-                stringCall.enqueue(new Callback<Result>() {
-                    @Override
-                    public void onResponse(Call<Result> call, Response<Result> response) {
-                        Log.d(TAG, "onResponse: " + response.body().getMsg() + " " + response.body().getCode());
-                        assert response.body() != null;
-                        if("true".equals(response.body().getMsg())){
-                            Toasty.success(requireContext(),"登录成功!", Toast.LENGTH_SHORT, true).show();
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toasty.error(requireContext(), "登录失败！",Toast.LENGTH_SHORT, true).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Result> call, Throwable t) {
-
-                    }
-                });
+        binding.button.setOnClickListener(v -> {
+            String userName = binding.editTextTextPersonName.getText().toString();
+            String password = binding.editTextTextPassword.getText().toString();
+            if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+                Toasty.error(requireContext(), "请输入所需要的信息！", Toasty.LENGTH_SHORT, true).show();
+                return;
             }
+            User user = new User();
+            user.setUserName(userName);
+            user.setUserPassword(password);
+            Retrofit retrofit = RetrofitSingleton.getInstance();
+            UserApi api = retrofit.create(UserApi.class);
+            Call<Result> stringCall = api.validateUser(user);
+            Log.d(TAG, "onClick: " + userName + " " + password);
+            stringCall.enqueue(new Callback<Result>() {
+                @Override
+                public void onResponse(Call<Result> call, Response<Result> response) {
+                    assert response.body() != null;
+                    Log.d(TAG, "onResponse: " + response.body().toString());
+                    if ("true".equals(response.body().getMsg())) {
+                        Toasty.success(requireContext(), "登录成功!", Toast.LENGTH_SHORT, true).show();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toasty.error(requireContext(), "登录失败！", Toast.LENGTH_SHORT, true).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Result> call, Throwable t) {
+
+                }
+            });
         });
 
     }
