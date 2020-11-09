@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.MainActivity;
 import cn.edu.gdut.douyintoutiao.R;
@@ -55,5 +56,9 @@ public class UserMainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         userMainViewModel.userMainModel.getUser("");
+
+        //跳转到关注act
+       // getView().findViewById(R.id.buttonFollow).setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_userMainFragment_to_followListActivity ));
+
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav_graph"
+    app:startDestination="@id/userMainFragment">
+
+    <fragment
+        android:id="@+id/userMainFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.UserMainFragment"
+        android:label="UserMainFragment" >
+        <action
+            android:id="@+id/action_userMainFragment_to_followListActivity"
+            app:destination="@id/followListActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/followListActivity"
+        android:name="cn.edu.gdut.douyintoutiao.view.FollowListActivity"
+        android:label="activity_follow_list"
+        tools:layout="@layout/activity_follow_list" />
+</navigation>

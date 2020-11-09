@@ -2,7 +2,9 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,5 +66,11 @@ public class FollowTagsListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getView().findViewById(R.id.buttontest).setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_followTagsList_to_firstActivity ));
+        getView().findViewById(R.id.buttontest2).setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_followTagsList_to_mainActivity ));
 
+    }
 }
