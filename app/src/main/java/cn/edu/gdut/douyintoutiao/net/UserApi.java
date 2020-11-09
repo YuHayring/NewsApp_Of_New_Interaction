@@ -33,8 +33,8 @@ public interface UserApi {
      * @date
      * @return 查找到的用户
      */
-    @POST("check_user")
-    Call<Result> check_User(@Body User user);
+    @POST("check_resign")
+    Call<Result> check_Resign(@Body User user);
 
     /**
      * 单例内部类

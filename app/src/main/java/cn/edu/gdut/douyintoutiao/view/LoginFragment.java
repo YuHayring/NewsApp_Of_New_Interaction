@@ -101,6 +101,7 @@ public class LoginFragment extends Fragment {
 
             Retrofit retrofit = RetrofitSingleton.getInstance();
             UserApi api = retrofit.create(UserApi.class);
+
             Call<Result> stringCall = api.validateUser(user);
             Log.d(TAG, "onClick: " + userName + " " + password);
             stringCall.enqueue(new Callback<Result>() {

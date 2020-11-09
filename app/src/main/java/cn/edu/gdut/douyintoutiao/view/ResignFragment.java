@@ -99,8 +99,8 @@ public class ResignFragment extends Fragment {
                 Toasty.error(requireContext(), "请输入所需要的信息！", Toasty.LENGTH_SHORT, true).show();
                 return;
             }
-            //检查手机号是否是13位
-            if(userPhone.length()!=3){
+            //检查手机号是否是11位
+            if(userPhone.length()!=11){
                 Toasty.error(requireContext(), "非法手机号", Toasty.LENGTH_SHORT, true).show();
                 return;
             }
@@ -115,42 +115,49 @@ public class ResignFragment extends Fragment {
             user.setUserPassword(password);
             Retrofit retrofit = RetrofitSingleton.getInstance();
             UserApi api = retrofit.create(UserApi.class);
-//            Call<Result> check = api.check_User(user);
-//            check.enqueue(new Callback<Result>() {
-//                @Override
-//                public void onResponse(Call<Result> call, Response<Result> response) {
-//                    assert response.body() != null;
-//                    if(response.body().getMsg().equals("false")){
-//                        Toasty.error(requireContext(), "该手机已经注册过！", Toasty.LENGTH_SHORT, true).show();
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<Result> call, Throwable t) {
-//
-//                }
-//            });
 
-            Call<Result> stringCall = api.insertUser(user);
-            Log.d(TAG, "onClick: 注册手机号：" + userPhone + " " + password);
-            stringCall.enqueue(new Callback<Result>() {
+
+            Call<Result> check = api.check_Resign(user);
+            check.enqueue(new Callback<Result>() {
                 @Override
                 public void onResponse(Call<Result> call, Response<Result> response) {
                     assert response.body() != null;
-                    Log.d(TAG, "onResponse: " + response.body().toString());
-                    if ("true".equals(response.body().getMsg())) {
-                        Toasty.success(requireContext(), "注册成功!", Toast.LENGTH_SHORT, true).show();
-                        Navigation.findNavController(v).navigate(R.id.action_resignFragment_to_loginFragment);
+                    Log.d(TAG, "检查手机号onResponse: " + response.body().toString()+"mas:"+response.body().getMsg());
+                    if("false".equals(response.body().getMsg())){
+                        Toasty.error(requireContext(), "该手机已经注册过！", Toasty.LENGTH_SHORT, true).show();
+                        return;
+                    }else{
+                        //
+                        Call<Result> stringCall = api.insertUser(user);
+                        Log.d(TAG, "onClick: 注册手机号：" + userPhone + " " + password);
+                        stringCall.enqueue(new Callback<Result>() {
+                            @Override
+                            public void onResponse(Call<Result> call, Response<Result> response) {
+                                assert response.body() != null;
+                                Log.d(TAG, "onResponse: " + response.body().toString());
+                                if ("true".equals(response.body().getMsg())) {
+                                    Toasty.success(requireContext(), "注册成功!", Toast.LENGTH_SHORT, true).show();
+                                    Navigation.findNavController(v).navigate(R.id.action_resignFragment_to_loginFragment);
 
-                    } else {
-                        Toasty.error(requireContext(), "注册失败！", Toast.LENGTH_SHORT, true).show();
+                                } else {
+                                    Toasty.error(requireContext(), "注册失败！", Toast.LENGTH_SHORT, true).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Result> call, Throwable t) {
+
+                            }
+                        });
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Result> call, Throwable t) {
 
                 }
             });
+
+
         });
 
         binding.backIcon.setOnClickListener(new View.OnClickListener(){
