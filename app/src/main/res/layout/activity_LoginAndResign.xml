@@ -7,12 +7,7 @@
     android:layout_height="match_parent" >
 
 
-    <fragment
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/rl_fragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.LoginAndResignFragment"
-        tools:layout="@layout/fragment_login" />
+
 
 
 
