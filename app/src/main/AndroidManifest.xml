@@ -12,6 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao" >
+
+        <!--测试关注act用，后期会改-->
+        <activity android:name=".view.FollowListActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".FirstActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
