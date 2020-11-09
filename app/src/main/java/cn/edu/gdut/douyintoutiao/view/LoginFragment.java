@@ -12,16 +12,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import java.util.Objects;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.RetrofitSingleton;
 import cn.edu.gdut.douyintoutiao.net.UserApi;
+import cn.edu.gdut.douyintoutiao.viewmodel.LoginViewModel;
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +48,7 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "myTag";
     private FragmentLoginBinding binding;
+    private LoginViewModel viewModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -81,12 +89,18 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater);
+        ViewModelProvider provider = new ViewModelProvider(requireActivity());
+        viewModel = provider.get(LoginViewModel.class);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.button2.setOnClickListener(v ->{
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_loginFragment_to_resign);
+        });
         binding.button.setOnClickListener(v -> {
             String userName = binding.editTextTextPersonName.getText().toString();
             String password = binding.editTextTextPassword.getText().toString();
