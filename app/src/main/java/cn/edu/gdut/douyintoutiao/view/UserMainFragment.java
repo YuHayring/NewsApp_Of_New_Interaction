@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import cn.edu.gdut.douyintoutiao.MainActivity;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.viewmodel.UserMainViewModel;

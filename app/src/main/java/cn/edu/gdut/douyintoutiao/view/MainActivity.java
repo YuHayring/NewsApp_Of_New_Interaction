@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao;
+package cn.edu.gdut.douyintoutiao.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.MainFragment;
 import cn.edu.gdut.douyintoutiao.view.UserMainFragment;
 import cn.edu.gdut.douyintoutiao.view.VideoPlayerFragment;
@@ -21,10 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     Fragment userMainFragment;
 
-    /**
-     * 用于测试，后期要删除
-     */
-    Fragment videoPlayerFragment;
 
 
     protected Fragment lastFragment;
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
 
         userMainFragment = new UserMainFragment(this);
-        mainFragment = new VideoPlayerFragment(this);//MainFragment();
+        mainFragment = new MainFragment(this);//VideoPlayerFragment(this);
 
 
 
