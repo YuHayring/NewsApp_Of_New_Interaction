@@ -91,7 +91,7 @@ public class VideoPlayerFragment extends Fragment {
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
             try {
-                mPlayer.setDataSource("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f30.mp4");
+                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show();
@@ -192,23 +192,28 @@ public class VideoPlayerFragment extends Fragment {
         int parentHeight = ((ConstraintLayout)textureView.getParent()).getHeight();
 
         //下面进行求屏幕比例,因为横竖屏会改变屏幕宽度值,所以为了保持更小的值除更大的值.
-        float devicePercent = (float) parentWidth / (float) parentHeight; //竖屏状态下宽度小与高度,求比
+        float parentPercent = (float) parentWidth / (float) parentHeight; //不一定是整个屏幕，是父容器所允许的区域的比例
+        float videoPercent = (float) videoWidth / (float) videoHeight;//求视频比例 注意是宽除高 与 上面的devicePercent 保持一致
 
-        if (videoWidth > videoHeight){ //判断视频的宽大于高,那么我们就优先满足视频的宽度铺满屏幕的宽度,然后在按比例求出合适比例的高度
-            videoWidth = parentWidth;//将视频宽度等于设备宽度,让视频的宽铺满屏幕
-            videoHeight = (int)(parentWidth*devicePercent);//设置了视频宽度后,在按比例算出视频高度
-
-        }else {  //判断视频的高大于宽,那么我们就优先满足视频的高度铺满屏幕的高度,然后在按比例求出合适比例的宽度
-            videoHeight = parentHeight;
-            /**
-             * 接受在宽度的轻微拉伸来满足视频铺满屏幕的优化
-             */
-            float videoPercent = (float) videoWidth / (float) videoHeight;//求视频比例 注意是宽除高 与 上面的devicePercent 保持一致
-            float differenceValue = Math.abs(videoPercent - devicePercent);//相减求绝对值
-            if (differenceValue < 0.3){ //如果小于0.3比例,那么就放弃按比例计算宽度直接使用屏幕宽度
-                videoWidth = parentWidth;
-            }else {
-                videoWidth = (int)(videoWidth/devicePercent);//注意这里是用视频宽度来除
+        if (videoWidth > videoHeight ) {
+            if (parentWidth < parentHeight || videoPercent > parentPercent) {
+                //视频的宽大于高，父容器的宽小于高,优先满足视频的宽度铺满屏幕的宽度
+                //或者都宽，但是视频更宽，也要满足视频的宽度铺满屏幕的宽度
+                videoWidth = parentWidth;//将视频宽度等于父容器宽度,让视频的宽按比例换算
+                videoHeight = (int) (parentWidth / videoPercent);//设置了视频宽度后,在按比例算出视频高度
+            } else {
+                videoHeight = parentHeight;//将视频高度等于父容器高度,让视频的高按比例换算
+                videoWidth = (int) (parentHeight * videoPercent); //设置了视频高度后,在按比例算出视频宽度
+            }
+        }else {
+            if (parentWidth > parentHeight || videoPercent > parentPercent) {
+                //视频的宽小于高，父容器的宽大于高,优先满足视频的高度铺满屏幕的高度
+                //或者都高，但是视频更高，也要满足视频的高度铺满屏幕的高度
+                videoHeight = parentHeight;//将视频高度等于父容器高度,让视频的高按比例换算
+                videoWidth = (int) (parentHeight * videoPercent); //设置了视频高度后,在按比例算出视频宽度
+            } else {
+                videoWidth = parentWidth;//将视频宽度等于父容器宽度,让视频的宽按比例换算
+                videoHeight = (int) (parentWidth / videoPercent);//设置了视频宽度后,在按比例算出视频高度
             }
 
         }
@@ -216,6 +221,8 @@ public class VideoPlayerFragment extends Fragment {
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textureView.getLayoutParams();
         layoutParams.width = videoWidth;
         layoutParams.height = videoHeight;
+        Log.d("宽度",""+videoWidth);
+        Log.d("高度",""+videoHeight);
 //        layoutParams.verticalBias = 0.5f;
 //        layoutParams.horizontalBias = 0.5f;
         textureView.setLayoutParams(layoutParams);
