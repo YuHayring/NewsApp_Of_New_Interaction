@@ -65,7 +65,13 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
+    implementation files('android-support-v4')
+    implementation fileTree(dir: '/Users/admin/Downloads/android-process-button-master', include: ['*.aar', '*.jar'], exclude: [])
+
+
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
+
 }

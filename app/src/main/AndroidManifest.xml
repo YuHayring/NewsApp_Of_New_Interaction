@@ -13,24 +13,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity
-            android:name=".view.FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <!-- 此处开启了强制竖屏的操作 -->
-        <activity
-            android:name=".view.FirstActivity"
-            android:screenOrientation="portrait">
+
+
+
+
+        <activity android:name=".view.FirstActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                <activity
+
+
+
+
+        <!-- 此处开启了强制竖屏的操作 -->
+        <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
+
+
+        <activity
+            android:name=".view.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
     </application>
 
