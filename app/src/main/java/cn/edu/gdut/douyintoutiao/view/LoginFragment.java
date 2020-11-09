@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import cn.edu.gdut.douyintoutiao.MainActivity;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
