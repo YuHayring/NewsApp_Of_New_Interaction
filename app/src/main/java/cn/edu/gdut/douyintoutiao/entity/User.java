@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author hayring
@@ -112,5 +113,19 @@ public class User implements Serializable {
 
     public void setUserBackground(byte[] userBackground) {
         this.userBackground = userBackground;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userTelephone='" + userTelephone + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userAge=" + userAge +
+                ", userLocation='" + userLocation + '\'' +
+                ", userDescription='" + userDescription + '\'' +
+                ", userBackground=" + Arrays.toString(userBackground) +
+                '}';
     }
 }
