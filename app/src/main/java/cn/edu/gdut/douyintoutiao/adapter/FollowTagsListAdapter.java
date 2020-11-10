@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,8 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
             super(view);
             newsImage = (ImageView) view.findViewById(R.id.test_image);
             newsName = (TextView) view.findViewById(R.id.news_name);
+
+
         }
     }
 
@@ -50,6 +53,24 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_follow_tags_list, parent, false);
         ViewHolder holder = new ViewHolder(view);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {//对加载的子项注册监听事件
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                News news = newsList.get(position);
+                Toast.makeText(view.getContext(), " 你点击了" + news.getNewsName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {//对子项里的Image注册监听事件
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                News news   = newsList.get(position);
+                Toast.makeText(view.getContext(), " 你点击了" + news.getNewsName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return holder;
     }
 
@@ -67,5 +88,25 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     @Override
     public int getItemCount() {
         return newsList.size();
+    }
+
+    /**
+     * 设置item的监听事件的接口
+     */
+    public interface OnItemClickListener {
+        /**
+         * 接口中的点击每一项的实现方法，参数自己定义
+         *
+         * @param view 点击的item的视图
+         * @param data 点击的item的数据
+         */
+        public void OnItemClick(View view, News data);
+    }
+
+    //需要外部访问，所以需要设置set方法，方便调用
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

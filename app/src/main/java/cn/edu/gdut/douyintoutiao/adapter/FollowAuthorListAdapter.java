@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
+import cn.edu.gdut.douyintoutiao.entity.News;
 
 
 public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorListAdapter.ViewHolder>{
@@ -50,6 +52,23 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_follow_author_list, parent, false);
         ViewHolder holder = new ViewHolder(view);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {//对加载的子项注册监听事件
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Follow s = authorList.get(position);
+                Toast.makeText(view.getContext(), " 你点击了" + s.getAuthorId(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {//对子项里的Image注册监听事件
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Follow s   = authorList.get(position);
+                Toast.makeText(view.getContext(), " 你点击了" + s.getAuthorId(),Toast.LENGTH_SHORT).show();
+            }
+        });
         return holder;
     }
 
