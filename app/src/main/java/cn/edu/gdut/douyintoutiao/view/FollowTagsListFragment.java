@@ -103,7 +103,6 @@ public class FollowTagsListFragment extends Fragment {
     /**
      * TODO 对recycleview进行配置
      */
-
     private void initRecyclerView() {
         //获取RecyclerView
         mCollectRecyclerView = (RecyclerView) view.findViewById(R.id.follow_tags_list_recycler_view);

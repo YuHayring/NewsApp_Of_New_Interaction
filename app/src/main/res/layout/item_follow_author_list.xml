@@ -12,7 +12,7 @@
         app:srcCompat="@drawable/friends" />
 
     <TextView
-        android:id="@+id/User_name"
+        android:id="@+id/author_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
