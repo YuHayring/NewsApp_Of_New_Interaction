@@ -122,7 +122,7 @@ public class ResignFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Result> call, Response<Result> response) {
                     assert response.body() != null;
-                    Log.d(TAG, "检查手机号onResponse: " + response.body().toString()+"mas:"+response.body().getMsg());
+                    Log.d(TAG, "检查手机号onResponse: " + response.body().toString()+"msg:"+response.body().getMsg());
                     if("false".equals(response.body().getMsg())){
                         Toasty.error(requireContext(), "该手机已经注册过！", Toasty.LENGTH_SHORT, true).show();
                         return;

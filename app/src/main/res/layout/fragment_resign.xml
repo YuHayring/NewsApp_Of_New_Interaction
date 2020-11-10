@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -186,6 +187,53 @@
             android:textSize="18sp"
             />
 
+<!--        <com.ogaclejapan.arclayout.ArcLayout-->
+<!--            android:id="@id/arc_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginBottom="32dp"-->
+<!--            app:arc_axisRadius="@dimen/layout_child_offset_path"-->
+<!--            app:arc_freeAngle="true"-->
+<!--            app:arc_origin="bottom"-->
+<!--            app:arc_radius="@dimen/layout_radius_path"-->
+<!--            >-->
+
+<!--            <Button-->
+<!--                style="@style/Item.Path"-->
+<!--                android:text="A"-->
+<!--                android:textColor="@color/path_orange"-->
+<!--                android:arc_angle="30"-->
+<!--                />-->
+
+<!--            <Button-->
+<!--                style="@style/Item.Path"-->
+<!--                android:text="B"-->
+<!--                android:textColor="@color/path_blue"-->
+<!--                android:arc_angle="60"-->
+<!--                />-->
+
+<!--            <Button-->
+<!--                style="@style/Item.Path"-->
+<!--                android:text="C"-->
+<!--                android:textColor="@color/path_black"-->
+<!--                android:arc_angle="90"-->
+<!--                />-->
+
+<!--            <Button-->
+<!--                style="@style/Item.Path"-->
+<!--                android:text="D"-->
+<!--                android:textColor="@color/path_green"-->
+<!--                android:arc_angle="120"-->
+<!--                />-->
+
+<!--            <Button-->
+<!--                style="@style/Item.Path"-->
+<!--                android:text="E"-->
+<!--                android:textColor="@color/path_purple"-->
+<!--                android:arc_angle="150"-->
+<!--                />-->
+
+<!--        </com.ogaclejapan.arclayout.ArcLayout>-->
 
 
     </RelativeLayout>
