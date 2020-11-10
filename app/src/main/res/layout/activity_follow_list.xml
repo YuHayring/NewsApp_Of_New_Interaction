@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".view.FollowListActivity" >
+
+<com.google.android.material.tabs.TabLayout
+    android:id="@+id/followList_tabLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.FollowListActivity">
+    android:layout_height="70dp">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/followBottomNavView"
-        android:layout_width="match_parent"
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/follow_list_menu" />
+        android:text="事件" />
 
-    <fragment
-        android:id="@+id/followListFragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followBottomNavView"
-        app:navGraph="@navigation/follow_activity_nav_graph" />
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.tabs.TabLayout>
+
+<androidx.viewpager.widget.ViewPager
+    android:id="@+id/followList_viewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>
