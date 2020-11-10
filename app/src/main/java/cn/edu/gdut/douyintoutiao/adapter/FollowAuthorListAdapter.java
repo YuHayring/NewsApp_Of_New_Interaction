@@ -78,7 +78,6 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Follow fruit = authorList.get(position);
-        //  holder.fruitImage.setImageResource(fruit.get());
         holder.authoId.setText(fruit.getAuthorId());
     }
 

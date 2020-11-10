@@ -20,19 +20,13 @@ public class FollowListActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ArrayList<String> tab_title_list = new ArrayList<>();//存放标签页标题
     private ArrayList<Fragment> fragment_list = new ArrayList<>();//存放ViewPager容器下的Fragment
-    private Fragment firstFragment, secondFragment, thirdFragment;//三个fragment
+    private Fragment firstFragment, secondFragment;
     private FollowListAdapter adapter;//适配器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_list);
-
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.followBottomNavView);
-//        NavController navController = Navigation.findNavController(this,R.id.followListFragment);
-//        AppBarConfiguration configuration = new AppBarConfiguration.Builder(bottomNavigationView.getMenu()  ).build();
-//        NavigationUI.setupActionBarWithNavController(this,navController,configuration);
-//        NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
 
             //找到tablayout  和   viewpager
@@ -44,14 +38,13 @@ public class FollowListActivity extends AppCompatActivity {
             tab_title_list.add("用户");
 
 
-            //两个个fragment对象
+            //两个fragment对象
             firstFragment = new FollowTagsListFragment();
             secondFragment = new FollowAuthorFragment();
 
             //往fragment列表添加内容
             fragment_list.add(firstFragment);
             fragment_list.add(secondFragment);
-            // fragment_list.add(thirdFragment);
 
             adapter = new FollowListAdapter(getSupportFragmentManager(), tab_title_list, fragment_list);
             viewPager.setAdapter(adapter);
