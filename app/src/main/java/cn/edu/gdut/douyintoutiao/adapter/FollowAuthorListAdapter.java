@@ -14,7 +14,6 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
-import cn.edu.gdut.douyintoutiao.entity.News;
 
 
 public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorListAdapter.ViewHolder>{
@@ -44,7 +43,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
 
     //由于FruitAdapter 是继承自RecyclerView.Adapter 的， 那么就必须重写
     //onCreateViewHolder()、onBindViewHolder() 和getitemCount() 这3个方法。onCreateViewHolder() 方法
-    // 是用于创建ViewHolder实例的， 我们在这个方法中将fruit_item 布局加载
+    // 是用于创建ViewHolder实例的， 我们在这个方法中将item 布局加载
     //进来， 然后创建一个ViewHolder 实例， 并把加载出来的布局传入到构造函数当中， 最后将
     //ViewHolder 的实例返回
     @NonNull
@@ -73,12 +72,12 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     }
 
     //onBindViewHolder() 方法是用于对RecyclerView 子项的数据进行赋值的，
-    //会在每个子项被滚动到屏幕内的时候执行， 这里我们通过position 参数得到当前项的Fruit
+    //会在每个子项被滚动到屏幕内的时候执行， 这里我们通过position 参数得到当前项的
     //实例， 然后再将数据设置到ViewHolder 的ImageView 和TextView 当中即可
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Follow fruit = authorList.get(position);
-        holder.authoId.setText(fruit.getAuthorId());
+        Follow s = authorList.get(position);
+        holder.authoId.setText(s.getAuthorId());
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了
