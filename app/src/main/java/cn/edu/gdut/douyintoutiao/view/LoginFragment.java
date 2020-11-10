@@ -2,31 +2,22 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
-import cn.edu.gdut.douyintoutiao.entity.Result;
-import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.net.RetrofitSingleton;
-import cn.edu.gdut.douyintoutiao.net.UserApi;
+import cn.edu.gdut.douyintoutiao.viewmodel.LoginViewModel;
 import es.dmoral.toasty.Toasty;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +32,7 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "myTag";
     private FragmentLoginBinding binding;
+    private LoginViewModel viewModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -81,46 +73,30 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater);
+        ViewModelProvider provider = new ViewModelProvider(requireActivity());
+        viewModel = provider.get(LoginViewModel.class);
+        viewModel.init();
+        binding.setData(viewModel);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.button.setOnClickListener(v -> {
-            String userName = binding.editTextTextPersonName.getText().toString();
-            String password = binding.editTextTextPassword.getText().toString();
-            if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-                Toasty.error(requireContext(), "请输入所需要的信息！", Toasty.LENGTH_SHORT, true).show();
-                return;
-            }
-            User user = new User();
-            user.setUserName(userName);
-            user.setUserPassword(password);
-            Retrofit retrofit = RetrofitSingleton.getInstance();
-            UserApi api = retrofit.create(UserApi.class);
-            Call<Result> stringCall = api.validateUser(user);
-            Log.d(TAG, "onClick: " + userName + " " + password);
-            stringCall.enqueue(new Callback<Result>() {
-                @Override
-                public void onResponse(Call<Result> call, Response<Result> response) {
-                    assert response.body() != null;
-                    Log.d(TAG, "onResponse: " + response.body().toString());
-                    if ("true".equals(response.body().getMsg())) {
-                        Toasty.success(requireContext(), "登录成功!", Toast.LENGTH_SHORT, true).show();
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toasty.error(requireContext(), "登录失败！", Toast.LENGTH_SHORT, true).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Result> call, Throwable t) {
-
-                }
-            });
+        binding.button2.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_loginFragment_to_resign);
         });
-
+        binding.button.setOnClickListener(v -> {
+            viewModel.login();
+            if(viewModel.getFlag().getValue()){
+                Toasty.success(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }else {
+                Toasty.error(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
+            }
+        });
     }
 }

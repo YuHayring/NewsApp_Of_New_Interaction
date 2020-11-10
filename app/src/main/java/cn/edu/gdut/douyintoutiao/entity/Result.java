@@ -3,12 +3,14 @@ package cn.edu.gdut.douyintoutiao.entity;
 public class Result {
     private String msg;
     private String code;
+    private Boolean isLogin;
 
     @Override
     public String toString() {
         return "Result{" +
                 "msg='" + msg + '\'' +
                 ", code='" + code + '\'' +
+                ", isLogin='" + isLogin + '\'' +
                 '}';
     }
 
@@ -28,8 +30,17 @@ public class Result {
         this.code = code;
     }
 
-    public Result(String msg, String code) {
+    public Result(String msg, String code, Boolean isLogin) {
         this.msg = msg;
         this.code = code;
+        this.isLogin = isLogin;
+    }
+
+    public Boolean getLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(Boolean login) {
+        isLogin = login;
     }
 }

@@ -15,7 +15,7 @@ public interface UserApi {
      * 检查登录数据是否有效接口
      * @author 彭俊源
      * @date 2020年11月8日 17:51:49
-     * @return true or false
+     * @return Result
      */
     @POST("checkValidate")
     Call<Result> validateUser(@Body User user);
