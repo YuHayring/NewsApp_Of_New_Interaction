@@ -24,4 +24,12 @@
         <attr name="pb_colorNormal" format="color" />
         <attr name="pb_cornerRadius" format="dimension" />
     </declare-styleable>
+
+
+
+    //悬浮窗
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
