@@ -37,7 +37,7 @@ public class FollowTagsListFragment extends Fragment {
     //定义以News实体类为对象的数据集合
     private List<News> tagsList = new ArrayList<News>();
     //自定义recyclerveiw的适配器
-    private FollowTagsListAdapter mCollectRecyclerAdapter;
+    private FollowTagsListAdapter mRecyclerAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,7 +78,7 @@ public class FollowTagsListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
 
         //获取fragment的layout
         view = inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
@@ -88,11 +88,11 @@ public class FollowTagsListFragment extends Fragment {
         initData();
         return view;
         // Inflate the layout for this fragment
-      //  return inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
+        //  return inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
     }
 
     private void initData() {
-        for (int i=0;i<10;i++){
+        for (int i=1;i<=20;i++){
             News goodsEntity=new News();
             goodsEntity.setNewsName("模拟事件"+i);
 
@@ -108,9 +108,9 @@ public class FollowTagsListFragment extends Fragment {
         //获取RecyclerView
         mCollectRecyclerView = (RecyclerView) view.findViewById(R.id.follow_tags_list_recycler_view);
         //创建adapter
-        mCollectRecyclerAdapter = new FollowTagsListAdapter(tagsList);
+        mRecyclerAdapter = new FollowTagsListAdapter(tagsList);
         //给RecyclerView设置adapter
-        mCollectRecyclerView.setAdapter(mCollectRecyclerAdapter);
+        mCollectRecyclerView.setAdapter(mRecyclerAdapter);
         //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
         //参数是：上下文、列表方向（横向还是纵向）、是否倒叙
         mCollectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

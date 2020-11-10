@@ -16,27 +16,27 @@ import cn.edu.gdut.douyintoutiao.entity.News;
 
 public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAdapter.ViewHolder>{
 
-    private List<News> mFruitList;
+    private List<News> newsList;
 
     //首先定义了一个内部类ViewHolder , ViewHolder 要继承自RecyclerView.ViewHolder 。然后
     //ViewHolder 的构造函数中要传入一个View 参数， 这个参数通常就是RecyclerView 子项的最外
     //层布局， 那么我们就可以通过findViewByid()方法来获取到布局中的ImageView 和TextView
     //的实例了
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView fruitImage;
-        TextView fruitName;
+        ImageView newsImage;
+        TextView newsName;
 
         public ViewHolder(View view) {
             super(view);
-            fruitImage = (ImageView) view.findViewById(R.id.test_image);
-            fruitName = (TextView) view.findViewById(R.id.news_name);
+            newsImage = (ImageView) view.findViewById(R.id.test_image);
+            newsName = (TextView) view.findViewById(R.id.news_name);
         }
     }
 
     //FruitAdapter中也有一个构造函数， 这个方法用于把要展示的数据源传进来，
     //并赋值给一个全局变量mFru过List , 我们后续的操作都将在这个数据源的基础上进行
-    public FollowTagsListAdapter(List<News> fruitList) {
-        mFruitList = fruitList;
+    public FollowTagsListAdapter(List<News> list) {
+        newsList = list;
     }
 
     //由于FruitAdapter 是继承自RecyclerView.Adapter 的， 那么就必须重写
@@ -57,14 +57,14 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     //实例， 然后再将数据设置到ViewHolder 的ImageView 和TextView 当中即可
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        News fruit = mFruitList.get(position);
-      //  holder.fruitImage.setImageResource(fruit.get());
-        holder.fruitName.setText(fruit.getNewsName());
+        News fruit = newsList.get(position);
+        //  holder.fruitImage.setImageResource(fruit.get());
+        holder.newsName.setText(fruit.getNewsName());
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了
     @Override
     public int getItemCount() {
-        return mFruitList.size();
+        return newsList.size();
     }
 }
