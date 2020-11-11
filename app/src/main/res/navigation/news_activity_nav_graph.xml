@@ -2,17 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/news_activity_nav_graph"
-    app:startDestination="@id/newsWithScriptsFragment">
+    android:id="@+id/news_activity_nav_graph">
 
-    <fragment
-        android:id="@+id/newsWithScriptsFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsWithScriptsFragment"
-        android:label="NewsWithScriptsFragment" >
-        <action
-            android:id="@+id/action_newsWithScriptsFragment_to_newsDetailFragment"
-            app:destination="@id/newsDetailFragment" />
-    </fragment>
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsDetailFragment"

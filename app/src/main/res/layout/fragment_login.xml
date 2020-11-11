@@ -21,21 +21,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
 
         <TextView
             android:id="@+id/textView3"
@@ -52,27 +66,26 @@
             android:id="@+id/editTextTextPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/login_password_hint"
-            android:text="@={data.password}"
             android:inputType="textPassword"
+            android:text="@={data.password}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline18"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:layout_marginTop="8dp"
             android:text="@string/login_button_msg"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -82,9 +95,8 @@
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/login_username_hint"
-            android:text="@={data.username}"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+            android:text="@={data.username}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
@@ -93,12 +105,14 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/login_notification_msg"
+            app:layout_constraintBottom_toTopOf="@+id/guideline19"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+            app:layout_constraintTop_toTopOf="@+id/guideline18" />
 
         <TextView
             android:id="@+id/textView5"
@@ -128,10 +142,11 @@
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/login_to_sign_up_msg"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

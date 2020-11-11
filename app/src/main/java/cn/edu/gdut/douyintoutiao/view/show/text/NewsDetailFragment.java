@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
 
 public class NewsDetailFragment extends Fragment {
 

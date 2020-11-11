@@ -19,9 +19,8 @@ import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author cypang
+ * @date 2020年11月11日20:18:05
  */
 public class LoginFragment extends Fragment {
 
