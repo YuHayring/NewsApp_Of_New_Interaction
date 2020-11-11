@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_resign"
-            app:destination="@id/resign"
+            app:destination="@id/resignFragment"
             app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
