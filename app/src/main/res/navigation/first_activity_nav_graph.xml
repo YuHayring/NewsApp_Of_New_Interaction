@@ -21,7 +21,7 @@
         android:name="cn.edu.gdut.douyintoutiao.view.LoginFragment"
         android:label="登录页面"
         tools:layout="@layout/fragment_login" >
-        <action -------
+        <action
             android:id="@+id/action_loginFragment_to_resign"
             app:destination="@id/resign"
             app:enterAnim="@anim/nav_default_enter_anim" />
@@ -35,5 +35,5 @@
         <action
             android:id="@+id/action_resignFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-    </fragment>----
+    </fragment>
 </navigation>
