@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.model;
+package cn.edu.gdut.douyintoutiao.view.user.login;
 
 import android.os.StrictMode;
 import android.util.Log;
@@ -9,12 +9,9 @@ import java.io.IOException;
 
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.net.RetrofitSingleton;
 import cn.edu.gdut.douyintoutiao.net.UserApi;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * @author : cypang

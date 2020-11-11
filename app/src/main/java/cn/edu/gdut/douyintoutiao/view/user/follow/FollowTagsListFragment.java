@@ -1,10 +1,9 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.entity.News;
 
 /**

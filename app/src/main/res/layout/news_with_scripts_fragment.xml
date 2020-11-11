@@ -6,14 +6,14 @@
     <data>
         <variable
             name="data"
-            type="cn.edu.gdut.douyintoutiao.viewmodel.NewsWithScriptsViewModel" />
+            type="cn.edu.gdut.douyintoutiao.view.show.text.NewsWithScriptsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.NewsWithScriptsFragment">
+        tools:context=".view.show.text.NewsWithScriptsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

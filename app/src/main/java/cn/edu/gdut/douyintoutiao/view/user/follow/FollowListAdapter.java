@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.adapter;
+package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

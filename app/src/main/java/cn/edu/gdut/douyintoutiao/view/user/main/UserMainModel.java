@@ -1,6 +1,5 @@
-package cn.edu.gdut.douyintoutiao.model;
+package cn.edu.gdut.douyintoutiao.view.user.main;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
@@ -8,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.UserApi;
-import cn.edu.gdut.douyintoutiao.viewmodel.UserMainViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

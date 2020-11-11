@@ -7,7 +7,7 @@
     <data>
         <variable
             name="userMainViewModel"
-            type="cn.edu.gdut.douyintoutiao.viewmodel.UserMainViewModel" />
+            type="cn.edu.gdut.douyintoutiao.view.user.main.UserMainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

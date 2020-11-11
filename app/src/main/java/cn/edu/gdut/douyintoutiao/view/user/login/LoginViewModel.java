@@ -1,16 +1,12 @@
-package cn.edu.gdut.douyintoutiao.viewmodel;
+package cn.edu.gdut.douyintoutiao.view.user.login;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-import java.util.Objects;
-
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.model.LoginUserModel;
 
 /**
  * @description ： TODO:类的作用

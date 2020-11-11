@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.edu.gdut.douyintoutiao.viewmodel.NewsDetailViewModel;
 import cn.edu.gdut.douyintoutiao.R;
 
 public class NewsDetailFragment extends Fragment {

@@ -1,9 +1,9 @@
-package cn.edu.gdut.douyintoutiao.viewmodel;
+package cn.edu.gdut.douyintoutiao.view.user.main;
 
 import androidx.databinding.ObservableField;
 
 import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.model.UserMainModel;
+import cn.edu.gdut.douyintoutiao.view.user.main.UserMainModel;
 
 /**
  * @author hayring

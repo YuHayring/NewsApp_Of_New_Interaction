@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
-import cn.edu.gdut.douyintoutiao.viewmodel.UserMainViewModel;
+import cn.edu.gdut.douyintoutiao.view.MainActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
 
 /**
  * @author hayring

@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.viewmodel;
+package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import androidx.lifecycle.ViewModel;
 

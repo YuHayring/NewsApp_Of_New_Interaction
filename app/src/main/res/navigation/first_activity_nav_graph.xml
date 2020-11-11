@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.LoginFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.login.LoginFragment"
         android:label="登录页面"
         tools:layout="@layout/fragment_login" >
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/resignFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.ResignFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.resign.ResignFragment"
         android:label="注册页面"
         tools:layout="@layout/fragment_resign" >
         <action

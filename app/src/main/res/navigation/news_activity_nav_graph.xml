@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/newsWithScriptsFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.NewsWithScriptsFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsWithScriptsFragment"
         android:label="NewsWithScriptsFragment" >
         <action
             android:id="@+id/action_newsWithScriptsFragment_to_newsDetailFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsDetailFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.NewsDetailFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsDetailFragment"
         android:label="news_detail_fragment"
         tools:layout="@layout/news_detail_fragment" />
 </navigation>

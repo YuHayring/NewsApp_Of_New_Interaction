@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
-import cn.edu.gdut.douyintoutiao.viewmodel.LoginViewModel;
+import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
 
 /**

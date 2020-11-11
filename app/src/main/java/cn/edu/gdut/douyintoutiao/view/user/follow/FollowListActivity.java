@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.adapter.FollowListAdapter;
 
 public class FollowListActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context=".view.FollowListActivity" >
+tools:context=".view.user.follow.FollowListActivity" >
 
 <com.google.android.material.tabs.TabLayout
     android:id="@+id/followList_tabLayout"

@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.resign;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import cn.edu.gdut.douyintoutiao.databinding.FragmentResignBinding;
 import es.dmoral.toasty.Toasty;

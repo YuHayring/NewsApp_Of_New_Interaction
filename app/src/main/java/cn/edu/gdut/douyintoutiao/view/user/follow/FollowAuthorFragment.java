@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.os.Bundle;
 
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 
 

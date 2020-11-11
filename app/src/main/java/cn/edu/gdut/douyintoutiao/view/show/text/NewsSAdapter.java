@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.adapter;
+package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.view.View;
 import android.view.ViewGroup;
