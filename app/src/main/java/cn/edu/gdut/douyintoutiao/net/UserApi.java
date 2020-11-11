@@ -19,11 +19,22 @@ public interface UserApi {
      */
     @POST("checkValidate")
     Call<Result<User>> validateUser(@Body User user);
-
-
-
-
-
+    /**
+     * 插入注册数据
+     * @author 胡庆鹏
+     * @date
+     * @return true or false
+     */
+    @POST("insert_user")
+    Call<Result> insertUser(@Body User user);
+    /**
+     * 检查该用户是否已经注册过
+     * @author 胡庆鹏
+     * @date
+     * @return 查找到的用户
+     */
+    @POST("check_resign")
+    Call<Result> check_Resign(@Body User user);
 
     /**
      * 单例内部类

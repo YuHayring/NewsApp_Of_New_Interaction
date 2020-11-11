@@ -21,19 +21,19 @@
         android:name="cn.edu.gdut.douyintoutiao.view.LoginFragment"
         android:label="登录页面"
         tools:layout="@layout/fragment_login" >
-        <action
+        <action -------
             android:id="@+id/action_loginFragment_to_resign"
             app:destination="@id/resign"
             app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
+
     <fragment
-        android:id="@+id/resign"
-        android:name="cn.edu.gdut.douyintoutiao.view.resign"
-        android:label="fragment_resign"
+        android:id="@+id/resignFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.ResignFragment"
+        android:label="注册页面"
         tools:layout="@layout/fragment_resign" >
         <action
-            android:id="@+id/action_resign_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-    </fragment>
+            android:id="@+id/action_resignFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>----
 </navigation>

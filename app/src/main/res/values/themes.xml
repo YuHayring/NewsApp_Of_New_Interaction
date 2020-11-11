@@ -25,4 +25,13 @@
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
+
+    //悬浮窗
+    <style name="Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:textViewStyle">@style/theme_textview_style</item>
+    </style>
+
+    <style name="theme_textview_style" parent="@android:style/Widget.Holo.Light.TextView">
+        <item name="android:textColor">@color/pink</item>
+    </style>
 </resources>

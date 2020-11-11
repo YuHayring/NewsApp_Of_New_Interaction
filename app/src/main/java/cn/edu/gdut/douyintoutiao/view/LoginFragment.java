@@ -38,6 +38,8 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    //
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -89,6 +91,7 @@ public class LoginFragment extends Fragment {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_loginFragment_to_resign);
         });
+        //登陆按钮
         binding.button.setOnClickListener(v -> {
             viewModel.login();
             if(viewModel.getFlag().getValue()){
