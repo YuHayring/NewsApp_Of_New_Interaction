@@ -21,13 +21,16 @@ import cn.edu.gdut.douyintoutiao.model.LoginUserModel;
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> username;
     private MutableLiveData<String> password;
-    private MutableLiveData<Result> result;
+    private MutableLiveData<Result<User>> result;
     private LoginUserModel loginUserModel;
     private MutableLiveData<Boolean> flag;
 
     private static final String TAG = "TAG";
 
-    public MutableLiveData<Result> getResult() {
+    public MutableLiveData<Result<User>> getResult() {
+        if(result == null){
+            result = new MutableLiveData<>();
+        }
         return result;
     }
 

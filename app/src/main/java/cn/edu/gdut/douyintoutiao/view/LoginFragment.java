@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -93,6 +94,7 @@ public class LoginFragment extends Fragment {
             if(viewModel.getFlag().getValue()){
                 Toasty.success(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }else {
                 Toasty.error(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
