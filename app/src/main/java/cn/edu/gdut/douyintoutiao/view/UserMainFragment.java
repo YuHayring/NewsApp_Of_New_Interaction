@@ -63,7 +63,7 @@ public class UserMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mUserInfoBinding.buttonFollow.setOnClickListener(new View.OnClickListener() {
+        mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FollowListActivity.class);
