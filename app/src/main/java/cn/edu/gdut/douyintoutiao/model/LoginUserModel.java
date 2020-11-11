@@ -36,7 +36,7 @@ public class LoginUserModel {
     }
 
     //使用网络通讯获取内容
-    public MutableLiveData<Result> postLogin(User user){
+    public MutableLiveData<Result<User>> postLogin(User user){
         //解决网络通讯不能在主线程运行的问题
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -44,8 +44,8 @@ public class LoginUserModel {
         }
 
         api = UserApi.getUserApi();
-        Call<Result> stringCall = api.validateUser(user);
-        MutableLiveData<Result> mutableLiveData = new MutableLiveData<>();
+        Call<Result<User>> stringCall = api.validateUser(user);
+        MutableLiveData<Result<User>> mutableLiveData = new MutableLiveData<>();
         Log.d(TAG, "postLogin: " + user.toString());
         //异步方法，会导致空指针
  /*       stringCall.enqueue(new Callback<Result>() {
@@ -64,7 +64,7 @@ public class LoginUserModel {
         });*/
         //同步的方法
         try {
-            Response<Result> response = stringCall.execute();
+            Response<Result<User>> response = stringCall.execute();
             mutableLiveData.setValue(response.body());
         } catch (IOException e) {
             e.printStackTrace();

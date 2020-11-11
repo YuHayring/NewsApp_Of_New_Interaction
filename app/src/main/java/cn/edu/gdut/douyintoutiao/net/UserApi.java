@@ -18,7 +18,7 @@ public interface UserApi {
      * @return Result
      */
     @POST("checkValidate")
-    Call<Result> validateUser(@Body User user);
+    Call<Result<User>> validateUser(@Body User user);
 
 
 

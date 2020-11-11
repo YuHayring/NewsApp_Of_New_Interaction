@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="eventListener"
+            type="cn.edu.gdut.douyintoutiao.view.StartFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

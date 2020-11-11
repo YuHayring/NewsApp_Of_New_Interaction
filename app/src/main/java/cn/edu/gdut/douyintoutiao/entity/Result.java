@@ -1,9 +1,10 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
-public class Result {
+public class Result<T> {
     private String msg;
     private String code;
     private Boolean isLogin;
+    private T data;
 
     @Override
     public String toString() {
@@ -30,10 +31,19 @@ public class Result {
         this.code = code;
     }
 
-    public Result(String msg, String code, Boolean isLogin) {
+    public Result(String msg, String code, Boolean isLogin, T data) {
         this.msg = msg;
         this.code = code;
         this.isLogin = isLogin;
+        this.data = data;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     public Boolean getLogin() {
