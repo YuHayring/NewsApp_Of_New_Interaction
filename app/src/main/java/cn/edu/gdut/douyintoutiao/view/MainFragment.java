@@ -30,6 +30,7 @@ public class MainFragment extends Fragment {
         this.context = context;
     }
 
+
     /***
      * 生命周期加载方法
      */

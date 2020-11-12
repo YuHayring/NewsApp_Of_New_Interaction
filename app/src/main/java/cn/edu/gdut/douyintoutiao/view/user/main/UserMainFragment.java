@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,11 +24,12 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
 public class UserMainFragment extends Fragment {
 
 
-    private MainActivity activity;
+    private Context context;
 
-    public UserMainFragment(MainActivity activity) {
-        this.activity = activity;
+    public UserMainFragment(Context context) {
+        this.context = context;
     }
+
 
     private FragmentUserMainBinding mUserInfoBinding;
 
