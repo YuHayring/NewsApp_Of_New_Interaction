@@ -18,7 +18,6 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
-import cn.edu.gdut.douyintoutiao.view.show.text.Callback;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -99,7 +98,7 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
 
     @Override
     public void returnResult(Result<User> result) {
-        if ("200".equals(result.getCode())) {
+        if (result.getLogin()) {
             Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

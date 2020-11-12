@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel;
 import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.view.show.text.Callback;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -68,7 +67,7 @@ public class LoginViewModel extends ViewModel {
                 .subscribe(new ObserverManager<Result<User>>() {
                     @Override
                     public void onSuccess(Result<User> userResult) {
-                        Log.d(TAG, "onSuccess: " + userResult.getMsg());
+                        Log.d(TAG, "onSuccess: " + userResult.toString());
                         mCallback.returnResult(userResult);
                     }
 
