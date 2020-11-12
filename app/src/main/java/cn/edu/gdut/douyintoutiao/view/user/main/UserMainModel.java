@@ -17,9 +17,9 @@ import retrofit2.Response;
  */
 public class UserMainModel {
 
-    OnUserGotCallBack callBack;
+    UserMainViewModel.OnUserGotCallBack callBack;
 
-    Handler handler = new GetUserHandler();
+//    Handler handler = new GetUserHandler();
 
     public static final String STATUS = "status";
 
@@ -28,7 +28,7 @@ public class UserMainModel {
     public static final int SUCCESS = 1;
 
 
-    public UserMainModel(OnUserGotCallBack callBack) {
+    public UserMainModel(UserMainViewModel.OnUserGotCallBack callBack) {
         this.callBack = callBack;
     }
 
@@ -44,11 +44,7 @@ public class UserMainModel {
 
 
 
-    public interface OnUserGotCallBack {
-        void onSuccess(User user);
 
-        void onFaile(String errorInfo);
-    }
 
 
     /**
@@ -71,16 +67,16 @@ public class UserMainModel {
 
 
     //Handler 机制
-    private class GetUserHandler extends Handler {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-             int status = msg.getData().getInt(STATUS);
-             if (status == 1) {
-                 User user = (User)msg.getData().getSerializable(USER);
-                 callBack.onSuccess(user);
-             }
-        }
-
-
-    }
+//    private class GetUserHandler extends Handler {
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//             int status = msg.getData().getInt(STATUS);
+//             if (status == 1) {
+//                 User user = (User)msg.getData().getSerializable(USER);
+//                 callBack.onSuccess(user);
+//             }
+//        }
+//
+//
+//    }
 }
