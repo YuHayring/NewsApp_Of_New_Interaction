@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +31,7 @@ public class MainFragment extends Fragment {
     public MainFragment(Context context) {
         this.context = context;
     }
+
 
     /***
      * 生命周期加载方法
