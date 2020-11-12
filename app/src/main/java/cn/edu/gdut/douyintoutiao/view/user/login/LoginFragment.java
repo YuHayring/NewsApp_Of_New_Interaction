@@ -1,9 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.login;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +14,18 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
+import cn.edu.gdut.douyintoutiao.view.show.text.Callback;
 import es.dmoral.toasty.Toasty;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * @author cypang
  * @date 2020年11月11日20:18:05
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements Callback<Result<User>> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,7 +78,7 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater);
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         viewModel = provider.get(LoginViewModel.class);
-        viewModel.init();
+        viewModel.init(LoginFragment.this);
         binding.setData(viewModel);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
@@ -99,39 +93,19 @@ public class LoginFragment extends Fragment {
         });
         //登陆按钮
         binding.button.setOnClickListener(v -> {
-            Observable<Result<User>> resultObservable = viewModel.login();
-            resultObservable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new ObserverManager<Result<User>>() {
-                        @Override
-                        public void onSuccess(Result<User> userResult) {
-                            Log.d(TAG, "onSuccess: " + userResult.getMsg());
-                            if(userResult.getLogin()){
-                                Toasty.success(getContext(), userResult.getMsg(), Toasty.LENGTH_SHORT, true).show();
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }else {
-                                Toasty.error(getContext(), userResult.getMsg(), Toasty.LENGTH_SHORT, true).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFail(Throwable throwable) {
-                            Toasty.error(getContext(), "网络请求失败！", Toasty.LENGTH_SHORT, true).show();
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            Log.d(TAG, "onFinish: 请求完成");
-                        }
-
-                        @Override
-                        public void onDisposable(Disposable disposable) {
-
-                        }
-                    });
+            viewModel.login();
         });
     }
 
+    @Override
+    public void returnResult(Result<User> result) {
+        if ("200".equals(result.getCode())) {
+            Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toasty.error(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+        }
+    }
 }
