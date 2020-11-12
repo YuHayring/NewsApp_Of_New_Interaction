@@ -1,7 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.entity.Result;
 
 /**
  * @author : cypang
@@ -52,10 +49,15 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(cur.getNewsDetailUrl());
+                Bundle bundle = new Bundle();
+                bundle.putString("uri", cur.getNewsDetailUrl());
+                NavController controller = Navigation.findNavController(holder.itemView);
+                controller.navigate(R.id.newsDetailFragment, bundle);
+
+               /* Uri uri = Uri.parse(cur.getNewsDetailUrl());
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(uri);
-                holder.itemView.getContext().startActivity(intent);
+                holder.itemView.getContext().startActivity(intent);*/
             }
         });
     }
