@@ -55,37 +55,11 @@ public class LoginViewModel extends ViewModel {
         this.password = password;
     }
 
-    public Result<User> login(){
+    public Observable<Result<User>> login(){
         User user = new User();
         user.setUserName(username.getValue());
         user.setUserPassword(password.getValue());
-        Observable<Result<User>> resultObservable = loginUserModel.postLogin(user);
-        final Result<User>[] result = new Result[]{new Result<>()};
-        resultObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ObserverManager<Result<User>>() {
-                    @Override
-                    public void onSuccess(Result<User> userResult) {
-                        Log.d(TAG, "onSuccess: " + userResult.getMsg());
-                        result[0] = userResult;
-                    }
-
-                    @Override
-                    public void onFail(Throwable throwable) {
-                        result[0].setMsg("网络请求失败！");
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        Log.d(TAG, "onFinish: 请求完成");
-                    }
-
-                    @Override
-                    public void onDisposable(Disposable disposable) {
-
-                    }
-                });
-        return result[0];
+        return loginUserModel.postLogin(user);
     }
 
 }
