@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.login;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
+import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
 
@@ -90,15 +93,16 @@ public class LoginFragment extends Fragment {
         });
         //登陆按钮
         binding.button.setOnClickListener(v -> {
-            viewModel.login();
-            if(viewModel.getFlag().getValue()){
-                Toasty.success(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
+            Result<User> result = viewModel.login();
+            /*if(result.getLogin()){
+                Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }else {
-                Toasty.error(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
-            }
+                Toasty.error(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+            }*/
         });
     }
+
 }

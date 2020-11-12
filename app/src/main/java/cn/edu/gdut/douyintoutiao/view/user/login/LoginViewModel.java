@@ -5,8 +5,14 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * @description ： TODO:类的作用
@@ -17,21 +23,12 @@ import cn.edu.gdut.douyintoutiao.entity.User;
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> username;
     private MutableLiveData<String> password;
-    private MutableLiveData<Result<User>> result;
     private LoginUserModel loginUserModel;
-    private MutableLiveData<Boolean> flag;
 
     private static final String TAG = "TAG";
 
-    public MutableLiveData<Result<User>> getResult() {
-        if(result == null){
-            result = new MutableLiveData<>();
-        }
-        return result;
-    }
 
     public void init(){
-        flag = new MutableLiveData<>(false);
         loginUserModel = LoginUserModel.getInstance();
     }
 
@@ -58,19 +55,37 @@ public class LoginViewModel extends ViewModel {
         this.password = password;
     }
 
-    public void login(){
+    public Result<User> login(){
         User user = new User();
         user.setUserName(username.getValue());
         user.setUserPassword(password.getValue());
-        result = loginUserModel.postLogin(user);
-        Log.d(TAG, "login: " + result.getValue().toString());
-        flag.setValue(result.getValue().getLogin());
+        Observable<Result<User>> resultObservable = loginUserModel.postLogin(user);
+        final Result<User>[] result = new Result[]{new Result<>()};
+        resultObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ObserverManager<Result<User>>() {
+                    @Override
+                    public void onSuccess(Result<User> userResult) {
+                        Log.d(TAG, "onSuccess: " + userResult.getMsg());
+                        result[0] = userResult;
+                    }
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                        result[0].setMsg("网络请求失败！");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Log.d(TAG, "onFinish: 请求完成");
+                    }
+
+                    @Override
+                    public void onDisposable(Disposable disposable) {
+
+                    }
+                });
+        return result[0];
     }
 
-    public MutableLiveData<Boolean> getFlag() {
-        if(flag == null){
-            flag = new MutableLiveData<>(false);
-        }
-        return flag;
-    }
 }

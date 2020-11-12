@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +43,21 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         return new ViewHolder(itemView);
     }
 
+    //处理对holder上的一些操作
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(cur.getNewsDetailUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

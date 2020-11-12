@@ -53,6 +53,9 @@ dependencies {
     /*rxjava框架*/
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava3
+    compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava3', version: '2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     //导入recycleView   @dengJL
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'

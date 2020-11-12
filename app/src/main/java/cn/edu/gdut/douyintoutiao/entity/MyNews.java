@@ -40,16 +40,19 @@ public class MyNews implements Serializable {
      */
     private String updatedAt;
 
+    private String newsDetailUrl;
+
     public MyNews() {
     }
 
-    public MyNews(String _id, String newsName, String newsAbstract, String newsPhotoUrl, String createdAt, String updatedAt) {
+    public MyNews(String _id, String newsName, String newsAbstract, String newsPhotoUrl, String createdAt, String updatedAt, String newsDetailUrl) {
         this._id = _id;
         this.newsName = newsName;
         this.newsAbstract = newsAbstract;
         this.newsPhotoUrl = newsPhotoUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.newsDetailUrl = newsDetailUrl;
     }
 
     public String get_id() {
@@ -98,5 +101,26 @@ public class MyNews implements Serializable {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getNewsDetailUrl() {
+        return newsDetailUrl;
+    }
+
+    public void setNewsDetailUrl(String newsDetailUrl) {
+        this.newsDetailUrl = newsDetailUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "MyNews{" +
+                "_id='" + _id + '\'' +
+                ", newsName='" + newsName + '\'' +
+                ", newsAbstract='" + newsAbstract + '\'' +
+                ", newsPhotoUrl='" + newsPhotoUrl + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", newsDetailUrl='" + newsDetailUrl + '\'' +
+                '}';
     }
 }

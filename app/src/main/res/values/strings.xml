@@ -30,6 +30,8 @@
 
     <!--文字资讯展示页-->
     <string name="news_image_msg">图片</string>
+    <string name="news_text_header_msg">标题</string>
+    <string name="news_text_abstract_msg">摘要</string>
 
     <!-- 临时字符串 -->
     <string name="view_user_main_page">点击预览个人资料界面</string>

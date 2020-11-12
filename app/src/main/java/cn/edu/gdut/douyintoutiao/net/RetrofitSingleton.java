@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.net;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -16,6 +17,7 @@ public class RetrofitSingleton {
         public static Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://af8b15.fn.thelarkcloud.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())  //rxjava转换器
                 .build();
     }
 
