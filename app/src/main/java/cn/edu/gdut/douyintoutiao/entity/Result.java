@@ -4,6 +4,7 @@ public class Result<T> {
     private String msg;
     private String code;
     private Boolean isLogin;
+    //范性数据
     private T data;
 
     @Override
