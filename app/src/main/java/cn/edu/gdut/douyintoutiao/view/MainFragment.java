@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
@@ -36,8 +40,14 @@ public class MainFragment extends Fragment {
      */
     private FragmentStateAdapter pagerAdapter;
 
+    private TabLayout newsNavigationTab;
+
 
     private int pages = 3;
+
+    private TabLayoutMediator mediator;
+
+    final String[] tabs = {"页面1","页面2","页面3"};
 
     /***
      * 生命周期加载方法
@@ -49,7 +59,22 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         newsViewPager = view.findViewById(R.id.fragment_main_news_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter((MainActivity)context);
+
+        newsViewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
         newsViewPager.setAdapter(pagerAdapter);
+
+        newsNavigationTab = view.findViewById(R.id.news_navigation);
+
+
+        mediator = new TabLayoutMediator(newsNavigationTab, newsViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                //这里可以自定义TabView
+                tab.setText(tabs[position]);
+            }
+        });
+        //要执行这一句才是真正将两者绑定起来
+        mediator.attach();
 
         return view;
     }
@@ -75,6 +100,35 @@ public class MainFragment extends Fragment {
         }
     }
 
+    private ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            //可以来设置选中时tab的大小
+            TabLayout.Tab tab = newsNavigationTab.getTabAt(position);
+            newsNavigationTab.selectTab(tab);
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        mediator.detach();
+        newsViewPager.unregisterOnPageChangeCallback(changeCallback);
+        super.onDestroy();
+    }
+
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

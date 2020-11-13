@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -139,3 +141,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
