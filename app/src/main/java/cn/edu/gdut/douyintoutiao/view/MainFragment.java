@@ -1,20 +1,19 @@
 package cn.edu.gdut.douyintoutiao.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
-import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
-import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
+import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
+import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 
 /**
  * @author hayring
@@ -25,13 +24,20 @@ public class MainFragment extends Fragment {
     Context context;
 
 
-    FragmentMainBinding binding;
+    ViewPager2 newsViewPager;
 
 
     public MainFragment(Context context) {
         this.context = context;
     }
 
+    /**
+     * The pager adapter, which provides the pages to the view pager widget.
+     */
+    private FragmentStateAdapter pagerAdapter;
+
+
+    private int pages = 3;
 
     /***
      * 生命周期加载方法
@@ -41,34 +47,34 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        binding = FragmentMainBinding.inflate(inflater);
-        return binding.getRoot();
+        newsViewPager = view.findViewById(R.id.fragment_main_news_view_pager);
+        pagerAdapter = new ScreenSlidePagerAdapter((MainActivity)context);
+        newsViewPager.setAdapter(pagerAdapter);
+
+        return view;
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+        public ScreenSlidePagerAdapter(FragmentActivity fa) {
+            super(fa);
+        }
+
+        @Override
+        public Fragment createFragment(int position) {
+            if (position == 0) {
+                return new NewsListFragment();
+            } else if (position < 3) {
+                return new ViewPagerTestFragment(position);
+            }
+            throw new IllegalArgumentException();
+        }
+
+        @Override
+        public int getItemCount() {
+            return pages;
+        }
     }
 
 
-    /**
-     * 用于跳转到文字新闻界面
-     *
-     * @param view
-     * @param savedInstanceState
-     * @author cypang
-     */
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.buttonToNews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewsActivity.class);
-                startActivity(intent);
-            }
-        });
-        binding.playVideoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, FullscreenActivity.class);
-                context.startActivity(intent);
-            }
-        });
-    }
+
 }

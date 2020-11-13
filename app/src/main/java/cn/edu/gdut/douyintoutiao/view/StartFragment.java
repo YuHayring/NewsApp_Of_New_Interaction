@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
+import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +82,11 @@ public class StartFragment extends Fragment {
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.action_startFragment_to_loginFragment);
             }
+        });
+
+        binding.buttonToTest.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), TestActivity.class);
+            startActivity(intent);
         });
 
 
