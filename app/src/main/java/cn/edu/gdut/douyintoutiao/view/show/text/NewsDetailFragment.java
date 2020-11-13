@@ -32,7 +32,7 @@ public class NewsDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = NewsDetailFragmentBinding.inflate(inflater);
-        String uri = getArguments().getString("uri");
+        String uri = getActivity().getIntent().getStringExtra("uri");
         init(uri);
         return binding.getRoot();
     }
