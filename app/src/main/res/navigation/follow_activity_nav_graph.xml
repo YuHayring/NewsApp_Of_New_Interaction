@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/follow_activity_nav_graph"
+    app:startDestination="@id/followAuthorFragment">
+
+    <fragment
+        android:id="@+id/followAuthorFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorFragment"
+        android:label="fragment_follow_author_list"
+        tools:layout="@layout/fragment_follow_author_list" />
+    <activity
+        android:id="@+id/activity_Follow_Author"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Activity_Follow_Author"
+        android:label="activity__follow__author"
+        tools:layout="@layout/activity__follow__author" />
+    <fragment
+        android:id="@+id/fragment_Follow_Author"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Fragment_Follow_Author_Start"
+        android:label="fragment__follow__author"
+        tools:layout="@layout/fragment__follow__author_start" >
+        <action
+            android:id="@+id/action_fragment_Follow_Author_to_followAuthorFragment"
+            app:destination="@id/followAuthorFragment" />
+    </fragment>
+</navigation>

@@ -2,6 +2,8 @@ package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -9,8 +11,14 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.entity.Follow;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
+import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
+import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 public class FollowListActivity extends AppCompatActivity {
 
@@ -21,7 +29,8 @@ public class FollowListActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragment_list = new ArrayList<>();//存放ViewPager容器下的Fragment
     private Fragment firstFragment, secondFragment;
     private FollowListAdapter adapter;//适配器
-
+    FollowAuthorListAdapter authorListAdapter;
+    FollowAuthorViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,20 +43,37 @@ public class FollowListActivity extends AppCompatActivity {
 
             //标题
             tab_title_list.add("事件");
-            tab_title_list.add("用户");
+           tab_title_list.add("用户");
 
 
             //两个fragment对象
             firstFragment = new FollowTagsListFragment();
             secondFragment = new FollowAuthorFragment();
+       // secondFragment = new Fragment_Follow_Author_Start();
 
             //往fragment列表添加内容
             fragment_list.add(firstFragment);
             fragment_list.add(secondFragment);
 
+
+
             adapter = new FollowListAdapter(getSupportFragmentManager(), tab_title_list, fragment_list);
             viewPager.setAdapter(adapter);
+
+            authorListAdapter = new FollowAuthorListAdapter();
             tabLayout.setupWithViewPager(viewPager);//让TabLayout和Viewpager 联系起来，能一起滑动
+
+
+            viewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
+
+       // liveData  需要改的地方
+        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
+            @Override
+            public void onChanged(List< Follow > follows) {
+                authorListAdapter.setFollows(follows);
+                authorListAdapter.notifyDataSetChanged();
+            }
+        });
 
         }
     }

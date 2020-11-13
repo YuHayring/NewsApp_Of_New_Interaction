@@ -67,7 +67,7 @@ public class UserMainFragment extends Fragment {
         mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FollowListActivity.class);
+               Intent intent = new Intent(getActivity(), FollowListActivity.class);
                 startActivity(intent);
             }
         });
