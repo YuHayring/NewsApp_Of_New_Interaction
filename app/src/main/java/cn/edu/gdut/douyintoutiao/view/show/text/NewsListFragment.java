@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -18,6 +19,10 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * @author cypang
@@ -91,5 +96,50 @@ public class NewsListFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+    }
+
+
+    private void refresh() {
+        Observable observable = Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@io.reactivex.rxjava3.annotations.NonNull ObservableEmitter<Object> emitter) throws Throwable {
+                emitter.onNext(viewModel.getAllNewsLive());
+                emitter.onComplete();
+            }
+        });
+
+        io.reactivex.rxjava3.core.Observer observer = new io.reactivex.rxjava3.core.Observer() {
+            private Disposable disposable;
+
+            @Override
+            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onNext(@io.reactivex.rxjava3.annotations.NonNull Object o) {
+
+            }
+
+            @Override
+            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                if (binding.swipeRefreshLayout.isRefreshing()) {
+                    binding.swipeRefreshLayout.setRefreshing(false);
+                }
+                disposable.dispose();
+            }
+        };
+        observable.subscribe(observer);
     }
 }
