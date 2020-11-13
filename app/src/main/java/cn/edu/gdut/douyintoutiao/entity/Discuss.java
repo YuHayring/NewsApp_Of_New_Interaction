@@ -11,6 +11,12 @@ import java.time.LocalDateTime;
 public class Discuss implements Serializable {
 
     /**
+     * 主键id
+     */
+
+    private String _id;
+
+    /**
      * 资讯 id
      */
     private String newsId;
@@ -60,5 +66,21 @@ public class Discuss implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Discuss(String _id, String newsId, LocalDateTime time, String userId, String text) {
+        this._id = _id;
+        this.newsId = newsId;
+        this.time = time;
+        this.userId = userId;
+        this.text = text;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }

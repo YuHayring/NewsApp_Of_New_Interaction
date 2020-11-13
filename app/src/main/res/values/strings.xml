@@ -33,6 +33,15 @@
     <string name="news_text_header_msg">标题</string>
     <string name="news_text_abstract_msg">摘要</string>
 
+    <!--文字资讯详情页-->
+    <string name="news_detail_comments_button_msg">查看评论</string>
+
+    <!--评论页面-->
+    <string name="comment_user_image_msg">用户头像</string>
+    <string name="comment_username_msg">用户名</string>
+    <string name="comment_comment_content_msg">用户评论</string>
+    <string name="comment_comment_time_msg">评论时间</string>
+
     <!-- 临时字符串 -->
     <string name="view_user_main_page">点击预览个人资料界面</string>
     <string name="main_page_to_news_msg">看新闻</string>
