@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
+
+        //关闭这个 viewpager 的左右滑动，让滑动手势留给子 viewpager
         viewPager.setUserInputEnabled(false);
 
 
