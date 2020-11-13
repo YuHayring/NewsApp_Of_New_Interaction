@@ -1,7 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 
 /**
  * @author : cypang
@@ -29,7 +29,12 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
  */
 public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> {
 
-    List<MyNews> newsList = new ArrayList<>();
+    private final Activity activity;
+    private List<MyNews> newsList = new ArrayList<>();
+
+    public NewsSAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setNewsList(List<MyNews> newsList) {
         this.newsList = newsList;
@@ -54,10 +59,9 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("uri", cur.getNewsDetailUrl());
-                NavController controller = Navigation.findNavController(holder.itemView);
-                controller.navigate(R.id.newsDetailFragment, bundle);
+                Intent intent = new Intent(activity, NewsActivity.class);
+                intent.putExtra("uri", cur.getNewsDetailUrl());
+                activity.startActivity(intent);
             }
         });
     }

@@ -3,17 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/news_activity_nav_graph"
-    app:startDestination="@id/newsListFragment">
-    <fragment
-        android:id="@+id/newsListFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment"
-        android:label="文字资讯列表">
-        <action
-            android:id="@+id/action_newsListFragment_to_newsDetailFragment"
-            app:destination="@id/newsDetailFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-    </fragment>
+    app:startDestination="@id/newsDetailFragment">
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsDetailFragment"

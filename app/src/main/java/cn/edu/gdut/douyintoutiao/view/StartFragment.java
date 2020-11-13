@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,9 +16,8 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
 import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link StartFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author cypang
+ * @date 2020年11月13日15:44:42
  */
 public class StartFragment extends Fragment {
 
