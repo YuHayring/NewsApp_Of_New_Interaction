@@ -6,7 +6,7 @@
     app:startDestination="@id/newsListFragment">
     <fragment
         android:id="@+id/newsListFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.NewsListFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment"
         android:label="文字资讯列表">
         <action
             android:id="@+id/action_newsListFragment_to_newsDetailFragment"

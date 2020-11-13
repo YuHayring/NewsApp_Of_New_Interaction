@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view;
+package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

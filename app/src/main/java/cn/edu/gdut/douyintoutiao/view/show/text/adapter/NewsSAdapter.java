@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,8 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
+        //采用glide加载网络图片
+        Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).into(holder.imageViewPic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,11 +58,6 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
                 bundle.putString("uri", cur.getNewsDetailUrl());
                 NavController controller = Navigation.findNavController(holder.itemView);
                 controller.navigate(R.id.newsDetailFragment, bundle);
-
-               /* Uri uri = Uri.parse(cur.getNewsDetailUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                holder.itemView.getContext().startActivity(intent);*/
             }
         });
     }
