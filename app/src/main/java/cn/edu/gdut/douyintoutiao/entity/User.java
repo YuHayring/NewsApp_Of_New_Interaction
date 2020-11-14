@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author hayring
@@ -58,13 +59,13 @@ public class User implements Serializable {
      * 创建时间
      */
     @SerializedName("createdAt")
-    private String createdTime;
+    private Date createdTime;
 
     /**
      * 修改时间
      */
     @SerializedName("updatedAt")
-    private String updatedTime;
+    private Date updatedTime;
 
 
     public User() {

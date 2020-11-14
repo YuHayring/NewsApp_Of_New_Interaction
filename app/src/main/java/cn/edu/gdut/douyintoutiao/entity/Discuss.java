@@ -3,6 +3,7 @@ package cn.edu.gdut.douyintoutiao.entity;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,13 +30,13 @@ public class Discuss implements Serializable {
      * 插入时间
      */
     @SerializedName("createdAt")
-    private String time;
+    private Date time;
 
     /**
      * 更新时间
      */
     @SerializedName("updatedAt")
-    private String updateTime;
+    private Date updateTime;
 
 
     /**
@@ -65,12 +66,11 @@ public class Discuss implements Serializable {
         return commentId;
     }
 
-
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
