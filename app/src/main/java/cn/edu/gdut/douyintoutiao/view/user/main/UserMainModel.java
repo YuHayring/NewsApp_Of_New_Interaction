@@ -1,10 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view.user.main;
 
-import android.os.Handler;
-import android.os.Message;
-
-import androidx.annotation.NonNull;
-
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.UserApi;
 import retrofit2.Call;
@@ -17,22 +12,20 @@ import retrofit2.Response;
  */
 public class UserMainModel {
 
-    OnUserGotCallBack callBack;
+    private final UserApi userApi = UserApi.getUserApi();
 
-    Handler handler = new GetUserHandler();
+//    Handler handler = new GetUserHandler();
 
     public static final String STATUS = "status";
 
     public static final String USER = "user";
 
     public static final int SUCCESS = 1;
+    UserMainViewModel.OnUserGotCallBack callBack;
 
-
-    public UserMainModel(OnUserGotCallBack callBack) {
+    public UserMainModel(UserMainViewModel.OnUserGotCallBack callBack) {
         this.callBack = callBack;
     }
-
-    private UserApi userApi = UserApi.getUserApi();
 
 
     //获取用户信息
@@ -44,11 +37,7 @@ public class UserMainModel {
 
 
 
-    public interface OnUserGotCallBack {
-        void onSuccess(User user);
 
-        void onFaile(String errorInfo);
-    }
 
 
     /**
@@ -69,18 +58,17 @@ public class UserMainModel {
     };
 
 
-
     //Handler 机制
-    private class GetUserHandler extends Handler {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-             int status = msg.getData().getInt(STATUS);
-             if (status == 1) {
-                 User user = (User)msg.getData().getSerializable(USER);
-                 callBack.onSuccess(user);
-             }
-        }
-
-
-    }
+//    private class GetUserHandler extends Handler {
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//             int status = msg.getData().getInt(STATUS);
+//             if (status == 1) {
+//                 User user = (User)msg.getData().getSerializable(USER);
+//                 callBack.onSuccess(user);
+//             }
+//        }
+//
+//
+//    }
 }

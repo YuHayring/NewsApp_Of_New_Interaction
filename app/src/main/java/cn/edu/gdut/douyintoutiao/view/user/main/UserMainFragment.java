@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
-import cn.edu.gdut.douyintoutiao.view.MainActivity;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
 
 /**
  * @author hayring
@@ -23,11 +23,12 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 public class UserMainFragment extends Fragment {
 
 
-    private MainActivity activity;
+    private final Context context;
 
-    public UserMainFragment(MainActivity activity) {
-        this.activity = activity;
+    public UserMainFragment(Context context) {
+        this.context = context;
     }
+
 
     private FragmentUserMainBinding mUserInfoBinding;
 
@@ -67,7 +68,7 @@ public class UserMainFragment extends Fragment {
         mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getActivity(), FollowListActivity.class);
+                Intent intent = new Intent(getActivity(), FollowListActivity.class);
                 startActivity(intent);
             }
         });

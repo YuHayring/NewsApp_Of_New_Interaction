@@ -3,7 +3,6 @@ package cn.edu.gdut.douyintoutiao.view.user.main;
 import androidx.databinding.ObservableField;
 
 import cn.edu.gdut.douyintoutiao.entity.User;
-import cn.edu.gdut.douyintoutiao.view.user.main.UserMainModel;
 
 /**
  * @author hayring
@@ -11,12 +10,13 @@ import cn.edu.gdut.douyintoutiao.view.user.main.UserMainModel;
  */
 public class UserMainViewModel {
 
+    public UserMainModel userMainModel;
+
 
     public ObservableField<String> userName = new ObservableField<>();
 
     public ObservableField<String> userDescription = new ObservableField<>();
-
-    public UserMainModel userMainModel = new UserMainModel(new UserMainModel.OnUserGotCallBack() {
+    OnUserGotCallBack userGotCallBack = new OnUserGotCallBack() {
 
         /**
          * 获取到用户信息，将其显示在界面上
@@ -33,8 +33,18 @@ public class UserMainViewModel {
 //            Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
             //TODO
         }
-    });
+    };
 
+    public UserMainViewModel() {
+        this.userMainModel = new UserMainModel(userGotCallBack);
+    }
+
+
+    public interface OnUserGotCallBack {
+        void onSuccess(User user);
+
+        void onFaile(String errorInfo);
+    }
 
 
 }

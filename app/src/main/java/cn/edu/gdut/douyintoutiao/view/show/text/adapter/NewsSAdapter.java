@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -11,15 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.URL;
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 
 /**
  * @author : cypang
@@ -29,7 +29,12 @@ import cn.edu.gdut.douyintoutiao.entity.Result;
  */
 public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> {
 
-    List<MyNews> newsList = new ArrayList<>();
+    private final Activity activity;
+    private List<MyNews> newsList = new ArrayList<>();
+
+    public NewsSAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setNewsList(List<MyNews> newsList) {
         this.newsList = newsList;
@@ -49,13 +54,15 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
+        //采用glide加载网络图片
+        Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).into(holder.imageViewPic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(cur.getNewsDetailUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                holder.itemView.getContext().startActivity(intent);
+                Intent intent = new Intent(activity, NewsActivity.class);
+                intent.putExtra("uri", cur.getNewsDetailUrl());
+                intent.putExtra("newsId", cur.get_id());
+                activity.startActivity(intent);
             }
         });
     }

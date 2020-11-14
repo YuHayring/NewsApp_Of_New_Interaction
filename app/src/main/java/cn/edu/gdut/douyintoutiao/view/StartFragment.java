@@ -1,23 +1,23 @@
 package cn.edu.gdut.douyintoutiao.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
+import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link StartFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author cypang
+ * @date 2020年11月13日15:44:42
  */
 public class StartFragment extends Fragment {
 
@@ -80,6 +80,11 @@ public class StartFragment extends Fragment {
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.action_startFragment_to_loginFragment);
             }
+        });
+
+        binding.buttonToTest.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), TestActivity.class);
+            startActivity(intent);
         });
 
 

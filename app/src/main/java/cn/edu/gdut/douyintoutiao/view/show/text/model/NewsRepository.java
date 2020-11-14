@@ -5,11 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import retrofit2.Call;
@@ -24,8 +22,8 @@ import retrofit2.Response;
  */
 public class NewsRepository {
 
-    private MutableLiveData<List<MyNews>> allNewsLive;
-    private NewsApi api;
+    private final MutableLiveData<List<MyNews>> allNewsLive;
+    private final NewsApi api;
     private static final String TAG = "news";
 
     public NewsRepository(NewsApi api) {
@@ -34,17 +32,12 @@ public class NewsRepository {
     }
 
 
-
     public LiveData<List<MyNews>> getAllNewsLive() {
         Call<Result<MyNews>> call = api.getNewsList();
         call.enqueue(new Callback<Result<MyNews>>() {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
-                List<MyNews> list = new ArrayList<>();
-                for(int i = 0; i < response.body().getData().length; i++){
-                    list.add(response.body().getData()[i]);
-                }
-                allNewsLive.postValue(list);
+                allNewsLive.postValue(response.body().getData());
                 Log.d(TAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
@@ -55,4 +48,6 @@ public class NewsRepository {
         });
         return allNewsLive;
     }
+
+
 }

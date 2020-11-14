@@ -1,21 +1,23 @@
 package cn.edu.gdut.douyintoutiao.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
-import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
-import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
+import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
+import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 
 /**
  * @author hayring
@@ -26,12 +28,26 @@ public class MainFragment extends Fragment {
     Context context;
 
 
-    FragmentMainBinding binding;
+    ViewPager2 newsViewPager;
 
 
     public MainFragment(Context context) {
         this.context = context;
     }
+
+    /**
+     * The pager adapter, which provides the pages to the view pager widget.
+     */
+    private FragmentStateAdapter pagerAdapter;
+
+    private TabLayout newsNavigationTab;
+
+
+    private int pages = 3;
+
+    private TabLayoutMediator mediator;
+
+    final String[] tabs = {"页面1","页面2","页面3"};
 
     /***
      * 生命周期加载方法
@@ -41,34 +57,78 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        binding = FragmentMainBinding.inflate(inflater);
-        return binding.getRoot();
+        newsViewPager = view.findViewById(R.id.fragment_main_news_view_pager);
+        pagerAdapter = new ScreenSlidePagerAdapter((MainActivity)context);
+
+        newsViewPager.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
+        newsViewPager.setAdapter(pagerAdapter);
+
+        newsNavigationTab = view.findViewById(R.id.news_navigation);
+
+
+        mediator = new TabLayoutMediator(newsNavigationTab, newsViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                //这里可以自定义TabView
+                tab.setText(tabs[position]);
+            }
+        });
+        //要执行这一句才是真正将两者绑定起来
+        mediator.attach();
+
+        return view;
     }
 
+    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+        public ScreenSlidePagerAdapter(FragmentActivity fa) {
+            super(fa);
+        }
 
-    /**
-     * 用于跳转到文字新闻界面
-     *
-     * @param view
-     * @param savedInstanceState
-     * @author cypang
-     */
+        @Override
+        public Fragment createFragment(int position) {
+            if (position == 0) {
+                return new NewsListFragment();
+            } else if (position < 3) {
+                return new ViewPagerTestFragment(position);
+            }
+            throw new IllegalArgumentException();
+        }
+
+        @Override
+        public int getItemCount() {
+            return pages;
+        }
+    }
+
+    private ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            //可以来设置选中时tab的大小
+            TabLayout.Tab tab = newsNavigationTab.getTabAt(position);
+            newsNavigationTab.selectTab(tab);
+        }
+    };
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.buttonToNews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewsActivity.class);
-                startActivity(intent);
-            }
-        });
-        binding.playVideoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, FullscreenActivity.class);
-                context.startActivity(intent);
-            }
-        });
+    public void onDestroy() {
+        mediator.detach();
+        newsViewPager.unregisterOnPageChangeCallback(changeCallback);
+        super.onDestroy();
     }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
