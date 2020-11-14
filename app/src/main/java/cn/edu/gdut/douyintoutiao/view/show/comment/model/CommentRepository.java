@@ -3,7 +3,6 @@ package cn.edu.gdut.douyintoutiao.view.show.comment.model;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.Discuss;
@@ -34,11 +33,8 @@ public class CommentRepository {
         discussList.enqueue(new Callback<Result<Discuss>>() {
             @Override
             public void onResponse(Call<Result<Discuss>> call, Response<Result<Discuss>> response) {
-                List<Discuss> list = new ArrayList<>();
-                for (int i = 0; i < response.body().getData().length; i++) {
-                    list.add(response.body().getData()[i]);
-                }
-                allDiscussData.postValue(list);
+
+                allDiscussData.postValue(response.body().getData());
             }
 
             @Override
