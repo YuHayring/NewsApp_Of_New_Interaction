@@ -61,6 +61,7 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent(activity, NewsActivity.class);
                 intent.putExtra("uri", cur.getNewsDetailUrl());
+                intent.putExtra("newsId", cur.get_id());
                 activity.startActivity(intent);
             }
         });

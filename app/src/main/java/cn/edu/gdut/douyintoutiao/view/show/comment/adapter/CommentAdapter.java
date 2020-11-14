@@ -39,7 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Discuss cur = discussList.get(position);
-        holder.textViewUsername.setText(cur.getUserId());
+        holder.textViewUsername.setText(cur.getUser().getUserName());
         holder.textViewCommentContent.setText(cur.getText());
         holder.textViewCommentTime.setText(String.valueOf(cur.getTime()));
         //Glide.with(holder.itemView).load(Uri.parse())

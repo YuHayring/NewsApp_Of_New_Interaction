@@ -28,8 +28,8 @@ public class CommentRepository {
         this.api = api;
     }
 
-    public LiveData<List<Discuss>> getAllDiscussLive() {
-        Call<Result<Discuss>> discussList = api.getDiscussList();
+    public LiveData<List<Discuss>> getAllDiscussLive(String newsId) {
+        Call<Result<Discuss>> discussList = api.getDiscussList(newsId);
         discussList.enqueue(new Callback<Result<Discuss>>() {
             @Override
             public void onResponse(Call<Result<Discuss>> call, Response<Result<Discuss>> response) {

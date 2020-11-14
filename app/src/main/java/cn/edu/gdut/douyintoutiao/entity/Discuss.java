@@ -1,5 +1,7 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,7 +16,8 @@ public class Discuss implements Serializable {
      * 主键id
      */
 
-    private String _id;
+    @SerializedName("_id")
+    private String commentId;
 
     /**
      * 资讯 id
@@ -22,19 +25,45 @@ public class Discuss implements Serializable {
     private String newsId;
 
     /**
-     * 时间
+     * 插入时间
      */
+    @SerializedName("createdAt")
     private LocalDateTime time;
 
     /**
-     * 用户 id
+     * 更新时间
      */
-    private String userId;
+    @SerializedName("updatedAt")
+    private LocalDateTime updateTime;
+
 
     /**
      * 评论内容
      */
+    @SerializedName("content")
     private String text;
+
+    /**
+     * 用户个人资料
+     */
+    private User user;
+
+    public Discuss(String commentId, String newsId, LocalDateTime time, LocalDateTime updateTime, String text, User user) {
+        this.commentId = commentId;
+        this.newsId = newsId;
+        this.time = time;
+        this.updateTime = updateTime;
+        this.text = text;
+        this.user = user;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
 
     public String getNewsId() {
         return newsId;
@@ -52,12 +81,12 @@ public class Discuss implements Serializable {
         this.time = time;
     }
 
-    public String getUserId() {
-        return userId;
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getText() {
@@ -68,19 +97,11 @@ public class Discuss implements Serializable {
         this.text = text;
     }
 
-    public Discuss(String _id, String newsId, LocalDateTime time, String userId, String text) {
-        this._id = _id;
-        this.newsId = newsId;
-        this.time = time;
-        this.userId = userId;
-        this.text = text;
+    public User getUser() {
+        return user;
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

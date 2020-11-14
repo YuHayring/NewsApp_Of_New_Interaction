@@ -21,8 +21,8 @@ public class CommentViewModel extends AndroidViewModel {
     }
     // TODO: Implement the ViewModel
 
-    public LiveData<List<Discuss>> getAllDiscussData() {
-        return repository.getAllDiscussLive();
+    public LiveData<List<Discuss>> getAllDiscussData(String newsId) {
+        return repository.getAllDiscussLive(newsId);
     }
 
 }

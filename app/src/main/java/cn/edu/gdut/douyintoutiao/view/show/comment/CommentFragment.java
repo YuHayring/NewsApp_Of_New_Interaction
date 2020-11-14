@@ -48,7 +48,8 @@ public class CommentFragment extends Fragment {
         adapter = new CommentAdapter();
         binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.commentRecycleView.setAdapter(adapter);
-        mViewModel.getAllDiscussData().observe(getViewLifecycleOwner(), new Observer<List<Discuss>>() {
+        String newsId = getArguments().getString("newsId");
+        mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), new Observer<List<Discuss>>() {
             @Override
             public void onChanged(List<Discuss> discusses) {
                 adapter.setDiscussList(discusses);
