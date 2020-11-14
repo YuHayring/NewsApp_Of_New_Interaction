@@ -24,9 +24,7 @@ public class FollowAuthorViewModel extends AndroidViewModel {
         followRepository = new FollowRepository(FollowApi.getFollowApi());
     }
 
-    public LiveData<List<Follow>> getFollowList() {
-        return followRepository.getFollowList();
-    }
-
-   // public List<Follow> getList(){return  followRepository.getList();}
+    public LiveData<List<Follow>> getFollowList() {return followRepository.getFollowList();}
+//    public List<Follow> getList(){
+//        return  followRepository.getData();}
 }

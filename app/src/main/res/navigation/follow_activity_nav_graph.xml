@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_follow_author_list" />
     <activity
         android:id="@+id/activity_Follow_Author"
-        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Activity_Follow_Author"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author"
         android:label="activity__follow__author"
         tools:layout="@layout/activity__follow__author" />
     <fragment

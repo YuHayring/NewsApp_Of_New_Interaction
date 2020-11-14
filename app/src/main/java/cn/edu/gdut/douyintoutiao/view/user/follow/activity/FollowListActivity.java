@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.user.follow;
+package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,10 +16,14 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorFragment;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowTagsListFragment;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
+
+//这是点击关注按钮跳到的act
 public class FollowListActivity extends AppCompatActivity {
 
 
@@ -31,6 +35,7 @@ public class FollowListActivity extends AppCompatActivity {
     private FollowListAdapter adapter;//适配器
     FollowAuthorListAdapter authorListAdapter;
     FollowAuthorViewModel viewModel;
+    private List<Follow> followList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +71,14 @@ public class FollowListActivity extends AppCompatActivity {
 
             viewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
 
-       // liveData  需要改的地方
-        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
-            @Override
-            public void onChanged(List< Follow > follows) {
-                authorListAdapter.setFollows(follows);
-                authorListAdapter.notifyDataSetChanged();
-            }
-        });
+        //liveData  需要改的地方
+//        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
+//            @Override
+//            public void onChanged(List< Follow > follows) {
+//                authorListAdapter.setFollows(follows);
+//                authorListAdapter.notifyDataSetChanged();
+//            }
+//        });
 
         }
     }

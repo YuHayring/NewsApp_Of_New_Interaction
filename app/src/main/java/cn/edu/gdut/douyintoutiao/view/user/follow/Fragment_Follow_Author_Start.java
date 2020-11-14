@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 
 /**
  * A simple {@link Fragment} subclass.

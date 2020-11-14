@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.user.follow;
+package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -21,6 +21,8 @@ import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
+
+//测试用
 public class Activity_Follow_Author extends AppCompatActivity {
 
     FollowAuthorListAdapter authorListAdapter;
@@ -39,12 +41,12 @@ public class Activity_Follow_Author extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
         binding.recyclerViewAuthor.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewAuthor.setAdapter(authorListAdapter);
-        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
-            @Override
-            public void onChanged(List<Follow> follows) {
-                authorListAdapter.setFollows(follows);
-                authorListAdapter.notifyDataSetChanged();
-            }
-        });
+//        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
+//            @Override
+//            public void onChanged(List<Follow> follows) {
+//                authorListAdapter.setFollows(follows);
+//                authorListAdapter.notifyDataSetChanged();
+//            }
+//        });
     }
 }

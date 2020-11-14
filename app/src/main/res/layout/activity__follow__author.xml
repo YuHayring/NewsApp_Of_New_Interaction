@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.user.follow.Activity_Follow_Author">
+    tools:context=".view.user.follow.activity.Activity_Follow_Author">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAuthor"

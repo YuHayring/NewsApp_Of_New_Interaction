@@ -15,10 +15,12 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
+import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorListAdapter.ViewHolder>{
 
-    private List< Follow > follows = new ArrayList<>();
+    private List< Follow > follows = new ArrayList<Follow>();
+    FollowAuthorViewModel authorViewModel;
 
     public  FollowAuthorListAdapter( List<Follow> list) {
 

@@ -36,7 +36,7 @@ public class FollowAuthorFragment extends Fragment {
     private View view;//定义view用来设置fragment的layout
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
     //定义以Follow实体类为对象的数据集合
-    private List<Follow> autordList = new ArrayList<Follow>();
+    private List<Follow> data = new ArrayList<Follow>();
     //自定义recyclerveiw的适配器
     private FollowAuthorListAdapter mRecyclerAdapter;
     FollowAuthorViewModel authorViewModel;
@@ -96,9 +96,17 @@ public class FollowAuthorFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_follow_author_list, container, false);
         //对recycleview进行配置
         initRecyclerView();
-//        //模拟数据 没用liveData的时候启动改方法
-//        initData();
+        //模拟数据 没用liveData的时候启动改方法
+      // initData();
+        data = viewModel.getFollowList().getValue();
 
+        viewModel.getFollowList().observe(getViewLifecycleOwner(), new Observer< List< Follow > >() {
+            @Override
+            public void onChanged(List< Follow > follows) {
+                authorListAdapter.setFollows(follows);
+                authorListAdapter.notifyDataSetChanged();
+            }
+        });
 
 
       return view;
@@ -113,15 +121,9 @@ public class FollowAuthorFragment extends Fragment {
 
 //    private void initData() {
 //      authorViewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
-//
-//        for (int i=0;i<=10;i++){
-//            Follow follow=new Follow();
-//            follow.setAuthorId(authorViewModel.getFollowList().toString());
-//
-//            autordList.add(follow);
-//
-//    }}
-//
+//      data = authorViewModel.getList();
+//    }
+
     /**
      * TODO 对recycleview进行配置
      */
@@ -129,8 +131,8 @@ public class FollowAuthorFragment extends Fragment {
         //获取RecyclerView
         mCollectRecyclerView = (RecyclerView) view.findViewById(R.id.follow_author_list_recycler_view);
         //创建adapter，此处需要修改
-        //mRecyclerAdapter = new FollowAuthorListAdapter(autordList);
-        mRecyclerAdapter = new FollowAuthorListAdapter();
+        mRecyclerAdapter = new FollowAuthorListAdapter(data);
+
         //给RecyclerView设置adapter
         mCollectRecyclerView.setAdapter(mRecyclerAdapter);
         //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
