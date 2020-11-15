@@ -10,9 +10,9 @@
 
     <!--启动界面-->
     <string name="app_name">抖音头条版</string>
+    <string name="start_to_login_msg">去登录</string>
 
     <!--登录页面-->
-    <string name="start_to_login_msg">去登录</string>
     <string name="login_button_msg">登录</string>
     <string name="login_username_hint">请输入用户名</string>
     <string name="login_password_hint">请输入密码</string>
@@ -82,4 +82,7 @@
 
     <!--页脚-->
     <string name="news_footer_msg">正在加载</string>
+
+    <!--搜索栏-->
+    <string name="search_bar_hint">请输入搜索信息</string>
 </resources>
