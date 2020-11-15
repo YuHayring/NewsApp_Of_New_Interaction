@@ -65,20 +65,12 @@ public class FollowListActivity extends AppCompatActivity {
             adapter = new FollowListAdapter(getSupportFragmentManager(), tab_title_list, fragment_list);
             viewPager.setAdapter(adapter);
 
-            authorListAdapter = new FollowAuthorListAdapter();
+
             tabLayout.setupWithViewPager(viewPager);//让TabLayout和Viewpager 联系起来，能一起滑动
 
 
             viewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
 
-        //liveData  需要改的地方
-//        viewModel.getFollowList().observe(this, new Observer< List< Follow > >() {
-//            @Override
-//            public void onChanged(List< Follow > follows) {
-//                authorListAdapter.setFollows(follows);
-//                authorListAdapter.notifyDataSetChanged();
-//            }
-//        });
 
         }
     }

@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,18 @@ import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorListAdapter.ViewHolder>{
-
+    private final Activity activity;
     private List< Follow > follows = new ArrayList<Follow>();
     FollowAuthorViewModel authorViewModel;
 
-    public  FollowAuthorListAdapter( List<Follow> list) {
+    public  FollowAuthorListAdapter(Activity activity, List< Follow > list) {
+        this.activity = activity;
 
         follows = list;
 
     }
-    public FollowAuthorListAdapter(){
+    public FollowAuthorListAdapter(Activity activity){
+        this.activity = activity;
 
     }
 

@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
@@ -17,6 +18,8 @@ public class FollowListAdapter extends FragmentPagerAdapter {
         this.title_list = title_list;
         this.fragment_list = fragment_list;
     }
+
+
 
     //根据参数，获取一个fragment
     @NonNull
