@@ -21,7 +21,10 @@ import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
-
+/**
+ * @author : DengJL
+ * @description ：测试用，别理
+ */
 //测试用
 public class Activity_Follow_Author extends AppCompatActivity {
 //

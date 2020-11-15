@@ -18,10 +18,14 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
+/**
+ * @author : DengJL
+ * @description ： Fragment_follow_author_list 的 RV 适配器
+ */
+
 public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorListAdapter.ViewHolder>{
     private final Activity activity;
     private List< Follow > follows = new ArrayList<Follow>();
-    FollowAuthorViewModel authorViewModel;
 
     public  FollowAuthorListAdapter(Activity activity, List< Follow > list) {
         this.activity = activity;
@@ -44,7 +48,8 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
 
         public ViewHolder(View view) {
             super(view);
-            followImage = (ImageView) view.findViewById(R.id.test_friends_image);
+            //imgage尚未解决
+            followImage = (ImageView) view.findViewById(R.id.author_image);
             followName = (TextView) view.findViewById(R.id.author_name);
 
 
@@ -62,8 +67,8 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Follow follow = follows.get(position);
-                //Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthor().getUserName(),Toast.LENGTH_SHORT).show();
+             //   Follow follow = follows.get(position);
+                Toast.makeText(view.getContext(), " 你点击了" + follows.get(position).getAuthor().get(0).getUserName(),Toast.LENGTH_SHORT).show();
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {//对子项里的Image注册监听事件
@@ -71,7 +76,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Follow follow = follows.get(position);
-               // Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthor().getUserName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthor().get(0).getUserName(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -91,8 +96,6 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
 
         return follows.size();
     }
-
-
 
 
 }

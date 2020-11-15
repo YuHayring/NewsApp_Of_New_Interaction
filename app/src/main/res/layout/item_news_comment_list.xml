@@ -26,7 +26,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textViewUsername"
+        android:id="@+id/author_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comment_username_msg"
@@ -44,8 +44,8 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewCommentTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewUsername"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
+        app:layout_constraintStart_toStartOf="@+id/author_name"
+        app:layout_constraintTop_toBottomOf="@+id/author_name" />
 
     <TextView
         android:id="@+id/textViewCommentTime"

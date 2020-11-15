@@ -77,6 +77,9 @@
     <string name="Beautiful_Picture">Beautiful Picture</string>
     <string name="Uploading">Uploading</string>
     <string name="Loading_Complete">Loading Complete, button is disabled</string>
+    <string name="author_name">用户名</string>
+    <string name="author_describe">用户描述</string>
+    <string name="button_unfollow">取消关注按钮</string>
 
 
 </resources>

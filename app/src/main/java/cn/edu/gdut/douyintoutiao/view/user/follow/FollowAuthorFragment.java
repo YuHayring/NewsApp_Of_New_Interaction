@@ -41,13 +41,6 @@ public class FollowAuthorFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-//    private View view;//定义view用来设置fragment的layout
-//    public RecyclerView mCollectRecyclerView;//定义RecyclerView
-//    //定义以Follow实体类为对象的数据集合
-//    private List<Follow> data = new ArrayList<Follow>();
-//    //自定义recyclerveiw的适配器
-//    private FollowAuthorListAdapter mRecyclerAdapter;
-//    FollowAuthorViewModel authorViewModel;
 
     private FollowAuthorViewModel followAuthorViewModel;
     private FollowAuthorListAdapter followListAdapter;
@@ -61,15 +54,6 @@ public class FollowAuthorFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FollowListFragment.        mRecyclerAdapter = new FollowAuthorListAdapter()ListAdapter();
-     */
-    // TODO: Rename and change types and number of parameters
     public static FollowAuthorFragment newInstance(String param1, String param2) {
         FollowAuthorFragment fragment = new FollowAuthorFragment();
         Bundle args = new Bundle();
@@ -96,37 +80,34 @@ public class FollowAuthorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        //定义binding
         fragmentFollowAuthorListBinding = FragmentFollowAuthorListBinding.inflate(inflater);
         return fragmentFollowAuthorListBinding.getRoot();
 
     }
 
-    /**
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //定义adapater,VM,RV
         followListAdapter = new FollowAuthorListAdapter(getActivity());
         followAuthorViewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setAdapter(followListAdapter);
+
+        //LD 观察,刷新data
         followAuthorViewModel.getFollowList().observe(getViewLifecycleOwner(), new Observer<List< Follow >>() {
             @Override
             public void onChanged(List<Follow> lists    ) {
                 followListAdapter.setFollows(lists);
                 followListAdapter.notifyDataSetChanged();
+                //下拉刷新控件SwipeRefreshLayout
                 fragmentFollowAuthorListBinding.FollowListRefresh.setRefreshing(false);
 
             }
         });
+        //下拉刷新控件SwipeRefreshLayout
         fragmentFollowAuthorListBinding.FollowListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

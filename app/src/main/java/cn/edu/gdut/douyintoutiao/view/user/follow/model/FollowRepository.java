@@ -11,6 +11,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * @author : DengJL
+ * @description ： Fragment_follow_author_list 的 资源库
+ */
 public class FollowRepository {
 
     private final MutableLiveData<List<Follow>> data;

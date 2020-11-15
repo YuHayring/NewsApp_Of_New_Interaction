@@ -23,7 +23,10 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 
-//这是点击关注按钮跳到的act
+/**
+ * @author : DengJL
+ * @description ： 用户页面关注按钮跳转的act
+ */
 public class FollowListActivity extends AppCompatActivity {
 
 
