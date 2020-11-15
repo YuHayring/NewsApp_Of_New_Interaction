@@ -5,22 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:id="@+id/searchBarMain"
-        style="@style/MaterialSearchBarLight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mt_hint="@string/search_bar_hint"
-        app:mt_maxSuggestionsCount="10"
-        app:mt_navIconEnabled="true"
-        app:mt_searchBarColor="@color/background"
-        app:mt_speechMode="false" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/news_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -92,7 +92,7 @@ dependencies {
     implementation group: 'io.supercharge', name: 'shimmerlayout', version: '2.1.0'
 
     //search
-    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+    implementation 'com.lapism:search:2.4.1'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

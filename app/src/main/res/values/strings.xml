@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <array name="sample_list">
         <item>Action Button Progress sample</item>
         <item>Action Button Endless Progress sample</item>
@@ -84,5 +84,7 @@
     <string name="news_footer_msg">正在加载</string>
 
     <!--搜索栏-->
-    <string name="search_bar_hint">请输入搜索信息</string>
+    <string name="search_bar_hint">正在输入</string>
+    <string name="search_bar_placeholder_msg">请输入你要搜索的信息</string>
+
 </resources>
