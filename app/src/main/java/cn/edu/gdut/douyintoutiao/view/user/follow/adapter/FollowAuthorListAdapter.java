@@ -63,7 +63,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Follow follow = follows.get(position);
-                Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthorId(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthor().getUserName(),Toast.LENGTH_SHORT).show();
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {//对子项里的Image注册监听事件
@@ -71,7 +71,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Follow follow = follows.get(position);
-                Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthorId(),Toast.LENGTH_SHORT).show();
+               // Toast.makeText(view.getContext(), " 你点击了" + follow.getAuthor().getUserName(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,7 +82,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Follow s = follows.get(position);
-        holder.followName.setText("用户名："+s.getAuthorId());
+        holder.followName.setText("用户名：" +s.getAuthor().get(0).getUserName());
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了

@@ -1,6 +1,9 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author hayring
@@ -17,45 +20,58 @@ public class Follow implements Serializable {
     /**
      * 新增_id
      */
-    private String _id;
+    @SerializedName("_id")
+    private String followId;
 
     /**
-     * 被关注者 id
+     * 关注者
      */
-    private String authorId;
+    @SerializedName("objectId_follower")
+    private List<User> follower;
 
-    public Follow(String _id, String authorId) {
-        this._id = _id;
-        this.authorId = authorId;
+
+    /**
+     * 被关注者
+     */
+    @SerializedName("objectId_author")
+    private List<User> author;
+
+    public Follow(String followId, List< User > follower, List< User > author) {
+        this.followId = followId;
+        this.follower = follower;
+        this.author = author;
     }
 
-    public String get_id() {
-        return _id;
+    public String getFollowId() {
+        return followId;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setFollowId(String followId) {
+        this.followId = followId;
     }
 
-
-    public String getAuthorId() {
-        return authorId;
+    public List< User > getFollower() {
+        return follower;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setFollower(List< User > follower) {
+        this.follower = follower;
     }
 
-    public Follow() {
-        this._id = _id;
-        this.authorId = authorId;
+    public List< User > getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(List< User > author) {
+        this.author = author;
     }
 
     @Override
     public String toString() {
         return "Follow{" +
-                "_id='" + _id + '\'' +
-                ", authorId='" + authorId + '\'' +
+                "followId='" + followId + '\'' +
+                ", follower=" + follower +
+                ", author=" + author +
                 '}';
     }
 }

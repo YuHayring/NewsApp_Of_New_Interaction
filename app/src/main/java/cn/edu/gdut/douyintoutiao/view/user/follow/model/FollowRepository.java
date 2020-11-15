@@ -1,15 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.model;
 
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.google.gson.internal.bind.util.ISO8601Utils;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
@@ -19,14 +13,13 @@ import retrofit2.Response;
 
 public class FollowRepository {
 
-    private MutableLiveData<List<Follow>> data;
-    private FollowApi followApi;
+    private final MutableLiveData<List<Follow>> data;
+    private final FollowApi followApi;
     private static final String TAG = "followList";
 
     public FollowRepository(FollowApi followApi) {
         this.followApi = followApi;
-        data = new MutableLiveData<>();
-
+        this.data = new MutableLiveData<>();
 
     }
 
@@ -36,19 +29,20 @@ public class FollowRepository {
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
-
                 data.postValue(response.body().getData());
-                 System.out.println("1.data:"+data);
+                //检查
+                System.out.println("0.response:"+response.body().getData());
+                 System.out.println("1.data:"+data.getValue());
+
                 Log.d(TAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: follow请求失败 ");
             }
         });
 
-        System.out.println("3. getData:"+data);
         return data;
     }
 
