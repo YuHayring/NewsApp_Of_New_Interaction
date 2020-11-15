@@ -45,10 +45,10 @@ public class CommentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
         // TODO: Use the ViewModel
-        adapter = new CommentAdapter();
-        binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.commentRecycleView.setAdapter(adapter);
         String newsId = getArguments().getString("newsId");
+        binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new CommentAdapter();
+        binding.commentRecycleView.setAdapter(adapter);
         mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), new Observer<List<Discuss>>() {
             @Override
             public void onChanged(List<Discuss> discusses) {

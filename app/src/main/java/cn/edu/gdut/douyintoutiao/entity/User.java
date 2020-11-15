@@ -3,8 +3,8 @@ package cn.edu.gdut.douyintoutiao.entity;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author hayring
@@ -58,13 +58,18 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createdTime;
+    @SerializedName("createdAt")
+    private Date createdTime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updatedTime;
+    @SerializedName("updatedAt")
+    private Date updatedTime;
 
+
+    public User() {
+    }
 
     public String getUserId() {
         return userId;

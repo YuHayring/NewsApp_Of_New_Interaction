@@ -3,7 +3,8 @@ package cn.edu.gdut.douyintoutiao.entity;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hayring
@@ -22,19 +23,20 @@ public class Discuss implements Serializable {
     /**
      * 资讯 id
      */
-    private String newsId;
+    @SerializedName("news")
+    private List<MyNews> news;
 
     /**
      * 插入时间
      */
     @SerializedName("createdAt")
-    private LocalDateTime time;
+    private Date time;
 
     /**
      * 更新时间
      */
     @SerializedName("updatedAt")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 
     /**
@@ -46,62 +48,46 @@ public class Discuss implements Serializable {
     /**
      * 用户个人资料
      */
-    private User user;
+    @SerializedName("user")
+    private List<User> user;
 
-    public Discuss(String commentId, String newsId, LocalDateTime time, LocalDateTime updateTime, String text, User user) {
-        this.commentId = commentId;
-        this.newsId = newsId;
-        this.time = time;
-        this.updateTime = updateTime;
-        this.text = text;
-        this.user = user;
+    public Discuss() {
+    }
+
+    public List<MyNews> getNews() {
+        return news;
+    }
+
+    public List<User> getUser() {
+        return user;
     }
 
     public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
-    }
-
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        return "Discuss{" +
+                "commentId='" + commentId + '\'' +
+                ", news=" + news +
+                ", time=" + time +
+                ", updateTime=" + updateTime +
+                ", text='" + text + '\'' +
+                ", user=" + user +
+                '}';
     }
 }
