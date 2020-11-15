@@ -35,8 +35,9 @@
     <string name="main_page">首页</string>
 
 
-    <!--文字资讯展示页-->
     <string name="my_page">我的</string>
+
+    <!--文字资讯展示页-->
     <string name="news_image_msg">图片</string>
     <string name="news_text_header_msg">标题</string>
     <string name="news_text_abstract_msg">摘要</string>
@@ -79,4 +80,6 @@
     <string name="Loading_Complete">Loading Complete, button is disabled</string>
 
 
+    <!--页脚-->
+    <string name="news_footer_msg">正在加载</string>
 </resources>
