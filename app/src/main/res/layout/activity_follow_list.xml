@@ -31,6 +31,7 @@ tools:context=".view.user.follow.activity.FollowListActivity" >
     android:id="@+id/followList_viewPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

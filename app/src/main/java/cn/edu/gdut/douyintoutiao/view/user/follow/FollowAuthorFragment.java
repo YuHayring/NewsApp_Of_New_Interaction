@@ -30,6 +30,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
@@ -53,6 +54,9 @@ public class FollowAuthorFragment extends Fragment {
 
     public FollowAuthorFragment() {
         // Required empty public constructor
+    }
+
+    public FollowAuthorFragment(Activity_Follow_Author activity_follow_author) {
     }
 
     public static FollowAuthorFragment newInstance(String param1, String param2) {

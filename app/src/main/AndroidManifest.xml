@@ -29,6 +29,9 @@
         <activity
             android:name=".view.user.follow.activity.FollowListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.user.follow.activity.Activity_Follow_Author"
+            android:screenOrientation="portrait" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

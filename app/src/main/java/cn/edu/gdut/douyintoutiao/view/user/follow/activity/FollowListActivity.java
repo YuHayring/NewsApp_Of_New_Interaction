@@ -36,9 +36,8 @@ public class FollowListActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragment_list = new ArrayList<>();//存放ViewPager容器下的Fragment
     private Fragment firstFragment, secondFragment;
     private FollowListAdapter adapter;//适配器
-    FollowAuthorListAdapter authorListAdapter;
     FollowAuthorViewModel viewModel;
-    private List<Follow> followList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
