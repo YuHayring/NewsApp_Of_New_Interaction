@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //注册导航栏点击监听器
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //跳转到注册页的跳转监听
+
 
     }
 
