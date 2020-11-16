@@ -22,7 +22,8 @@ import cn.edu.gdut.douyintoutiao.entity.Discuss;
  */
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
-    List<Discuss> discussList;
+    private List<Discuss> discussList;
+
 
     public void setDiscussList(List<Discuss> discussList) {
         this.discussList = discussList;
@@ -39,16 +40,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Discuss cur = discussList.get(position);
-        holder.textViewUsername.setText(cur.getUserId());
+        holder.textViewUsername.setText(cur.getUser().get(0).getUserName());
         holder.textViewCommentContent.setText(cur.getText());
-        holder.textViewCommentTime.setText(String.valueOf(cur.getTime()));
+        holder.textViewCommentTime.setText(cur.getTime().toString());
         //Glide.with(holder.itemView).load(Uri.parse())
 
     }
 
     @Override
     public int getItemCount() {
-        return discussList.size();
+        return discussList == null ? 0 : discussList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

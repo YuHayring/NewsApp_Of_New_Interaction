@@ -1,7 +1,10 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author hayring
@@ -13,11 +16,13 @@ public class User implements Serializable {
     /**
      * 用户id
      */
+    @SerializedName("_id")
     private String userId;
 
     /**
      * 用户名
      */
+    @SerializedName("name")
     private String userName;
 
     /**
@@ -50,6 +55,21 @@ public class User implements Serializable {
      */
     private byte[] userBackground;
 
+    /**
+     * 创建时间
+     */
+    @SerializedName("createdAt")
+    private Date createdTime;
+
+    /**
+     * 修改时间
+     */
+    @SerializedName("updatedAt")
+    private Date updatedTime;
+
+
+    public User() {
+    }
 
     public String getUserId() {
         return userId;
@@ -126,6 +146,8 @@ public class User implements Serializable {
                 ", userLocation='" + userLocation + '\'' +
                 ", userDescription='" + userDescription + '\'' +
                 ", userBackground=" + Arrays.toString(userBackground) +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
                 '}';
     }
 }

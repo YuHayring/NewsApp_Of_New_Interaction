@@ -18,5 +18,5 @@
     <fragment
         android:id="@+id/commentFragment"
         android:name="cn.edu.gdut.douyintoutiao.view.show.comment.CommentFragment"
-        android:label="CommentFragment" />
+        android:label="新闻评论" />
 </navigation>

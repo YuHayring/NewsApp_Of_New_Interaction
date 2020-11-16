@@ -102,7 +102,6 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
         if (result.getLogin()) {
             Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {
             Toasty.error(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -89,7 +90,30 @@ public class NewsListFragment extends Fragment {
             public void onChanged(List<MyNews> news) {
                 adapter.setNewsList(news);
                 adapter.notifyDataSetChanged();
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.getAllNewsLive();
+            }
+        });
+
+      /*  binding.recyclerViewNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy <= 0){
+                    return;
+                }
+                LinearLayoutManager layoutManager = (LinearLayoutManager) binding.recyclerViewNews.getLayoutManager();
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                if(lastVisibleItemPosition == adapter.getItemCount() - 1){
+
+                }
+            }
+        });*/
     }
+
 }
