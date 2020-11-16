@@ -9,8 +9,6 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 
@@ -21,7 +19,7 @@ import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
  * @date : 2020/11/11 16:52
  */
 public class NewsViewModel extends AndroidViewModel {
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
 
     public NewsViewModel(@NonNull Application application) {
         super(application);
@@ -31,4 +29,6 @@ public class NewsViewModel extends AndroidViewModel {
     public LiveData<List<MyNews>> getAllNewsLive() {
         return newsRepository.getAllNewsLive();
     }
+
+
 }

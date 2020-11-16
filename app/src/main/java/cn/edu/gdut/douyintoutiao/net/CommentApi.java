@@ -4,6 +4,7 @@ import cn.edu.gdut.douyintoutiao.entity.Discuss;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * @author cypang
@@ -16,7 +17,7 @@ public interface CommentApi {
     }
 
     @GET("getComments")
-    Call<Result<Discuss>> getDiscussList();
+    Call<Result<Discuss>> getDiscussList(@Query("newsId") String newsId);
 
     /**
      * 单例内部类

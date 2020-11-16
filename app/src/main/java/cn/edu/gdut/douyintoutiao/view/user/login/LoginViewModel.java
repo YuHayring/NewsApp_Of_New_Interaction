@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+
 import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
@@ -73,7 +75,7 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onFail(Throwable throwable) {
-                        mCallback.returnResult(new Result<User>("","网络请求失败",false, new User[0]));
+                        mCallback.returnResult(new Result<User>("", "网络请求失败", false, new ArrayList<>()));
                     }
 
                     @Override

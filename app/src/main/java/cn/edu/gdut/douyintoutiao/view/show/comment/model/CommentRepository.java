@@ -1,9 +1,10 @@
 package cn.edu.gdut.douyintoutiao.view.show.comment.model;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.Discuss;
@@ -21,7 +22,7 @@ import retrofit2.Response;
  */
 public class CommentRepository {
     private final MutableLiveData<List<Discuss>> allDiscussData;
-
+    private static final String TAG = "comment";
     private final CommentApi api;
 
     public CommentRepository(CommentApi api) {
@@ -29,21 +30,18 @@ public class CommentRepository {
         this.api = api;
     }
 
-    public LiveData<List<Discuss>> getAllDiscussLive() {
-        Call<Result<Discuss>> discussList = api.getDiscussList();
+    public LiveData<List<Discuss>> getAllDiscussLive(String newsId) {
+        Call<Result<Discuss>> discussList = api.getDiscussList(newsId);
         discussList.enqueue(new Callback<Result<Discuss>>() {
             @Override
             public void onResponse(Call<Result<Discuss>> call, Response<Result<Discuss>> response) {
-                List<Discuss> list = new ArrayList<>();
-                for (int i = 0; i < response.body().getData().length; i++) {
-                    list.add(response.body().getData()[i]);
-                }
-                allDiscussData.postValue(list);
+                Log.d(TAG, "onResponse: " + response.body().getData().toString());
+                allDiscussData.postValue(response.body().getData());
             }
 
             @Override
             public void onFailure(Call<Result<Discuss>> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: 请求失败 ");
             }
         });
         return allDiscussData;

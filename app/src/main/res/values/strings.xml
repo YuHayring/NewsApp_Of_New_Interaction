@@ -39,18 +39,20 @@
     <string name="my_page">我的</string>
     <string name="news_image_msg">图片</string>
     <string name="news_text_header_msg">标题</string>
-
-    <!--文字资讯详情页-->
     <string name="news_text_abstract_msg">摘要</string>
 
-    <!--评论页面-->
+    <!--新闻详情页面-->
     <string name="news_detail_comments_button_msg">查看评论</string>
+
+    <!--评论-->
+    <string name="comment_comment_time_msg">评论时间</string>
     <string name="comment_user_image_msg">用户头像</string>
     <string name="comment_username_msg">用户名</string>
     <string name="comment_comment_content_msg">用户评论</string>
+    <string name="comment_post_comment_button_msg">发表评论</string>
+    <string name="comment_see_tags_button_msg">查看标签</string>
 
     <!-- 临时字符串 -->
-    <string name="comment_comment_time_msg">评论时间</string>
     <string name="view_user_main_page">点击预览个人资料界面</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="main_page_to_news_msg">看新闻</string>
@@ -75,6 +77,9 @@
     <string name="Beautiful_Picture">Beautiful Picture</string>
     <string name="Uploading">Uploading</string>
     <string name="Loading_Complete">Loading Complete, button is disabled</string>
+    <string name="author_name">用户名</string>
+    <string name="author_describe">用户描述</string>
+    <string name="button_unfollow">取消关注按钮</string>
 
 
 </resources>

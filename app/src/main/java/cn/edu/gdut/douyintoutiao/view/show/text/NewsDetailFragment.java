@@ -9,17 +9,14 @@ import android.webkit.WebSettings;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
-import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
 
 public class NewsDetailFragment extends Fragment {
 
-    private NewsDetailViewModel mViewModel;
 
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
@@ -40,14 +37,15 @@ public class NewsDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewsDetailViewModel.class);
         // TODO: Use the ViewModel
 
         binding.buttonComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("newsId", getActivity().getIntent().getStringExtra("newsId"));
                 NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.commentFragment);
+                controller.navigate(R.id.commentFragment, bundle);
             }
         });
     }
