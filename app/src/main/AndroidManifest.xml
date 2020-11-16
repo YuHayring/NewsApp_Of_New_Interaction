@@ -4,6 +4,7 @@
     android:versionName="0.0.1 alpha">
     <!-- 网络权限 -->
     <application
+        android:name=".DouYinTouTiaoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
