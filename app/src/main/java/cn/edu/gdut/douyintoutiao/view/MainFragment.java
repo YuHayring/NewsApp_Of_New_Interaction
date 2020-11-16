@@ -21,6 +21,7 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.VideoPlayerFragment;
 
 /**
  * @author hayring
@@ -70,7 +71,9 @@ public class MainFragment extends Fragment {
         public Fragment createFragment(int position) {
             if (position == 0) {
                 return new NewsListFragment();
-            } else if (position < 3) {
+            } else if (position == 1) {
+                return new VideoPlayerFragment(context,true);
+            } else if (position == 2) {
                 return new ViewPagerTestFragment(position);
             }
             throw new IllegalArgumentException();

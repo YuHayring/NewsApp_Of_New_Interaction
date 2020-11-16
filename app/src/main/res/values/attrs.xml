@@ -4,6 +4,7 @@
         <attr name="fullscreenTextColor" format="color" />
     </declare-styleable>
 
+
     //悬浮窗
     <declare-styleable name="FloatingActionButton">
         <attr name="fab_colorPressed" format="color"/>

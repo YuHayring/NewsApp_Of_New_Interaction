@@ -86,6 +86,7 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //跳转到注册页面的点击事件
         binding.button2.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_loginFragment_to_resign);
