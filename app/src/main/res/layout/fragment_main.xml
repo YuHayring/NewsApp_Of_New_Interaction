@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="44dp"
+        android:layout_height="36dp"
+        android:background="@color/background"
+        android:contentDescription="@string/home_to_search_fragment_button"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/news_navigation"
         android:layout_width="match_parent"

@@ -21,10 +21,13 @@
     <string name="login_notification_msg">未注册的手机号验证后将自动创建账号</string>
     <string name="login_photo_msg">笑脸</string>
     <string name="login_test_button">测试页面</string>
+    <string name="login_copy_right_msg">版权所有 翻版必究</string>
+
+
+    <string name="home_to_search_fragment_button">去搜索</string>
 
 
     <!-- 个人资料页面 -->
-    <string name="login_copy_right_msg">版权所有 翻版必究</string>
     <string name="user_name">用户名</string>
     <string name="user_description">个性签名</string>
     <string name="following">关注</string>

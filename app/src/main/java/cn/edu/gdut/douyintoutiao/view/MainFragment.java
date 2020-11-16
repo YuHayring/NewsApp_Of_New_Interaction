@@ -55,7 +55,7 @@ public class MainFragment extends Fragment {
 
     private TabLayoutMediator mediator;
 
-    final String[] tabs = {"页面1", "页面2", "页面3"};
+    final String[] tabs = {"推荐", "关注", "待完成"};
     private FragmentMainBinding binding;
 
 
@@ -95,7 +95,6 @@ public class MainFragment extends Fragment {
         newsViewPager.setAdapter(pagerAdapter);
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
-
 
         mediator = new TabLayoutMediator(newsNavigationTab, newsViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
