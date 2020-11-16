@@ -1,21 +1,22 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
-import java.util.List;
-
 public class Result<T> {
     private String msg;
     private String code;
     private Boolean isLogin;
-    //范性数据
-    private List<T> data;
+    private T[] data;
 
     @Override
     public String toString() {
         return "Result{" +
                 "msg='" + msg + '\'' +
                 ", code='" + code + '\'' +
-                ", isLogin='" + isLogin + '\'' +
+                ", isLogin=" + isLogin +
+                ", data=" + data +
                 '}';
+    }
+
+    public Result() {
     }
 
     public String getMsg() {
@@ -34,18 +35,18 @@ public class Result<T> {
         this.code = code;
     }
 
-    public Result(String msg, String code, Boolean isLogin, List<T> data) {
+    public Result(String msg, String code, Boolean isLogin, T[] data) {
         this.msg = msg;
         this.code = code;
         this.isLogin = isLogin;
         this.data = data;
     }
 
-    public List<T> getData() {
+    public T[] getData() {
         return data;
     }
 
-    public void setData(List<T> data) {
+    public void setData(T[] data) {
         this.data = data;
     }
 

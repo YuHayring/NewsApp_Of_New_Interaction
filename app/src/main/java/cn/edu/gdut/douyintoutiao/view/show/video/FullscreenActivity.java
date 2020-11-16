@@ -41,11 +41,11 @@ public class FullscreenActivity extends AppCompatActivity {
         Log.d("systemUiVisibility pre",""+systemUiVisibility);
         int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
 
@@ -57,7 +57,7 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
 
         controlView();
-        videoPlayerFragment = new VideoPlayerFragment(this);//MainFragment(this);
+        videoPlayerFragment = new VideoPlayerFragment(this,true);//MainFragment(this);
 
 
         //显示 Fragment

@@ -15,15 +15,16 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
+import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author cypang
+ * @date 2020年11月11日20:18:05
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements Callback<Result<User>> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,7 +77,7 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater);
         ViewModelProvider provider = new ViewModelProvider(requireActivity());
         viewModel = provider.get(LoginViewModel.class);
-        viewModel.init();
+        viewModel.init(LoginFragment.this);
         binding.setData(viewModel);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
@@ -93,14 +94,18 @@ public class LoginFragment extends Fragment {
         //登陆按钮
         binding.button.setOnClickListener(v -> {
             viewModel.login();
-            if(viewModel.getFlag().getValue()){
-                Toasty.success(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }else {
-                Toasty.error(getContext(), viewModel.getResult().getValue().getMsg(), Toasty.LENGTH_SHORT, true).show();
-            }
         });
+    }
+
+    @Override
+    public void returnResult(Result<User> result) {
+        if (result.getLogin()) {
+            Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toasty.error(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+        }
     }
 }
