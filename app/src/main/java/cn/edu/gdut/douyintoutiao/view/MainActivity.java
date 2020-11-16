@@ -1,14 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -16,6 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.main.UserMainFragment;
@@ -79,10 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
@@ -134,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             super(fa);
         }
 
+        @NotNull
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
