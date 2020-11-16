@@ -16,6 +16,7 @@ import cn.edu.gdut.douyintoutiao.entity.User;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
+import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 /**
  * @author hudp
@@ -146,6 +147,7 @@ public class ResignFragment extends Fragment {
         binding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                binding.actionGuanzhu.setIcon(yellow_guanzhu);
                 Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
             }
         });
