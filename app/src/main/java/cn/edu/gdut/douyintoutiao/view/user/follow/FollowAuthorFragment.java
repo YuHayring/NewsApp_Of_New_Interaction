@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -80,6 +81,8 @@ public class FollowAuthorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
         //定义binding
         fragmentFollowAuthorListBinding = FragmentFollowAuthorListBinding.inflate(inflater);
         return fragmentFollowAuthorListBinding.getRoot();
@@ -115,6 +118,8 @@ public class FollowAuthorFragment extends Fragment {
             }
         });
     }
+
+
 
     
 }

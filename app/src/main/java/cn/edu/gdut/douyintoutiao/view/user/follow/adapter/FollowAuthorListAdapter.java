@@ -87,7 +87,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Follow s = follows.get(position);
-        holder.followName.setText("用户名：" +s.getAuthor().get(0).getUserName());
+        holder.followName.setText(s.getAuthor().get(0).getUserName());
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了
