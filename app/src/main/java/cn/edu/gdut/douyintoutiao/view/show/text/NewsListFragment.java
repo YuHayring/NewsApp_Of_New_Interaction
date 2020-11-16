@@ -99,6 +99,21 @@ public class NewsListFragment extends Fragment {
                 viewModel.getAllNewsLive();
             }
         });
+
+      /*  binding.recyclerViewNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy <= 0){
+                    return;
+                }
+                LinearLayoutManager layoutManager = (LinearLayoutManager) binding.recyclerViewNews.getLayoutManager();
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                if(lastVisibleItemPosition == adapter.getItemCount() - 1){
+
+                }
+            }
+        });*/
     }
 
 }
