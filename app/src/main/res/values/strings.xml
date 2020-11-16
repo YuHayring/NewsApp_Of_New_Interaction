@@ -24,7 +24,7 @@
     <string name="login_copy_right_msg">版权所有 翻版必究</string>
 
 
-    <string name="home_to_search_fragment_button">去搜索</string>
+    <string name="home_to_search_activity_button">跳转到搜索页面</string>
 
 
     <!-- 个人资料页面 -->
@@ -86,8 +86,8 @@
     <!--页脚-->
     <string name="news_footer_msg">正在加载</string>
 
-    <!--搜索栏-->
-    <string name="search_bar_hint">正在输入</string>
-    <string name="search_bar_placeholder_msg">请输入你要搜索的信息</string>
+    <!--搜索页面-->
+    <string name="search_input_text_hint">请输入搜索信息</string>
+    <string name="search_input_button_msg">去搜索</string>
 
 </resources>
