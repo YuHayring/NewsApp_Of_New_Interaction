@@ -6,7 +6,12 @@ public class Result<T> {
     private String msg;
     private String code;
     private Boolean isLogin;
+<<<<<<< HEAD
     private List<T> data;
+=======
+    //范性数据
+    private T data;
+>>>>>>> hudp
 
     @Override
     public String toString() {
