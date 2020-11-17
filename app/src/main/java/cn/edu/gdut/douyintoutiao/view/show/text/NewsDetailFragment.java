@@ -1,5 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
@@ -35,7 +40,7 @@ public class NewsDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = NewsDetailFragmentBinding.inflate(inflater);
-        String uri = getActivity().getIntent().getStringExtra("uri");
+        String uri = requireActivity().getIntent().getStringExtra("uri");
         init(uri);
         return binding.getRoot();
     }
@@ -44,9 +49,11 @@ public class NewsDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(NewsDetailViewModel.class);
-        // TODO: Use the ViewModel
-        String newsId = getActivity().getIntent().getStringExtra("newsId");
-        String userId = "5fb143154b9ef5022187184a";
+        // 提取用户登录的id
+        String newsId = requireActivity().getIntent().getStringExtra("newsId");
+        SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        String userId = shp.getString("userId", "noContent");
+
         //评论页面跳转
         binding.buttonComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +65,7 @@ public class NewsDetailFragment extends Fragment {
             }
         });
         //设置tag
-        binding.buttonSeeTags.setText(getActivity().getIntent().getStringExtra("tag"));
+        binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
         //tag页面跳转
         binding.buttonSeeTags.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +79,7 @@ public class NewsDetailFragment extends Fragment {
                     .title("评论发送")
                     .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
                         @Override
-                        public void onInput(MaterialDialog dialog, CharSequence input) {
+                        public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
                             // Do something
                             String content = input.toString();
                             if (content.length() == 0) {
@@ -80,11 +87,13 @@ public class NewsDetailFragment extends Fragment {
                                 return;
                             }
                             viewModel.postComment(newsId, userId, content);
+                            Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
                         }
                     }).show();
         });
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void init(String uri) {
         webSettings = binding.webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
