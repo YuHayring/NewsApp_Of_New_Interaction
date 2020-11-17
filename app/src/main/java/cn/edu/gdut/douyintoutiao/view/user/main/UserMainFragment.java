@@ -16,6 +16,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
 //import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
 
 /**
@@ -70,7 +71,7 @@ public class UserMainFragment extends Fragment {
         mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Activity_Follow_Author.class);
+                Intent intent = new Intent(getActivity(), FollowListActivity.class);
                 startActivity(intent);
             }
         });

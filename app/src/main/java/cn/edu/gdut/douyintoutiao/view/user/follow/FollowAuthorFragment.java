@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,9 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.gson.internal.bind.util.ISO8601Utils;
+
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
@@ -34,6 +38,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Autho
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
+import tv.danmaku.ijk.media.player.ISurfaceTextureHolder;
 
 
 public class FollowAuthorFragment extends Fragment {
@@ -121,9 +126,41 @@ public class FollowAuthorFragment extends Fragment {
                 followAuthorViewModel.getFollowList();
             }
         });
+
+        /**
+         * 描述：item点击事件
+         */
+        followListAdapter.setItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getContext(),followListAdapter.getFollows().get(position).getFollowId(), Toast.LENGTH_SHORT).show();
+                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
+            }
+
+        });
     }
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-    
+    }
+
+    /**
+     * 定义RecyclerView选项单击事件的回调接口
+     */
+    public interface OnItemClickListener{
+        //参数（父组件，当前单击的View,单击的View的位置，数据）
+        void onItemClick(int position);
+
+        // void onItemLongClick(View view);类似，我这里没用就不写了
+        //
+        //这个data是List中放的数据类型，因为我这里是private List<Map> mapList;这样一个
+        //然后我的每个item是这样的：
+        //        HashMap map =new HashMap();
+        //        map.put("img",R.drawable.delete);
+        //        map.put("text","x1");
+        //所以我的是map类型的，那如果是item中只有text的话比如List<String>，那么data就改成String类型
+    }
 }

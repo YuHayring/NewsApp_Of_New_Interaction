@@ -18,12 +18,20 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 public class FollowAuthorViewModel extends AndroidViewModel {
 
     private FollowRepository followRepository;
+    private String followId;
+
+
 
     public FollowAuthorViewModel(@NonNull Application application) {
         super(application);
         followRepository = new FollowRepository(FollowApi.getFollowApi());
     }
 
+
     public LiveData<List<Follow>> getFollowList() {return followRepository.getFollowList();}
+
+    public void deleteFollowListByFollowId(String followId){
+       followRepository.deleteFollowListByFollowId(followId);
+    }
 
 }

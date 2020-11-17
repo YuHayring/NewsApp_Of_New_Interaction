@@ -51,4 +51,8 @@ public class FollowRepository {
         return data;
     }
 
+    public void deleteFollowListByFollowId(String followId){
+       followApi.deleteFollowListByFollowId(followId);
+    }
+
 }
