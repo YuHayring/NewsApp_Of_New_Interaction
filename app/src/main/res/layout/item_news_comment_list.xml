@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
     android:background="?attr/selectableItemBackground"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
@@ -26,7 +28,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textViewUsername"
+        android:id="@+id/author_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/comment_username_msg"
@@ -44,8 +46,8 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewCommentTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewUsername"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
+        app:layout_constraintStart_toStartOf="@+id/author_name"
+        app:layout_constraintTop_toBottomOf="@+id/author_name" />
 
     <TextView
         android:id="@+id/textViewCommentTime"

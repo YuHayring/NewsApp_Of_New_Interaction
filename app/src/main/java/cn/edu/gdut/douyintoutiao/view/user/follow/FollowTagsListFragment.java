@@ -17,6 +17,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.News;
+import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,8 +86,7 @@ public class FollowTagsListFragment extends Fragment {
         //模拟数据
         initData();
         return view;
-        // Inflate the layout for this fragment
-        //  return inflater.inflate(R.layout.fragment_follow_tags_list, container, false);
+
     }
 
     private void initData() {
@@ -113,14 +113,7 @@ public class FollowTagsListFragment extends Fragment {
         mCollectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         //设置item的分割线
         mCollectRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
-//        mCollectRecyclerAdapter.setOnItemClickListener(new FollowTagsListAdapter.{
-//            @Override
-//            public void OnItemClick(View view, GoodsEntity data) {
-//                //此处进行监听事件的业务处理
-//                Toast.makeText(getActivity(),"我是item",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
     }
 }

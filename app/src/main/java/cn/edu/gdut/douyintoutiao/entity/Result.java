@@ -1,10 +1,12 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import java.util.List;
+
 public class Result<T> {
     private String msg;
     private String code;
     private Boolean isLogin;
-    private T[] data;
+    private List<T> data;
 
     @Override
     public String toString() {
@@ -35,18 +37,18 @@ public class Result<T> {
         this.code = code;
     }
 
-    public Result(String msg, String code, Boolean isLogin, T[] data) {
+    public Result(String msg, String code, Boolean isLogin, List<T> data) {
         this.msg = msg;
         this.code = code;
         this.isLogin = isLogin;
         this.data = data;
     }
 
-    public T[] getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T[] data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 

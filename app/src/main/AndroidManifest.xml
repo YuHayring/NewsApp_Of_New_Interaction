@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.gdut.douyintoutiao"
     android:versionName="0.0.1 alpha">
-    <!-- 网络权限 -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".DouYinTouTiaoApplication"
         android:allowBackup="true"
@@ -11,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".tmp.TestActivity"></activity>
+        <activity android:name=".view.show.search.SearchMainActivity"></activity>
+        <activity android:name=".tmp.TestActivity" />
         <activity android:name=".view.show.text.NewsActivity" /> <!-- 此处开启了强制竖屏的操作 -->
         <activity android:name=".view.FirstActivity">
             <intent-filter>
@@ -28,10 +31,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".view.user.follow.FollowListActivity"
+            android:name=".view.user.follow.activity.FollowListActivity"
             android:screenOrientation="portrait" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

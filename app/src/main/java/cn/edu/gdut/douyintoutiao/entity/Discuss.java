@@ -1,7 +1,10 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author hayring
@@ -14,73 +17,77 @@ public class Discuss implements Serializable {
      * 主键id
      */
 
-    private String _id;
+    @SerializedName("_id")
+    private String commentId;
 
     /**
      * 资讯 id
      */
-    private String newsId;
+    @SerializedName("news")
+    private List<MyNews> news;
 
     /**
-     * 时间
+     * 插入时间
      */
-    private LocalDateTime time;
+    @SerializedName("createdAt")
+    private Date time;
 
     /**
-     * 用户 id
+     * 更新时间
      */
-    private String userId;
+    @SerializedName("updatedAt")
+    private Date updateTime;
+
 
     /**
      * 评论内容
      */
+    @SerializedName("content")
     private String text;
 
-    public String getNewsId() {
-        return newsId;
+    /**
+     * 用户个人资料
+     */
+    @SerializedName("user")
+    private List<User> user;
+
+    public Discuss() {
     }
 
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
+    public List<MyNews> getNews() {
+        return news;
     }
 
-    public LocalDateTime getTime() {
+    public List<User> getUser() {
+        return user;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 
-    public Discuss(String _id, String newsId, LocalDateTime time, String userId, String text) {
-        this._id = _id;
-        this.newsId = newsId;
-        this.time = time;
-        this.userId = userId;
-        this.text = text;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
+    @Override
+    public String toString() {
+        return "Discuss{" +
+                "commentId='" + commentId + '\'' +
+                ", news=" + news +
+                ", time=" + time +
+                ", updateTime=" + updateTime +
+                ", text='" + text + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

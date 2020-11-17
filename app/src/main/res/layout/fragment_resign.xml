@@ -2,10 +2,17 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:fab="http://schemas.android.com/apk/res-auto"
-android:background="@color/background"
 android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/back_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/fanhui" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
@@ -23,79 +30,257 @@ android:layout_height="match_parent">
         fab:fab_addButtonPlusIconColor="@color/half_black"
         fab:fab_expandDirection="up"
         fab:fab_labelStyle="@style/menu_labels_style">
-<!--        举报-->
+        <!--        举报-->
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_a"
+            android:id="@+id/action_jinggao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_size="mini"
             fab:fabSize="mini"
-            fab:fab_title="Action A" />
+            fab:fab_icon="@drawable/jinggao"
+             />
         <!--     点赞   -->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fabSize="mini"
             fab:fab_size="mini"
-            android:id="@+id/action_b"
+            android:id="@+id/action_dianzan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/dianzan"
+            fab:fab_colorPressed="@color/white_pressed">
+        </com.getbase.floatingactionbutton.FloatingActionButton>
+
         <!--        评论-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fab_size="mini"
             fab:fabSize="mini"
-            android:id="@+id/action_c"
+            android:id="@+id/action_pinglun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/pinglun"
+            fab:fab_colorPressed="@color/white_pressed"/>
         <!--        文字视频转化-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fab_size="mini"
             fab:fabSize="mini"
-            android:id="@+id/action_d"
+            android:id="@+id/action_zhuanhuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/zhuanhuan"
+            fab:fab_colorPressed="@color/white_pressed"/>
         <!--        不感兴趣-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fab_size="mini"
             fab:fabSize="mini"
-            android:id="@+id/action_e"
+            android:id="@+id/action_buganxingqu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/buganxingqu"
+            fab:fab_colorPressed="@color/white_pressed"/>
         <!--        作者界面-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fab_size="mini"
             fab:fabSize="mini"
-            android:id="@+id/action_f"
+            android:id="@+id/action_zuozhe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/zuozhe"
+            fab:fab_colorPressed="@color/white_pressed">
+
+        </com.getbase.floatingactionbutton.FloatingActionButton>
+
+
         <!--        关注-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             fab:fab_size="mini"
             fab:fabSize="mini"
-            android:id="@+id/action_g"
+            android:id="@+id/action_guanzhu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen" />
+            fab:fab_icon="@drawable/guanzhu"
+            fab:fab_colorPressed="@color/white_pressed"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="130dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="5.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="2"
+            android:text="欢迎来到字节"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- 第一个输入框-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:id="@+id/area1"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/backound1"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/input"></TextView>
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:hint="手机号"
+                android:inputType="phone"
+                android:paddingLeft="10dp"
+                android:textColorHint="#95A1AA" />
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/phone_icon"
+                android:background="#D3D3D3"></TextView>
+
+            <ImageView
+                android:id="@+id/phone_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:layout_toLeftOf="@+id/phone"
+                android:src="@drawable/shouji" />
+
+        </RelativeLayout>
+        <!-- 第二个输入框-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/area1"
+            android:id="@+id/area2"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/backound2"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/input"></TextView>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:textColorHint="#95A1AA" />
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/password_icon"
+                android:background="#D3D3D3"></TextView>
+
+            <ImageView
+                android:id="@+id/password_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:layout_toLeftOf="@+id/password"
+                android:src="@drawable/mima" />
+
+        </RelativeLayout>
+        <!-- 第三个输入框-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/area2"
+            android:id="@+id/area3"
+            >
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/input"></TextView>
+
+            <EditText
+                android:id="@+id/sure_password"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:hint="确认密码"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:textColorHint="#95A1AA" />
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/sure_password_icon"
+                android:background="#D3D3D3"></TextView>
+
+            <ImageView
+                android:id="@+id/sure_password_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:layout_toLeftOf="@+id/sure_password"
+                android:src="@drawable/mima" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/resign_enter"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/area3"
+            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
+            android:layout_width="320dp"
+            android:background="@drawable/radius_button"
+            android:text="@string/resign"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

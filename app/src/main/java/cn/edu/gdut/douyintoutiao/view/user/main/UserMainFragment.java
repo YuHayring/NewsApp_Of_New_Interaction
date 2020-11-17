@@ -14,7 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
-import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+//import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
 
 /**
  * @author hayring
