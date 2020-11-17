@@ -18,7 +18,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
-import cn.edu.gdut.douyintoutiao.view.show.video.VideoPlayerFragment;
 
 /**
  * @author hayring
@@ -48,7 +47,7 @@ public class MainFragment extends Fragment {
 
     private TabLayoutMediator mediator;
 
-    final String[] tabs = {"文字测试","视频测试","页面3"};
+    final String[] tabs = {"页面1","页面2","页面3"};
 
     /***
      * 生命周期加载方法
@@ -89,9 +88,7 @@ public class MainFragment extends Fragment {
         public Fragment createFragment(int position) {
             if (position == 0) {
                 return new NewsListFragment();
-            } else if (position == 1) {
-                return new VideoPlayerFragment(context,true);
-            } else if (position == 2) {
+            } else if (position < 3) {
                 return new ViewPagerTestFragment(position);
             }
             throw new IllegalArgumentException();
