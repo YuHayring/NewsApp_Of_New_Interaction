@@ -11,12 +11,18 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <LinearLayout
-        android:id="@+id/fragment_container"
+<!--    <LinearLayout-->
+<!--        android:id="@+id/fragment_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"></LinearLayout>-->
+
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></LinearLayout>
+        android:id="@+id/video_view_pager"
+        android:orientation="vertical" />
 
 
 

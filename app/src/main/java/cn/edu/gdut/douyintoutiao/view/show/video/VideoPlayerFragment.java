@@ -24,26 +24,33 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.entity.News;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoPlayerFragment extends Fragment {
 
-    private VideoPlayerViewModel mViewModel;
+
 
     private TextureView textureView;
 
+    //绘制区域
     private Surface mSurface;
 
+    //播放器
     private IjkMediaPlayer mPlayer;
 
+    //context 引用
     private Context context;
 
-    boolean playing = false;
 
-    public VideoPlayerFragment(Context context) {
+    //当前新闻
+    private News news;
+
+    public VideoPlayerFragment(Context context, News news) {
         super();
         this.context = context;
+        this.news = news;
     }
 
 
@@ -62,7 +69,6 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(VideoPlayerViewModel.class);
         textureView.setSurfaceTextureListener(listener);
         textureView.setOnClickListener(playListener);
     }
@@ -71,7 +77,7 @@ public class VideoPlayerFragment extends Fragment {
     private View.OnClickListener playListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (playing) {
+            if (mPlayer.isPlaying()) {
                 pause();
             } else {
                 play();
@@ -85,17 +91,19 @@ public class VideoPlayerFragment extends Fragment {
     private void createPlayer() {
         if (mPlayer == null) {
             mPlayer = new IjkMediaPlayer();
-            mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 0);
+            mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
             try {
-                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+//                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+                mPlayer.setDataSource(news.getNewsUrl());
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
                 //TODO
             }
             mPlayer.prepareAsync();
+            Log.i("VideoPlayerFragment", "Player Created");
         }
     }
 
@@ -123,8 +131,8 @@ public class VideoPlayerFragment extends Fragment {
 
         @Override
         public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-            textureView.setSurfaceTextureListener(null);
-            textureView = null;
+//            textureView.setSurfaceTextureListener(null);
+//            textureView = null;
             mSurface = null;
             return true;
         }
@@ -159,7 +167,6 @@ public class VideoPlayerFragment extends Fragment {
     public void play() {
         if (mPlayer != null) {
             mPlayer.start();
-            playing = true;
         }
     }
 
@@ -168,7 +175,6 @@ public class VideoPlayerFragment extends Fragment {
      */
     public void pause() {
         mPlayer.pause();
-        playing = false;
     }
 
 
@@ -227,4 +233,15 @@ public class VideoPlayerFragment extends Fragment {
 
     }
 
+
+
+
+
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
+    }
 }
