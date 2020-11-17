@@ -55,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    Fragment mainFragment;
-
-    Fragment userMainFragment;
-
-
-    protected Fragment lastFragment;
-
 
     protected BottomNavigationView bottomNavigationView;
     /**

@@ -10,7 +10,10 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.SearchFragmentBinding;
 import es.dmoral.toasty.Toasty;
 
@@ -21,6 +24,7 @@ public class SearchFragment extends Fragment {
 
 
     private SearchFragmentBinding binding;
+    private NavController controller;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -36,6 +40,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        controller = Navigation.findNavController(requireView());
         //默认展开搜索框并且打开输入键盘
         binding.searchView.onActionViewExpanded();
         //显示搜索提示
@@ -50,7 +55,8 @@ public class SearchFragment extends Fragment {
                     return false;
                 }
                 Toasty.normal(requireContext(), query, Toasty.LENGTH_SHORT).show();
-                return false;
+                controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment);
+                return true;
             }
 
             @Override
