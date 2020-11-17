@@ -5,7 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.Discuss;
 import cn.edu.gdut.douyintoutiao.entity.Result;
@@ -45,5 +47,25 @@ public class CommentRepository {
             }
         });
         return allDiscussData;
+    }
+
+    public void postComment(String newsID, String userID, String content) {
+        Log.d(TAG, "postComment: " + newsID + userID + content);
+        Map<String, String> map = new HashMap<>();
+        map.put("newsId", newsID);
+        map.put("userId", userID);
+        map.put("content", content);
+        Call<Result<Void>> resultCall = api.postComment(map);
+        resultCall.enqueue(new Callback<Result<Void>>() {
+            @Override
+            public void onResponse(Call<Result<Void>> call, Response<Result<Void>> response) {
+                Log.d(TAG, "onResponse: 请求成功" + response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Result<Void>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 请求失败");
+            }
+        });
     }
 }

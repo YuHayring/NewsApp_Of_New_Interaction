@@ -2,7 +2,6 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.main.UserMainFragment;
@@ -54,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    Fragment mainFragment;
-
-    Fragment userMainFragment;
-
-
-    protected Fragment lastFragment;
-
 
     protected BottomNavigationView bottomNavigationView;
     /**
@@ -70,9 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
@@ -125,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             super(fa);
         }
 
+        @NotNull
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {

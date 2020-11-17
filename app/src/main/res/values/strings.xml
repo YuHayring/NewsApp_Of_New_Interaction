@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <array name="sample_list">
         <item>Action Button Progress sample</item>
         <item>Action Button Endless Progress sample</item>
@@ -10,9 +10,9 @@
 
     <!--启动界面-->
     <string name="app_name">抖音头条版</string>
+    <string name="start_to_login_msg">去登录</string>
 
     <!--登录页面-->
-    <string name="start_to_login_msg">去登录</string>
     <string name="login_button_msg">登录</string>
     <string name="login_username_hint">请输入用户名</string>
     <string name="login_password_hint">请输入密码</string>
@@ -21,10 +21,13 @@
     <string name="login_notification_msg">未注册的手机号验证后将自动创建账号</string>
     <string name="login_photo_msg">笑脸</string>
     <string name="login_test_button">测试页面</string>
+    <string name="login_copy_right_msg">版权所有 翻版必究</string>
+
+
+    <string name="home_to_search_activity_button">跳转到搜索页面</string>
 
 
     <!-- 个人资料页面 -->
-    <string name="login_copy_right_msg">版权所有 翻版必究</string>
     <string name="user_name">用户名</string>
     <string name="user_description">个性签名</string>
     <string name="following">关注</string>
@@ -35,8 +38,9 @@
     <string name="main_page">首页</string>
 
 
-    <!--文字资讯展示页-->
     <string name="my_page">我的</string>
+
+    <!--文字资讯展示页-->
     <string name="news_image_msg">图片</string>
     <string name="news_text_header_msg">标题</string>
     <string name="news_text_abstract_msg">摘要</string>
@@ -81,5 +85,14 @@
     <string name="author_describe">用户描述</string>
     <string name="button_unfollow">取消关注按钮</string>
 
+
+    <!--页脚-->
+    <string name="news_footer_msg">正在加载</string>
+
+    <!--搜索页面-->
+    <string name="search_input_text_hint">请输入搜索信息</string>
+    <string name="search_input_button_msg">去搜索</string>
+    <string name="search_show_news_msg">文字资讯</string>
+    <string name="search_show_video_msg">视频资讯</string>
 
 </resources>

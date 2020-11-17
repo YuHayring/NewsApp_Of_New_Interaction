@@ -1,11 +1,15 @@
 package cn.edu.gdut.douyintoutiao.net;
 
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.Token;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface UserApi {
@@ -27,7 +31,7 @@ public interface UserApi {
      * @return true or false
      */
     @POST("insert_user")
-    Call<Result> insertUser(@Body User user);
+    Call<Result<User>> insertUser(@Body User user);
     /**
      * 检查该用户是否已经注册过
      * @author 胡庆鹏
@@ -35,7 +39,11 @@ public interface UserApi {
      * @return 查找到的用户
      */
     @POST("check_resign")
-    Call<Result> check_Resign(@Body User user);
+    Call<Result<User>> check_Resign(@Body User user);
+
+
+    @POST("tokenreflashtest")
+    Call<Token> getToken(@Body Token token);
 
     /**
      * 单例内部类
