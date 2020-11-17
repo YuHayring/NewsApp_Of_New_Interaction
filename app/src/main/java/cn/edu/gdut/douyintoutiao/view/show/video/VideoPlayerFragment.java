@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,67 +19,40 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.util.UIUtil;
-import cn.edu.gdut.douyintoutiao.view.MainActivity;
+import cn.edu.gdut.douyintoutiao.entity.News;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoPlayerFragment extends Fragment {
 
-    private VideoPlayerViewModel mViewModel;
+
 
     private TextureView textureView;
 
+    //绘制区域
     private Surface mSurface;
 
+    //播放器
     private IjkMediaPlayer mPlayer;
 
+    //context 引用
     private Context context;
 
-    boolean playing = false;
 
-    boolean fullScreen;
+    //当前新闻
+    private News news;
 
-    ViewPager2 viewPager2;
-
-    int topToBottom;
-
-    public VideoPlayerFragment(Context context, boolean fullScreen) {
+    public VideoPlayerFragment(Context context, News news) {
         super();
         this.context = context;
-        this.fullScreen = fullScreen;
-        decorView = ((Activity)context).getWindow().getDecorView();
-
-
-        if (fullScreen && !(context instanceof FullscreenActivity)) {
-            otherSystemUIFlag = decorView.getSystemUiVisibility();
-            int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-            mySystemUIFlag |= flags;
-        }
+        this.news = news;
     }
 
-    //我的页面 flag 存储
-    int mySystemUIFlag;
-
-    //正常页面的 flag 存储
-    int otherSystemUIFlag;
-
-
-    View decorView;
-
-    View contentView;
 
 
 
@@ -90,15 +61,14 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        contentView = inflater.inflate(R.layout.video_player_fragment, container, false);
-        textureView = contentView.findViewById(R.id.video_player_window);
-        return contentView;
+        View view = inflater.inflate(R.layout.video_player_fragment, container, false);
+        textureView = view.findViewById(R.id.video_player_window);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(VideoPlayerViewModel.class);
         textureView.setSurfaceTextureListener(listener);
         textureView.setOnClickListener(playListener);
     }
@@ -107,7 +77,7 @@ public class VideoPlayerFragment extends Fragment {
     private View.OnClickListener playListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (playing) {
+            if (mPlayer.isPlaying()) {
                 pause();
             } else {
                 play();
@@ -121,17 +91,19 @@ public class VideoPlayerFragment extends Fragment {
     private void createPlayer() {
         if (mPlayer == null) {
             mPlayer = new IjkMediaPlayer();
-            mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 0);
+            mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
             try {
-                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+//                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+                mPlayer.setDataSource(news.getNewsUrl());
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context,"Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
                 //TODO
             }
             mPlayer.prepareAsync();
+            Log.i("VideoPlayerFragment", "Player Created");
         }
     }
 
@@ -179,42 +151,14 @@ public class VideoPlayerFragment extends Fragment {
 
     @Override
     public void onPause() {
-        //恢复非全屏
-        if (fullScreen && !(context instanceof FullscreenActivity)) {
-            decorView.setSystemUiVisibility(otherSystemUIFlag);
-        }
-        //恢复布局
-//        if (context instanceof MainActivity) {
-//            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)viewPager2.getLayoutParams();
-//            layoutParams.topToBottom = topToBottom;
-//            layoutParams.topToTop = -1;
-//            viewPager2.setLayoutParams(layoutParams);
-//        }
-        //暂停播放
-        if (playing) {
-            playing = false;
-            mPlayer.pause();
-        }
-
         super.onPause();
+        pause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //全屏
-        if (fullScreen && !(context instanceof FullscreenActivity)) {
-            decorView.setSystemUiVisibility(mySystemUIFlag);
-        }
-        //视频覆盖
-//        if (context instanceof MainActivity) {
-//            viewPager2 = (ViewPager2)contentView.getParent().getParent().getParent();
-//            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)viewPager2.getLayoutParams();
-//            topToBottom = layoutParams.topToBottom;
-//            layoutParams.topToBottom = -1;
-//            layoutParams.topToTop = 0;
-//            viewPager2.setLayoutParams(layoutParams);
-//        }
+        play();
     }
 
     /**
@@ -223,7 +167,6 @@ public class VideoPlayerFragment extends Fragment {
     public void play() {
         if (mPlayer != null) {
             mPlayer.start();
-            playing = true;
         }
     }
 
@@ -232,7 +175,6 @@ public class VideoPlayerFragment extends Fragment {
      */
     public void pause() {
         mPlayer.pause();
-        playing = false;
     }
 
 
@@ -291,4 +233,15 @@ public class VideoPlayerFragment extends Fragment {
 
     }
 
+
+
+
+
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
+    }
 }

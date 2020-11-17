@@ -8,6 +8,15 @@ import java.io.Serializable;
  * 资讯实体
  */
 public class News implements Serializable {
+    
+    //文字
+    public static final int TEXT = 0;
+    
+    //视频
+    public static final int VIDEO = 1;
+    
+    
+    
 
     /**
      * 资讯 id
@@ -27,7 +36,7 @@ public class News implements Serializable {
     /**
      * 资讯数据
      */
-    private byte[] newsData;
+    private String newsUrl;
 
     /**
      *
@@ -61,12 +70,12 @@ public class News implements Serializable {
         this.newsType = newsType;
     }
 
-    public byte[] getNewsData() {
-        return newsData;
+    public String getNewsUrl() {
+        return newsUrl;
     }
 
-    public void setNewsData(byte[] newsData) {
-        this.newsData = newsData;
+    public void setNewsUrl(String newsUrl) {
+        this.newsUrl = newsUrl;
     }
 
     public String getTagId() {
