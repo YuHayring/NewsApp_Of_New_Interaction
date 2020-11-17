@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
