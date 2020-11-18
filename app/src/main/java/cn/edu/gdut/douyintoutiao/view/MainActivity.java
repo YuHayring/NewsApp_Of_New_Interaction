@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements FileChooserDialog
 
 
 
+
+        //ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
+
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);

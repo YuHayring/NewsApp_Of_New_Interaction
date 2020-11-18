@@ -79,6 +79,7 @@ public class ResignViewModel extends ViewModel {
         result = resignModel.check_user(user);
         Log.d(TAG, "check: " + result.getValue().toString());
         if(result.getValue().getMsg().equals("true")){
+
             result = resignModel.insert_user(user);
             Log.d(TAG, "insert: " + result.getValue().toString());
             if(result.getValue().getMsg().equals("true")){
