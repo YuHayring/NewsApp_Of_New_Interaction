@@ -38,7 +38,7 @@
         tools:srcCompat="@drawable/ic_baseline_emoji_people_24" />
 
     <TextView
-        android:id="@+id/author_name"
+        android:id="@+id/textView_item_author_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/author_describe"
+        android:id="@+id/textView_item_author_describe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
@@ -79,7 +79,7 @@
         app:layout_constraintGuide_percent="0.6" />
 
     <ImageButton
-        android:id="@+id/button_unfollow"
+        android:id="@+id/button_item_unfollow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

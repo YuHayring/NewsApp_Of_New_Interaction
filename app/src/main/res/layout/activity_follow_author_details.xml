@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_follow_author_details"
-        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Fragment_follow_author_details"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

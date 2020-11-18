@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_follow_author_detail"
-        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Fragment_follow_author_details"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails"
         android:label="@string/AuthorDetails"
         tools:layout="@layout/fragment_follow_author_details" />
 </navigation>

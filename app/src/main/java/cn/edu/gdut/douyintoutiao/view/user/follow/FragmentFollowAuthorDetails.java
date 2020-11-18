@@ -1,7 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsV
  * @author : DengJL
  *@description : 被关注者详细信息的Fragment
  */
-public class Fragment_follow_author_details extends Fragment {
+public class FragmentFollowAuthorDetails extends Fragment {
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +41,7 @@ public class Fragment_follow_author_details extends Fragment {
     private String userId;
   //  private OnFragmentInteractionListener mListener;
 
-    public Fragment_follow_author_details() {
+    public FragmentFollowAuthorDetails() {
         // Required empty public constructor
     }
 
@@ -55,8 +54,8 @@ public class Fragment_follow_author_details extends Fragment {
      * @return A new instance of fragment fragment_follow_author_detail.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_follow_author_details newInstance(String param1, String param2) {
-        Fragment_follow_author_details fragment = new Fragment_follow_author_details();
+    public static FragmentFollowAuthorDetails newInstance(String param1, String param2) {
+        FragmentFollowAuthorDetails fragment = new FragmentFollowAuthorDetails();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -99,7 +98,7 @@ public class Fragment_follow_author_details extends Fragment {
             public void onChanged(List< User > list) {
 
                 fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
-                fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("电话号码："+list.get(0).getUserTelephone());
+                fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名："+list.get(0).getUserDescription());
             }
 
         });

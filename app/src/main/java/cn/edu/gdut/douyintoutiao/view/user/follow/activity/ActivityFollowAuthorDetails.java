@@ -1,15 +1,12 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.view.user.follow.Fragment_follow_author_details;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsViewModel;
 
 public class ActivityFollowAuthorDetails extends AppCompatActivity  {

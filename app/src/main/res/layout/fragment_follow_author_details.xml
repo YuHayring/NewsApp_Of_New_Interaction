@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.user.follow.Fragment_follow_author_details">
+    tools:context=".view.user.follow.FragmentFollowAuthorDetails">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
