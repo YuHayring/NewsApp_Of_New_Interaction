@@ -30,10 +30,12 @@ public class User implements Serializable {
      */
     private String userTelephone;
 
+    private String userPassword;
     /**
      * 加密后的密码
      */
-    private String userPassword;
+    @SerializedName("RsaPassword")
+    private byte[] RsaPassword;
 
     /**
      * 年龄
@@ -103,6 +105,14 @@ public class User implements Serializable {
         this.userPassword = userPassword;
     }
 
+    public byte[] getRsaPassword() {
+        return RsaPassword;
+    }
+
+    public void setRsaPassword(byte[] rsaPassword) {
+        RsaPassword = rsaPassword;
+    }
+
     public Integer getUserAge() {
         return userAge;
     }
@@ -142,6 +152,7 @@ public class User implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", userTelephone='" + userTelephone + '\'' +
                 ", userPassword='" + userPassword + '\'' +
+                ", RsaPassword=" + RsaPassword +
                 ", userAge=" + userAge +
                 ", userLocation='" + userLocation + '\'' +
                 ", userDescription='" + userDescription + '\'' +

@@ -195,11 +195,13 @@ public class ResignFragment extends Fragment {
             user.setUserPassword(password);
 
             //检查杂项
-            viewModel.check_something(user,surepassword);
-            this.toasty(viewModel.getFlag().getValue());
-            //注册
-            viewModel.resign(user);
-            this.toasty(viewModel.getFlag().getValue());
+            if(viewModel.check_something(user,surepassword)){
+                //注册
+                viewModel.resign(user);
+                this.toasty(viewModel.getFlag().getValue());
+            }else{
+                this.toasty(viewModel.getFlag().getValue());
+            }
         });
         //注册按钮
 //        binding.resignEnter.setOnClickListener(v -> {

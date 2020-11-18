@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -83,8 +84,9 @@ public class ResignModel {
         }
         return mutableLiveData;
     }
-    public String encrypt(String password){
+    public byte[] encrypt(String password){
         EncrypRSA rsa = new  EncrypRSA();
+        byte[] resultBytes = new byte[0];
         String msg = password ;
         try {
             //KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
@@ -96,23 +98,22 @@ public class ResignModel {
             KeyPair keyPair = keyPairGen.generateKeyPair();
             //得到公钥
             RSAPublicKey publicKey = (RSAPublicKey)keyPair.getPublic();
-
             //用公钥加密
-            byte [] srcBytes = msg.getBytes();
-            byte [] resultBytes = rsa.encrypt(publicKey, srcBytes);
-            Log.d(TAG, "明文是: " + msg);
-            Log.d(TAG, "加密后是: " + new  String(resultBytes));
+            byte [] srcBytes = msg.getBytes("UTF-8");
+            resultBytes = rsa.encrypt(publicKey, srcBytes);
 
-            Log.d(TAG, "解密后: " + decrypt(new  String(resultBytes)));
-            return new  String(resultBytes);
+            Log.d(TAG, "明文是: " + msg);
+            Log.d(TAG, "加密后是: " + resultBytes);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return msg;
+        return resultBytes;
     }
-    public String decrypt(String password){
+    public String decrypt(byte[] password){
         EncrypRSA rsa = new  EncrypRSA();
-        String msg = password ;
+        byte[] msg = password ;
         try {
             //KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
             KeyPairGenerator keyPairGen = null;
@@ -125,13 +126,13 @@ public class ResignModel {
             RSAPrivateKey privateKey = (RSAPrivateKey)keyPair.getPrivate();
 
             //用私钥解密
-            byte [] decBytes = rsa.decrypt(privateKey,password.getBytes());
+            byte [] decBytes = rsa.decrypt(privateKey,password);
             Log.d(TAG, "密文是: " + msg);
             Log.d(TAG, "解密后是: " + new  String(decBytes));
             return new  String(decBytes);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
-        return msg;
+        return "";
     }
 }
