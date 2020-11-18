@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".view.user.follow.activity.ActivityFollowAuthorDetails">
 
-    <TextView
-        android:id="@+id/author_details_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+    <fragment
+        android:id="@+id/fragment_follow_author_details"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.Fragment_follow_author_details"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

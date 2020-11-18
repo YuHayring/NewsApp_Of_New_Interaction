@@ -13,6 +13,11 @@ import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
 import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 
+/**
+ * @author : DengJL
+ *@description : 被关注者详细信息的Fragment的ViewModel
+ */
+
 public class FollowAuthorDetailsViewModel extends AndroidViewModel {
 
     private FollowRepository followAuthorDetailsRepository;
