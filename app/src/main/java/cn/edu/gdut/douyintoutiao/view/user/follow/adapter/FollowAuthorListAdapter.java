@@ -1,7 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -55,13 +49,13 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     }
 
     //声明自定义的监听接口
-    private FollowAuthorFragment.OnItemClickListener monItemClickListener;
+    private FollowAuthorFragment.OnItemClickListener followAuthorItemClickListener;
     /**
      * 描述：提供set方法供Activity或Fragment调用
      * @param listener 监听器
      */
     public void setItemClickListener(FollowAuthorFragment.OnItemClickListener listener){
-        monItemClickListener=listener;
+        followAuthorItemClickListener=listener;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -111,8 +105,17 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
         holder.unfollowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (monItemClickListener!=null){
-                    monItemClickListener.onItemClick(holder.getAdapterPosition());
+                if (followAuthorItemClickListener!=null){
+                    followAuthorItemClickListener.onItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followAuthorItemClickListener!=null){
+                    followAuthorItemClickListener.onItemViewClick(holder.getAdapterPosition());
                 }
             }
         });

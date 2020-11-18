@@ -94,5 +94,6 @@
     <string name="search_input_button_msg">去搜索</string>
     <string name="search_show_news_msg">文字资讯</string>
     <string name="search_show_video_msg">视频资讯</string>
+    <string name="AuthorDetails">被关注者页面</string>
 
 </resources>

@@ -61,12 +61,12 @@ public class FollowRepository {
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
-                Log.d(TAG, "deleteResponse: " + response.body().getCode() + " " + response.body().getMsg());
+                Log.d(TAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(TAG, "onFailure: delete请求失败 ");
+                Log.d(TAG, "onFailure: delete失败 ");
             }
         });
     }
