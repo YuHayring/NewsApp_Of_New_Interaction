@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorListFragment;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 /**
@@ -105,12 +109,20 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
         return holder;
     }
 
-
+    //绑定item数据
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Follow s = follows.get(position);
         holder.followName.setText(s.getAuthor().get(0).getUserName());
         holder.followDescribe.setText(s.getAuthor().get(0).getUserDescription());
+
+        Glide.with(holder.itemView)//当前类context
+                .load(s.getAuthor().get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
+                .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
+                .error(R.drawable.friends) // 出错加载的图片
+                .fitCenter()//缩放问题未解决https://www.jianshu.com/p/7cfe2653a1fb
+                .into(holder.followImage);// 显示到ImageView控件
+
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了

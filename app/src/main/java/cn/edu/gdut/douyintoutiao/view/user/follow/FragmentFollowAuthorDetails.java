@@ -13,8 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.List;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorDetailsBinding;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
@@ -77,10 +81,10 @@ public class FragmentFollowAuthorDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         fragmentFollowAuthorDetailsBinding =  FragmentFollowAuthorDetailsBinding.inflate(inflater);
-        Bundle bundle =this.getArguments();//得到从Activity传来的数据
-        if(bundle!=null){
-            userId = bundle.getString("UserId");
-        }
+//        Bundle bundle =this.getArguments();//得到从Activity传来的数据
+//        if(bundle!=null){
+//            userId = bundle.getString("UserId");
+//        }
         return fragmentFollowAuthorDetailsBinding.getRoot();
 
         // Inflate the layout for this fragment
@@ -99,6 +103,12 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
                 fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
                 fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名："+list.get(0).getUserDescription());
+
+                Glide.with(FragmentFollowAuthorDetails.this)//当前类
+                        .load(list.get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
+                        .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
+                        .error(R.drawable.friends) // 出错加载的图片
+                        .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
             }
 
         });
