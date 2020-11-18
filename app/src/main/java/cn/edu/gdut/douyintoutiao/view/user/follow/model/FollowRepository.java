@@ -3,7 +3,11 @@ package cn.edu.gdut.douyintoutiao.view.user.follow.model;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
@@ -37,7 +41,6 @@ public class FollowRepository {
                 data.postValue(response.body().getData());
                 //检查
                 System.out.println("0.response:"+response.body().getData());
-                 System.out.println("1.data:"+data.getValue());
 
                 Log.d(TAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
@@ -52,7 +55,20 @@ public class FollowRepository {
     }
 
     public void deleteFollowListByFollowId(String followId){
-       followApi.deleteFollowListByFollowId(followId);
+        Map<String, String> followIdMap = new HashMap<>();
+        followIdMap.put("_id", followId);
+        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.deleteFollowListByFollowId(followIdMap);
+        call.enqueue(new Callback<Result<Follow>>() {
+            @Override
+            public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
+                Log.d(TAG, "deleteResponse: " + response.body().getCode() + " " + response.body().getMsg());
+            }
+
+            @Override
+            public void onFailure(Call<Result<Follow>> call, Throwable t) {
+                Log.d(TAG, "onFailure: delete请求失败 ");
+            }
+        });
     }
 
 }
