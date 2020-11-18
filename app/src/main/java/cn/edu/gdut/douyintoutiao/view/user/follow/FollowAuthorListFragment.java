@@ -28,7 +28,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapte
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 
-public class FollowAuthorFragment extends Fragment {
+public class FollowAuthorListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,15 +44,15 @@ public class FollowAuthorFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FollowAuthorFragment() {
+    public FollowAuthorListFragment() {
         // Required empty public constructor
     }
 
-    public FollowAuthorFragment(Activity_Follow_Author activity_follow_author) {
+    public FollowAuthorListFragment(Activity_Follow_Author activity_follow_author) {
     }
 
-    public static FollowAuthorFragment newInstance(String param1, String param2) {
-        FollowAuthorFragment fragment = new FollowAuthorFragment();
+    public static FollowAuthorListFragment newInstance(String param1, String param2) {
+        FollowAuthorListFragment fragment = new FollowAuthorListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

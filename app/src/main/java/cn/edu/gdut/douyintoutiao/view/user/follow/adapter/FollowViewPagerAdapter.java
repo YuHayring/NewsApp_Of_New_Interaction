@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorFragment;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorListFragment;
 import cn.edu.gdut.douyintoutiao.view.user.follow.FollowTagsListFragment;
 
 public class FollowViewPagerAdapter extends FragmentStateAdapter {
@@ -69,7 +69,7 @@ public class FollowViewPagerAdapter extends FragmentStateAdapter {
                 return new FollowTagsListFragment();
 
             case 1:
-                return new FollowAuthorFragment();
+                return new FollowAuthorListFragment();
             default:
                 return null;
         }

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,12 +25,14 @@ public class FollowRepository {
 
     private final MutableLiveData<List<Follow>> data;
     private final FollowApi followApi;
-    private static final String TAG = "followList";
+    private static final String FollowTAG = "followList";
+    private static final String authorTag = "authorInfo";
+    private final MutableLiveData<List< User >> authorData;
 
     public FollowRepository(FollowApi followApi) {
         this.followApi = followApi;
         this.data = new MutableLiveData<>();
-
+        this.authorData = new MutableLiveData<>();
     }
 
 
@@ -42,12 +45,12 @@ public class FollowRepository {
                 //检查
                 System.out.println("0.response:"+response.body().getData());
 
-                Log.d(TAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+                Log.d(FollowTAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(TAG, "onFailure: follow请求失败 ");
+                Log.d(FollowTAG, "onFailure: getFollowList请求失败 ");
             }
         });
 
@@ -61,14 +64,37 @@ public class FollowRepository {
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
-                Log.d(TAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
+                Log.d(FollowTAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(TAG, "onFailure: delete失败 ");
+                Log.d(FollowTAG, "onFailure: deleteFollowListByFollowId请求失败 ");
             }
         });
+    }
+
+    public LiveData<List<User>> queryUserByUserId(String userId) {
+        Map<String, String> userIdMap = new HashMap<>();
+        userIdMap.put("_id",userId );
+        Call<Result<User>> call = followApi.queryUserByUserId(userIdMap);
+        call.enqueue(new Callback<Result<User>>() {
+            @Override
+            public void onResponse(Call<Result<User>> call, Response<Result<User>> response) {
+                authorData.postValue(response.body().getData());
+                //检查
+                System.out.println("response:"+response.body().getData());
+
+                Log.d(authorTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+            }
+
+            @Override
+            public void onFailure(Call<Result<User>> call, Throwable t) {
+                Log.d(authorTag, "onFailure: queryUserByUserId请求失败 ");
+            }
+        });
+
+        return authorData;
     }
 
 }

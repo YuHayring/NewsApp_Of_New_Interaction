@@ -17,7 +17,7 @@ import cn.edu.gdut.douyintoutiao.R;
  */
 public class Fragment_follow_author_detail extends Fragment {
 
-    private String authorId;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -12,6 +12,6 @@
         tools:layout="@layout/fragment_follow_tags_list" />
     <fragment
         android:id="@+id/followAuthorFragment"
-        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorListFragment"
         android:label="关注用户" />
 </navigation>

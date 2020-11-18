@@ -17,7 +17,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
-import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorFragment;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorListFragment;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 /**
@@ -49,12 +49,12 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     }
 
     //声明自定义的监听接口
-    private FollowAuthorFragment.OnItemClickListener followAuthorItemClickListener;
+    private FollowAuthorListFragment.OnItemClickListener followAuthorItemClickListener;
     /**
      * 描述：提供set方法供Activity或Fragment调用
      * @param listener 监听器
      */
-    public void setItemClickListener(FollowAuthorFragment.OnItemClickListener listener){
+    public void setItemClickListener(FollowAuthorListFragment.OnItemClickListener listener){
         followAuthorItemClickListener=listener;
     }
 
@@ -106,7 +106,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             @Override
             public void onClick(View v) {
                 if (followAuthorItemClickListener!=null){
-                    followAuthorItemClickListener.onItemClick(holder.getAdapterPosition());
+                    followAuthorItemClickListener.onUnFollowButtonClick(holder.getAdapterPosition());
                 }
             }
         });
