@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,24 +12,37 @@
         android:contentDescription="@string/home_to_search_activity_button"
         app:srcCompat="@drawable/ic_baseline_search_24" />
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/news_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<<<< Temporary merge branch 1
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_main_news_view_pager"/>
+
+=========
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+>>>>>>>>> Temporary merge branch 2
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_main_news_view_pager"
         android:layout_width="match_parent"
+<<<<<<<<< Temporary merge branch 1
+        android:layout_height="0dp"
+=========
         android:layout_height="match_parent"
         android:layout_margin="2dp"
+>>>>>>>>> Temporary merge branch 2
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/news_navigation" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

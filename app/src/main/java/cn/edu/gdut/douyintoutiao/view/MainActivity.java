@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -12,6 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.main.UserMainFragment;
@@ -54,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    Fragment mainFragment;
-
-    Fragment userMainFragment;
-
-
-    protected Fragment lastFragment;
-
 
     protected BottomNavigationView bottomNavigationView;
     /**
@@ -74,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
-        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
 
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
@@ -130,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             super(fa);
         }
 
+        @NotNull
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {

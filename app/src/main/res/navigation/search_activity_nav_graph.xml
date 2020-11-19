@@ -11,10 +11,12 @@
         android:label="search_fragment"
         tools:layout="@layout/search_fragment">
         <action
-            android:id="@+id/action_searchFragment_to_placeholder"
-            app:destination="@id/placeholder"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_searchFragment_to_searchDeatilFragment"
+            app:destination="@id/searchDeatilFragment" />
     </fragment>
-    <fragment android:id="@+id/placeholder" />
+    <fragment
+        android:id="@+id/searchDeatilFragment"
+        android:name="cn.edu.gdut.douyintoutiao.view.show.search.view.SearchDetailFragment"
+        android:label="search_deatil_fragment"
+        tools:layout="@layout/search_detail_fragment" />
 </navigation>

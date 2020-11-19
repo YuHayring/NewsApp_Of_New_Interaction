@@ -81,6 +81,9 @@
     <string name="Beautiful_Picture">Beautiful Picture</string>
     <string name="Uploading">Uploading</string>
     <string name="Loading_Complete">Loading Complete, button is disabled</string>
+    <string name="author_name">用户名</string>
+    <string name="author_describe">用户描述</string>
+    <string name="button_unfollow">取消关注按钮</string>
 
 
     <!--页脚-->
@@ -89,5 +92,7 @@
     <!--搜索页面-->
     <string name="search_input_text_hint">请输入搜索信息</string>
     <string name="search_input_button_msg">去搜索</string>
+    <string name="search_show_news_msg">文字资讯</string>
+    <string name="search_show_video_msg">视频资讯</string>
 
 </resources>

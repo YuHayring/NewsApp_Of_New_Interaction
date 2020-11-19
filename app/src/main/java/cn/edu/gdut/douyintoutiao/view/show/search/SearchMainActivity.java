@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import cn.edu.gdut.douyintoutiao.R;
 
+/**
+ * @author cypang
+ */
 public class SearchMainActivity extends AppCompatActivity {
 
 

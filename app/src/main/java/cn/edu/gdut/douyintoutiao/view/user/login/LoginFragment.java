@@ -1,6 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.user.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import org.jetbrains.annotations.NotNull;
+
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
@@ -22,7 +26,6 @@ import es.dmoral.toasty.Toasty;
 
 /**
  * @author cypang
- * @date 2020年11月11日20:18:05
  */
 public class LoginFragment extends Fragment implements Callback<Result<User>> {
 
@@ -71,7 +74,7 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater);
@@ -92,19 +95,23 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
             navController.navigate(R.id.action_loginFragment_to_resign);
         });
         //登陆按钮
-        binding.button.setOnClickListener(v -> {
-            viewModel.login();
-        });
+        binding.button.setOnClickListener(v ->
+                viewModel.login());
     }
 
     @Override
     public void returnResult(Result<User> result) {
         if (result.getLogin()) {
-            Toasty.success(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+            //保存用户登录的id
+            SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = shp.edit();
+            editor.putString("userId", result.getData().get(0).getUserId());
+            editor.apply();
+            Toasty.success(requireContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
         } else {
-            Toasty.error(getContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
+            Toasty.error(requireContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
         }
     }
 }

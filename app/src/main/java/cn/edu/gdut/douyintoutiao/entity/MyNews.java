@@ -1,7 +1,6 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author : cypang
@@ -40,7 +39,17 @@ public class MyNews implements Serializable {
      */
     private String updatedAt;
 
+    /**
+     * 新闻具体的uri
+     */
     private String newsDetailUrl;
+
+
+    /**
+     * 新闻tag
+     */
+
+    private String tag;
 
     public MyNews() {
     }
@@ -121,6 +130,11 @@ public class MyNews implements Serializable {
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
                 ", newsDetailUrl='" + newsDetailUrl + '\'' +
+                ", tag='" + tag + '\'' +
                 '}';
+    }
+
+    public String getTag() {
+        return tag;
     }
 }

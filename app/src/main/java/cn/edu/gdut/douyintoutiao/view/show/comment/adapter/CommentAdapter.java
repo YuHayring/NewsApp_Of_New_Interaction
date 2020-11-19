@@ -61,7 +61,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewUserPic = itemView.findViewById(R.id.imageViewUserImage);
-            textViewUsername = itemView.findViewById(R.id.textViewUsername);
+            textViewUsername = itemView.findViewById(R.id.author_name);
             textViewCommentContent = itemView.findViewById(R.id.textViewCommentContent);
             textViewCommentTime = itemView.findViewById(R.id.textViewCommentTime);
         }
