@@ -9,6 +9,13 @@ import java.io.Serializable;
  * @date : 2020/11/11 20:24
  */
 public class MyNews implements Serializable {
+
+    public static final int TEXT = 0;
+
+    public static final int VIDEO = 1;
+
+
+
     /**
      * 资讯 id
      */
@@ -43,6 +50,11 @@ public class MyNews implements Serializable {
      * 新闻具体的uri
      */
     private String newsDetailUrl;
+
+    /**
+     * 新闻类型
+     */
+    private Integer type;
 
 
     /**
@@ -130,6 +142,7 @@ public class MyNews implements Serializable {
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
                 ", newsDetailUrl='" + newsDetailUrl + '\'' +
+                ", type=" + type +
                 ", tag='" + tag + '\'' +
                 '}';
     }

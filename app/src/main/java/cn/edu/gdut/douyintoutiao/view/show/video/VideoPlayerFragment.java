@@ -24,7 +24,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.entity.News;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -45,9 +45,9 @@ public class VideoPlayerFragment extends Fragment {
 
 
     //当前新闻
-    private News news;
+    private MyNews news;
 
-    public VideoPlayerFragment(Context context, News news) {
+    public VideoPlayerFragment(Context context, MyNews news) {
         super();
         this.context = context;
         this.news = news;
@@ -96,7 +96,7 @@ public class VideoPlayerFragment extends Fragment {
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
             try {
 //                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
-                mPlayer.setDataSource(news.getNewsUrl());
+                mPlayer.setDataSource(news.getNewsDetailUrl());
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
@@ -237,11 +237,11 @@ public class VideoPlayerFragment extends Fragment {
 
 
 
-    public News getNews() {
+    public MyNews getMyNews() {
         return news;
     }
 
-    public void setNews(News news) {
+    public void setMyNews(MyNews news) {
         this.news = news;
     }
 }

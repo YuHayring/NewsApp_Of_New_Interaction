@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.entity.News;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 
 /**
  * @author hayring
@@ -18,7 +18,7 @@ public class VideoPlayerViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     public interface OnVideoGotCallBack {
-        void onSuccess(List<News> newses);
+        void onSuccess(List<MyNews> newses);
 
         void onFaile(String errorInfo);
     }
@@ -30,7 +30,7 @@ public class VideoPlayerViewModel extends ViewModel {
 
     private OnVideoGotCallBack videoGotCallBack = new OnVideoGotCallBack() {
         @Override
-        public void onSuccess(List<News> newses) {
+        public void onSuccess(List<MyNews> newses) {
             activity.getAdapter().addAllAndNotify(newses);
         }
 
@@ -54,7 +54,7 @@ public class VideoPlayerViewModel extends ViewModel {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            List<News> newses = (List)msg.obj;
+            List<MyNews> newses = (List)msg.obj;
             activity.getAdapter().addAllAndNotify(newses);
         }
     };

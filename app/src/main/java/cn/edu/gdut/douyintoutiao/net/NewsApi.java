@@ -8,6 +8,7 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 
 /**
@@ -18,6 +19,13 @@ public interface NewsApi {
 
     @GET("newsList")
     Call<Result<MyNews>> getNewsList();
+
+
+    @GET("videoList")
+    Call<List<MyNews>> getVideoList(@Field("index") int index, @Field("count") int count);
+
+    @GET("videoList")
+    Call<List<MyNews>> getVideoList();
 
 
     /**

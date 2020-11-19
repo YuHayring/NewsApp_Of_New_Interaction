@@ -36,8 +36,7 @@ import java.util.TimerTask;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityFullscreenBinding;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
@@ -66,7 +65,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
     List<Fragment> fragments = new ArrayList<>();
 
-    List<News> newses = new ArrayList<>();
+    List<MyNews> newses = new ArrayList<>();
 
     VideoPlayerModel videoPlayerModel;
 
