@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.Follow;
+import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
@@ -25,19 +26,22 @@ public class FollowRepository {
 
     private final MutableLiveData<List<Follow>> data;
     private final FollowApi followApi;
-    private static final String FollowTAG = "followList";
+    private static final String followTAG = "followList";
     private static final String authorTag = "authorInfo";
+    private static final String newsTag = "newsList";
     private final MutableLiveData<List< User >> authorData;
+    private final MutableLiveData<List< FollowNews >>  newsData;
 
     public FollowRepository(FollowApi followApi) {
         this.followApi = followApi;
         this.data = new MutableLiveData<>();
         this.authorData = new MutableLiveData<>();
+        this.newsData = new MutableLiveData<>();
     }
 
 
     public LiveData<List<Follow>> getFollowList() {
-        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowList();
+        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowAuthorList();
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
@@ -45,12 +49,12 @@ public class FollowRepository {
                 //检查
                 System.out.println("0.response:"+response.body().getData());
 
-                Log.d(FollowTAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+                Log.d(followTAG, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(FollowTAG, "onFailure: getFollowList请求失败 ");
+                Log.d(followTAG, "onFailure: getFollowList请求失败 ");
             }
         });
 
@@ -64,12 +68,12 @@ public class FollowRepository {
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
-                Log.d(FollowTAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
+                Log.d(followTAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(FollowTAG, "onFailure: deleteFollowListByFollowId请求失败 ");
+                Log.d(followTAG, "onFailure: deleteFollowListByFollowId请求失败 ");
             }
         });
     }
@@ -96,5 +100,29 @@ public class FollowRepository {
 
         return authorData;
     }
+
+     public LiveData<List<FollowNews>> getFollowTagsList(String userId) {
+        Map<String,String> userIdMap = new HashMap<>();
+        userIdMap.put("userId",userId);
+        Call<Result<FollowNews>> call = followApi.getFollowTagsList(userIdMap);
+        call .enqueue(new Callback< Result< FollowNews > >() {
+            @Override
+            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+                newsData.postValue(response.body().getData());
+                System.out.println("getFollowTagsListResponse:"+response.body().getData());
+                Log.d(newsTag,"onResponse"+response.body().getCode()+""+response.body().getMsg());
+            }
+
+            @Override
+            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
+
+                Log.d(newsTag,"查询关注事件失败");
+            }
+        });
+
+        return newsData;
+     }
+
+
 
 }
