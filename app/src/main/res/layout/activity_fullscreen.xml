@@ -32,6 +32,16 @@
         android:layout_width="match_parent"
         android:id="@+id/full_screen_float_button"
         >
+
+        <TextView
+            android:id="@+id/video_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
             android:layout_width="wrap_content"

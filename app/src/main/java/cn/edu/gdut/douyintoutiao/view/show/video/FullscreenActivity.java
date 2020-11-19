@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -37,6 +38,7 @@ import java.util.TimerTask;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityFullscreenBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
@@ -107,6 +109,17 @@ public class FullscreenActivity extends AppCompatActivity {
         viewBinding = ActivityFullscreenBinding.inflate(LayoutInflater.from(this));
         setContentView(viewBinding.getRoot());
 
+
+
+
+
+        //标题 textview 显示大小修改
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewBinding.videoTitleTextView.getLayoutParams();
+        layoutParams.width = UIUtil.getScreenWidth(this)
+                - UIUtil.dip2px(this,150) - 1;
+        viewBinding.videoTitleTextView.setLayoutParams(layoutParams);
+
+
 //        controlView();
 //        videoPlayerFragment = new VideoPlayerFragment(this);//MainFragment(this);
 //
@@ -117,10 +130,13 @@ public class FullscreenActivity extends AppCompatActivity {
         videoPlayerModel = new VideoPlayerModel();
         videoPlayerViewModel = new VideoPlayerViewModel(this);
         videoPlayerViewModel.setVideoPlayerModel(videoPlayerModel);
+        videoPlayerViewModel.setViewBinding(viewBinding);
 
 
         adapter = new VideoStateAdapter(this, fragments, newses);
         viewBinding.videoViewPager.setAdapter(adapter);
+        viewBinding.videoViewPager.registerOnPageChangeCallback(videoPlayerViewModel.getOnPageChangeCallback());
+        videoPlayerViewModel.setAdapter(adapter);
 
 
 
@@ -214,9 +230,10 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
         viewBinding.floatButtonWaker.setOnClickListener(v -> {
-            if (viewBinding.multipleActions.getVisibility() == View.INVISIBLE) {
-                viewBinding.multipleActions.setVisibility(View.VISIBLE);
+            if (viewBinding.fullScreenFloatButton.getVisibility() == View.INVISIBLE) {
+                viewBinding.fullScreenFloatButton.setVisibility(View.VISIBLE);
                 viewBinding.floatButtonWaker.setClickable(false);
+                hiddenHandler.postDelayed(hideFloatButtonFunction,  FLOAT_BUTTON_HIDE_TIME);
             }
         });
 
@@ -227,7 +244,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private Runnable hideFloatButtonFunction = new Runnable() {
         @Override
         public void run() {
-            viewBinding.multipleActions.setVisibility(View.INVISIBLE);
+            viewBinding.fullScreenFloatButton.setVisibility(View.INVISIBLE);
             viewBinding.floatButtonWaker.setClickable(true);
         }
     };
@@ -256,4 +273,7 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
 
+    public List<MyNews> getNewses() {
+        return newses;
+    }
 }

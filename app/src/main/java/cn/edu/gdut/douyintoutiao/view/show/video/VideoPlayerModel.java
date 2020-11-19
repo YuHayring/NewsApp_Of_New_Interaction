@@ -58,6 +58,14 @@ public class VideoPlayerModel {
         NewsApi.getNewsApi().getVideoList().enqueue(videoGetCallBack);
     }
 
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void getMoreVideoNews(int index) {
+        NewsApi.getNewsApi().getVideoList(index, 5).enqueue(videoGetCallBack);
+    }
+
 
     public void setOnVideoGotHandler(Handler onVideoGotHandler) {
         this.onVideoGotHandler = onVideoGotHandler;
@@ -69,7 +77,12 @@ public class VideoPlayerModel {
         @Override
         public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
             Message message = new Message();
-            message.obj = response.body();
+            if (response.code() == 200) {
+                message.arg1 = 200;
+                message.obj = response.body();
+            } else {
+                message.arg1 = response.code();
+            }
             onVideoGotHandler.sendMessage(message);
         }
 
@@ -78,6 +91,7 @@ public class VideoPlayerModel {
 
         }
     };
+
 
 
 }
