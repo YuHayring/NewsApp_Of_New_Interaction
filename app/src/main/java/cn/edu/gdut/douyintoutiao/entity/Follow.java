@@ -36,10 +36,13 @@ public class Follow implements Serializable {
     @SerializedName("objectId_author")
     private List<User> author;
 
-    public Follow(String followId, List< User > follower, List< User > author) {
+    private boolean isFollow;
+
+    public Follow(String followId, List< User > follower, List< User > author, boolean isFollow) {
         this.followId = followId;
         this.follower = follower;
         this.author = author;
+        this.isFollow = isFollow;
     }
 
     public String getFollowId() {
@@ -72,6 +75,7 @@ public class Follow implements Serializable {
                 "followId='" + followId + '\'' +
                 ", follower=" + follower +
                 ", author=" + author +
+                ", isFollow=" + isFollow +
                 '}';
     }
 }

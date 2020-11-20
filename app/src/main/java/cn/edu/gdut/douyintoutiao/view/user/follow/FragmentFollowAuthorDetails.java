@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -43,6 +44,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     private FollowAuthorDetailsViewModel followAuthorDetailsViewModel;
     private @NonNull FragmentFollowAuthorDetailsBinding fragmentFollowAuthorDetailsBinding;
     private String userId;
+    private String followId;
   //  private OnFragmentInteractionListener mListener;
 
     public FragmentFollowAuthorDetails() {
@@ -109,6 +111,16 @@ public class FragmentFollowAuthorDetails extends Fragment {
                         .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
                         .error(R.drawable.friends) // 出错加载的图片
                         .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+
+                fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
+                fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
+                        Toast.makeText(getContext(),"已取消关注"+list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+                    }
+                });
             }
 
         });
@@ -120,6 +132,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         userId = ((ActivityFollowAuthorDetails)context).getUserId();
+        followId = ((ActivityFollowAuthorDetails)context).getFollowId();
         System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
     }
 

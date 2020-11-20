@@ -30,4 +30,8 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
     public LiveData< List< User > > queryUserByUserId (String userId){
         return followAuthorDetailsRepository.queryUserByUserId(userId);
     }
+
+    public void deleteFollowListByFollowId(String followId){
+        followAuthorDetailsRepository.deleteFollowListByFollowId(followId);
+    }
 }

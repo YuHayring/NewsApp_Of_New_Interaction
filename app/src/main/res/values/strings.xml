@@ -83,7 +83,7 @@
     <string name="Loading_Complete">Loading Complete, button is disabled</string>
     <string name="author_name">用户名</string>
     <string name="author_describe">用户描述</string>
-    <string name="button_unfollow">取消关注按钮</string>
+    <string name="button_authorList_unfollow">取消关注按钮</string>
 
 
     <!--页脚-->
@@ -97,5 +97,7 @@
     <string name="AuthorDetails">被关注者页面</string>
     <string name="textView_author_name">作者名字</string>
     <string name="follow_author_details_describe">作者描述</string>
+    <string name="AuthorDetailsImage">被关注者（作者）头像</string>
+    <string name="FollowAuthorDetailsImage">被关注者头像</string>
 
 </resources>

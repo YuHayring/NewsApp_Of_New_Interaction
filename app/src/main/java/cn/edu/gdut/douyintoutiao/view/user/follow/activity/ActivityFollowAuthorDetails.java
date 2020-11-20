@@ -12,6 +12,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsV
 public class ActivityFollowAuthorDetails extends AppCompatActivity  {
 
     private String userId;
+    private String followId;
 
     private TextView textView;
     private FollowAuthorDetailsViewModel followAuthorDetailsViewModel;
@@ -40,5 +41,11 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     public String getUserId() {
         getUserInfo();
         return userId;
+    }
+
+    public String getFollowId() {
+        Intent in = getIntent();
+        followId = in .getStringExtra("followId");
+        return followId;
     }
 }

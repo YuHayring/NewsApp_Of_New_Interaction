@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView followImage;
         TextView followName;
-        ImageButton unfollowButton;
+        Button unfollowButton;
         TextView  followDescribe;
 
         public ViewHolder(View view) {
@@ -73,7 +74,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             //imgage尚未解决
             followImage = (ImageView) view.findViewById(R.id.author_image);
             followName = (TextView) view.findViewById(R.id.textView_item_author_name);
-            unfollowButton = (ImageButton) view.findViewById(R.id.button_item_unfollow);
+            unfollowButton = (Button) view.findViewById(R.id.button_unfollow_author_list);
             followDescribe = (TextView) view.findViewById(R.id.textView_item_author_describe);
         }
     }
@@ -93,6 +94,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             public void onClick(View v) {
                 if (followAuthorItemClickListener!=null){
                     followAuthorItemClickListener.onUnFollowButtonClick(holder.getAdapterPosition());
+                    holder.unfollowButton.setText("关注");
                 }
             }
         });
@@ -115,7 +117,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
         Follow s = follows.get(position);
         holder.followName.setText(s.getAuthor().get(0).getUserName());
         holder.followDescribe.setText(s.getAuthor().get(0).getUserDescription());
-
+        holder.unfollowButton.setText("已关注");
         Glide.with(holder.itemView)//当前类context
                 .load(s.getAuthor().get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
                 .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片

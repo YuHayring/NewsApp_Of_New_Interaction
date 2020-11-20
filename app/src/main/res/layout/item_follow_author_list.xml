@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.88" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
@@ -39,10 +39,10 @@
     <TextView
         android:id="@+id/textView_item_author_name"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/author_name"
+        android:textAlignment="inherit"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
@@ -54,14 +54,17 @@
         android:id="@+id/textView_item_author_describe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="15dp"
         android:text="@string/author_describe"
+        android:textAlignment="inherit"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline28"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
-        app:layout_constraintTop_toTopOf="@+id/guideline27" />
+        app:layout_constraintTop_toTopOf="@+id/guideline27"
+        app:layout_constraintVertical_bias="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline26"
@@ -77,20 +80,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
 
-    <ImageButton
-        android:id="@+id/button_item_unfollow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/button_unfollow"
+    <Button
+        android:id="@+id/button_unfollow_author_list"
+        android:layout_width="48dp"
+        android:layout_height="140dp"
+        android:scrollbarThumbVertical="@color/light_blue_600"
+        android:text="@string/button_authorList_unfollow"
+        android:textColor="@color/background"
+        android:textColorHighlight="@color/black"
+        android:textColorHint="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="14sp"
+        app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline28"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_delete_24"
-        tools:srcCompat="@drawable/ic_baseline_delete_24" />
+        app:layout_constraintVertical_bias="0.0"
+        app:rippleColor="@color/blue_semi_transparent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

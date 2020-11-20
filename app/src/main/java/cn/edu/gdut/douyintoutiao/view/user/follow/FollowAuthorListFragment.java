@@ -128,14 +128,15 @@ public class FollowAuthorListFragment extends Fragment {
             @Override
             public void onItemViewClick(int position) {
                 //启动被关注者activity
-                startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId());
+                startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId(),followListAdapter.getFollows().get(position).getFollowId());
             }
 
-            private void startActivityAuthorDetails(String id){
+            private void startActivityAuthorDetails(String userId ,String followId){
                 Intent startIntent = new Intent(getActivity(),
                         ActivityFollowAuthorDetails.class);
                 //传递当前item的数据信息
-                startIntent.putExtra("userId",id);
+                startIntent.putExtra("userId",userId);
+                startIntent.putExtra("followId",followId);
                 startActivity(startIntent);
             }
         });
