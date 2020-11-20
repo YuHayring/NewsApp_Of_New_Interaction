@@ -14,7 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowListAdapter;
+//import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
+
 /**
  * @author hayring
  * @date 2020/11/7 21:25
@@ -71,5 +75,9 @@ public class UserMainFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
     }
+
+
 }

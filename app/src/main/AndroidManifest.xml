@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".view.show.search.SearchMainActivity"></activity>
+        <activity android:name=".view.user.follow.activity.ActivityFollowAuthorDetails"></activity>
+        <activity android:name=".view.show.search.SearchMainActivity" />
         <activity android:name=".tmp.TestActivity" />
         <activity android:name=".view.show.text.NewsActivity" /> <!-- 此处开启了强制竖屏的操作 -->
         <activity android:name=".view.FirstActivity">
@@ -32,6 +33,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.user.follow.activity.FollowListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.user.follow.activity.Activity_Follow_Author"
             android:screenOrientation="portrait" />
     </application>
 
