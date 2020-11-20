@@ -114,6 +114,8 @@ public class ResignFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         //悬浮窗测试
         //举报按钮
         binding.actionJinggao.setOnClickListener(new View.OnClickListener(){
