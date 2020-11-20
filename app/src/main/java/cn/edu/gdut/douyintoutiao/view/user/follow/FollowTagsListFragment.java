@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,6 +138,17 @@ public class FollowTagsListFragment extends Fragment {
             public void onChanged(List< FollowNews > followNewsList) {
                 followTagsListAdapter.setDataList(followNewsList);
                 followTagsListAdapter.notifyDataSetChanged();
+
+                //下拉刷新控件SwipeRefreshLayout
+                fragmentFollowTagsListBinding.FollowTagsListRefresh.setRefreshing(false);
+            }
+        });
+
+        //下拉刷新控件SwipeRefreshLayout
+        fragmentFollowTagsListBinding.FollowTagsListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                followTagsViewModel.getFollowTagsList();
             }
         });
     }

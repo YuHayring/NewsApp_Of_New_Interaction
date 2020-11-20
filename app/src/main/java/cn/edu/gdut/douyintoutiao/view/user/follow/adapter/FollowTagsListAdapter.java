@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.nio.Buffer;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
@@ -37,9 +39,9 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     static class ViewHolder extends RecyclerView.ViewHolder {
 //        ImageView newsImage;
 //        TextView newsName;
-TextView textViewHeader, textViewAbstract;
+        TextView textViewHeader, textViewAbstract;
         ImageView imageViewPic;
-
+        Button unFollowButton;
         public ViewHolder(View view) {
             super(view);
 //            newsImage = (ImageView) view.findViewById(R.id.test_image);
@@ -48,6 +50,7 @@ TextView textViewHeader, textViewAbstract;
             textViewHeader = itemView.findViewById(R.id.textViewHeader);
             textViewAbstract = itemView.findViewById(R.id.textViewAbstract);
             imageViewPic = itemView.findViewById(R.id.imageViewPic);
+            unFollowButton = itemView.findViewById(R.id.button_unFollow_tags_list_);
         }
     }
 
@@ -94,7 +97,7 @@ TextView textViewHeader, textViewAbstract;
 //        });
         ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.item_follow_tags_list, parent, false);
         viewHolder = new ViewHolder(itemView);
 
         return viewHolder;
@@ -116,6 +119,7 @@ TextView textViewHeader, textViewAbstract;
         holder.textViewAbstract.setText(data.getFollowNews().get(0).getNewsAbstract());
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
         Glide.with(holder.itemView).load(Uri.parse(data.getFollowNews().get(0).getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
+        holder.unFollowButton.setText("已关注");
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了

@@ -102,12 +102,12 @@ public class FollowAuthorListFragment extends Fragment {
                 followListAdapter.setFollows(lists);
                 followListAdapter.notifyDataSetChanged();
                 //下拉刷新控件SwipeRefreshLayout
-                fragmentFollowAuthorListBinding.FollowListRefresh.setRefreshing(false);
+                fragmentFollowAuthorListBinding.FollowAuthorListRefresh.setRefreshing(false);
 
             }
         });
         //下拉刷新控件SwipeRefreshLayout
-        fragmentFollowAuthorListBinding.FollowListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        fragmentFollowAuthorListBinding.FollowAuthorListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 followAuthorViewModel.getFollowList();

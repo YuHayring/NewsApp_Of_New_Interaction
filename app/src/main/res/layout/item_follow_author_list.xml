@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.88" />
+        app:layout_constraintGuide_percent="0.86" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
@@ -26,20 +26,21 @@
     <ImageView
         android:id="@+id/author_image"
         android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/comment_user_image_msg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline21"
-        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_emoji_people_24"
-        tools:srcCompat="@drawable/ic_baseline_emoji_people_24" />
+        app:srcCompat="@drawable/friends"
+        tools:srcCompat="@drawable/friends" />
 
     <TextView
         android:id="@+id/textView_item_author_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="40dp"
         android:text="@string/author_name"
         android:textAlignment="inherit"
@@ -82,8 +83,9 @@
 
     <Button
         android:id="@+id/button_unfollow_author_list"
-        android:layout_width="48dp"
+        android:layout_width="0dp"
         android:layout_height="140dp"
+        android:layout_marginBottom="10dp"
         android:scrollbarThumbVertical="@color/light_blue_600"
         android:text="@string/button_authorList_unfollow"
         android:textColor="@color/background"
@@ -97,7 +99,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline28"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:rippleColor="@color/blue_semi_transparent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
