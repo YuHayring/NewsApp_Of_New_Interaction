@@ -1,5 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -155,9 +157,24 @@ public class FollowTagsListFragment extends Fragment {
         followTagsListAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onUnFollowButtonClick(int position) {
-                //取消关注警告窗口待补充
-                Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
-                followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
+
+                //补充取消关注警告窗口
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setIcon(R.drawable.ic_baseline_warning_24)
+                        .setTitle("取消关注?")
+                        .setMessage("确定要取消关注"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName()+"吗")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
+                                followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
+                            }
+                        })
+                        .create().show();
+//
+//                Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
+//                followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
             }
 
             @Override
