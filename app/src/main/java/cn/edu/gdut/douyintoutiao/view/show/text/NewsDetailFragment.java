@@ -72,13 +72,6 @@ public class NewsDetailFragment extends Fragment {
         });
         //设置tag
         binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
-        //tag页面跳转
-        binding.buttonSeeTags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toasty.normal(requireContext(), "你点击了tag按钮", Toasty.LENGTH_SHORT).show();
-            }
-        });
 
         binding.buttonPostComment.setOnClickListener((v) -> {
             new MaterialDialog.Builder(requireContext())
