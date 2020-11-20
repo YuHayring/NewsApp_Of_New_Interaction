@@ -1,23 +1,49 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.DisplayCutout;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.entity.News;
+import cn.edu.gdut.douyintoutiao.databinding.ActivityFullscreenBinding;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
+import es.dmoral.toasty.Toasty;
+
+import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
+import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
+import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -30,17 +56,24 @@ public class FullscreenActivity extends AppCompatActivity {
 
 //    Fragment videoPlayerFragment;
 
-    ViewPager2 videoViewPager;
+    /**
+     * 多久没操作悬浮窗就隐藏
+     */
+    private static final long FLOAT_BUTTON_HIDE_TIME = 5000l;
+
+
 
     private VideoStateAdapter adapter;
 
     List<Fragment> fragments = new ArrayList<>();
 
-    List<News> newses = new ArrayList<>();
+    List<MyNews> newses = new ArrayList<>();
 
-    VideoPlayerModel videoPlayerModel = new VideoPlayerModel();
+    VideoPlayerModel videoPlayerModel;
 
-    VideoPlayerViewModel videoPlayerViewModel = new VideoPlayerViewModel(this);
+    VideoPlayerViewModel videoPlayerViewModel;
+
+    ActivityFullscreenBinding viewBinding;
 
 
     @Override
@@ -71,7 +104,21 @@ public class FullscreenActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(systemUiVisibility);
         Log.d("systemUiVisibility set",""+systemUiVisibility);
 
-        setContentView(R.layout.activity_fullscreen);
+//        setContentView(R.layout.activity_fullscreen);
+        //设置布局文件
+        viewBinding = ActivityFullscreenBinding.inflate(LayoutInflater.from(this));
+        setContentView(viewBinding.getRoot());
+
+
+
+
+
+        //标题 textview 显示大小修改
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewBinding.videoTitleTextView.getLayoutParams();
+        layoutParams.width = UIUtil.getScreenWidth(this)
+                - UIUtil.dip2px(this,150) - 1;
+        viewBinding.videoTitleTextView.setLayoutParams(layoutParams);
+
 
 //        controlView();
 //        videoPlayerFragment = new VideoPlayerFragment(this);//MainFragment(this);
@@ -80,47 +127,153 @@ public class FullscreenActivity extends AppCompatActivity {
 //        //显示 Fragment
 //        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, videoPlayerFragment).show(videoPlayerFragment).commitAllowingStateLoss();
 
+        videoPlayerModel = new VideoPlayerModel();
+        videoPlayerViewModel = new VideoPlayerViewModel(this);
         videoPlayerViewModel.setVideoPlayerModel(videoPlayerModel);
+        videoPlayerViewModel.setViewBinding(viewBinding);
 
 
         adapter = new VideoStateAdapter(this, fragments, newses);
-        videoViewPager = findViewById(R.id.video_view_pager);
-        videoViewPager.setAdapter(adapter);
+        viewBinding.videoViewPager.setAdapter(adapter);
+        viewBinding.videoViewPager.registerOnPageChangeCallback(videoPlayerViewModel.getOnPageChangeCallback());
+        videoPlayerViewModel.setAdapter(adapter);
 
 
+
+
+//        viewBinding.floatButton.bringToFront();
+
+
+
+        //悬浮窗测试
+        //举报按钮
+        viewBinding.actionJinggao.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toasty.success(FullscreenActivity.this, "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //点赞按钮
+        viewBinding.actionDianzan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                boolean flag = true;
+                if(flag){
+                    viewBinding.actionDianzan.setIcon(red_dianzan);
+                    flag=false;
+                }else{
+                    flag=true;
+                    viewBinding.actionDianzan.setIcon(red_dianzan);
+                }
+                Toasty.success(FullscreenActivity.this, "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //不感兴趣
+        viewBinding.actionBuganxingqu.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toasty.success(FullscreenActivity.this, "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //作者
+        viewBinding.actionZuozhe.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toasty.success(FullscreenActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //关注
+        viewBinding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                boolean flag = true;
+                if(flag){
+                    viewBinding.actionGuanzhu.setIcon(yellow_guanzhu);
+                    flag=false;
+                }else{
+                    flag=true;
+                    viewBinding.actionGuanzhu.setIcon(guanzhu);
+                }
+
+                Toasty.success(FullscreenActivity.this, "关注！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //文字转视频
+        viewBinding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toasty.success(FullscreenActivity.this, "文字转视频！", Toasty.LENGTH_SHORT, true).show();
+            }
+        });
+        //评论
+        viewBinding.actionPinglun.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toasty.success(FullscreenActivity.this, "评论！", Toasty.LENGTH_SHORT, true).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("newsId", FullscreenActivity.this.getIntent().getStringExtra("newsId"));
+//                NavController controller = Navigation.findNavController(v);
+//                controller.navigate(R.id.commentFragment, bundle);
+            }
+        });
+
+        viewBinding.multipleActions.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+                hiddenHandler.removeCallbacks(hideFloatButtonFunction);
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+                hiddenHandler.postDelayed(hideFloatButtonFunction,  FLOAT_BUTTON_HIDE_TIME);
+            }
+        });
+
+        viewBinding.floatButtonWaker.setOnClickListener(v -> {
+            if (viewBinding.fullScreenFloatButton.getVisibility() == View.INVISIBLE) {
+                viewBinding.fullScreenFloatButton.setVisibility(View.VISIBLE);
+                viewBinding.floatButtonWaker.setClickable(false);
+                hiddenHandler.postDelayed(hideFloatButtonFunction,  FLOAT_BUTTON_HIDE_TIME);
+            }
+        });
 
     }
+
+    private Handler hiddenHandler = new Handler(Looper.myLooper());
+
+    private Runnable hideFloatButtonFunction = new Runnable() {
+        @Override
+        public void run() {
+            viewBinding.fullScreenFloatButton.setVisibility(View.INVISIBLE);
+            viewBinding.floatButtonWaker.setClickable(true);
+        }
+    };
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         videoPlayerModel.getVideoNews();
+        hideFloatButtonFunction.run();
 
     }
 
-//    public void controlView(){
-//        View decorView = getWindow().getDecorView();
-//        if(decorView != null){
-////            Log.d("hwj", "**controlView**" + android.os.Build.VERSION.SDK_INT);
-////            Log.d("hwj", "**controlView**" + android.os.Build.VERSION_CODES.P);
-//            WindowInsets windowInsets = decorView.getRootWindowInsets();
-//            if(windowInsets != null){
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-//                    DisplayCutout displayCutout = windowInsets.getDisplayCutout();
-////                    //getBoundingRects返回List<Rect>,没一个list表示一个不可显示的区域，即刘海屏，可以遍历这个list中的Rect,
-////                    //即可以获得每一个刘海屏的坐标位置,当然你也可以用类似getSafeInsetBottom的api
-////                    Log.d("hwj", "**controlView**" + displayCutout.getBoundingRects());
-////                    Log.d("hwj", "**controlView**" + displayCutout.getSafeInsetBottom());
-////                    Log.d("hwj", "**controlView**" + displayCutout.getSafeInsetLeft());
-////                    Log.d("hwj", "**controlView**" + displayCutout.getSafeInsetRight());
-////                    Log.d("hwj", "**controlView**" + displayCutout.getSafeInsetTop());
-//                }
-//            }
-//        }
-//    }
 
 
     public VideoStateAdapter getAdapter() {
         return adapter;
+    }
+
+
+    public List<MyNews> getNewses() {
+        return newses;
     }
 }

@@ -17,8 +17,6 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         NavController controller = Navigation.findNavController(this, R.id.fragmentNewsList);
 
+
     }
-
-
-
 }

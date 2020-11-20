@@ -98,4 +98,9 @@
     <string name="textView_author_name">作者名字</string>
     <string name="follow_author_details_describe">作者描述</string>
 
+    <!-- 视频播放页 -->
+    <string name="video_play_requesting">正在刷新中,请稍等...</string>
+
+    <string name="video_play_request_fail">网络请求失败,错误码:</string>
+
 </resources>
