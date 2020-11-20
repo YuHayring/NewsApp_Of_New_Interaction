@@ -124,5 +124,23 @@ public class FollowRepository {
      }
 
 
+    public void deleteFollowTagsByFollowNewsId(String followNewsId){
+        Map<String, String> followNewsIdMap = new HashMap<>();
+        followNewsIdMap.put("_id", followNewsId);
+        Call<Result<FollowNews>> call = (Call<Result<FollowNews>>) followApi.deleteFollowTagsByFollowNewsId(followNewsIdMap);
+        call.enqueue(new Callback< Result< FollowNews > >() {
+            @Override
+            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+                Log.d(newsTag, "deleteTagsResponse: " + response.body().getCode() + " " + response.body().getMsg());
+
+            }
+
+            @Override
+            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
+                Log.d(followTAG, "onFailure: deleteFollowTagsByFollowNewsId ");
+            }
+        });
+    }
+
 
 }

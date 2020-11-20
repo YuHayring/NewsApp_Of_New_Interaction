@@ -33,4 +33,8 @@ public class FollowTagsViewModel  extends AndroidViewModel {
        return followRepository.getFollowTagsList(userId);
     }
 
+    public void deleteFollowTagsByFollowNewsId (String followNewsId){
+        followRepository.deleteFollowTagsByFollowNewsId(followNewsId);
+    }
+
 }

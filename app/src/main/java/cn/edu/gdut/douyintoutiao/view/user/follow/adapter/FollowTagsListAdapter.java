@@ -24,6 +24,7 @@ import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.News;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowTagsListFragment;
 
 public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAdapter.ViewHolder>{
 
@@ -31,6 +32,8 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     private List< FollowNews > dataList;
     private final Activity activity ;
 
+    //声明自定义的监听接口
+    private FollowTagsListFragment.OnItemClickListener followTagsItemClickListener;
 
     //首先定义了一个内部类ViewHolder , ViewHolder 要继承自RecyclerView.ViewHolder 。然后
     //ViewHolder 的构造函数中要传入一个View 参数， 这个参数通常就是RecyclerView 子项的最外
@@ -58,12 +61,22 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
         this.dataList = dataList;
     }
 
+    public List< FollowNews > getDataList() {
+        return dataList;
+    }
+
     //FruitAdapter中也有一个构造函数， 这个方法用于把要展示的数据源传进来，
     //并赋值给一个全局变量mFru过List , 我们后续的操作都将在这个数据源的基础上进行
 //    public FollowTagsListAdapter(List<News> list) {
 //        newsList = list;
 //
 //    }
+
+
+    public void setOnItemClickListener(FollowTagsListFragment.OnItemClickListener onItemClickListener) {
+        this.followTagsItemClickListener = onItemClickListener;
+    }
+
     public FollowTagsListAdapter(Activity activity) {
         this.activity = activity;
     }
@@ -76,29 +89,33 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_follow_tags_list, parent, false);
- //       ViewHolder holder = new ViewHolder(view);
-//
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {//对加载的子项注册监听事件
-//            @Override
-//            public void onClick(View view) {
-//                int position = holder.getAdapterPosition();
-//                News news = newsList.get(position);
-//                Toast.makeText(view.getContext(), " 你点击了" + news.getNewsName(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {//对子项里的Image注册监听事件
-//            @Override
-//            public void onClick(View view) {
-//                int position = holder.getAdapterPosition();
-//                News news   = newsList.get(position);
-//                Toast.makeText(view.getContext(), " 你点击了" + news.getNewsName(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
         ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.item_follow_tags_list, parent, false);
         viewHolder = new ViewHolder(itemView);
+
+        /**
+         * 描述：将监听传递给自定义接口
+         */
+        viewHolder.unFollowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followTagsItemClickListener!=null){
+                    followTagsItemClickListener.onUnFollowButtonClick(viewHolder.getAdapterPosition());
+                    viewHolder.unFollowButton.setText("关注");
+                }
+            }
+        });
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followTagsItemClickListener!=null) {
+                    followTagsItemClickListener.onItemViewClick(viewHolder.getAdapterPosition());
+                }
+            }
+        });
 
         return viewHolder;
     }

@@ -35,6 +35,8 @@ public interface FollowApi {
     @Headers("Content-Type: application/json;charset=UTF-8")
     Call<Result< FollowNews >> getFollowTagsList(@Body Map<String,String> usrIdMap);
 
+    @POST("delete_tags_follow_list")
+    Call<Result< FollowNews>> deleteFollowTagsByFollowNewsId (@Body Map<String,String> followNewsIdMap);
 
     /**
      * 单例内部类
