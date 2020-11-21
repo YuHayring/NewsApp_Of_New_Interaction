@@ -5,7 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
@@ -25,6 +27,7 @@ public class NewsRepository {
     private final MutableLiveData<List<MyNews>> allNewsLive;
     private final NewsApi api;
     private static final String TAG = "news";
+    private static final String FollowTag = "follow";
 
     public NewsRepository(NewsApi api) {
         this.api = api;
@@ -47,6 +50,26 @@ public class NewsRepository {
             }
         });
         return allNewsLive;
+    }
+
+    public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        Call<Result> call = api.insertTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result >() {
+            @Override
+            public void onResponse(Call< Result > call, Response< Result > response) {
+                Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+
+            }
+
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+                Log.d(FollowTag, "onFailure: insertTagsFollowByNewsIdUserId失败 ");
+
+            }
+        });
     }
 
 

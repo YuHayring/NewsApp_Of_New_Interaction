@@ -38,6 +38,9 @@ public interface FollowApi {
     @POST("delete_tags_follow_list")
     Call<Result< FollowNews>> deleteFollowTagsByFollowNewsId (@Body Map<String,String> followNewsIdMap);
 
+//    @POST("insert_tags_follow_table")
+//    Call<Result> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+
     /**
      * 单例内部类
      */

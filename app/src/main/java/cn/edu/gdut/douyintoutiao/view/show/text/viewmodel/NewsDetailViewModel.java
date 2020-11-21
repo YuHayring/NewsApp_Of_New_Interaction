@@ -3,7 +3,9 @@ package cn.edu.gdut.douyintoutiao.view.show.text.viewmodel;
 import androidx.lifecycle.ViewModel;
 
 import cn.edu.gdut.douyintoutiao.net.CommentApi;
+import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
+import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 
 /**
  * @author : cypang
@@ -14,12 +16,24 @@ import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
 public class NewsDetailViewModel extends ViewModel {
     private static final String TAG = "myTag";
     private final CommentRepository repository;
+    private final NewsRepository newsRepository;
 
     public NewsDetailViewModel() {
         repository = new CommentRepository(CommentApi.getCommentApi());
+        newsRepository = new NewsRepository(NewsApi.getNewsApi());
     }
 
     public void postComment(String newsID, String userID, String content) {
         repository.postComment(newsID, userID, content);
     }
+
+    /**
+     * @DengJl
+     * 关注事件功能
+     */
+    public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
+        newsRepository.insertTagsFollowByNewsIdUserId(newsId,userId);
+    }
+
+
 }

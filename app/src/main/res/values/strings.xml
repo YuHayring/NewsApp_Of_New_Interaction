@@ -102,5 +102,7 @@
     <string name="author_name">用户名</string>
     <string name="author_describe">用户描述</string>
     <string name="button_authorList_unfollow">取消关注按钮</string>
+    <string name="button_news_details_follow" />
+    <string name="button_newsDetails_follow">关注按钮</string>
 
 </resources>

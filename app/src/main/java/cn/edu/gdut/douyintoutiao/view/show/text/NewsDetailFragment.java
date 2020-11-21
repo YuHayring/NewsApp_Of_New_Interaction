@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,6 +91,15 @@ public class NewsDetailFragment extends Fragment {
                             Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
                         }
                     }).show();
+        });
+        /**@DengJl 在文字资讯详细页面添加关注功能
+        */
+        binding.buttonFollowTags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+                Toasty.normal(requireContext(), "你点击了关注按钮", Toasty.LENGTH_SHORT).show();
+            }
         });
     }
 
