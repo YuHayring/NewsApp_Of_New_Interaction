@@ -8,6 +8,8 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context=".view.user.resign.ResignFragment">
 
+
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="wrap_content"
