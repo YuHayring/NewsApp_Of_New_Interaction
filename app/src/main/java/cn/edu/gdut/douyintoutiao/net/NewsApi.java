@@ -30,6 +30,10 @@ public interface NewsApi {
     @GET("searchVideos")
     Call<List<MyNews>> searchVideosList(@Query("key") String key);
 
+    //TODO 解决后台嵌套查询的问题
+    @GET("getNewsWithOption")
+    Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
+
     /**
      * 单例内部类
      */
