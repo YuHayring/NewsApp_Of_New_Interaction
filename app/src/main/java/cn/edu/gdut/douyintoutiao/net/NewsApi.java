@@ -1,17 +1,11 @@
 package cn.edu.gdut.douyintoutiao.net;
 
 import java.util.List;
-import java.util.Map;
 
-import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
-import cn.edu.gdut.douyintoutiao.entity.User;
-import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -48,6 +42,11 @@ public interface NewsApi {
     @POST("check_tags_follow")
     Observable<Result> checkTagsFollowByNewsIdUserId1 (@Body Map<String,String> newsIdUserId);
      /**
+    //TODO 解决后台嵌套查询的问题
+    @GET("getNewsWithOption")
+    Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
+
+    /**
      * 单例内部类
      */
     class Singleton {

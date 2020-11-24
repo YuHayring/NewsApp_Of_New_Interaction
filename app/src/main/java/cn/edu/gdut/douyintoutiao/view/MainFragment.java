@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
+import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 
@@ -57,7 +58,7 @@ public class MainFragment extends Fragment {
 
     private TabLayoutMediator mediator;
 
-    final String[] tabs = {"推荐", "关注", "待完成"};
+    final String[] tabs = {"推荐", "关注", "足球"};
     private FragmentMainBinding binding;
 
 
@@ -70,8 +71,10 @@ public class MainFragment extends Fragment {
         public Fragment createFragment(int position) {
             if (position == 0) {
                 return new NewsListFragment();
-            } else if (position < 3) {
+            } else if (position == 1) {
                 return new ViewPagerTestFragment(position);
+            } else if (position == 2) {
+                return new NewsFollowListFragment(tabs[position]);
             }
             throw new IllegalArgumentException();
         }
