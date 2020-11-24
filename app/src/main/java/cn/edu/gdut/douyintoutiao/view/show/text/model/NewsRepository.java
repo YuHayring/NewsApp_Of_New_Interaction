@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
@@ -61,18 +62,16 @@ public class NewsRepository {
         Map<String, String> newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
         newsIdUserId.put("userId",userId);
-        Call<Result> call = api.insertTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result >() {
+        Call< Result< FollowNews > > call = api.insertTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result< FollowNews > >() {
             @Override
-            public void onResponse(Call< Result > call, Response< Result > response) {
-                Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
-
+            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+               Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
-            public void onFailure(Call< Result > call, Throwable t) {
+            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
                 Log.d(FollowTag, "onFailure: insertTagsFollowByNewsIdUserId失败 ");
-
             }
         });
     }
@@ -97,28 +96,24 @@ public class NewsRepository {
         });
     }
 
-    public boolean checkTagsFollowByNewsIdUserId (String newsId , String userId){
-        Map<String, String> newsIdUserId = new HashMap<>();
+    public boolean checkTagsFollowByNewsIdUserId (String newsId , String userId) {
+        Map< String, String > newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
-        newsIdUserId.put("userId",userId);
-        final boolean[] flag = new boolean[1];
-        Call<Result<Boolean>> call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result <Boolean>>() {
+        newsIdUserId.put("userId", userId);
+        final Boolean[] flag = {true};
+        Call< Result< MyNews > > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result< MyNews > >() {
             @Override
-            public void onResponse(Call< Result<Boolean> > call, Response< Result <Boolean>> response) {
-                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg());
-                flag[0] = response.body().getData().get(0);
-                System.out.println("检查检查："+ flag[0]);
+            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
+                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
+                if(response.body().getCode()=="200"){ flag[0] = true;}
             }
 
             @Override
-            public void onFailure(Call< Result <Boolean>> call, Throwable t) {
+            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
                 System.out.println("检查失败");
-
             }
         });
         return flag[0];
     }
-
-
 }
