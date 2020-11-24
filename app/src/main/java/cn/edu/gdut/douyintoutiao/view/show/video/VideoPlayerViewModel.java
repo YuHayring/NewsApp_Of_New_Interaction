@@ -85,7 +85,7 @@ public class VideoPlayerViewModel extends ViewModel {
             if (state == 1) {
                 if (adapter.getItemCount() == viewBinding.videoViewPager.getCurrentItem() + 1) {
                     if (errorCode == 0) {
-                        Toasty.error(activity, R.string.video_play_requesting, Toasty.LENGTH_SHORT, true).show();
+                        Toasty.info(activity, R.string.video_play_requesting, Toasty.LENGTH_SHORT, true).show();
                     } else {
                         Toasty.error(activity, activity.getString(R.string.video_play_request_fail) + errorCode, Toasty.LENGTH_SHORT, true).show();
                         errorCode = 0;

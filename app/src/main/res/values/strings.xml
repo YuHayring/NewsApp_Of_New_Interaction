@@ -100,4 +100,8 @@
 
     <string name="video_play_request_fail">网络请求失败,错误码:</string>
 
+    <!-- 视频评论页 -->
+
+    <string name="video_comment_request_fail">网络请求失败,错误码:</string>
+
 </resources>

@@ -1,44 +1,29 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.DisplayCutout;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityFullscreenBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
+import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
@@ -202,18 +187,17 @@ public class FullscreenActivity extends AppCompatActivity {
         viewBinding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(FullscreenActivity.this, "文字转视频！", Toasty.LENGTH_SHORT, true).show();
+                Toasty.success(FullscreenActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
             }
         });
+
         //评论
         viewBinding.actionPinglun.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(FullscreenActivity.this, "评论！", Toasty.LENGTH_SHORT, true).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("newsId", FullscreenActivity.this.getIntent().getStringExtra("newsId"));
-//                NavController controller = Navigation.findNavController(v);
-//                controller.navigate(R.id.commentFragment, bundle);
+                Intent intent = new Intent(FullscreenActivity.this, CommentFragmentContainerActivity.class);
+                intent.putExtra("newsId", newses.get(viewBinding.videoViewPager.getCurrentItem()).get_id());
+                startActivity(intent);
             }
         });
 
@@ -276,4 +260,8 @@ public class FullscreenActivity extends AppCompatActivity {
     public List<MyNews> getNewses() {
         return newses;
     }
+
+
+
+
 }
