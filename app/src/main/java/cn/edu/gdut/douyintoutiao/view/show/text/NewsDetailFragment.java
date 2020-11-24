@@ -145,7 +145,7 @@ public class NewsDetailFragment extends Fragment {
         });
 
         //检查关注
-        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId(newsId,userId);
+        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
         if(flag){
             //已关注，点击执行取消关注
             binding.actionGuanzhu.setIcon(yellow_guanzhu);

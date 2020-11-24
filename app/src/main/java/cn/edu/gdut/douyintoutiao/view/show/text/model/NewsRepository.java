@@ -2,17 +2,22 @@ package cn.edu.gdut.douyintoutiao.view.show.text.model;
 
 import android.util.Log;
 
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CountDownLatch;
 
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +34,9 @@ public class NewsRepository {
     private final NewsApi api;
     private static final String TAG = "news";
     private static final String FollowTag = "follow";
+
+    private Callback<Result<MyNews>> callback;
+
 
     public NewsRepository(NewsApi api) {
         this.api = api;
@@ -96,24 +104,51 @@ public class NewsRepository {
         });
     }
 
+
     public boolean checkTagsFollowByNewsIdUserId (String newsId , String userId) {
         Map< String, String > newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
         newsIdUserId.put("userId", userId);
-        final Boolean[] flag = {true};
-        Call< Result< MyNews > > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result< MyNews > >() {
-            @Override
-            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
-                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
-                if(response.body().getCode()=="200"){ flag[0] = true;}
-            }
 
+        final CountDownLatch latch = new CountDownLatch(1);
+        final Boolean[] followFlag = new Boolean[1];
+        followFlag[0]=false;
+      //  Boolean followFlag = false;
+        Call< Result > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result>() {
             @Override
-            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
+            public void onResponse(Call< Result> call, Response< Result > response) {
+                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
+//          //     latch.countDown();
+//                if(response.body().getCode()=="200"){
+//                        followFlag[0] = true;
+//                        }
+            }
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+             //   latch.countDown();
                 System.out.println("检查失败");
             }
         });
-        return flag[0];
+
+//        try {
+//            latch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        System.out.println("检查关注："+followFlag);
+
+        return followFlag[0];
     }
+
+    public Observable<Result> checkTagsFollowByNewsIdUserId1(String newsId, String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+       return api.checkTagsFollowByNewsIdUserId1(newsIdUserId);
+
+
+    }
+
 }

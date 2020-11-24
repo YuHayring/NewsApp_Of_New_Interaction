@@ -6,6 +6,8 @@ import java.util.Map;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -41,7 +43,10 @@ public interface NewsApi {
     Call<Result> deleteTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
     @POST("check_tags_follow")
-    Call<Result<MyNews>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+    Call<Result> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+
+    @POST("check_tags_follow")
+    Observable<Result> checkTagsFollowByNewsIdUserId1 (@Body Map<String,String> newsIdUserId);
      /**
      * 单例内部类
      */
