@@ -27,6 +27,9 @@ public interface NewsApi {
     @GET("searchNews")
     Call<Result<MyNews>> searchNewsList(@Query("key") String key);
 
+    @GET("searchVideos")
+    Call<Result<MyNews>> searchVideosList(@Query("key") String key);
+
     /**
      * 单例内部类
      */
