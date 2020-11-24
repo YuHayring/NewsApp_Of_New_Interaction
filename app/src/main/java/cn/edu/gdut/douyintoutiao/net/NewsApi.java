@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import retrofit2.Call;
@@ -29,6 +30,12 @@ public interface NewsApi {
      */
     @POST("insert_tags_follow_table")
     Call<Result> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+
+    @POST("delete_tags_follow_byNewsIdUserId")
+    Call<Result> deleteTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+
+    @POST("check_tags_follow")
+    Call<Result<Boolean>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
     /**
      * 单例内部类

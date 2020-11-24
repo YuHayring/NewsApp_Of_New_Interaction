@@ -35,5 +35,11 @@ public class NewsDetailViewModel extends ViewModel {
         newsRepository.insertTagsFollowByNewsIdUserId(newsId,userId);
     }
 
+    public void deleteTagsFollowByNewsIdUserId(String newsId,String userId){
+        newsRepository.deleteTagsFollowByNewsIdUserId(newsId,userId);
+    }
 
+    public boolean checkTagsFollowByNewsIdUserId (String newsId,String userId){
+        return newsRepository.checkTagsFollowByNewsIdUserId(newsId,userId);
+    }
 }

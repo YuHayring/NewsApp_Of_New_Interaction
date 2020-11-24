@@ -51,6 +51,8 @@ public class MyNews implements Serializable {
 
     private String tag;
 
+
+
     public MyNews() {
     }
 

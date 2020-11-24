@@ -94,7 +94,6 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
             public void onClick(View v) {
                 if (followAuthorItemClickListener!=null){
                     followAuthorItemClickListener.onUnFollowButtonClick(holder.getAdapterPosition());
-                    holder.unfollowButton.setText("关注");
                 }
             }
         });

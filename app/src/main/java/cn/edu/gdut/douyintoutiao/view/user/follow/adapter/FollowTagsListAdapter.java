@@ -97,7 +97,6 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
             public void onClick(View v) {
                 if (followTagsItemClickListener!=null){
                     followTagsItemClickListener.onUnFollowButtonClick(viewHolder.getAdapterPosition());
-                    viewHolder.unFollowButton.setText("关注");
                 }
             }
         });
@@ -127,8 +126,8 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
             return;
         }*/
         FollowNews data = dataList.get(position);
-        holder.textViewHeader.setText(data.getFollowNews().get(0).getNewsName());
-        holder.textViewAbstract.setText(data.getFollowNews().get(0).getNewsAbstract());
+       holder.textViewHeader.setText(data.getFollowNews().get(0).getNewsName());
+       holder.textViewAbstract.setText(data.getFollowNews().get(0).getNewsAbstract());
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
         Glide.with(holder.itemView).load(Uri.parse(data.getFollowNews().get(0).getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
         holder.unFollowButton.setText("已关注");
@@ -139,6 +138,7 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     @Override
     public int getItemCount() {
         if (dataList != null){
+        //    System.out.println("getFollowTag失败");
         return dataList.size();}
         else {
             return 0;

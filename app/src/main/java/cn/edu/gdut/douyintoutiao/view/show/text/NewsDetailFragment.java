@@ -94,11 +94,24 @@ public class NewsDetailFragment extends Fragment {
         });
         /**@DengJl 在文字资讯详细页面添加关注功能
         */
+        if(viewModel.checkTagsFollowByNewsIdUserId(newsId,userId)){
+            binding.buttonFollowTags.setText("已关注");
+        }else   {
+            binding.buttonFollowTags.setText("关注");
+        }
+
         binding.buttonFollowTags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                Toasty.normal(requireContext(), "你点击了关注按钮", Toasty.LENGTH_SHORT).show();
+                if(binding.buttonFollowTags.getText()=="关注"){
+                    viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+                    Toasty.normal(requireContext(), "你点击了关注按钮", Toasty.LENGTH_SHORT).show();
+                    binding.buttonFollowTags.setText("已关注");
+                }else {
+                    viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
+                    binding.buttonFollowTags.setText("关注");
+                }
+
             }
         });
     }
@@ -110,5 +123,6 @@ public class NewsDetailFragment extends Fragment {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         binding.webView.loadUrl(uri);
+
     }
 }

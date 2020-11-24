@@ -52,6 +52,11 @@ public class NewsRepository {
         return allNewsLive;
     }
 
+
+    /**
+     *
+     * @DengJl
+     */
     public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
         Map<String, String> newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
@@ -70,6 +75,49 @@ public class NewsRepository {
 
             }
         });
+    }
+
+    public void deleteTagsFollowByNewsIdUserId(String newsId , String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        Call<Result> call = api.deleteTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result >() {
+            @Override
+            public void onResponse(Call< Result > call, Response< Result > response) {
+                Log.d(FollowTag, "取消关注Response: " + response.body().getCode() + " " + response.body().getMsg());
+
+            }
+
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+                Log.d(FollowTag, "onFailure: 取消关注失败 ");
+
+            }
+        });
+    }
+
+    public boolean checkTagsFollowByNewsIdUserId (String newsId , String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        final boolean[] flag = new boolean[1];
+        Call<Result<Boolean>> call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result <Boolean>>() {
+            @Override
+            public void onResponse(Call< Result<Boolean> > call, Response< Result <Boolean>> response) {
+                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg());
+                flag[0] = response.body().getData().get(0);
+                System.out.println("检查检查："+ flag[0]);
+            }
+
+            @Override
+            public void onFailure(Call< Result <Boolean>> call, Throwable t) {
+                System.out.println("检查失败");
+
+            }
+        });
+        return flag[0];
     }
 
 
