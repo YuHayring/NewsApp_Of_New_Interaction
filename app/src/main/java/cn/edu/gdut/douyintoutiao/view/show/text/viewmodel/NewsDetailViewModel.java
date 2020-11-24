@@ -4,18 +4,12 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Result;
-import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.CommentApi;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
 import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 import cn.edu.gdut.douyintoutiao.view.user.login.Callback;
-import cn.edu.gdut.douyintoutiao.view.user.login.LoginUserModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
@@ -62,7 +56,6 @@ public class NewsDetailViewModel extends ViewModel {
 //    }
 
     public boolean checkTagsFollowByNewsIdUserId1(String newsId,String userId){
-        boolean flag;
         newsRepository.checkTagsFollowByNewsIdUserId1(newsId,userId).subscribeOn(Schedulers.io())//check方法放到子线程
                 .observeOn(AndroidSchedulers.mainThread())//把下面操作切换到主线程
                 .subscribe(new Observer< Result >() {

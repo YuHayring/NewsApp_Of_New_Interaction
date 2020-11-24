@@ -1,11 +1,16 @@
 package cn.edu.gdut.douyintoutiao.net;
 
 import java.util.List;
+import java.util.Map;
 
+import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
