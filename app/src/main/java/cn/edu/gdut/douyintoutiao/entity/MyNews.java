@@ -68,6 +68,12 @@ public class MyNews implements Serializable {
 
     private String tag;
 
+
+    /**
+     * 喜欢数
+     */
+    private Integer like;
+
     public MyNews() {
     }
 
@@ -141,6 +147,7 @@ public class MyNews implements Serializable {
                 ", type=" + type +
                 ", author=" + author +
                 ", tag='" + tag + '\'' +
+                ", like=" + like +
                 '}';
     }
 
@@ -166,5 +173,13 @@ public class MyNews implements Serializable {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Integer getLike() {
+        return like;
+    }
+
+    public void setLike(Integer like) {
+        this.like = like;
     }
 }
