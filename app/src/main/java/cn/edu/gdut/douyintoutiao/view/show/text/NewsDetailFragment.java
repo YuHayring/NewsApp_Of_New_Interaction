@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
@@ -72,13 +74,6 @@ public class NewsDetailFragment extends Fragment {
         });
         //设置tag
         binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
-        //tag页面跳转
-        binding.buttonSeeTags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toasty.normal(requireContext(), "你点击了tag按钮", Toasty.LENGTH_SHORT).show();
-            }
-        });
 
         binding.buttonPostComment.setOnClickListener((v) -> {
             new MaterialDialog.Builder(requireContext())
@@ -134,6 +129,13 @@ public class NewsDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toasty.success(requireContext(), "作者！", Toasty.LENGTH_SHORT, true).show();
+                String authorId = requireActivity().getIntent().getStringExtra("authorId");
+                SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                String userId = shp.getString("userId", "noContent");
+                Intent intent = new Intent(requireActivity(), ActivityFollowAuthorDetails.class);
+                intent.putExtra("userId", authorId);
+                intent.putExtra("followId", userId);
+                startActivity(intent);
             }
         });
         //关注

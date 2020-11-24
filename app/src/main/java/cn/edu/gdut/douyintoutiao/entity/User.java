@@ -56,6 +56,13 @@ public class User implements Serializable {
     private byte[] userBackground;
 
     /**
+     * 用户头像
+     * author: @dengJL
+     * data: 11/18
+     */
+    private String userImageUrl;
+
+    /**
      * 创建时间
      */
     @SerializedName("createdAt")
@@ -135,6 +142,15 @@ public class User implements Serializable {
         this.userBackground = userBackground;
     }
 
+
+    public String getUserImageUrl() {
+        return userImageUrl;
+    }
+
+    public void setUserImageUrl(String userImageUrl) {
+        this.userImageUrl = userImageUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -146,6 +162,7 @@ public class User implements Serializable {
                 ", userLocation='" + userLocation + '\'' +
                 ", userDescription='" + userDescription + '\'' +
                 ", userBackground=" + Arrays.toString(userBackground) +
+                ", userImageUrl='" + userImageUrl + '\'' +
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +
                 '}';

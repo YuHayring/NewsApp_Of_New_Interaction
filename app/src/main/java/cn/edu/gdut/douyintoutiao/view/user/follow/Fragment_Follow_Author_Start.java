@@ -13,9 +13,8 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Follow_Author_Start#newInstance} factory method to
- * create an instance of this fragment.
+ * @author : DengJL
+ * @description ：测试用，别理
  */
 public class Fragment_Follow_Author_Start extends Fragment {
 

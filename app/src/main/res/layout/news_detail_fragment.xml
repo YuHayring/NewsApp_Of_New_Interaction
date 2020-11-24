@@ -10,8 +10,6 @@
     </data>
 
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
@@ -19,12 +17,11 @@
         tools:context=".view.show.text.NewsDetailFragment">
 
 
-
         <RelativeLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
             android:id="@+id/float_button"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:id="@+id/multiple_actions"
                 android:layout_width="wrap_content"
@@ -33,13 +30,13 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="32dp"
-                fab:fab_addButtonSize="mini"
+                android:layout_marginEnd="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="59dp"
                 fab:fab_addButtonColorNormal="@color/white"
                 fab:fab_addButtonColorPressed="@color/white_pressed"
                 fab:fab_addButtonPlusIconColor="@color/half_black"
+                fab:fab_addButtonSize="mini"
                 fab:fab_expandDirection="up"
                 fab:fab_labelStyle="@style/menu_labels_style">
                 <!--        举报-->
@@ -47,81 +44,80 @@
                     android:id="@+id/action_jinggao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
                     fab:fab_colorPressed="@color/white_pressed"
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     fab:fab_icon="@drawable/jinggao"
-                    />
+                    fab:fab_size="mini" />
                 <!--     点赞   -->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fabSize="mini"
-                    fab:fab_size="mini"
                     android:id="@+id/action_dianzan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/dianzan"
-                    fab:fab_colorPressed="@color/white_pressed">
-                </com.getbase.floatingactionbutton.FloatingActionButton>
+                    fab:fab_size="mini"></com.getbase.floatingactionbutton.FloatingActionButton>
 
                 <!--        评论-->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     android:id="@+id/action_pinglun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/pinglun"
-                    fab:fab_colorPressed="@color/white_pressed"/>
+                    fab:fab_size="mini" />
                 <!--        文字视频转化-->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     android:id="@+id/action_zhuanhuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/zhuanhuan"
-                    fab:fab_colorPressed="@color/white_pressed"/>
+                    fab:fab_size="mini" />
                 <!--        不感兴趣-->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     android:id="@+id/action_buganxingqu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/buganxingqu"
-                    fab:fab_colorPressed="@color/white_pressed"/>
+                    fab:fab_size="mini" />
                 <!--        作者界面-->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     android:id="@+id/action_zuozhe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/zuozhe"
-                    fab:fab_colorPressed="@color/white_pressed">
+                    fab:fab_size="mini">
 
                 </com.getbase.floatingactionbutton.FloatingActionButton>
 
 
                 <!--        关注-->
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    fab:fab_size="mini"
-                    fab:fabSize="mini"
                     android:id="@+id/action_guanzhu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fab:fabSize="mini"
                     fab:fab_colorNormal="@color/white"
+                    fab:fab_colorPressed="@color/white_pressed"
                     fab:fab_icon="@drawable/guanzhu"
-                    fab:fab_colorPressed="@color/white_pressed"/>
+                    fab:fab_size="mini" />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
         </RelativeLayout>
+
         <Button
             android:id="@+id/buttonSeeTags"
             android:layout_width="wrap_content"
@@ -177,6 +173,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonComment"
             app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
