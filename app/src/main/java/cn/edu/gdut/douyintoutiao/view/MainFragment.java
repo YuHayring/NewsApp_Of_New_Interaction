@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -114,6 +115,35 @@ public class MainFragment extends Fragment {
         });
         //要执行这一句才是真正将两者绑定起来
         mediator.attach();
+
+
+        newsViewPager.setOnTouchListener(new View.OnTouchListener() {
+
+            float srcX;
+
+            float srcY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    srcX = event.getX();
+                    srcY = event.getY();
+                    return false;
+                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    float deltaX = Math.abs(srcX - event.getX());
+                    float deltaY = Math.abs(srcY - event.getY());
+                    if (deltaX > 4 * deltaY) {
+                        v.onTouchEvent(event);
+                        return true;
+                    } else {
+                        v.dispatchTouchEvent(event);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         return binding.getRoot();
     }
 

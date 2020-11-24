@@ -17,6 +17,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -33,7 +35,9 @@ android {
         viewBinding = true
         dataBinding = true
     }
-
+    sourceSets {
+        
+    }
 
 }
 
@@ -72,7 +76,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 
-    implementation group: 'tv.danmaku.ijk.media', name: 'ijkplayer-arm64', version: '0.8.8'
+//    implementation group: 'tv.danmaku.ijk.media', name: 'ijkplayer-arm64', version: '0.8.8'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
@@ -83,8 +87,8 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     implementation 'com.android.support:support-annotations:28.0.0'
 
 
@@ -99,5 +103,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
+
 
 }
