@@ -127,6 +127,8 @@ public class NewsDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toasty.success(requireContext(), "作者！", Toasty.LENGTH_SHORT, true).show();
+                String userId = requireActivity().getIntent().getStringExtra("userId");
+
             }
         });
         //关注

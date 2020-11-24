@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author : cypang
@@ -56,6 +57,10 @@ public class MyNews implements Serializable {
      */
     private Integer type;
 
+    /**
+     * 作者
+     */
+    private List<User> author;
 
     /**
      * 新闻tag
@@ -66,15 +71,6 @@ public class MyNews implements Serializable {
     public MyNews() {
     }
 
-    public MyNews(String _id, String newsName, String newsAbstract, String newsPhotoUrl, String createdAt, String updatedAt, String newsDetailUrl) {
-        this._id = _id;
-        this.newsName = newsName;
-        this.newsAbstract = newsAbstract;
-        this.newsPhotoUrl = newsPhotoUrl;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.newsDetailUrl = newsDetailUrl;
-    }
 
     public String get_id() {
         return _id;
@@ -143,11 +139,32 @@ public class MyNews implements Serializable {
                 ", updatedAt='" + updatedAt + '\'' +
                 ", newsDetailUrl='" + newsDetailUrl + '\'' +
                 ", type=" + type +
+                ", author=" + author +
                 ", tag='" + tag + '\'' +
                 '}';
     }
 
     public String getTag() {
         return tag;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public List<User> getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(List<User> author) {
+        this.author = author;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

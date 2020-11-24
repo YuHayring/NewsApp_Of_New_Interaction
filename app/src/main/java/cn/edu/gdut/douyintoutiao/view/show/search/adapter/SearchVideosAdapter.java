@@ -1,25 +1,19 @@
 package cn.edu.gdut.douyintoutiao.view.show.search.adapter;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.VideoPlayerFragment;
 
 /**
  * @author : cypang
@@ -27,67 +21,74 @@ import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class SearchVideosAdapter extends RecyclerView.Adapter<SearchVideosAdapter.ViewHolder> {
+public class SearchVideosAdapter extends FragmentStateAdapter {
 
-    private final Activity activity;
-    private List<MyNews> newsList = new ArrayList<>();
 
-   /* private static final int NORMAL_VIEW_TYPE = 0;
-    private static final int FOOTER_VIEW_TYPE = 1;*/
+    /**
+     * 存在集合
+     */
+    private final HashSet<Long> fragmentIdSet = new HashSet<>();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private List<Fragment> fragments;
+    private List<MyNews> newses;
+    private Context context;
 
-    public SearchVideosAdapter(Activity activity) {
-        this.activity = activity;
+    public SearchVideosAdapter(@NonNull FragmentActivity fragmentActivity, List<Fragment> fragments, List<MyNews> newses) {
+        super(fragmentActivity);
+        context = fragmentActivity;
+        this.fragments = fragments;
+        this.newses = newses;
     }
 
-    public void setNewsList(List<MyNews> newsList) {
-        this.newsList = newsList;
+    public SearchVideosAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder viewHolder;
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
-        viewHolder = new ViewHolder(itemView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, NewsActivity.class);
-                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-                activity.startActivity(intent);
-            }
-        });
-        return viewHolder;
-    }
-
-    //处理对holder上的一些操作
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MyNews cur = newsList.get(position);
-        holder.textViewHeader.setText(cur.getNewsName());
-        holder.textViewAbstract.setText(cur.getNewsAbstract());
-        //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
-        Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
+    public Fragment createFragment(int position) {
+        try {
+            fragmentIdSet.add(sdf.parse(newses.get(position).getCreatedAt()).getTime());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return fragments.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return newsList.size();
+        return newses.size();
     }
 
-    //防止内存泄漏
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewHeader, textViewAbstract;
-        ImageView imageViewPic;
+    public void addAndNotify(MyNews news) {
+        int start = newses.size();
+        newses.add(news);
+        fragments.add(new VideoPlayerFragment(context, news));
+        notifyItemInserted(start);
+    }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textViewHeader = itemView.findViewById(R.id.textViewHeader);
-            textViewAbstract = itemView.findViewById(R.id.textViewAbstract);
-            imageViewPic = itemView.findViewById(R.id.imageViewPic);
+    public void addAllAndNotify(List<MyNews> newses) {
+        int start = newses.size();
+        this.newses.addAll(newses);
+        for (MyNews news : newses) {
+            fragments.add(new VideoPlayerFragment(context, news));
+        }
+        notifyItemInserted(start);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        try {
+            return sdf.parse(newses.get(position).getCreatedAt()).getTime();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
+
+
+    @Override
+    public boolean containsItem(long itemId) {
+        return fragmentIdSet.contains(itemId);
+    }
+
 }

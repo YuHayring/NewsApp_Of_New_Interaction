@@ -1,14 +1,11 @@
 package cn.edu.gdut.douyintoutiao.view.show.search.model;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import android.os.Handler;
+import android.os.Message;
 
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,32 +19,36 @@ import retrofit2.Response;
  */
 public class SearchVideosRepository {
 
-    private static final String TAG = "news";
-    private final MutableLiveData<List<MyNews>> allNewsLive;
-    private final NewsApi api;
+    private Handler onVideoGotHandler;
+    Callback<List<MyNews>> videoGetCallBack = new Callback<List<MyNews>>() {
+        @Override
+        public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
+            Message message = new Message();
+            if (response.code() == 200) {
+                message.arg1 = 200;
+                message.obj = response.body();
+            } else {
+                message.arg1 = response.code();
+            }
+            onVideoGotHandler.sendMessage(message);
+        }
 
-    public SearchVideosRepository(NewsApi api) {
-        this.api = api;
-        allNewsLive = new MutableLiveData<>();
+        @Override
+        public void onFailure(Call<List<MyNews>> call, Throwable t) {
+
+        }
+    };
+
+    /**
+     * 模拟数据
+     *
+     * @return
+     */
+    public void getVideoNews(String key) {
+        NewsApi.getNewsApi().searchVideosList(key).enqueue(videoGetCallBack);
     }
 
-
-    public LiveData<List<MyNews>> getSearchNewsList(String key) {
-        Call<Result<MyNews>> call = api.searchNewsList(key);
-        call.enqueue(new Callback<Result<MyNews>>() {
-            @Override
-            public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
-                allNewsLive.postValue(response.body().getData());
-                Log.d(TAG, "onResponse: " + response.body().getData().toString());
-            }
-
-            @Override
-            public void onFailure(Call<Result<MyNews>> call, Throwable t) {
-
-            }
-        });
-        return allNewsLive;
+    public void setOnVideoGotHandler(Handler onVideoGotHandler) {
+        this.onVideoGotHandler = onVideoGotHandler;
     }
-
-
 }
