@@ -5,17 +5,44 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:contentDescription="@string/home_to_search_activity_button"
-        android:src="@drawable/ic_baseline_search_24" />
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_search_24"
+            android:layout_alignParentStart="true"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/news_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_alignStart="@id/imageButton"
+            android:layout_alignEnd="@id/exchange_button"
+            android:layout_gravity="center"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/news_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/exchange_button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@android:drawable/stat_notify_sync"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:contentDescription="@string/home_to_search_activity_button"-->
+<!--        android:src="@drawable/ic_baseline_search_24" />-->
+
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_main_news_view_pager"

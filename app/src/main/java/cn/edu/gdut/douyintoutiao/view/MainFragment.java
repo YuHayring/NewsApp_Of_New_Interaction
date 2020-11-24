@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
@@ -101,6 +104,10 @@ public class MainFragment extends Fragment {
         newsViewPager.setAdapter(pagerAdapter);
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
+
+
+
+
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
