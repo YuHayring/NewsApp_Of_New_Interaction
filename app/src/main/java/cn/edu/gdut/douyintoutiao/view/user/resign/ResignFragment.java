@@ -15,7 +15,9 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentResignBinding;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import es.dmoral.toasty.Toasty;
 
+import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
+import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 /**
  * @author hudp
@@ -112,6 +114,8 @@ public class ResignFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         //悬浮窗测试
         //举报按钮
         binding.actionJinggao.setOnClickListener(new View.OnClickListener(){
@@ -124,7 +128,14 @@ public class ResignFragment extends Fragment {
         binding.actionDianzan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                binding.actionDianzan.setIcon(red_dianzan);
+                boolean flag = true;
+                if(flag){
+                    binding.actionDianzan.setIcon(red_dianzan);
+                    flag=false;
+                }else{
+                    flag=true;
+                    binding.actionDianzan.setIcon(red_dianzan);
+                }
                 Toasty.success(requireContext(), "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
             }
         });
@@ -146,6 +157,15 @@ public class ResignFragment extends Fragment {
         binding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                boolean flag = true;
+                if(flag){
+                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                    flag=false;
+                }else{
+                    flag=true;
+                    binding.actionGuanzhu.setIcon(guanzhu);
+                }
+
                 Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
             }
         });
@@ -173,6 +193,7 @@ public class ResignFragment extends Fragment {
             User user = new User();
             user.setUserTelephone(userPhone);
             user.setUserPassword(password);
+
             //检查杂项
             viewModel.check_something(user,surepassword);
             this.toasty(viewModel.getFlag().getValue());

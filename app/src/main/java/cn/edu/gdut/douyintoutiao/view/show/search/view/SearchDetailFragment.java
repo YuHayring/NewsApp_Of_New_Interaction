@@ -8,15 +8,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.databinding.SearchDetailFragmentBinding;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.view.show.search.adapter.SearchAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.search.viewmodel.SearchDetailViewModel;
 
 public class SearchDetailFragment extends Fragment {
 
     private SearchDetailViewModel mViewModel;
     private SearchDetailFragmentBinding binding;
+    private SearchAdapter adapter;
 
     public static SearchDetailFragment newInstance() {
         return new SearchDetailFragment();
@@ -33,7 +41,26 @@ public class SearchDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchDetailViewModel.class);
-        // TODO: Use the ViewModel
+        adapter = new SearchAdapter(getActivity());
+        binding.searcbRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.searcbRecyclerView.setAdapter(adapter);
+        assert getArguments() != null;
+        String key = getArguments().getString("key");
+        mViewModel.getAllSearchNewsLive(key).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
+            @Override
+            public void onChanged(List<MyNews> myNews) {
+                adapter.setNewsList(myNews);
+                adapter.notifyDataSetChanged();
+                binding.searchSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        binding.searchSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mViewModel.getAllSearchNewsLive(key);
+            }
+        });
+
     }
 
 }

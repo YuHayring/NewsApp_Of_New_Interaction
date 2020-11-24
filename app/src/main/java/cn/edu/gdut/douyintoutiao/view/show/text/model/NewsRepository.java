@@ -46,7 +46,7 @@ public class NewsRepository {
 
             @Override
             public void onFailure(Call<Result<MyNews>> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: 请求失败");
             }
         });
         return allNewsLive;

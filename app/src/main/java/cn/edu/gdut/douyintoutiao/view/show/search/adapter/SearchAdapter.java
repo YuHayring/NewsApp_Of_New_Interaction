@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
+package cn.edu.gdut.douyintoutiao.view.show.search.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,13 +27,15 @@ import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
     private final Activity activity;
     private List<MyNews> newsList = new ArrayList<>();
 
+   /* private static final int NORMAL_VIEW_TYPE = 0;
+    private static final int FOOTER_VIEW_TYPE = 1;*/
 
-    public NewsSAdapter(Activity activity) {
+    public SearchAdapter(Activity activity) {
         this.activity = activity;
     }
 
@@ -55,25 +57,21 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
                 intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
                 intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
                 intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
                 activity.startActivity(intent);
             }
         });
-
         return viewHolder;
     }
 
     //处理对holder上的一些操作
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
         Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
     }
-
 
     @Override
     public int getItemCount() {

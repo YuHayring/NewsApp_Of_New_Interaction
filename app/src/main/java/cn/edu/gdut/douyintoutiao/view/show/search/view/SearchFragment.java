@@ -55,7 +55,9 @@ public class SearchFragment extends Fragment {
                     return false;
                 }
                 Toasty.normal(requireContext(), query, Toasty.LENGTH_SHORT).show();
-                controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment);
+                Bundle bundle = new Bundle();
+                bundle.putString("key", query);
+                controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
                 return true;
             }
 

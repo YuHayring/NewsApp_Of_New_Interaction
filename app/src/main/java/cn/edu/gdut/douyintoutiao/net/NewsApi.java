@@ -1,18 +1,12 @@
 package cn.edu.gdut.douyintoutiao.net;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-import java.util.Map;
 
-import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author cypang
@@ -23,19 +17,18 @@ public interface NewsApi {
     @GET("newsList")
     Call<Result<MyNews>> getNewsList();
 
-    /**
-     * @DengJl
-     * 关注事件功能
-     * 11/21
-     */
-    @POST("insert_tags_follow_table")
-    Call<Result> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
-    @POST("delete_tags_follow_byNewsIdUserId")
-    Call<Result> deleteTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+    @GET("videoList")
+    Call<List<MyNews>> getVideoList(@Query("index") int index, @Query("count") int count);
 
-    @POST("check_tags_follow")
-    Call<Result<Boolean>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+    @GET("videoList")
+    Call<List<MyNews>> getVideoList();
+
+    @GET("searchNews")
+    Call<Result<MyNews>> searchNewsList(@Query("key") String key);
+
+    @GET("searchVideos")
+    Call<List<MyNews>> searchVideosList(@Query("key") String key);
 
     /**
      * 单例内部类

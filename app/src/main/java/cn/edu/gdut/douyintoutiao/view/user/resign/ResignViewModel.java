@@ -79,6 +79,8 @@ public class ResignViewModel extends ViewModel {
         result = resignModel.check_user(user);
         Log.d(TAG, "check: " + result.getValue().toString());
         if(result.getValue().getMsg().equals("true")){
+            //密码加密
+            user.setUserPassword(resignModel.encrypt(user.getUserPassword()));
             result = resignModel.insert_user(user);
             Log.d(TAG, "insert: " + result.getValue().toString());
             if(result.getValue().getMsg().equals("true")){
@@ -97,4 +99,5 @@ public class ResignViewModel extends ViewModel {
         }
         return flag;
     }
+
 }
