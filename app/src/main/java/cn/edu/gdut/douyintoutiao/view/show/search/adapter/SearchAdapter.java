@@ -32,8 +32,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private final Activity activity;
     private List<MyNews> newsList = new ArrayList<>();
 
-   /* private static final int NORMAL_VIEW_TYPE = 0;
-    private static final int FOOTER_VIEW_TYPE = 1;*/
 
     public SearchAdapter(Activity activity) {
         this.activity = activity;
@@ -57,6 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
                 intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
                 intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
+                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
                 activity.startActivity(intent);
             }
         });

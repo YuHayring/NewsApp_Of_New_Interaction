@@ -63,4 +63,5 @@ public class SearchDetailFragment extends Fragment {
 
     }
 
+
 }
