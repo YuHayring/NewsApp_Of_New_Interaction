@@ -53,6 +53,7 @@ public class User implements Serializable {
     /**
      * 背景图片
      */
+    @Deprecated
     private byte[] userBackground;
 
     /**
