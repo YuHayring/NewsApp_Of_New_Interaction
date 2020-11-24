@@ -26,6 +26,7 @@ import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
 
 /**
  * @author hayring
@@ -116,6 +117,12 @@ public class MainFragment extends Fragment {
             }
         });
 
+
+        binding.exchangeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FullscreenActivity.class);
+            startActivity(intent);
+        });
+
         mediator = new TabLayoutMediator(newsNavigationTab, newsViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -127,7 +134,7 @@ public class MainFragment extends Fragment {
         mediator.attach();
 
 
-        
+
 
         return binding.getRoot();
     }
