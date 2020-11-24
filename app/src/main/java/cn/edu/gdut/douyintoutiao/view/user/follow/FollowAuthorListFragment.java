@@ -1,5 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import java.util.List;
 
 //import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 
@@ -102,12 +105,12 @@ public class FollowAuthorListFragment extends Fragment {
                 followListAdapter.setFollows(lists);
                 followListAdapter.notifyDataSetChanged();
                 //下拉刷新控件SwipeRefreshLayout
-                fragmentFollowAuthorListBinding.FollowListRefresh.setRefreshing(false);
+                fragmentFollowAuthorListBinding.FollowAuthorListRefresh.setRefreshing(false);
 
             }
         });
         //下拉刷新控件SwipeRefreshLayout
-        fragmentFollowAuthorListBinding.FollowListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        fragmentFollowAuthorListBinding.FollowAuthorListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 followAuthorViewModel.getFollowList();
@@ -120,22 +123,37 @@ public class FollowAuthorListFragment extends Fragment {
         followListAdapter.setItemClickListener(new OnItemClickListener() {
             @Override
             public void onUnFollowButtonClick(int position) {
-                //取消关注警告窗口待补充
-                Toast.makeText(getContext(),"取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
-                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
+                //补充取消关注警告窗口
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setIcon(R.drawable.ic_baseline_warning_24)
+                        .setTitle("取消关注?")
+                        .setMessage("确定要取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName()+"吗")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
+                                Toast.makeText(getContext(),"取消关注了"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .create().show();
+                //Toast.makeText(getContext(),"取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
+               //  followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
             }
 
             @Override
             public void onItemViewClick(int position) {
                 //启动被关注者activity
-                startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId());
+                startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId(),followListAdapter.getFollows().get(position).getFollowId());
             }
 
-            private void startActivityAuthorDetails(String id){
+            private void startActivityAuthorDetails(String userId ,String followId){
                 Intent startIntent = new Intent(getActivity(),
                         ActivityFollowAuthorDetails.class);
                 //传递当前item的数据信息
-                startIntent.putExtra("userId",id);
+                startIntent.putExtra("userId",userId);
+                startIntent.putExtra("followId",followId);
                 startActivity(startIntent);
             }
         });
