@@ -134,7 +134,6 @@ public class FollowAuthorListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
                                 Toast.makeText(getContext(),"取消关注了"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
-
                             }
                         })
                         .create().show();

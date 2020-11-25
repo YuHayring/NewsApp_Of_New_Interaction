@@ -102,6 +102,8 @@
     <string name="author_name">用户名</string>
     <string name="author_describe">用户描述</string>
     <string name="button_authorList_unfollow">取消关注按钮</string>
+    <string name="button_news_details_follow" />
+    <string name="button_newsDetails_follow">关注按钮</string>
 
     <!-- 视频播放页 -->
     <string name="video_play_requesting">正在刷新中,请稍等...</string>
