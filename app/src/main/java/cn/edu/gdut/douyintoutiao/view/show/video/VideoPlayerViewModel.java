@@ -94,7 +94,11 @@ public class VideoPlayerViewModel extends ViewModel {
                 }
             } else if (state == 0) {
                 if (adapter.getItemCount() == viewBinding.videoViewPager.getCurrentItem() + 2) {
-                    videoPlayerModel.getMoreVideoNews(activity.newses.size());
+                    if (activity.getStatus() == FullscreenActivity.DEFAULT) {
+                        videoPlayerModel.getMoreVideoNews(activity.newses.size());
+                    } else if (activity.getStatus() == FullscreenActivity.SEARCH) {
+                        videoPlayerModel.searchMoreVideoNews(activity.newses.size(), activity.getKey());
+                    }
                 }
             }
         }

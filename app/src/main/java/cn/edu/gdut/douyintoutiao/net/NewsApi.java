@@ -33,14 +33,20 @@ public interface NewsApi {
     @GET("searchNews")
     Call<Result<MyNews>> searchNewsList(@Query("key") String key);
 
-    @GET("searchVideos")
-    Call<List<MyNews>> searchVideosList(@Query("key") String key);
+//    @GET("searchVideos")
+//    Call<List<MyNews>> searchVideosList(@Query("key") String key);
+
+    @GET("videoList")
+    Call<List<MyNews>> searchVideoList(@Query("key") String key);
+
+    @GET("videoList")
+    Call<List<MyNews>> searchMoreVideoList(@Query("index") int index, @Query("count") int count, @Query("key") String key);
 
     //TODO 解决后台嵌套查询的问题
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
-    /**
+
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 

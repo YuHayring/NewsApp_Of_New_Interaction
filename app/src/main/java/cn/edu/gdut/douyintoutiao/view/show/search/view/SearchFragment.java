@@ -1,10 +1,13 @@
 package cn.edu.gdut.douyintoutiao.view.show.search.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.SearchFragmentBinding;
+import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -37,6 +41,11 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    boolean searchForVideo = false;
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -54,10 +63,17 @@ public class SearchFragment extends Fragment {
                     Toasty.warning(requireContext(), "请输入搜索内容").show();
                     return false;
                 }
-                Toasty.normal(requireContext(), query, Toasty.LENGTH_SHORT).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("key", query);
-                controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
+                if (searchForVideo) {
+                    Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                    intent.putExtra("type","search");
+                    intent.putExtra("key",query);
+                    startActivity(intent);
+                } else {
+                    Toasty.normal(requireContext(), query, Toasty.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", query);
+                    controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
+                }
                 return true;
             }
 
@@ -66,6 +82,19 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
+
+        //搜索视频切换按钮
+        binding.buttonSwitchType.setChecked(false);
+        binding.buttonSwitchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                searchForVideo = isChecked;
+            }
+        });
+
+
     }
 
 }
