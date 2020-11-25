@@ -176,6 +176,7 @@ public class NewsDetailFragment extends Fragment {
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
                    // binding.actionGuanzhu.setIcon(yellow_guanzhu);
                     Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
+                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
                 }
             });
         }
