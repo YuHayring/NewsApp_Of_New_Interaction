@@ -61,9 +61,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="main_page_to_news_msg">看新闻</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="followTagsList">事件</string>
 
-    <string name="followAuthorList">用户</string>
 
     <!--注册页-->
     <string name="play_video">播放视频</string>
@@ -82,5 +80,29 @@
     <string name="search_input_button_msg">去搜索</string>
     <string name="search_show_news_msg">文字资讯</string>
     <string name="search_show_video_msg">视频资讯</string>
+
+
+    <!--关注页面-->
+    <string name="followTagsList">事件</string>
+    <string name="followAuthorList">用户</string>
+    <string name="AuthorDetails">被关注者页面</string>
+    <string name="textView_author_name">作者名字</string>
+    <string name="follow_author_details_describe">作者描述</string>
+    <string name="AuthorDetailsImage">被关注者（作者）头像</string>
+    <string name="FollowAuthorDetailsImage">被关注者头像</string>
+    <string name="author_name">用户名</string>
+    <string name="author_describe">用户描述</string>
+    <string name="button_authorList_unfollow">取消关注按钮</string>
+    <string name="button_news_details_follow" />
+    <string name="button_newsDetails_follow">关注按钮</string>
+
+    <!-- 视频播放页 -->
+    <string name="video_play_requesting">正在刷新中,请稍等...</string>
+
+    <string name="video_play_request_fail">网络请求失败,错误码:</string>
+
+    <!-- 视频评论页 -->
+
+    <string name="video_comment_request_fail">网络请求失败,错误码:</string>
 
 </resources>

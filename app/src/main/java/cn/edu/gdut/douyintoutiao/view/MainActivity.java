@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +11,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.main.UserMainFragment;
@@ -20,7 +24,7 @@ import cn.edu.gdut.douyintoutiao.view.user.main.UserMainFragment;
 /**
  * @author hayring
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {
 
     /**
      * 页数
@@ -64,10 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+
+
+        //ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
 
         viewPager = findViewById(R.id.main_view_pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
@@ -94,6 +103,22 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
+    }
+
+    private FileChooserDialog.FileCallback fileCallbackFromUserMain;
+
+    public void setFileCallbackFromUserMain(FileChooserDialog.FileCallback fileCallbackFromUserMain) {
+        this.fileCallbackFromUserMain = fileCallbackFromUserMain;
+    }
+
+    @Override
+    public void onFileSelection(@NonNull FileChooserDialog dialog, @NonNull File file) {
+        fileCallbackFromUserMain.onFileSelection(dialog,file);
+    }
+
+    @Override
+    public void onFileChooserDismissed(@NonNull FileChooserDialog dialog) {
+        fileCallbackFromUserMain.onFileChooserDismissed(dialog);
     }
 
 //    /**

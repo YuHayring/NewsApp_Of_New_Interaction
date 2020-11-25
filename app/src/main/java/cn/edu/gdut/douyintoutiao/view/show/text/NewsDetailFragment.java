@@ -1,13 +1,18 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 import es.dmoral.toasty.Toasty;
 
@@ -73,6 +79,27 @@ public class NewsDetailFragment extends Fragment {
                 controller.navigate(R.id.commentFragment, bundle);
             }
         });
+        //设置tag
+        binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
+
+        binding.buttonPostComment.setOnClickListener((v) -> {
+            new MaterialDialog.Builder(requireContext())
+                    .title("评论发送")
+                    .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
+                        @Override
+                        public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
+                            // Do something
+                            String content = input.toString();
+                            if (content.length() == 0) {
+                                Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
+                                return;
+                            }
+                            viewModel.postComment(newsId, userId, content);
+                            Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
+                        }
+                    }).show();
+        });
+
 
 
         //悬浮窗测试
@@ -113,19 +140,51 @@ public class NewsDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toasty.success(requireContext(), "作者！", Toasty.LENGTH_SHORT, true).show();
+                String authorId = requireActivity().getIntent().getStringExtra("authorId");
+                SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                String userId = shp.getString("userId", "noContent");
+                Intent intent = new Intent(requireActivity(), ActivityFollowAuthorDetails.class);
+                intent.putExtra("userId", authorId);
+                intent.putExtra("followId", userId);
+                startActivity(intent);
             }
         });
-        //关注
-        binding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(float_botton_flag[1]){
-                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
-                    float_botton_flag[1]=false;
-                }else{
-                    float_botton_flag[1]=true;
-                    binding.actionGuanzhu.setIcon(guanzhu);
+
+        //检查关注
+        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
+        if(flag){
+            //已关注，点击执行取消关注
+            binding.actionGuanzhu.setIcon(yellow_guanzhu);
+            binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //取消关注警告窗口
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setIcon(R.drawable.ic_baseline_warning_24)
+                            .setTitle("取消关注?")
+                            .setMessage("确定要取消关注NewsId为"+newsId+"的资讯吗")
+                            .setNegativeButton("取消", null)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
+                                    Toast.makeText(getContext(),"取消关注了"+newsId, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .create().show();
+                  //  binding.actionGuanzhu.setIcon(guanzhu);
                 }
+            });
+        }else{
+            binding.actionGuanzhu.setIcon(guanzhu);
+            binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+                   // binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
+                }
+
                 Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
             }
         });
@@ -148,33 +207,7 @@ public class NewsDetailFragment extends Fragment {
             }
         });
 
-        //设置tag
-        binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
-        //tag页面跳转
-        binding.buttonSeeTags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toasty.normal(requireContext(), "你点击了tag按钮", Toasty.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.buttonPostComment.setOnClickListener((v) -> {
-            new MaterialDialog.Builder(requireContext())
-                    .title("评论发送")
-                    .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
-                        @Override
-                        public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
-                            // Do something
-                            String content = input.toString();
-                            if (content.length() == 0) {
-                                Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
-                                return;
-                            }
-                            viewModel.postComment(newsId, userId, content);
-                            Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                        }
-                    }).show();
-        });
+>>>>>>>>> Temporary merge branch 2
     }
 
     @SuppressLint("SetJavaScriptEnabled")

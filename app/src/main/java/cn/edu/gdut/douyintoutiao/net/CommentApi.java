@@ -26,7 +26,7 @@ public interface CommentApi {
 
     @POST("postComment")
     @Headers("Content-Type: application/json;charset=UTF-8")
-    Call<Result<Void>> postComment(@Body Map<String, String> map);
+    Call<Result<Void>> postComment(@Body Map<String, String> followIdMap);
 
     /**
      * 单例内部类
