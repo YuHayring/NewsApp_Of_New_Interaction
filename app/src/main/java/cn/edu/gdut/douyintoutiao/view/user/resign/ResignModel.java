@@ -51,7 +51,7 @@ public class ResignModel {
         //调用api
         api = UserApi.getUserApi();
         Call<Result<User>> check = api.check_Resign(user);
-        MutableLiveData<Result<User>> mutableLiveData = new MutableLiveData<>();
+        MutableLiveData<Result<User>> mutableLiveData = new MutableLiveData<Result<User>>();
         Log.d(TAG, "注册数据: " + user.toString());
         //开始调用
         try {

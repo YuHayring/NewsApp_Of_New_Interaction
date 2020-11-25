@@ -5,10 +5,12 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +49,21 @@ public class NewsRepository {
             }
         });
         return allNewsLive;
+    }
+
+    //@author : hudp
+    //点赞
+    public MutableLiveData<Result<MyNews>> newsLike(String newsID) {
+        Call<Result<MyNews>> newslike = api.likeNews(newsID);
+        MutableLiveData<Result<MyNews>> mutableLiveData = new MutableLiveData<Result<MyNews>>();
+        Response<Result<MyNews>> response = null;
+        try {
+            response = newslike.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mutableLiveData.setValue(response.body());
+        return mutableLiveData;
     }
 
 

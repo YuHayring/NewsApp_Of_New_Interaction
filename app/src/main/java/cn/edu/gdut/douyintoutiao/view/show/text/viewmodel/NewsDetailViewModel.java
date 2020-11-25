@@ -15,6 +15,7 @@ public class NewsDetailViewModel extends ViewModel {
     private static final String TAG = "myTag";
     private final CommentRepository repository;
 
+
     public NewsDetailViewModel() {
         repository = new CommentRepository(CommentApi.getCommentApi());
     }
@@ -22,4 +23,7 @@ public class NewsDetailViewModel extends ViewModel {
     public void postComment(String newsID, String userID, String content) {
         repository.postComment(newsID, userID, content);
     }
+
+
+
 }

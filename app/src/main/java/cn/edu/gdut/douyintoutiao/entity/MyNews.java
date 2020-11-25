@@ -1,5 +1,7 @@
 package cn.edu.gdut.douyintoutiao.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -43,8 +45,11 @@ public class MyNews implements Serializable {
      * 新闻具体的uri
      */
     private String newsDetailUrl;
-
-
+    /**
+     * 资讯概要
+     */
+    @SerializedName("like")
+    private String likenumber;
     /**
      * 新闻tag
      */
@@ -78,6 +83,14 @@ public class MyNews implements Serializable {
 
     public void setNewsName(String newsName) {
         this.newsName = newsName;
+    }
+
+    public String getLikenumber() {
+        return likenumber;
+    }
+
+    public void setLikenumber(String likenumber) {
+        this.likenumber = likenumber;
     }
 
     public String getNewsAbstract() {

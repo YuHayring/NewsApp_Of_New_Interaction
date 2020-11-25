@@ -1,5 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 import es.dmoral.toasty.Toasty;
 
+import static cn.edu.gdut.douyintoutiao.R.drawable.dianzan;
 import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
 import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
-import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
-import es.dmoral.toasty.Toasty;
 
 public class NewsDetailFragment extends Fragment {
 
@@ -33,6 +37,7 @@ public class NewsDetailFragment extends Fragment {
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
+    private NewsViewModel newsViewModel;
 
     public static NewsDetailFragment newInstance() {
         return new NewsDetailFragment();
@@ -55,6 +60,7 @@ public class NewsDetailFragment extends Fragment {
         String newsId = requireActivity().getIntent().getStringExtra("newsId");
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId", "noContent");
+        //悬浮窗置顶
         binding.floatButton.bringToFront();
 
         //评论页面跳转
@@ -77,19 +83,22 @@ public class NewsDetailFragment extends Fragment {
                 Toasty.success(requireContext(), "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
             }
         });
+        //悬浮窗组件的状态
+        final boolean[] float_botton_flag = {true,true};
         //点赞按钮
         binding.actionDianzan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                boolean flag = true;
-                if(flag){
+                //图标的变化
+                if(float_botton_flag[0]){
                     binding.actionDianzan.setIcon(red_dianzan);
-                    flag=false;
+                    float_botton_flag[0] =false;
                 }else{
-                    flag=true;
-                    binding.actionDianzan.setIcon(red_dianzan);
+                    float_botton_flag[0] =true;
+                    binding.actionDianzan.setIcon(dianzan);
                 }
                 Toasty.success(requireContext(), "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
+                newsViewModel.newsLike(newsId);
             }
         });
         //不感兴趣
@@ -110,15 +119,13 @@ public class NewsDetailFragment extends Fragment {
         binding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                boolean flag = true;
-                if(flag){
+                if(float_botton_flag[1]){
                     binding.actionGuanzhu.setIcon(yellow_guanzhu);
-                    flag=false;
+                    float_botton_flag[1]=false;
                 }else{
-                    flag=true;
+                    float_botton_flag[1]=true;
                     binding.actionGuanzhu.setIcon(guanzhu);
                 }
-
                 Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
             }
         });
