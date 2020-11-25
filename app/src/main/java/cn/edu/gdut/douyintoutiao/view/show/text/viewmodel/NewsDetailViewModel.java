@@ -1,20 +1,11 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.ViewModel;
 
-import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.CommentApi;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
 import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
-import cn.edu.gdut.douyintoutiao.view.user.login.Callback;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * @author : cypang
@@ -27,7 +18,13 @@ public class NewsDetailViewModel extends ViewModel {
     private final CommentRepository repository;
     private final NewsRepository newsRepository;
 
-    private Callback<Result> callback;
+  //  private Callback<Result> checkCallback;
+
+
+//    public void init(Callback<Result> callback) {
+//       newsRepository  = NewsRepository.getInstance();
+//        checkCallback = callback;
+//    }
 
     public NewsDetailViewModel() {
         repository = new CommentRepository(CommentApi.getCommentApi());
@@ -37,6 +34,21 @@ public class NewsDetailViewModel extends ViewModel {
     public void postComment(String newsID, String userID, String content) {
         repository.postComment(newsID, userID, content);
     }
+
+
+//    public String checkMsg ;
+//
+//    CheckFollowCallBack checkFollowCallBack = new CheckFollowCallBack() {
+//        @Override
+//        public void onSuccess(String msg) {
+//            checkMsg = msg;
+//        }
+//
+//        @Override
+//        public void onFaile(String errorInfo) {
+//
+//        }
+//    };
 
 
     /**
@@ -52,58 +64,43 @@ public class NewsDetailViewModel extends ViewModel {
     }
 
 //    public boolean checkTagsFollowByNewsIdUserId (String newsId,String userId){
-//        return newsRepository.checkTagsFollowByNewsIdUserId(newsId,userId);
+//       return newsRepository.checkTagsFollowByNewsIdUserId(newsId,userId);
 //    }
 
-    public boolean checkTagsFollowByNewsIdUserId1(String newsId,String userId){
-        newsRepository.checkTagsFollowByNewsIdUserId1(newsId,userId).subscribeOn(Schedulers.io())//check方法放到子线程
-                .observeOn(AndroidSchedulers.mainThread())//把下面操作切换到主线程
-                .subscribe(new Observer< Result >() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Log.d(TAG,"onSubscribe run");
-                    }
-
-                    @Override
-                    public void onNext(@NonNull Result response) {
-                        Log.d(TAG,response.getMsg());
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.d(TAG,"onError run");
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG,"onComplete run");
-
-                    }
-                });
-//                .subscribe(new ObserverManager< Result >() {
+//    public boolean checkTagsFollowByNewsIdUserId(String newsId,String userId){
+//        boolean flag;
+//        newsRepository.checkTagsFollowByNewsIdUserId1(newsId,userId).subscribeOn(Schedulers.io())//check方法放到子线程
+//                .observeOn(AndroidSchedulers.mainThread())//把下面操作切换到主线程
+//                .subscribe(new Observer< Result >() {
 //                    @Override
-//                    public void onSuccess(Result response) {
-//                        Log.d(TAG, "检查关注onSuccess: " + response.getMsg());
+//                    public void onSubscribe(@NonNull Disposable d) {
+//                        Log.d(TAG,"onSubscribe run");
 //                    }
 //
 //                    @Override
-//                    public void onFinish() {
-//                        Log.d(TAG, "检查关注onFinish: 请求完成");
+//                    public void onNext(@NonNull Result response) {
+//                        Log.d(TAG,response.getMsg());
 //                    }
 //
 //                    @Override
-//                    public void onDisposable(Disposable disposable) {
+//                    public void onError(@NonNull Throwable e) {
+//                        Log.d(TAG,"onError run");
 //
-//                    }
-//                });//
 //                    }
 //
 //                    @Override
-//                    public void onFail(Throwable throwable) {
-//                        Log.d(TAG, "onFail: 请求失败" );
+//                    public void onComplete() {
+//                        Log.d(TAG,"onComplete run");
+//
+//                    }
+//                });
+//
+//                return false;
+//    }
 
-
-                return false;
-    }
+//    public interface CheckFollowCallBack {
+//        void onSuccess(String msg);
+//
+//        void onFaile(String errorInfo);
+//    }
 }

@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,8 +144,8 @@ public class NewsDetailFragment extends Fragment {
         });
 
         //检查关注
-        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
-        if(flag){
+       // Boolean flag = viewModel.checkTagsFollowByNewsIdUserId(newsId,userId);
+        if(false){
             //已关注，点击执行取消关注
             binding.actionGuanzhu.setIcon(yellow_guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
