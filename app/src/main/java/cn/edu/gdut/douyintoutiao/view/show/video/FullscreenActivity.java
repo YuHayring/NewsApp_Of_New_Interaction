@@ -47,6 +47,15 @@ public class FullscreenActivity extends AppCompatActivity {
     private static final long FLOAT_BUTTON_HIDE_TIME = 5000l;
 
 
+    private String status;
+
+    private String key;
+
+    public static final String DEFAULT = "default";
+
+    public static final String SEARCH = "search";
+
+
 
     private VideoStateAdapter adapter;
 
@@ -245,7 +254,19 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        videoPlayerModel.getVideoNews();
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
+        if (type == null) {
+            status = DEFAULT;
+            videoPlayerModel.getVideoNews();
+        } else if ("search".equals(type)){
+            status = SEARCH;
+            key = intent.getStringExtra("key");
+            videoPlayerModel.searchVideoNews(key);
+        }
+
+
+        //隐藏计时器
         hideFloatButtonFunction.run();
 
     }
@@ -262,6 +283,11 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
 
+    public String getStatus() {
+        return status;
+    }
 
-
+    public String getKey() {
+        return key;
+    }
 }
