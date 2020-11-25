@@ -11,10 +11,11 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface UserApi {
     @GET("user")
-    Call<User> getUser();
+    Call<User> getUser(@Query("userId") String userId);
 
     /**
      * 检查登录数据是否有效接口

@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view.user.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class UserMainFragment extends Fragment {
 
     private final Context context;
 
+    private String userId;
+
     public UserMainFragment(Context context) {
         this.context = context;
         if (context instanceof MainActivity) {
@@ -45,7 +48,7 @@ public class UserMainFragment extends Fragment {
 
     private FragmentUserMainBinding mUserInfoBinding;
 
-    UserMainViewModel userMainViewModel = new UserMainViewModel();
+    UserMainViewModel userMainViewModel;
 
     /***
      * 生命周期加载方法
@@ -56,8 +59,10 @@ public class UserMainFragment extends Fragment {
         // Inflate the layout for this fragment
         //View view = inflater.inflate(R.layout.fragment_user_main, container, false);
 
-        mUserInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_main, container, false);
-        mUserInfoBinding.setUserMainViewModel(userMainViewModel);
+        mUserInfoBinding = FragmentUserMainBinding.inflate(inflater,  container, false);
+        userMainViewModel = new UserMainViewModel(mUserInfoBinding,context);
+        SharedPreferences shp = context.getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        userId = shp.getString("userId", "noContent");
 
         return mUserInfoBinding.getRoot();
 
@@ -70,7 +75,7 @@ public class UserMainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        userMainViewModel.userMainModel.getUser("");
+        userMainViewModel.userMainModel.getUser(userId);
 
     }
 

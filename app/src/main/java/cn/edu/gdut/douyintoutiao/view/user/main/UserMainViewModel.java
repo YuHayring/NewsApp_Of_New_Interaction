@@ -1,8 +1,11 @@
 package cn.edu.gdut.douyintoutiao.view.user.main;
 
-import androidx.databinding.ObservableField;
+import android.content.Context;
+import android.graphics.Bitmap;
 
+import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.entity.User;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author hayring
@@ -12,11 +15,12 @@ public class UserMainViewModel {
 
     public UserMainModel userMainModel;
 
+    private Context context;
 
-    public ObservableField<String> userName = new ObservableField<>();
+    private FragmentUserMainBinding binding;
 
-    public ObservableField<String> userDescription = new ObservableField<>();
-    OnUserGotCallBack userGotCallBack = new OnUserGotCallBack() {
+
+    OnGotCallBack<User> userGotCallBack = new OnGotCallBack<User>() {
 
         /**
          * 获取到用户信息，将其显示在界面上
@@ -24,27 +28,48 @@ public class UserMainViewModel {
          */
         @Override
         public void onSuccess(User user) {
-            userName.set(user.getUserName());
-            userDescription.set(user.getUserDescription());
+            binding.userNameTag.setText(user.getUserName());
+            binding.userDescriptionTag.setText(user.getUserDescription());
+            userMainModel.getImage(user.getUserImageUrl());
         }
 
         @Override
         public void onFaile(String errorInfo) {
-//            Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
+            gotFail("用户信息获取错误 ErrorCode: " + errorInfo);
             //TODO
         }
     };
 
-    public UserMainViewModel() {
-        this.userMainModel = new UserMainModel(userGotCallBack);
+
+    OnGotCallBack<Bitmap> onImageGotCallBack = new OnGotCallBack<Bitmap>() {
+        @Override
+        public void onSuccess(Bitmap bitmap) {
+            binding.userAvatars.setImageBitmap(bitmap);
+        }
+
+        @Override
+        public void onFaile(String errorInfo) {
+            gotFail("头像获取错误, errorCode: " + errorInfo);
+        }
+    };
+
+    public UserMainViewModel(FragmentUserMainBinding binding, Context context) {
+        this.userMainModel = new UserMainModel(this);
+        this.context = context;
+        this.binding = binding;
     }
 
 
-    public interface OnUserGotCallBack {
-        void onSuccess(User user);
+    public interface OnGotCallBack<T> {
+        void onSuccess(T t);
 
         void onFaile(String errorInfo);
     }
 
+
+
+    private void gotFail(String err) {
+        Toasty.error(context, err);
+    }
 
 }

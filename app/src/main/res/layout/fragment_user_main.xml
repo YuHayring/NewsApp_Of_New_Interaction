@@ -6,9 +6,6 @@
 
     <data>
 
-        <variable
-            name="userMainViewModel"
-            type="cn.edu.gdut.douyintoutiao.view.user.main.UserMainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,7 +71,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:text="@{userMainViewModel.userName}"
             android:textSize="36dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
@@ -112,7 +108,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="24dp"
-            android:text="@{userMainViewModel.userDescription}"
             app:layout_constraintBottom_toTopOf="@+id/guideline15"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
             app:layout_constraintStart_toStartOf="parent"

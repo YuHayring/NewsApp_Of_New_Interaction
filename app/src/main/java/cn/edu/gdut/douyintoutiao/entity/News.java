@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @date 2020/11/6 16:15
  * 资讯实体
  */
+@Deprecated
 public class News implements Serializable {
     
     //文字
