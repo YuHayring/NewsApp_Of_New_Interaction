@@ -40,7 +40,7 @@ public interface NewsApi {
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
-    /**
+
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
