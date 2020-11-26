@@ -53,7 +53,7 @@ public interface NewsApi {
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
-
+<<<<<<<<< Temporary merge branch 1
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
@@ -61,10 +61,10 @@ public interface NewsApi {
     Call<Result> deleteTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
     @POST("check_tags_follow")
-    Call<Result> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
-
-    @POST("check_tags_follow")
-    Observable<Result> checkTagsFollowByNewsIdUserId1 (@Body Map<String,String> newsIdUserId);
+    Call<Result<FollowNews>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+//
+//    @POST("check_tags_follow")
+//    Observable<Result> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
      /**
      * 单例内部类
      */

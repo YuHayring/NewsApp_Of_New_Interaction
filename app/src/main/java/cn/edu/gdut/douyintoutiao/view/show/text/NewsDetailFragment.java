@@ -150,8 +150,8 @@ public class NewsDetailFragment extends Fragment {
         });
 
         //检查关注
-        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
-        if(flag){
+       // Boolean flag = viewModel.checkTagsFollowByNewsIdUserId(newsId,userId);
+        if(false){
             //已关注，点击执行取消关注
             binding.actionGuanzhu.setIcon(yellow_guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +182,7 @@ public class NewsDetailFragment extends Fragment {
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
                    // binding.actionGuanzhu.setIcon(yellow_guanzhu);
                     Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
+                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
                 }
             });
         }
