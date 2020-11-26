@@ -57,17 +57,30 @@ public class NewsRepository {
 
     //@author : hudp
     //点赞
-    public MutableLiveData<Result<MyNews>> newsLike(String newsID) {
-        Call<Result<MyNews>> newslike = api.likeNews(newsID);
-        MutableLiveData<Result<MyNews>> mutableLiveData = new MutableLiveData<Result<MyNews>>();
-        Response<Result<MyNews>> response = null;
-        try {
-            response = newslike.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mutableLiveData.setValue(response.body());
-        return mutableLiveData;
+    public void newsLike(MyNews news) {
+        Call<Result<MyNews>> newslike = api.likeNews(news);
+        newslike.enqueue(new Callback< Result< MyNews > >() {
+            @Override
+            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
+            }
+
+            @Override
+            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
+            }
+        });
+    }
+    //取消点赞
+    public void newsUnLike(MyNews news) {
+        Call<Result<MyNews>> newslike = api.nolikeNews(news);
+        newslike.enqueue(new Callback< Result< MyNews > >() {
+            @Override
+            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
+            }
+
+            @Override
+            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
+            }
+        });
     }
 
 

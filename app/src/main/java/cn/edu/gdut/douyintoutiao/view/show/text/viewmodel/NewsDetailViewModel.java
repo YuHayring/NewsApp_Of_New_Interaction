@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view.show.text.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.CommentApi;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
@@ -35,6 +36,15 @@ public class NewsDetailViewModel extends ViewModel {
         repository.postComment(newsID, userID, content);
     }
 
+
+
+
+    public void newsLike(MyNews news){
+        newsRepository.newsLike(news);
+    }
+    public void newsUnLike(MyNews news){
+        newsRepository.newsUnLike(news);
+    }
 
 //    public String checkMsg ;
 //

@@ -25,10 +25,10 @@ public interface NewsApi {
 
     //@author hudp
     @POST("new_like")
-    Call<Result<MyNews>> likeNews(@Body String newsID);
+    Call<Result<MyNews>> likeNews(@Body MyNews news);
 
     @POST("new_unlike")
-    Call<Result<MyNews>> nolikeNews();
+    Call<Result<MyNews>> nolikeNews(@Body MyNews news);
 
 
     @GET("videoList")
@@ -53,7 +53,7 @@ public interface NewsApi {
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
-<<<<<<<<< Temporary merge branch 1
+
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 

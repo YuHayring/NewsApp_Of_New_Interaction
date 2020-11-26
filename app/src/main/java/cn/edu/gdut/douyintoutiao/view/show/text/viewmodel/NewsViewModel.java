@@ -5,8 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import cn.edu.gdut.douyintoutiao.entity.Result;
+
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
@@ -32,8 +31,8 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<Result<MyNews>> newsLike(String newsId){
-        return newsRepository.newsLike(newsId);
+    public void newsLike(MyNews news){
+        newsRepository.newsLike(news);
     }
 
 }
