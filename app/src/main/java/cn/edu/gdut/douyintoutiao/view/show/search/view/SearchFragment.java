@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.SearchFragmentBinding;
-import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -64,7 +63,7 @@ public class SearchFragment extends Fragment {
                     return false;
                 }
                 if (searchForVideo) {
-                    Intent intent = new Intent(getContext(), FullscreenActivity.class);
+                    Intent intent = new Intent(getContext(), VerticalVideoPlayActivity.class);
                     intent.putExtra("type","search");
                     intent.putExtra("key",query);
                     startActivity(intent);

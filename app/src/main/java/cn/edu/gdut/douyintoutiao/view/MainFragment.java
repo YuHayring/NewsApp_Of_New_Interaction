@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,11 +19,10 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
-import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
-import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 
 /**
  * @author hayring
@@ -40,7 +36,8 @@ public class MainFragment extends Fragment {
     ViewPager2 newsViewPager;
 
 
-    public MainFragment(Context context) {
+
+    public void setContext(Context context) {
         this.context = context;
     }
 
@@ -119,7 +116,7 @@ public class MainFragment extends Fragment {
 
 
         binding.exchangeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FullscreenActivity.class);
+            Intent intent = new Intent(getActivity(), VerticalVideoPlayActivity.class);
             startActivity(intent);
         });
 
