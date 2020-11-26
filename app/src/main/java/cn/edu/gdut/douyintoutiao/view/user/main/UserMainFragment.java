@@ -33,18 +33,17 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 public class UserMainFragment extends Fragment {
 
 
-    private final Context context;
+    private Context context;
 
     private String userId;
 
-    public UserMainFragment(Context context) {
+    public void setContext(Context context) {
         this.context = context;
         if (context instanceof MainActivity) {
             MainActivity activity = (MainActivity) context;
             activity.setFileCallbackFromUserMain(fileCallback);
         }
     }
-
 
     private FragmentUserMainBinding mUserInfoBinding;
 

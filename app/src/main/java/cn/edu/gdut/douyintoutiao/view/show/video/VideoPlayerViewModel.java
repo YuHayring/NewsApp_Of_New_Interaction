@@ -3,18 +3,15 @@ package cn.edu.gdut.douyintoutiao.view.show.video;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.ActivityFullscreenBinding;
+import cn.edu.gdut.douyintoutiao.databinding.ActivityVerticalVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import es.dmoral.toasty.Toasty;
 
@@ -34,13 +31,13 @@ public class VideoPlayerViewModel extends ViewModel {
 
     int errorCode = 0;
 
-    public FullscreenActivity activity;
+    public VerticalVideoPlayActivity activity;
 
     private VideoPlayerModel videoPlayerModel;
 
     private VideoStateAdapter adapter;
 
-    ActivityFullscreenBinding viewBinding;
+    ActivityVerticalVideoPlayBinding viewBinding;
 
 
     private OnVideoGotCallBack videoGotCallBack = new OnVideoGotCallBack() {
@@ -55,7 +52,7 @@ public class VideoPlayerViewModel extends ViewModel {
         }
     };
 
-    public VideoPlayerViewModel(FullscreenActivity activity) {
+    public VideoPlayerViewModel(VerticalVideoPlayActivity activity) {
         this.activity = activity;
     }
 
@@ -94,9 +91,9 @@ public class VideoPlayerViewModel extends ViewModel {
                 }
             } else if (state == 0) {
                 if (adapter.getItemCount() == viewBinding.videoViewPager.getCurrentItem() + 2) {
-                    if (activity.getStatus() == FullscreenActivity.DEFAULT) {
+                    if (activity.getStatus() == VerticalVideoPlayActivity.DEFAULT) {
                         videoPlayerModel.getMoreVideoNews(activity.newses.size());
-                    } else if (activity.getStatus() == FullscreenActivity.SEARCH) {
+                    } else if (activity.getStatus() == VerticalVideoPlayActivity.SEARCH) {
                         videoPlayerModel.searchMoreVideoNews(activity.newses.size(), activity.getKey());
                     }
                 }
@@ -122,7 +119,7 @@ public class VideoPlayerViewModel extends ViewModel {
         this.adapter = adapter;
     }
 
-    public void setViewBinding(ActivityFullscreenBinding viewBinding) {
+    public void setViewBinding(ActivityVerticalVideoPlayBinding viewBinding) {
         this.viewBinding = viewBinding;
     }
 }

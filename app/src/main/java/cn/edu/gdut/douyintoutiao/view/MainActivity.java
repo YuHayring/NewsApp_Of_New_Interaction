@@ -149,9 +149,13 @@ public class MainActivity extends AppCompatActivity implements FileChooserDialog
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
-                return new MainFragment(MainActivity.this);
+                MainFragment fragment = new MainFragment();
+                fragment.setContext(MainActivity.this);
+                return fragment;
             } else if (position == 1) {
-                return new UserMainFragment(MainActivity.this);
+                UserMainFragment fragment = new UserMainFragment();
+                fragment.setContext(MainActivity.this);
+                return fragment;
             }
             throw new IllegalArgumentException();
         }
