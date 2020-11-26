@@ -106,5 +106,8 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
 
+//
+//    implementation 'com.github.wangpeiyuan:CycleViewPager2:v1.0.7'
+
 
 }

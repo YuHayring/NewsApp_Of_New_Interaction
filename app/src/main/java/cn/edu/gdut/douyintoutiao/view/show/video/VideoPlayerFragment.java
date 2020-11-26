@@ -46,16 +46,12 @@ public class VideoPlayerFragment extends Fragment {
     //当前新闻
     private MyNews news;
 
-    public VideoPlayerFragment(Context context, MyNews news) {
-        super();
+    public VideoPlayerFragment() {}
+
+
+    public void setContext(Context context) {
         this.context = context;
-        this.news = news;
     }
-
-
-
-
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

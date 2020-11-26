@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.view.show.video.MagicVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,7 +32,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, VerticalVideoPlayActivity.class);
+        Intent intent = new Intent(this, MagicVideoPlayActivity.class);
         startActivity(intent);
     }
 }
