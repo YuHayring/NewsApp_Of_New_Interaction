@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/vertical_video_view_pager"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
 
     </androidx.viewpager2.widget.ViewPager2>

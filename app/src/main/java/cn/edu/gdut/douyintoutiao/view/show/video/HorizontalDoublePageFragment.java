@@ -22,13 +22,17 @@ import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
  */
 public class HorizontalDoublePageFragment extends Fragment {
 
+
+    ViewPager2 verticalViewPager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewPager2 cycleViewPager2 = (ViewPager2) inflater.inflate(R.layout.view_cycle_view_pager2, container, false);
-        cycleViewPager2.setAdapter(new HorizontalFragmentAdapter(activity));
-        cycleViewPager2.setCurrentItem(1);
-        return cycleViewPager2;
+        View view = inflater.inflate(R.layout.view_cycle_view_pager2, container, false);
+        verticalViewPager = view.findViewById(R.id.vertical_view_pager);
+        verticalViewPager.setAdapter(new HorizontalFragmentAdapter(activity));
+        verticalViewPager.setCurrentItem(1);
+        return view;
     }
 
     //竖直 viewpager 中的位置
