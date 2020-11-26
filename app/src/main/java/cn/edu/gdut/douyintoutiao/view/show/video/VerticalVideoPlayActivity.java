@@ -1,18 +1,13 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -20,7 +15,6 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.databinding.ActivityCommentFragmentContainerBinding;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityVerticalVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
@@ -67,7 +61,7 @@ public class VerticalVideoPlayActivity extends FullScreenActivity {
 
     VideoPlayerModel videoPlayerModel;
 
-    VideoPlayerViewModel videoPlayerViewModel;
+    VerticalVideoPlayerViewModel verticalVideoPlayerViewModel;
 
     ActivityVerticalVideoPlayBinding viewBinding;
 
@@ -97,16 +91,16 @@ public class VerticalVideoPlayActivity extends FullScreenActivity {
 //        //显示 Fragment
 //        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, videoPlayerFragment).show(videoPlayerFragment).commitAllowingStateLoss();
 
-        videoPlayerModel = new VideoPlayerModel();
-        videoPlayerViewModel = new VideoPlayerViewModel(this);
-        videoPlayerViewModel.setVideoPlayerModel(videoPlayerModel);
-        videoPlayerViewModel.setViewBinding(viewBinding);
+        videoPlayerModel = VideoPlayerModel.getInstance();
+        verticalVideoPlayerViewModel = new VerticalVideoPlayerViewModel(this);
+        verticalVideoPlayerViewModel.setVideoPlayerModel(videoPlayerModel);
+        verticalVideoPlayerViewModel.setViewBinding(viewBinding);
 
 
         adapter = new VideoStateAdapter(this, fragments, newses);
         viewBinding.videoViewPager.setAdapter(adapter);
-        viewBinding.videoViewPager.registerOnPageChangeCallback(videoPlayerViewModel.getOnPageChangeCallback());
-        videoPlayerViewModel.setAdapter(adapter);
+        viewBinding.videoViewPager.registerOnPageChangeCallback(verticalVideoPlayerViewModel.getOnPageChangeCallback());
+        verticalVideoPlayerViewModel.setAdapter(adapter);
 
 
 

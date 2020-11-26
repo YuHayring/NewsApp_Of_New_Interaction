@@ -20,10 +20,18 @@ import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
  * @author hayring
  * @date 11/26/20 6:54 PM
  */
-public class VerticalDoublePageFragment extends Fragment {
+public class VerticalTriplePageFragment extends Fragment {
 
 
     ViewPager2 verticalViewPager;
+
+
+    MagicVideoPlayViewModel magicVideoPlayViewModel;
+
+    /**
+     * 核心视频播放 Fragment
+     */
+    VideoPlayerFragment videoPlayerFragment;
 
     @Nullable
     @Override
@@ -33,8 +41,8 @@ public class VerticalDoublePageFragment extends Fragment {
         verticalViewPager.setAdapter(new VerticalFragmentAdapter(activity));
         verticalViewPager.setCurrentItem(1);
 
-        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager,false);
-        horizontalCallBack.setActivity(activity);
+        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager, magicVideoPlayViewModel);
+
         verticalViewPager.registerOnPageChangeCallback(horizontalCallBack);
         return view;
     }
@@ -60,6 +68,7 @@ public class VerticalDoublePageFragment extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
+            if (position == 1) return videoPlayerFragment;
             position += 3;
             ShowIndexFragment fragment = new ShowIndexFragment();
             fragment.setIndex(position);
@@ -79,9 +88,19 @@ public class VerticalDoublePageFragment extends Fragment {
         this.position = position;
     }
 
+
+    public void setVideoPlayerFragment(VideoPlayerFragment videoPlayerFragment) {
+        this.videoPlayerFragment = videoPlayerFragment;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         Log.i("VerticalDoublePageFragment","position:" + position +" OnResume");
+    }
+
+
+    public void setMagicVideoPlayViewModel(MagicVideoPlayViewModel magicVideoPlayViewModel) {
+        this.magicVideoPlayViewModel = magicVideoPlayViewModel;
     }
 }

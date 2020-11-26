@@ -89,15 +89,17 @@ public class VideoPlayerFragment extends Fragment {
             mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
-            try {
+            if (news != null) {
+                try {
 //                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
-                mPlayer.setDataSource(news.getNewsDetailUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
-                //TODO
+                    mPlayer.setDataSource(news.getNewsDetailUrl());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+                    //TODO
+                }
+                mPlayer.prepareAsync();
             }
-            mPlayer.prepareAsync();
             Log.i("VideoPlayerFragment", "Player Created");
         }
     }
@@ -128,6 +130,7 @@ public class VideoPlayerFragment extends Fragment {
         public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
 //            textureView.setSurfaceTextureListener(null);
 //            textureView = null;
+            releasePlayer();
             mSurface = null;
             return true;
         }
@@ -141,19 +144,19 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        releasePlayer();
+//        releasePlayer();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        pause();
+//        pause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        play();
+//        play();
     }
 
     /**
@@ -238,5 +241,27 @@ public class VideoPlayerFragment extends Fragment {
 
     public void setMyNews(MyNews news) {
         this.news = news;
+        //确保播放器已创建
+//        if (mPlayer != null) {
+//            try {
+//                mPlayer.setDataSource(news.getNewsDetailUrl());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+//                //TODO
+//            }
+//        }
+        if (mPlayer != null) {
+            try {
+//                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+                mPlayer.setDataSource(news.getNewsDetailUrl());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+                //TODO
+            }
+            mPlayer.prepareAsync();
+        }
+
     }
 }

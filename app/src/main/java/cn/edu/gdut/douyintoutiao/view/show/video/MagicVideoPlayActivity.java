@@ -33,6 +33,13 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
     Fragment[] fragments = new Fragment[6];
 
 
+    /**
+     * 核心 Fragment
+     */
+    VideoPlayerFragment videoPlayerFragment;
+
+    MagicVideoPlayViewModel magicVideoPlayViewModel;
+
 
 
 
@@ -47,20 +54,26 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
         horizontalViewPager.setAdapter(new VerticalFragmentAdapter(this));
         horizontalViewPager.setCurrentItem(1,false);
-        ResetPositionCallBack horizontalCallBack = new ResetPositionCallBack(horizontalViewPager,false);
-        horizontalCallBack.setActivity(this);
+
+        videoPlayerFragment = new VideoPlayerFragment();
+        videoPlayerFragment.setContext(this);
+
+
+        magicVideoPlayViewModel = new MagicVideoPlayViewModel(videoPlayerFragment);
+
+        magicVideoPlayViewModel.getVideoTest();
+
+        ResetPositionCallBack horizontalCallBack = new ResetPositionCallBack(horizontalViewPager, magicVideoPlayViewModel);
+
         horizontalViewPager.registerOnPageChangeCallback(horizontalCallBack);
-
-
-
 
 
     }
 
 
-
-
-
+    /**
+     * 竖直 适配器
+     */
     private class VerticalFragmentAdapter extends FragmentStateAdapter {
 
         public VerticalFragmentAdapter(@NonNull FragmentActivity activity) {
@@ -74,8 +87,10 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
         public Fragment createFragment(int position) {
             Fragment fragment;
             if (position == 1) {
-                fragment = new VerticalDoublePageFragment();
-                ((VerticalDoublePageFragment)fragment).setActivity(MagicVideoPlayActivity.this);
+                fragment = new VerticalTriplePageFragment();
+                ((VerticalTriplePageFragment)fragment).setActivity(MagicVideoPlayActivity.this);
+                ((VerticalTriplePageFragment)fragment).setVideoPlayerFragment(videoPlayerFragment);
+                ((VerticalTriplePageFragment)fragment).setMagicVideoPlayViewModel(magicVideoPlayViewModel);
             } else {
                 fragment = new ShowIndexFragment();
                 ((ShowIndexFragment)fragment).setIndex(position);
@@ -92,26 +107,24 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
     }
 
 
-
-
+    /**
+     * 滑动重置中心 callback
+     */
     static class ResetPositionCallBack extends ViewPager2.OnPageChangeCallback {
 
         int currentPosition = 1;
 
         ViewPager2 viewPager2;
 
-        boolean vertical;
-
-        public ResetPositionCallBack(ViewPager2 viewPager2, boolean vertical) {
+        public ResetPositionCallBack(ViewPager2 viewPager2, MagicVideoPlayViewModel magicVideoPlayViewModel) {
             this.viewPager2 = viewPager2;
-            this.vertical = vertical;
+            this.magicVideoPlayViewModel = magicVideoPlayViewModel;
         }
 
-        private MagicVideoPlayActivity activity;
+        MagicVideoPlayViewModel magicVideoPlayViewModel;
 
-        public void setActivity(MagicVideoPlayActivity activity) {
-            this.activity = activity;
-        }
+
+
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -128,30 +141,29 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
             //        若viewpager滑动未停止，直接返回
             if (state != ViewPager2.SCROLL_STATE_IDLE) return;
+
+            int prePosition = currentPosition;
+
+            viewPager2.setCurrentItem(1,false);
             //        若当前为第一张，设置页面为倒数第二张
-            if (currentPosition == 0) {
-                if (vertical) {
+            if (prePosition == 0) {
+                if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
                     //触发上滑操作
-                    //TODO
-                    Toasty.info(activity,"刚才上滑了");
+                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.upNewses.pop());
                 } else {
                     //触发左滑操作
-                    //TODO
-                    Toasty.info(activity,"刚才左滑了");
+                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.leftNewses.pop());
                 }
 
-            } else if (currentPosition == 2) {
-                if (vertical) {
+            } else if (prePosition == 2) {
+                if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
                     //触发下滑操作
-                    //TODO
-                    Toasty.info(activity,"刚才下滑了");
+                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.downNewses.pop());
                 } else {
                     //触发右滑操作
-                    //TODO
-                    Toasty.info(activity,"刚才右滑了");
+                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.rightNewses.pop());
                 }
             }
-            viewPager2.setCurrentItem(1,false);
         }
     }
 

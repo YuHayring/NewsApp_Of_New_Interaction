@@ -19,7 +19,7 @@ import es.dmoral.toasty.Toasty;
  * @author hayring
  * @date 2020/11/7 16:09
  */
-public class VideoPlayerViewModel extends ViewModel {
+public class VerticalVideoPlayerViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     public interface OnVideoGotCallBack {
@@ -52,7 +52,7 @@ public class VideoPlayerViewModel extends ViewModel {
         }
     };
 
-    public VideoPlayerViewModel(VerticalVideoPlayActivity activity) {
+    public VerticalVideoPlayerViewModel(VerticalVideoPlayActivity activity) {
         this.activity = activity;
     }
 
