@@ -1,24 +1,18 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityMagicVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author hayring
@@ -33,7 +27,7 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
 
 
-    ViewPager2 verticalViewPager;
+    ViewPager2 horizontalViewPager;
 //
 //    VideoPlayerFragment[] fragments = new VideoPlayerFragment[4];
     Fragment[] fragments = new Fragment[6];
@@ -48,12 +42,14 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
         super.onCreate(savedInstanceState);
         videoPlayBinding = ActivityMagicVideoPlayBinding.inflate(LayoutInflater.from(this));
         setContentView(videoPlayBinding.getRoot());
-        verticalViewPager = videoPlayBinding.verticalVideoViewPager;
+        horizontalViewPager = videoPlayBinding.horizontalVideoViewPager;
 
 
-//        verticalViewPager.setAdapter(verticalAdapter);
-        verticalViewPager.setAdapter(new VerticalFragmentAdapter(this));
-        verticalViewPager.setCurrentItem(1,false);
+        horizontalViewPager.setAdapter(new VerticalFragmentAdapter(this));
+        horizontalViewPager.setCurrentItem(1,false);
+        ResetPositionCallBack horizontalCallBack = new ResetPositionCallBack(horizontalViewPager,false);
+        horizontalCallBack.setActivity(this);
+        horizontalViewPager.registerOnPageChangeCallback(horizontalCallBack);
 
 
 
@@ -61,42 +57,7 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
     }
 
-//    /**
-//     * 竖直的 ViewPager Adapter
-//     */
-//    CyclePagerAdapter<VerticalViewHolder> verticalAdapter = new CyclePagerAdapter() {
-//        @Override
-//        public int getRealItemCount() {
-//            return 2;
-//        }
-//
-//        @Override
-//        public void onBindRealViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//
-//        }
-//        @NonNull
-//        @Override
-//        public VerticalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            if (parent.getChildCount() == 0) {
-//                horizontalViewPager0 = (CycleViewPager2) LayoutInflater.from(MagicVideoPlayActivity.this).inflate(R.layout.view_cycle_view_pager2, parent, false);
-//                horizontalViewPager0.setAdapter(new CycleDoublePagerFragmentAdapter(MagicVideoPlayActivity.this,0));
-//                horizontalViewPager0.setOrientation(View.SCROLL_AXIS_HORIZONTAL);
-//                return new VerticalViewHolder(horizontalViewPager0);
-//            } else {
-//                horizontalViewPager1 = (CycleViewPager2) LayoutInflater.from(MagicVideoPlayActivity.this).inflate(R.layout.view_cycle_view_pager2, parent, false);
-//                horizontalViewPager1.setAdapter(new CycleDoublePagerFragmentAdapter(MagicVideoPlayActivity.this,1));
-//                horizontalViewPager1.setOrientation(View.SCROLL_AXIS_HORIZONTAL);
-//                return new VerticalViewHolder(horizontalViewPager1);
-//            }
-//        }
-//    };
-//
-//    private static class VerticalViewHolder extends RecyclerView.ViewHolder {
-//
-//        public VerticalViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//        }
-//    }
+
 
 
 
@@ -113,8 +74,8 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
         public Fragment createFragment(int position) {
             Fragment fragment;
             if (position == 1) {
-                fragment = new HorizontalDoublePageFragment();
-                ((HorizontalDoublePageFragment)fragment).setActivity(MagicVideoPlayActivity.this);
+                fragment = new VerticalDoublePageFragment();
+                ((VerticalDoublePageFragment)fragment).setActivity(MagicVideoPlayActivity.this);
             } else {
                 fragment = new ShowIndexFragment();
                 ((ShowIndexFragment)fragment).setIndex(position);
@@ -126,6 +87,71 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
         @Override
         public int getItemCount() {
             return 3;
+        }
+
+    }
+
+
+
+
+    static class ResetPositionCallBack extends ViewPager2.OnPageChangeCallback {
+
+        int currentPosition = 1;
+
+        ViewPager2 viewPager2;
+
+        boolean vertical;
+
+        public ResetPositionCallBack(ViewPager2 viewPager2, boolean vertical) {
+            this.viewPager2 = viewPager2;
+            this.vertical = vertical;
+        }
+
+        private MagicVideoPlayActivity activity;
+
+        public void setActivity(MagicVideoPlayActivity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            currentPosition = position;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+            //        若viewpager滑动未停止，直接返回
+            if (state != ViewPager2.SCROLL_STATE_IDLE) return;
+            //        若当前为第一张，设置页面为倒数第二张
+            if (currentPosition == 0) {
+                if (vertical) {
+                    //触发上滑操作
+                    //TODO
+                    Toasty.info(activity,"刚才上滑了");
+                } else {
+                    //触发左滑操作
+                    //TODO
+                    Toasty.info(activity,"刚才左滑了");
+                }
+
+            } else if (currentPosition == 2) {
+                if (vertical) {
+                    //触发下滑操作
+                    //TODO
+                    Toasty.info(activity,"刚才下滑了");
+                } else {
+                    //触发右滑操作
+                    //TODO
+                    Toasty.info(activity,"刚才右滑了");
+                }
+            }
+            viewPager2.setCurrentItem(1,false);
         }
     }
 

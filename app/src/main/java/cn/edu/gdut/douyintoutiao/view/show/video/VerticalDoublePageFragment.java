@@ -20,7 +20,7 @@ import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
  * @author hayring
  * @date 11/26/20 6:54 PM
  */
-public class HorizontalDoublePageFragment extends Fragment {
+public class VerticalDoublePageFragment extends Fragment {
 
 
     ViewPager2 verticalViewPager;
@@ -30,8 +30,12 @@ public class HorizontalDoublePageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_cycle_view_pager2, container, false);
         verticalViewPager = view.findViewById(R.id.vertical_view_pager);
-        verticalViewPager.setAdapter(new HorizontalFragmentAdapter(activity));
+        verticalViewPager.setAdapter(new VerticalFragmentAdapter(activity));
         verticalViewPager.setCurrentItem(1);
+
+        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager,false);
+        horizontalCallBack.setActivity(activity);
+        verticalViewPager.registerOnPageChangeCallback(horizontalCallBack);
         return view;
     }
 
@@ -42,9 +46,9 @@ public class HorizontalDoublePageFragment extends Fragment {
 
     private MagicVideoPlayActivity activity;
 
-    private class HorizontalFragmentAdapter extends FragmentStateAdapter {
+    private class VerticalFragmentAdapter extends FragmentStateAdapter {
 
-        public HorizontalFragmentAdapter(@NonNull FragmentActivity activity) {
+        public VerticalFragmentAdapter(@NonNull FragmentActivity activity) {
             super(activity);
         }
 
@@ -78,6 +82,6 @@ public class HorizontalDoublePageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("HorizontalDoublePageFragment","position:" + position +" OnResume");
+        Log.i("VerticalDoublePageFragment","position:" + position +" OnResume");
     }
 }
