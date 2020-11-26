@@ -6,7 +6,6 @@ import java.util.Map;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
-import cn.edu.gdut.douyintoutiao.entity.User;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,6 +30,7 @@ public interface NewsApi {
     @POST("new_unlike")
     Call<Result<MyNews>> nolikeNews();
 
+
     @GET("videoList")
     Call<List<MyNews>> getVideoList(@Query("index") int index, @Query("count") int count);
 
@@ -47,7 +47,7 @@ public interface NewsApi {
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
-    /**
+
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 

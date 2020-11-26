@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.dianzan;
@@ -184,10 +183,8 @@ public class NewsDetailFragment extends Fragment {
                    // binding.actionGuanzhu.setIcon(yellow_guanzhu);
                     Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
                 }
-
-                Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
-            }
-        });
+            });
+        }
         //文字转视频
         binding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -207,7 +204,7 @@ public class NewsDetailFragment extends Fragment {
             }
         });
 
->>>>>>>>> Temporary merge branch 2
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
