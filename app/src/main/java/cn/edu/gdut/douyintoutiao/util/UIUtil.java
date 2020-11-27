@@ -14,8 +14,12 @@ import androidx.annotation.RequiresApi;
  */
 public class UIUtil {
 
+    //记录上次按下的时间
+    private static long lastClickTime;
+
     /**
      * dip 转 pixel
+     *
      * @param context
      * @param dpValue
      * @return
@@ -27,6 +31,7 @@ public class UIUtil {
 
     /**
      * pixel 转 dip
+     *
      * @param context
      * @param pxValue
      * @return
@@ -38,6 +43,7 @@ public class UIUtil {
 
     /**
      * 获取屏幕宽度
+     *
      * @param context
      * @return pixel
      */
@@ -46,5 +52,20 @@ public class UIUtil {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
+    }
+
+    /**
+     * 防止按钮在短时间内被重复按下
+     *
+     * @return
+     */
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        if (time - lastClickTime < 5000) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+
     }
 }

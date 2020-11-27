@@ -21,6 +21,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
 
@@ -95,8 +96,13 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
             navController.navigate(R.id.action_loginFragment_to_resign);
         });
         //登陆按钮
-        binding.button.setOnClickListener(v ->
-                viewModel.login());
+        binding.button.setOnClickListener(v -> {
+            if (UIUtil.isFastDoubleClick()) {
+                Toasty.warning(requireContext(), "请不要重复提交请求").show();
+            } else {
+                viewModel.login();
+            }
+        });
     }
 
     @Override
