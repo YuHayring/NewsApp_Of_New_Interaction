@@ -67,7 +67,11 @@ public class VideoStateAdapter extends FragmentStateAdapter {
     public void addAndNotify(MyNews news) {
         int start = newses.size();
         newses.add(news);
-        fragments.add(new VideoPlayerFragment(context,news));
+
+        VideoPlayerFragment fragment = new VideoPlayerFragment();
+        fragment.setContext(context);
+        fragment.setMyNews(news);
+        fragments.add(fragment);
         notifyItemInserted(start);
     }
 
@@ -75,7 +79,10 @@ public class VideoStateAdapter extends FragmentStateAdapter {
         int start = newses.size();
         this.newses.addAll(newses);
         for (MyNews news : newses) {
-            fragments.add(new VideoPlayerFragment(context,news));
+            VideoPlayerFragment fragment = new VideoPlayerFragment();
+            fragment.setContext(context);
+            fragment.setMyNews(news);
+            fragments.add(fragment);
         }
         notifyItemInserted(start);
     }

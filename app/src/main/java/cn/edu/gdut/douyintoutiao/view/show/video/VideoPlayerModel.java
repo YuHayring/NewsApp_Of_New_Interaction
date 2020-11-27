@@ -31,30 +31,6 @@ public class VideoPlayerModel {
      * @return
      */
     public void getVideoNews() {
-//        List<News> data = new ArrayList<>();
-//        News news1 = new News();
-//        news1.setNewsId("1");
-//        news1.setNewsName("第一个");
-//        news1.setNewsType(News.VIDEO);
-//        news1.setNewsUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f30.mp4");
-//        News news2 = new News();
-//        news2.setNewsId("2");
-//        news2.setNewsName("第二个");
-//        news2.setNewsType(News.VIDEO);
-//        news2.setNewsUrl("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
-//        data.add(news1);
-//        data.add(news2);
-
-
-//
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                Message message = new Message();
-//                message.obj = data;
-//                onVideoGotHandler.sendMessage(message);
-//            }
-//        }.start();
         NewsApi.getNewsApi().getVideoList().enqueue(videoGetCallBack);
     }
 
@@ -109,6 +85,59 @@ public class VideoPlayerModel {
         }
     };
 
+
+    private static class Singleton {
+        static VideoPlayerModel videoPlayerModel = new VideoPlayerModel();
+    }
+
+    public static VideoPlayerModel getInstance() {
+        return Singleton.videoPlayerModel;
+    }
+
+    private VideoPlayerModel(){}
+
+
+
+
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void getUpVideoNews(Handler handler) {
+        NewsApi.getNewsApi().getVideoList().enqueue(upVideoCallBack.setHandler(handler));
+    }
+
+    private GotCallBack upVideoCallBack = new GotCallBack();
+
+
+    private class GotCallBack implements Callback<List<MyNews>> {
+
+        Handler handler;
+
+
+
+        public GotCallBack setHandler(Handler handler) {
+            this.handler = handler;
+            return this;
+        }
+
+        @Override
+        public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
+            Message message = new Message();
+            if (response.code() == 200) {
+                message.arg1 = 200;
+                message.obj = response.body();
+            } else {
+                message.arg1 = response.code();
+            }
+            handler.sendMessage(message);
+        }
+
+        @Override
+        public void onFailure(Call<List<MyNews>> call, Throwable t) {
+
+        }
+    };
 
 
 }

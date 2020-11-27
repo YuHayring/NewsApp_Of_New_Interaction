@@ -1,9 +1,17 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.FrameLayout;
+
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -11,12 +19,6 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
 
@@ -44,21 +46,17 @@ public class VideoPlayerFragment extends Fragment {
     //当前新闻
     private MyNews news;
 
-    public VideoPlayerFragment(Context context, MyNews news) {
-        super();
+    public VideoPlayerFragment() {}
+
+
+    public void setContext(Context context) {
         this.context = context;
-        this.news = news;
     }
-
-
-
-
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.video_player_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_video_player, container, false);
         textureView = view.findViewById(R.id.video_player_window);
         return view;
     }
@@ -68,8 +66,6 @@ public class VideoPlayerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         textureView.setSurfaceTextureListener(listener);
         textureView.setOnClickListener(playListener);
-
-
     }
 
 
@@ -93,15 +89,17 @@ public class VideoPlayerFragment extends Fragment {
             mPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mPlayer.setOnVideoSizeChangedListener(videoSizeChangedListener);
-            try {
+            if (news != null) {
+                try {
 //                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
-                mPlayer.setDataSource(news.getNewsDetailUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
-                //TODO
+                    mPlayer.setDataSource(news.getNewsDetailUrl());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+                    //TODO
+                }
+                mPlayer.prepareAsync();
             }
-            mPlayer.prepareAsync();
             Log.i("VideoPlayerFragment", "Player Created");
         }
     }
@@ -132,6 +130,7 @@ public class VideoPlayerFragment extends Fragment {
         public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
 //            textureView.setSurfaceTextureListener(null);
 //            textureView = null;
+            releasePlayer();
             mSurface = null;
             return true;
         }
@@ -145,19 +144,19 @@ public class VideoPlayerFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        releasePlayer();
+//        releasePlayer();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        pause();
+//        pause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        play();
+//        play();
     }
 
     /**
@@ -191,8 +190,8 @@ public class VideoPlayerFragment extends Fragment {
     public void changeVideoSize() {
         int videoWidth = mPlayer.getVideoWidth();
         int videoHeight = mPlayer.getVideoHeight();
-        int parentWidth = ((ConstraintLayout)textureView.getParent()).getWidth();
-        int parentHeight = ((ConstraintLayout)textureView.getParent()).getHeight();
+        int parentWidth = ((FrameLayout)textureView.getParent()).getWidth();
+        int parentHeight = ((FrameLayout)textureView.getParent()).getHeight();
 
         //下面进行求屏幕比例,因为横竖屏会改变屏幕宽度值,所以为了保持更小的值除更大的值.
         float parentPercent = (float) parentWidth / (float) parentHeight; //不一定是整个屏幕，是父容器所允许的区域的比例
@@ -221,7 +220,7 @@ public class VideoPlayerFragment extends Fragment {
 
         }
 
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textureView.getLayoutParams();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) textureView.getLayoutParams();
         layoutParams.width = videoWidth;
         layoutParams.height = videoHeight;
         Log.d("宽度",""+videoWidth);
@@ -242,5 +241,27 @@ public class VideoPlayerFragment extends Fragment {
 
     public void setMyNews(MyNews news) {
         this.news = news;
+        //确保播放器已创建
+//        if (mPlayer != null) {
+//            try {
+//                mPlayer.setDataSource(news.getNewsDetailUrl());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+//                //TODO
+//            }
+//        }
+        if (mPlayer != null) {
+            try {
+//                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
+                mPlayer.setDataSource(news.getNewsDetailUrl());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
+                //TODO
+            }
+            mPlayer.prepareAsync();
+        }
+
     }
 }
