@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.CommentApi;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
@@ -39,6 +40,28 @@ public class NewsDetailViewModel extends ViewModel {
 
 
 
+
+
+    public void newsLike(MyNews news){
+        newsRepository.newsLike(news);
+    }
+    public void newsUnLike(MyNews news){
+        newsRepository.newsUnLike(news);
+    }
+
+//    public String checkMsg ;
+//
+//    CheckFollowCallBack checkFollowCallBack = new CheckFollowCallBack() {
+//        @Override
+//        public void onSuccess(String msg) {
+//            checkMsg = msg;
+//        }
+//
+//        @Override
+//        public void onFaile(String errorInfo) {
+//
+//        }
+//    };
 
 
     /**

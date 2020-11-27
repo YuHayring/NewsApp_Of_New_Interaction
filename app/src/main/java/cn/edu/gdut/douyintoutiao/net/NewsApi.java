@@ -6,11 +6,13 @@ import java.util.Map;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+
 
 /**
  * @author cypang
@@ -20,6 +22,13 @@ public interface NewsApi {
 
     @GET("newsList")
     Call<Result<MyNews>> getNewsList();
+
+    //@author hudp
+    @POST("new_like")
+    Call<Result<MyNews>> likeNews(@Body MyNews news);
+
+    @POST("new_unlike")
+    Call<Result<MyNews>> nolikeNews(@Body MyNews news);
 
 
     @GET("videoList")

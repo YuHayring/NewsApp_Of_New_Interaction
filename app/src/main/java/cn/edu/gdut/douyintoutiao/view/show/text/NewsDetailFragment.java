@@ -2,7 +2,6 @@ package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,16 +27,15 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
 
-import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
+import static cn.edu.gdut.douyintoutiao.R.drawable.dianzan;
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
-import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 public class NewsDetailFragment extends Fragment  {
-
 
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
@@ -78,19 +75,27 @@ public class NewsDetailFragment extends Fragment  {
                 Toasty.success(requireContext(), "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
             }
         });
+        //悬浮窗组件的状态
+        final boolean[] float_botton_flag = {true,true};
         //点赞按钮
         binding.actionDianzan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                boolean flag = true;
-                if(flag){
+                MyNews news = new MyNews();
+                news.set_id(getActivity().getIntent().getStringExtra("newsId"));
+                //图标的变化
+                if(float_botton_flag[0]){
+                    //图标变红
                     binding.actionDianzan.setIcon(red_dianzan);
-                    flag=false;
+                    float_botton_flag[0] =false;
+                    viewModel.newsLike(news);
                 }else{
-                    flag=true;
-                    binding.actionDianzan.setIcon(red_dianzan);
+                    float_botton_flag[0] =true;
+                    binding.actionDianzan.setIcon(dianzan);
+                    viewModel.newsUnLike(news);
                 }
-                Toasty.success(requireContext(), "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
+
+
             }
         });
         //不感兴趣
@@ -223,7 +228,7 @@ public class NewsDetailFragment extends Fragment  {
 //                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 //                    builder.setIcon(R.drawable.ic_baseline_warning_24)
 //                            .setTitle("取消关注?")
-//                            .setMessage("确定要取消关注"+newsId+"吗")
+//                            .setMessage("确定要取消关注NewsId为"+newsId+"的资讯吗")
 //                            .setNegativeButton("取消", null)
 //                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 //                                @Override
@@ -233,12 +238,21 @@ public class NewsDetailFragment extends Fragment  {
 //                                }
 //                            })
 //                            .create().show();
-//                    binding.actionGuanzhu.setIcon(guanzhu);
+//                  //  binding.actionGuanzhu.setIcon(guanzhu);
 //                }
-//
-//             //   Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
-//            }
-//        });
+//            });
+//        }else{
+//            binding.actionGuanzhu.setIcon(guanzhu);
+//            binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+//                   // binding.actionGuanzhu.setIcon(yellow_guanzhu);
+//                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
+//                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
+//                }
+//            });
+//        }
         //文字转视频
         binding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -258,7 +272,6 @@ public class NewsDetailFragment extends Fragment  {
                 controller.navigate(R.id.commentFragment, bundle);
             }
         });
-
 
 
     }

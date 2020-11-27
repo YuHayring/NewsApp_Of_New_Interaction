@@ -62,6 +62,7 @@ public class MyNews implements Serializable {
      */
     private List<User> author;
 
+
     /**
      * 新闻tag
      */

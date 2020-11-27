@@ -16,8 +16,9 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        //NavController controller = Navigation.findNavController(this, R.id.fragment2);
-        //NavigationUI.setupActionBarWithNavController(this, controller);
+//        NavController controller = Navigation.findNavController(this, R.id.fragment2);
+//
+//        NavigationUI.setupActionBarWithNavController(this, controller);
 
     }
 

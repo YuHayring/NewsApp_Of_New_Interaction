@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,34 @@ public class NewsRepository {
             }
         });
         return allNewsLive;
+    }
+
+    //@author : hudp
+    //点赞
+    public void newsLike(MyNews news) {
+        Call<Result<MyNews>> newslike = api.likeNews(news);
+        newslike.enqueue(new Callback< Result< MyNews > >() {
+            @Override
+            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
+            }
+
+            @Override
+            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
+            }
+        });
+    }
+    //取消点赞
+    public void newsUnLike(MyNews news) {
+        Call<Result<MyNews>> newslike = api.nolikeNews(news);
+        newslike.enqueue(new Callback< Result< MyNews > >() {
+            @Override
+            public void onResponse(Call< Result< MyNews > > call, Response< Result< MyNews > > response) {
+            }
+
+            @Override
+            public void onFailure(Call< Result< MyNews > > call, Throwable t) {
+            }
+        });
     }
 
 

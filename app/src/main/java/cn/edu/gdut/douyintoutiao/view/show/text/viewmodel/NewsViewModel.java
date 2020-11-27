@@ -31,4 +31,8 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
 
+    public void newsLike(MyNews news){
+        newsRepository.newsLike(news);
+    }
+
 }
