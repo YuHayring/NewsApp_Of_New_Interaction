@@ -11,6 +11,11 @@ public class DouYinTouTiaoApplication extends Application {
 
     public static final String TOKEN = "tokenSp";
 
+    /**
+     * 当内部滑动为竖直，外部为水平时，触摸倾斜角的正切值达到多少才进行横向滑动
+     */
+    public static final int SCROLL_TAN = 2;
+
     private static DouYinTouTiaoApplication instance;
 
     @Override

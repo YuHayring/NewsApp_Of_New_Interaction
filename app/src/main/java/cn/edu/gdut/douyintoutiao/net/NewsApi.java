@@ -42,6 +42,10 @@ public interface NewsApi {
     @GET("videoList")
     Call<List<MyNews>> searchMoreVideoList(@Query("index") int index, @Query("count") int count, @Query("key") String key);
 
+    @GET("getTagVideo")
+    Call<List<MyNews>> getTagVideo(@Query("tag") String tag);
+
+
     //TODO 解决后台嵌套查询的问题
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);

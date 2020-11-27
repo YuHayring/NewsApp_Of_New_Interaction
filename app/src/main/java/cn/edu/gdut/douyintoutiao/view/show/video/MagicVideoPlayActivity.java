@@ -3,16 +3,20 @@ package cn.edu.gdut.douyintoutiao.view.show.video;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+
+import java.lang.reflect.Constructor;
 
 import cn.edu.gdut.douyintoutiao.databinding.ActivityMagicVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
-import es.dmoral.toasty.Toasty;
 
 /**
  * @author hayring
@@ -52,21 +56,31 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
         horizontalViewPager = videoPlayBinding.horizontalVideoViewPager;
 
 
-        horizontalViewPager.setAdapter(new VerticalFragmentAdapter(this));
+        horizontalViewPager.setAdapter(new HorizontalFragmentAdapter(this));
         horizontalViewPager.setCurrentItem(1,false);
 
         videoPlayerFragment = new VideoPlayerFragment();
         videoPlayerFragment.setContext(this);
 
 
-        magicVideoPlayViewModel = new MagicVideoPlayViewModel(videoPlayerFragment);
+        magicVideoPlayViewModel = new ViewModelProvider(this,videoViewModelFactory).get(MagicVideoPlayViewModel.class);
 
-        magicVideoPlayViewModel.getVideoTest();
 
-        ResetPositionCallBack horizontalCallBack = new ResetPositionCallBack(horizontalViewPager, magicVideoPlayViewModel);
 
+
+
+        ResetPositionCallBack horizontalCallBack = new ResetPositionCallBack(horizontalViewPager, videoPlayerFragment, magicVideoPlayViewModel);
+
+
+        //滑动方向监听器
         horizontalViewPager.registerOnPageChangeCallback(horizontalCallBack);
 
+
+        //数据初始化
+        magicVideoPlayViewModel.getUpVideo();
+        magicVideoPlayViewModel.getDownVideo();
+        magicVideoPlayViewModel.getLeftVideo();
+        magicVideoPlayViewModel.getRightVideo();
 
     }
 
@@ -74,9 +88,9 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
     /**
      * 竖直 适配器
      */
-    private class VerticalFragmentAdapter extends FragmentStateAdapter {
+    private class HorizontalFragmentAdapter extends FragmentStateAdapter {
 
-        public VerticalFragmentAdapter(@NonNull FragmentActivity activity) {
+        public HorizontalFragmentAdapter(@NonNull FragmentActivity activity) {
             super(activity);
         }
 
@@ -116,15 +130,16 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
         ViewPager2 viewPager2;
 
-        public ResetPositionCallBack(ViewPager2 viewPager2, MagicVideoPlayViewModel magicVideoPlayViewModel) {
-            this.viewPager2 = viewPager2;
-            this.magicVideoPlayViewModel = magicVideoPlayViewModel;
-        }
+        VideoPlayerFragment videoPlayerFragment;
 
         MagicVideoPlayViewModel magicVideoPlayViewModel;
 
 
-
+        public ResetPositionCallBack(ViewPager2 viewPager2, VideoPlayerFragment videoPlayerFragment, MagicVideoPlayViewModel magicVideoPlayViewModel) {
+            this.viewPager2 = viewPager2;
+            this.videoPlayerFragment = videoPlayerFragment;
+            this.magicVideoPlayViewModel = magicVideoPlayViewModel;
+        }
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -149,19 +164,31 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
             if (prePosition == 0) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
                     //触发上滑操作
-                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.upNewses.pop());
+                    videoPlayerFragment.setMyNews(magicVideoPlayViewModel.upNewses.pop());
+                    if (magicVideoPlayViewModel.upNewses.size() == 1) {
+                        magicVideoPlayViewModel.getUpVideo();
+                    }
                 } else {
                     //触发左滑操作
-                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.leftNewses.pop());
+                    videoPlayerFragment.setMyNews(magicVideoPlayViewModel.leftNewses.pop());
+                    if (magicVideoPlayViewModel.leftNewses.size() == 1) {
+                        magicVideoPlayViewModel.getLeftVideo();
+                    }
                 }
 
             } else if (prePosition == 2) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
                     //触发下滑操作
-                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.downNewses.pop());
+                    videoPlayerFragment.setMyNews(magicVideoPlayViewModel.downNewses.pop());
+                    if (magicVideoPlayViewModel.downNewses.size() == 1) {
+                        magicVideoPlayViewModel.getDownVideo();
+                    }
                 } else {
                     //触发右滑操作
-                    magicVideoPlayViewModel.videoPlayerFragment.setMyNews(magicVideoPlayViewModel.rightNewses.pop());
+                    videoPlayerFragment.setMyNews(magicVideoPlayViewModel.rightNewses.pop());
+                    if (magicVideoPlayViewModel.rightNewses.size() == 1) {
+                        magicVideoPlayViewModel.getRightVideo();
+                    }
                 }
             }
         }
@@ -170,6 +197,29 @@ public class MagicVideoPlayActivity extends FullScreenActivity {
 
     Fragment[] getFragments() {
         return fragments;
+    }
+
+
+
+    ViewModelProvider.Factory videoViewModelFactory = new ViewModelProvider.Factory() {
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            try {
+                Constructor constructor = modelClass.getConstructor(Activity.class);
+                return (T) constructor.newInstance(MagicVideoPlayActivity.this);
+            } catch (Exception e) {
+                IllegalArgumentException ile = new IllegalArgumentException("" + modelClass + "is not" + VideoPlayerViewModel.class);
+                ile.initCause(e);
+                throw ile;
+            }
+
+        }
+    };
+
+    public ViewModelProvider.Factory getVideoViewModelFactory() {
+        return videoViewModelFactory;
     }
 }
 

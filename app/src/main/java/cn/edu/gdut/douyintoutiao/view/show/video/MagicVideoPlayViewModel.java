@@ -1,10 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
-import androidx.annotation.NonNull;
+import android.app.Activity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,25 +11,41 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
  * @author hayring
  * @date 11/26/20 11:38 PM
  */
-public class MagicVideoPlayViewModel {
+public class MagicVideoPlayViewModel extends VideoPlayerViewModel {
 
     VideoPlayerModel videoPlayerModel = VideoPlayerModel.getInstance();
 
 
-    VideoPlayerFragment videoPlayerFragment;
 
+    public MagicVideoPlayViewModel(){}
 
-    public MagicVideoPlayViewModel(VideoPlayerFragment videoPlayerFragment) {
-        this.videoPlayerFragment = videoPlayerFragment;
+    public MagicVideoPlayViewModel(Activity activity) {
+        super(activity);
     }
+
+
+
+
+    int upVideoIndex;
 
     LinkedList<MyNews> upNewses = new LinkedList<>();
     /**
      * 更新上滑的视频
      */
     void getUpVideo() {
-
+        videoPlayerModel.getTagVideoNews("学习",upVideoGot);
     }
+    CommonVideoGotCallBack upVideoGot = new  CommonVideoGotCallBack() {
+        @Override
+        void onVideoGotSuccess(List<MyNews> newses) {
+            upNewses.addAll(newses);
+        }
+
+        @Override
+        void onVideoNotExist() {
+
+        }
+    };
 
 
 
@@ -44,8 +56,20 @@ public class MagicVideoPlayViewModel {
      * 更新下滑的视频
      */
     void getDownVideo() {
-
+        videoPlayerModel.getVideoNews(downVideoGot);
     }
+
+    CommonVideoGotCallBack downVideoGot = new  CommonVideoGotCallBack() {
+        @Override
+        void onVideoGotSuccess(List<MyNews> newses) {
+            downNewses.addAll(newses);
+        }
+
+        @Override
+        void onVideoNotExist() {
+
+        }
+    };
 
 
     LinkedList<MyNews> leftNewses = new LinkedList<>();
@@ -53,44 +77,41 @@ public class MagicVideoPlayViewModel {
      * 更新左滑的视频
      */
     void getLeftVideo() {
-
+        videoPlayerModel.getTagVideoNews("csgo",leftVideoGot);
     }
+    CommonVideoGotCallBack leftVideoGot = new  CommonVideoGotCallBack() {
+        @Override
+        void onVideoGotSuccess(List<MyNews> newses) {
+            leftNewses.addAll(newses);
+        }
+
+        @Override
+        void onVideoNotExist() {
+
+        }
+    };
 
     LinkedList<MyNews> rightNewses = new LinkedList<>();
     /**
      * 更新右滑的视频
      */
     void getRightVideo() {
-
+        videoPlayerModel.getTagVideoNews("足球",rightVideoGot);
     }
-
-
-
-    void getVideoTest() {
-        videoPlayerModel.getUpVideoNews(handler);
-    }
-
-    private TestHandler handler = new TestHandler(Looper.myLooper());
-
-    private class TestHandler extends Handler {
-
-        public TestHandler(@NonNull Looper looper) {
-            super(looper);
+    CommonVideoGotCallBack rightVideoGot = new  CommonVideoGotCallBack() {
+        @Override
+        void onVideoGotSuccess(List<MyNews> newses) {
+            rightNewses.addAll(newses);
         }
 
         @Override
-        public void handleMessage(@NonNull Message msg) {
-            if (msg.arg1 == 200) {
-                List<MyNews> data = (List<MyNews>) msg.obj;
-                upNewses.addAll(data);
-                downNewses.addAll(data);
-                leftNewses.addAll(data);
-                rightNewses.addAll(data);
+        void onVideoNotExist() {
 
-                videoPlayerFragment.setMyNews(upNewses.pop());
-            }
         }
-    }
+    };
+
+
+
 
 
 
