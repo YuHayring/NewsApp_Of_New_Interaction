@@ -199,9 +199,6 @@ public class NewsDetailFragment extends Fragment {
                 controller.navigate(R.id.commentFragment, bundle);
             }
         });
-
-
-
     }
 
     @SuppressLint("SetJavaScriptEnabled")

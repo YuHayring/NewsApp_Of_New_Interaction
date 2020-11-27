@@ -115,6 +115,7 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
             editor.apply();
             Toasty.success(requireContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
             Toasty.error(requireContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
