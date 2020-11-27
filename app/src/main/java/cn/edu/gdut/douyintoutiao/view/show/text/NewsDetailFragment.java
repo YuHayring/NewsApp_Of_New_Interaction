@@ -63,41 +63,9 @@ public class NewsDetailFragment extends Fragment {
         String newsId = requireActivity().getIntent().getStringExtra("newsId");
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId", "noContent");
-        // TODO: Use the ViewModel
         binding.floatButton.bringToFront();
-
-        //评论页面跳转
-        binding.buttonComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("newsId", newsId);
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.commentFragment, bundle);
-            }
-        });
         //设置tag
         binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
-
-        binding.buttonPostComment.setOnClickListener((v) -> {
-            new MaterialDialog.Builder(requireContext())
-                    .title("评论发送")
-                    .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
-                        @Override
-                        public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
-                            // Do something
-                            String content = input.toString();
-                            if (content.length() == 0) {
-                                Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
-                                return;
-                            }
-                            viewModel.postComment(newsId, userId, content);
-                            Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                        }
-                    }).show();
-        });
-
-
 
         //悬浮窗测试
         //举报按钮
@@ -133,7 +101,6 @@ public class NewsDetailFragment extends Fragment {
         binding.actionZuozhe.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "作者！", Toasty.LENGTH_SHORT, true).show();
                 String authorId = requireActivity().getIntent().getStringExtra("authorId");
                 SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
@@ -145,7 +112,7 @@ public class NewsDetailFragment extends Fragment {
         });
 
         //检查关注
-        Boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
+        boolean flag = viewModel.checkTagsFollowByNewsIdUserId1(newsId,userId);
         if(flag){
             //已关注，点击执行取消关注
             binding.actionGuanzhu.setIcon(yellow_guanzhu);
@@ -227,6 +194,7 @@ public class NewsDetailFragment extends Fragment {
                 Toasty.success(requireContext(), "评论！", Toasty.LENGTH_SHORT, true).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("newsId", getActivity().getIntent().getStringExtra("newsId"));
+                bundle.putString("userId", userId);
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.commentFragment, bundle);
             }

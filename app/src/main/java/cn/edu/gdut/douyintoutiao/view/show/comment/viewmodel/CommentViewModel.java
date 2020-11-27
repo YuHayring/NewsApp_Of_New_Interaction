@@ -29,4 +29,8 @@ public class CommentViewModel extends AndroidViewModel {
         return repository.getAllDiscussLive(newsId);
     }
 
+    public void postComment(String newsID, String userID, String content) {
+        repository.postComment(newsID, userID, content);
+    }
+
 }

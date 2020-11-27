@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.show.comment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.databinding.CommentFragmentBinding;
 import cn.edu.gdut.douyintoutiao.entity.Discuss;
 import cn.edu.gdut.douyintoutiao.view.show.comment.adapter.CommentAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.comment.viewmodel.CommentViewModel;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author cypang
@@ -32,7 +38,9 @@ public class CommentFragment extends Fragment {
     /**
      * 新闻 id
      */
-    String newsId;
+    private String newsId;
+    private String userId;
+    private static final String TAG = "comment";
 
     public static CommentFragment newInstance() {
         return new CommentFragment();
@@ -49,8 +57,8 @@ public class CommentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
-        // TODO: Use the ViewModel
         newsId = getArguments().getString("newsId");
+        userId = getArguments().getString("userId");
         binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CommentAdapter();
         binding.commentRecycleView.setAdapter(adapter);
@@ -59,6 +67,27 @@ public class CommentFragment extends Fragment {
             public void onChanged(List<Discuss> discusses) {
                 adapter.setDiscussList(discusses);
                 adapter.notifyDataSetChanged();
+            }
+        });
+        binding.postCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialDialog.Builder(requireContext())
+                        .title("评论发送")
+                        .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
+                                // Do something
+                                String content = input.toString();
+                                if (content.length() == 0) {
+                                    Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                mViewModel.postComment(newsId, userId, content);
+                                Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
+                                //TODO 发送评论后自动刷新评论页
+                            }
+                        }).show();
             }
         });
     }

@@ -151,40 +151,15 @@
             app:layout_constraintGuide_percent="0.93" />
 
         <Button
-            android:id="@+id/buttonComment"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="@string/news_detail_comments_button_msg"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonSeeTags"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.64"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonSeeTags"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/buttonPostComment"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="@string/comment_post_comment_button_msg"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonComment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.96"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonComment"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
             android:id="@+id/buttonFollowTags"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="@string/button_newsDetails_follow"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonComment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.32"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonComment"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/webView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

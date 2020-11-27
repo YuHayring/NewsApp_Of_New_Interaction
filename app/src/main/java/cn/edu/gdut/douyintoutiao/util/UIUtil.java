@@ -16,6 +16,8 @@ public class UIUtil {
 
     //记录上次按下的时间
     private static long lastClickTime;
+    //容许用户重复点击按钮的时间间隔
+    private static final int MIN_CLICK_DELAY_TIME = 1000;
 
     /**
      * dip 转 pixel
@@ -61,7 +63,7 @@ public class UIUtil {
      */
     public static boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
-        if (time - lastClickTime < 5000) {
+        if (time - lastClickTime < MIN_CLICK_DELAY_TIME) {
             return true;
         }
         lastClickTime = time;
