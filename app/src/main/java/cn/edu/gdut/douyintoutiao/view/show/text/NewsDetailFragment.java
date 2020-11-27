@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +36,7 @@ import es.dmoral.toasty.Toasty;
 
 import static cn.edu.gdut.douyintoutiao.R.drawable.dianzan;
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
+import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 public class NewsDetailFragment extends Fragment  {
 
@@ -177,7 +180,7 @@ public class NewsDetailFragment extends Fragment  {
         if(viewModel.getCheckFollowFlag()){
             System.out.printf("运行到了true");
             //已关注，点击执行取消关注
-            binding.actionGuanzhu.setIcon(yellow_guanzhu);
+            binding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -200,7 +203,7 @@ public class NewsDetailFragment extends Fragment  {
             });
         }else{
             System.out.printf("运行到了false");
-            binding.actionGuanzhu.setIcon(guanzhu);
+            binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
