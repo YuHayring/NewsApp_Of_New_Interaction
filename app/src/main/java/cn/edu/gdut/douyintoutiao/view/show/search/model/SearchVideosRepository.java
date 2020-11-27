@@ -44,9 +44,9 @@ public class SearchVideosRepository {
      *
      * @return
      */
-    public void getVideoNews(String key) {
-        NewsApi.getNewsApi().searchVideosList(key).enqueue(videoGetCallBack);
-    }
+//    public void getVideoNews(String key) {
+//        NewsApi.getNewsApi().searchVideoList(key).enqueue(videoGetCallBack);
+//    }
 
     public void setOnVideoGotHandler(Handler onVideoGotHandler) {
         this.onVideoGotHandler = onVideoGotHandler;

@@ -58,12 +58,29 @@ public class VideoPlayerModel {
         NewsApi.getNewsApi().getVideoList().enqueue(videoGetCallBack);
     }
 
+
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void searchVideoNews(String key) {
+        NewsApi.getNewsApi().searchVideoList(key).enqueue(videoGetCallBack);
+    }
+
     /**
      * 模拟数据
      * @return
      */
     public void getMoreVideoNews(int index) {
         NewsApi.getNewsApi().getVideoList(index, 5).enqueue(videoGetCallBack);
+    }
+
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void searchMoreVideoNews(int index, String key) {
+        NewsApi.getNewsApi().searchMoreVideoList(index, 5, key).enqueue(videoGetCallBack);
     }
 
 

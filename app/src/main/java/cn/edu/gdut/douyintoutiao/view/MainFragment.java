@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,9 +22,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.FullscreenActivity;
 
 /**
  * @author hayring
@@ -101,12 +105,22 @@ public class MainFragment extends Fragment {
         newsViewPager.setAdapter(pagerAdapter);
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
+
+
+
+
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchMainActivity.class);
                 startActivity(intent);
             }
+        });
+
+
+        binding.exchangeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FullscreenActivity.class);
+            startActivity(intent);
         });
 
         mediator = new TabLayoutMediator(newsNavigationTab, newsViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -120,32 +134,7 @@ public class MainFragment extends Fragment {
         mediator.attach();
 
 
-        newsViewPager.setOnTouchListener(new View.OnTouchListener() {
 
-            float srcX;
-
-            float srcY;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    srcX = event.getX();
-                    srcY = event.getY();
-                    return false;
-                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    float deltaX = Math.abs(srcX - event.getX());
-                    float deltaY = Math.abs(srcY - event.getY());
-                    if (deltaX > 4 * deltaY) {
-                        v.onTouchEvent(event);
-                        return true;
-                    } else {
-                        v.dispatchTouchEvent(event);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
 
         return binding.getRoot();
     }
