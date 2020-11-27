@@ -101,41 +101,24 @@ public class VideoPlayerModel {
      * 模拟数据
      * @return
      */
-    public void getUpVideoNews(Handler handler) {
-        NewsApi.getNewsApi().getVideoList().enqueue(upVideoCallBack.setHandler(handler));
+    public void getVideoNews(VideoPlayerViewModel.CommonVideoGotCallBack callBack) {
+        NewsApi.getNewsApi().getVideoList().enqueue(callBack);
     }
 
-    private GotCallBack upVideoCallBack = new GotCallBack();
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void getTagVideoNews(String tag, VideoPlayerViewModel.CommonVideoGotCallBack callBack) {
+        NewsApi.getNewsApi().getTagVideo(tag).enqueue(callBack);
+    }
 
 
-    private class GotCallBack implements Callback<List<MyNews>> {
-
-        Handler handler;
 
 
 
-        public GotCallBack setHandler(Handler handler) {
-            this.handler = handler;
-            return this;
-        }
 
-        @Override
-        public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
-            Message message = new Message();
-            if (response.code() == 200) {
-                message.arg1 = 200;
-                message.obj = response.body();
-            } else {
-                message.arg1 = response.code();
-            }
-            handler.sendMessage(message);
-        }
 
-        @Override
-        public void onFailure(Call<List<MyNews>> call, Throwable t) {
-
-        }
-    };
 
     //关注
     public void insertTagsFollowByNewsIdUserId(String newsId,String userId){

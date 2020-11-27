@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import cn.edu.gdut.douyintoutiao.DouYinTouTiaoApplication;
+
 /**
  * @author hayring
  * @date 11/26/20 10:02 PM
@@ -55,7 +57,7 @@ public class ScrollHelperFrameLayout extends FrameLayout {
                     int endY = (int) ev.getY();
                     int disX = Math.abs(endX - startX);
                     int disY = Math.abs(endY - startY);
-                    if(disX >  disY){
+                    if(disX >  DouYinTouTiaoApplication.SCROLL_TAN * disY){
                         getParent().requestDisallowInterceptTouchEvent(false);
                     }else {
                         getParent().requestDisallowInterceptTouchEvent(true);

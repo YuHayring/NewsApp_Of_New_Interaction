@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cn.edu.gdut.douyintoutiao.DouYinTouTiaoApplication;
+
 /**
  * @author hayring
  * 解决 ViewPager2 的左右滑动比 RecyclerView 的上下滑动更灵敏的问题
@@ -52,7 +54,7 @@ public class RecyclerViewAtViewPager2 extends RecyclerView {
                     int endY = (int) ev.getY();
                     int disX = Math.abs(endX - startX);
                     int disY = Math.abs(endY - startY);
-                    if(disX >  disY){
+                    if(disX > DouYinTouTiaoApplication.SCROLL_TAN * disY){
                         getParent().requestDisallowInterceptTouchEvent(false);
                     }else {
                         getParent().requestDisallowInterceptTouchEvent(true);

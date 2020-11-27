@@ -41,7 +41,7 @@ public class VerticalTriplePageFragment extends Fragment {
         verticalViewPager.setAdapter(new VerticalFragmentAdapter(activity));
         verticalViewPager.setCurrentItem(1);
 
-        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager, magicVideoPlayViewModel);
+        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager, videoPlayerFragment, magicVideoPlayViewModel);
 
         verticalViewPager.registerOnPageChangeCallback(horizontalCallBack);
         return view;
@@ -103,4 +103,6 @@ public class VerticalTriplePageFragment extends Fragment {
     public void setMagicVideoPlayViewModel(MagicVideoPlayViewModel magicVideoPlayViewModel) {
         this.magicVideoPlayViewModel = magicVideoPlayViewModel;
     }
+
+
 }
