@@ -4,21 +4,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,25 +100,7 @@ public class FollowTagsListFragment extends Fragment {
 
     }
 
-    private void initData() {
-        for (int i=1;i<=20;i++){
-            News goodsEntity=new News();
-            goodsEntity.setNewsName("模拟事件"+i);
 
-            tagsList.add(goodsEntity);
-        }
-    }
-
-    /**
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -181,9 +161,13 @@ public class FollowTagsListFragment extends Fragment {
             public void onItemViewClick(int position) {
              //   Toast.makeText(getContext(),"点击了"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                 FollowNews thisFollowNews = followTagsListAdapter.getDataList().get(position);
-                startFollowTagsDetailsActivityToFragment(thisFollowNews);
-
+                if(thisFollowNews.getFollowNews().get(0).getType() == 0){
+                startFollowTagsDetailsActivityToFragment(thisFollowNews);}
+                else if(thisFollowNews.getFollowNews().get(0).getType() == 1){
+                    Toast.makeText(getContext(),"点击了视频资讯",Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
 
 
@@ -194,9 +178,9 @@ public class FollowTagsListFragment extends Fragment {
         intent.putExtra("uri", data.getFollowNews().get(0).getNewsDetailUrl());
         intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
         intent.putExtra("tag", data.getFollowNews().get(0).getTag());
+        intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
         getActivity().startActivity(intent);
     }
-
 
 
     /**

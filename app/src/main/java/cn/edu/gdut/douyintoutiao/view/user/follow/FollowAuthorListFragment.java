@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,22 +17,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import java.util.List;
 
-//import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
-
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
+
+//import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 
 
 public class FollowAuthorListFragment extends Fragment {

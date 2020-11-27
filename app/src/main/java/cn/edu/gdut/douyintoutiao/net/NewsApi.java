@@ -46,10 +46,10 @@ public interface NewsApi {
     Call<Result> deleteTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
     @POST("check_tags_follow")
-    Call<Result<FollowNews>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
-//
+    Call<Result<Boolean>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+
 //    @POST("check_tags_follow")
-//    Observable<Result> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
+//    Observable<Result<Boolean>> checkTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
      /**
      * 单例内部类
      */

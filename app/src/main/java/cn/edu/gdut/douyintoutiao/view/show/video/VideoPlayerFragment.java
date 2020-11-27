@@ -1,18 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -20,6 +11,12 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
 
@@ -71,6 +68,8 @@ public class VideoPlayerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         textureView.setSurfaceTextureListener(listener);
         textureView.setOnClickListener(playListener);
+
+
     }
 
 

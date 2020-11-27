@@ -30,10 +30,12 @@ public class NewsRepository {
     private final NewsApi api;
     private static final String TAG = "news";
     private static final String FollowTag = "follow";
+    private final MutableLiveData<List<Boolean>> checkFollowFlag;
 
     public NewsRepository(NewsApi api) {
         this.api = api;
         allNewsLive = new MutableLiveData<>();
+        checkFollowFlag = new MutableLiveData<>();
     }
 
 
@@ -98,49 +100,44 @@ public class NewsRepository {
     }
 
 
-//    public boolean checkTagsFollowByNewsIdUserId (String newsId , String userId) {
-//        Map< String, String > newsIdUserId = new HashMap<>();
-//        newsIdUserId.put("newsId", newsId);
-//        newsIdUserId.put("userId", userId);
-//
-//        final CountDownLatch latch = new CountDownLatch(1);
-//        final Boolean[] followFlag = new Boolean[1];
-//        followFlag[0]=false;
-//      //  Boolean followFlag = false;
-//        Call< Result > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
-//        call.enqueue(new Callback< Result>() {
-//            @Override
-//            public void onResponse(Call< Result> call, Response< Result > response) {
-//                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
-////          //     latch.countDown();
-////                if(response.body().getCode()=="200"){
-////                        followFlag[0] = true;
-////                        }
-//            }
-//            @Override
-//            public void onFailure(Call< Result > call, Throwable t) {
-//             //   latch.countDown();
-//                System.out.println("检查失败");
-//            }
-//        });
+    public LiveData<List<Boolean>> checkTagsFollowByNewsIdUserId (String newsId , String userId) {
+        Map< String, String > newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId", userId);
 
-//        try {
-//            latch.await();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println("检查关注："+followFlag);
-//
-//        return followFlag[0];
-//    }
-//
-//    public Observable<Result> checkTagsFollowByNewsIdUserId1(String newsId, String userId){
+        Call< Result<Boolean> > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result<Boolean>>() {
+            @Override
+            public void onResponse(Call< Result<Boolean>> call, Response< Result<Boolean> > response) {
+                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
+                checkFollowFlag.postValue(response.body().getData());
+            }
+            @Override
+            public void onFailure(Call< Result<Boolean> > call, Throwable t) {
+             //   latch.countDown();
+                System.out.println("检查失败");
+            }
+        });
+        return checkFollowFlag;
+    }
+
+//    public Observable<Result<Boolean>> checkTagsFollowByNewsIdUserId(String newsId, String userId){
 //        Map<String, String> newsIdUserId = new HashMap<>();
 //        newsIdUserId.put("newsId", newsId);
 //        newsIdUserId.put("userId",userId);
-//       return api.checkTagsFollowByNewsIdUserId1(newsIdUserId);
-//
+//       return api.checkTagsFollowByNewsIdUserId(newsIdUserId);
+//    }
+
+
+//    public static NewsRepository getInstance(){
+//        if(instance == null){
+//            synchronized (LoginUserModel.class) {
+//                if(instance == null) {
+//                    instance = new NewsRepository(NewsApi.getNewsApi());
+//                }
+//            }
+//        }
+//        return instance;
 //    }
 
 
