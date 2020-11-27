@@ -21,8 +21,7 @@ import cn.edu.gdut.douyintoutiao.view.user.login.Callback;
  */
 public class NewsDetailViewModel extends ViewModel {
     private static final String TAG = "myTag";
-    private final CommentRepository repository;
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
     private List<Boolean> checkData;
     Boolean checkFollowFlag = false;
 
@@ -35,13 +34,9 @@ public class NewsDetailViewModel extends ViewModel {
 //    }
 
     public NewsDetailViewModel() {
-        repository = new CommentRepository(CommentApi.getCommentApi());
         newsRepository = new NewsRepository(NewsApi.getNewsApi());
     }
 
-    public void postComment(String newsID, String userID, String content) {
-        repository.postComment(newsID, userID, content);
-    }
 
 
 

@@ -70,7 +70,7 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
-        //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
+        //采用glide加载网络图片,采用了占位符方式优先展示。
         Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
     }
 

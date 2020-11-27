@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.comment.adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.text.DateFormat;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
@@ -39,12 +43,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        DateFormat dtf = DateFormat.getDateTimeInstance();
         Discuss cur = discussList.get(position);
         holder.textViewUsername.setText(cur.getUser().get(0).getUserName());
         holder.textViewCommentContent.setText(cur.getText());
-        holder.textViewCommentTime.setText(cur.getTime().toString());
-        //Glide.with(holder.itemView).load(Uri.parse())
-
+        holder.textViewCommentTime.setText(dtf.format(cur.getTime()));
+        Glide.with(holder.itemView).load(Uri.parse(cur.getUser().get(0).getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewUserPic);
     }
 
     @Override
