@@ -22,6 +22,7 @@ import java.io.File;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
+import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 //import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
@@ -99,6 +100,19 @@ public class UserMainFragment extends Fragment {
                     .tag("optional-identifier")
                     .goUpLabel("Up") // custom go up label, default label is "..."
                     .show((FragmentActivity)context); // an AppCompatActivity which implements FileCallback
+        });
+
+        mUserInfoBinding.buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences shp = context.getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shp.edit();
+                editor.remove("userId");
+                editor.apply();
+                Intent intent = new Intent(getContext(), FirstActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
         });
 
     }

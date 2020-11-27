@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
 import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
+import cn.edu.gdut.douyintoutiao.util.UserUtil;
 
 /**
  * @author cypang
@@ -77,8 +78,14 @@ public class StartFragment extends Fragment {
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController controller = Navigation.findNavController(v);
-                controller.navigate(R.id.action_startFragment_to_loginFragment);
+                if(UserUtil.isLogin(getContext())) {
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }else {
+                    NavController controller = Navigation.findNavController(v);
+                    controller.navigate(R.id.action_startFragment_to_loginFragment);
+                }
             }
         });
 
