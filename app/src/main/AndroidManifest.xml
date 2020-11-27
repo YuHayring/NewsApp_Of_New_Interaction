@@ -29,7 +29,8 @@
         </activity> <!-- 此处开启了强制竖屏的操作 -->
         <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".view.show.video.VerticalVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
