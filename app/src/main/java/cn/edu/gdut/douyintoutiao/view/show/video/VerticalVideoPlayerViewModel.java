@@ -122,4 +122,8 @@ public class VerticalVideoPlayerViewModel extends ViewModel {
     public void setViewBinding(ActivityVerticalVideoPlayBinding viewBinding) {
         this.viewBinding = viewBinding;
     }
+
+    public void insertTagsFollowByNewsIdUserId(String newsId, String userId){
+        videoPlayerModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+    }
 }

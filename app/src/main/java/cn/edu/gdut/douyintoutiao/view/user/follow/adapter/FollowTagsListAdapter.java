@@ -9,22 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.nio.Buffer;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.FollowTagsListFragment;
 
 public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAdapter.ViewHolder>{
@@ -125,9 +119,11 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
         /* if (position == getItemCount() - 1) {
             return;
         }*/
+
         FollowNews data = dataList.get(position);
        holder.textViewHeader.setText(data.getFollowNews().get(0).getNewsName());
        holder.textViewAbstract.setText(data.getFollowNews().get(0).getNewsAbstract());
+    
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
         Glide.with(holder.itemView).load(Uri.parse(data.getFollowNews().get(0).getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
         holder.unFollowButton.setText("已关注");

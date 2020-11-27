@@ -194,7 +194,6 @@ public class NewsDetailFragment extends Fragment  {
 //            }
 //        });
 
-
         viewModel.checkTagsFollowByNewsIdUserId(newsId,userId).observe(getViewLifecycleOwner(), new Observer< List< Boolean > >() {
             @Override
             public void onChanged(List< Boolean > booleans) {

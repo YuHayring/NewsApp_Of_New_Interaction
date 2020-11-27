@@ -1,7 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +7,8 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.fragment.app.Fragment;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -22,7 +22,6 @@ import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
 import es.dmoral.toasty.Toasty;
 
-import static cn.edu.gdut.douyintoutiao.R.drawable.guanzhu;
 import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
 import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
@@ -150,16 +149,11 @@ public class VerticalVideoPlayActivity extends FullScreenActivity {
         viewBinding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                boolean flag = true;
-                if(flag){
-                    viewBinding.actionGuanzhu.setIcon(yellow_guanzhu);
-                    flag=false;
-                }else{
-                    flag=true;
-                    viewBinding.actionGuanzhu.setIcon(guanzhu);
-                }
-
-                Toasty.success(VerticalVideoPlayActivity.this, "关注！", Toasty.LENGTH_SHORT, true).show();
+                String userId = "5fa9f7f63d18b202258b5daf";
+                verticalVideoPlayerViewModel.insertTagsFollowByNewsIdUserId(newses.get(0).get_id(),userId);
+                // binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                viewBinding.actionGuanzhu.setIcon(yellow_guanzhu);
+                Toasty.success(VerticalVideoPlayActivity.this, "关注了"+newses.get(0).getNewsName(), Toasty.LENGTH_SHORT, true).show();
             }
         });
         //文字转视频

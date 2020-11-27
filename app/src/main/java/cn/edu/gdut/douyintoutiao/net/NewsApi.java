@@ -31,8 +31,14 @@ public interface NewsApi {
     @GET("searchNews")
     Call<Result<MyNews>> searchNewsList(@Query("key") String key);
 
-    @GET("searchVideos")
-    Call<List<MyNews>> searchVideosList(@Query("key") String key);
+//    @GET("searchVideos")
+//    Call<List<MyNews>> searchVideosList(@Query("key") String key);
+
+    @GET("videoList")
+    Call<List<MyNews>> searchVideoList(@Query("key") String key);
+
+    @GET("videoList")
+    Call<List<MyNews>> searchMoreVideoList(@Query("index") int index, @Query("count") int count, @Query("key") String key);
 
     //TODO 解决后台嵌套查询的问题
     @GET("getNewsWithOption")

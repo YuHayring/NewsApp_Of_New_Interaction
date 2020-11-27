@@ -1,19 +1,17 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
+import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
-import cn.edu.gdut.douyintoutiao.net.UserApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +23,7 @@ import retrofit2.Response;
 public class VideoPlayerModel {
 
     private Handler onVideoGotHandler;
-
+    private static final String FollowTag = "follow";
     /**
      * 模拟数据
      * @return
@@ -139,5 +137,22 @@ public class VideoPlayerModel {
         }
     };
 
+    //关注
+    public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        Call< Result< FollowNews > > call = NewsApi.getNewsApi().insertTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result< FollowNews > >() {
+            @Override
+            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+                Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+            }
 
+            @Override
+            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
+                Log.d(FollowTag, "onFailure: insertTagsFollowByNewsIdUserId失败 ");
+            }
+        });
+    }
 }
