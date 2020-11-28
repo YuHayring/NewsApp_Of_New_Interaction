@@ -1,15 +1,12 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
 import retrofit2.Call;
@@ -20,7 +17,7 @@ import retrofit2.Response;
  * @author hayring
  * @date 11/17/20 3:10 PM
  */
-public class VideoPlayModel {
+public class VideoModel {
 
     private Handler onVideoGotHandler;
     private static final String FollowTag = "follow";
@@ -28,7 +25,7 @@ public class VideoPlayModel {
      * 模拟数据
      * @return
      */
-    public void getVideoNews(VideoPlayViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void getVideoNews(VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
         NewsApi.getNewsApi().getVideoList().enqueue(commonVideoGotCallBack);
     }
 
@@ -37,7 +34,7 @@ public class VideoPlayModel {
      * 模拟数据
      * @return
      */
-    public void searchVideoNews(String key, VideoPlayViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void searchVideoNews(String key, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
         NewsApi.getNewsApi().searchVideoList(key).enqueue(commonVideoGotCallBack);
     }
 
@@ -45,15 +42,24 @@ public class VideoPlayModel {
      * 模拟数据
      * @return
      */
-    public void getMoreVideoNews(int index, VideoPlayViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void getMoreVideoNews(int index, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
         NewsApi.getNewsApi().getVideoList(index, 5).enqueue(commonVideoGotCallBack);
+    }
+
+
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void getMoreVideoNews(int index, int pageCount, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+        NewsApi.getNewsApi().getVideoList(index, pageCount).enqueue(commonVideoGotCallBack);
     }
 
     /**
      * 模拟数据
      * @return
      */
-    public void searchMoreVideoNews(int index, String key, VideoPlayViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void searchMoreVideoNews(int index, String key, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
         NewsApi.getNewsApi().searchMoreVideoList(index, 5, key).enqueue(commonVideoGotCallBack);
     }
 
@@ -73,7 +79,7 @@ public class VideoPlayModel {
      * 模拟数据
      * @return
      */
-    public void getTagVideoNews(String tag, VideoPlayViewModel.CommonVideoGotCallBack callBack) {
+    public void getTagVideoNews(String tag, VideoViewModel.CommonVideoGotCallBack callBack) {
         NewsApi.getNewsApi().getTagVideo(tag).enqueue(callBack);
     }
 
@@ -109,12 +115,12 @@ public class VideoPlayModel {
 
 
     private static class Singleton {
-        static VideoPlayModel videoPlayModel = new VideoPlayModel();
+        static VideoModel videoModel = new VideoModel();
     }
 
-    public static VideoPlayModel getInstance() {
-        return Singleton.videoPlayModel;
+    public static VideoModel getInstance() {
+        return Singleton.videoModel;
     }
 
-    private VideoPlayModel(){}
+    private VideoModel(){}
 }

@@ -1,38 +1,30 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.ActivityVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import es.dmoral.toasty.Toasty;
 
 /**
  * @author hayring
  * @date 2020/11/7 16:09
  */
-public class VerticalVideoPlayViewModel extends VideoPlayViewModel {
+public class VerticalVideoViewModel extends VideoViewModel {
 
 
-    public VerticalVideoPlayViewModel() {}
+    public VerticalVideoViewModel() {}
 
 
-    public VerticalVideoPlayViewModel(Activity activity) {
+    public VerticalVideoViewModel(Activity activity) {
         super(activity);
     }
 
 
-    private VideoPlayModel videoPlayModel = VideoPlayModel.getInstance();
+    private VideoModel videoModel = VideoModel.getInstance();
 
     private VideoStateAdapter adapter;
 
@@ -46,7 +38,7 @@ public class VerticalVideoPlayViewModel extends VideoPlayViewModel {
      * 获取关注视频
      */
     void getFollowVideoNews() {
-        videoPlayModel.getVideoNews(followVideoGot);
+        videoModel.getVideoNews(followVideoGot);
     }
 
 
@@ -54,7 +46,7 @@ public class VerticalVideoPlayViewModel extends VideoPlayViewModel {
      * 获取更多关注视频
      */
     void getMoreFollowVideoNews(int index) {
-        videoPlayModel.getMoreVideoNews(index, followVideoGot);
+        videoModel.getMoreVideoNews(index, followVideoGot);
     }
 
 
@@ -62,32 +54,32 @@ public class VerticalVideoPlayViewModel extends VideoPlayViewModel {
      * 搜索视频
      */
     void searchVideoNews(String key) {
-        videoPlayModel.searchVideoNews(key, followVideoGot);
+        videoModel.searchVideoNews(key, followVideoGot);
     }
 
     /**
      * 更多搜索视频结果
      */
     void searchMoreVideoNews(String key, int index) {
-        videoPlayModel.searchMoreVideoNews(index, key, followVideoGot);
+        videoModel.searchMoreVideoNews(index, key, followVideoGot);
     }
 
 
     CommonVideoGotCallBack followVideoGot = new CommonVideoGotCallBack() {
         @Override
-        void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onVideoGotSuccess(List<MyNews> newses) {
             newsesFromServer.postValue(newses);
             errCode.postValue(0);
         }
 
         @Override
-        void onVideoNotExist() {
+        protected void onVideoNotExist() {
             errCode.postValue(404);
         }
 
         @Override
-        void onRequestError(int errCode) {
-            VerticalVideoPlayViewModel.this.errCode.postValue(404);
+        protected void onRequestError(int errCode) {
+            VerticalVideoViewModel.this.errCode.postValue(404);
         }
     };
 
@@ -100,7 +92,7 @@ public class VerticalVideoPlayViewModel extends VideoPlayViewModel {
 
 
     public void insertTagsFollowByNewsIdUserId(String newsId, String userId){
-        videoPlayModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+        videoModel.insertTagsFollowByNewsIdUserId(newsId,userId);
     }
 
 

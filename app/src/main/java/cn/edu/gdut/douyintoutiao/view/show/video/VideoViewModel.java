@@ -17,13 +17,13 @@ import retrofit2.Response;
  * @author hayring
  * @date 11/27/20 4:04 PM
  */
-public class VideoPlayViewModel extends ViewModel {
+public class VideoViewModel extends ViewModel {
 
 
 
-    public VideoPlayViewModel() {}
+    public VideoViewModel() {}
 
-    public VideoPlayViewModel(Activity activity) {
+    public VideoViewModel(Activity activity) {
         this.activity = activity;
     }
 
@@ -35,13 +35,13 @@ public class VideoPlayViewModel extends ViewModel {
 
     protected Activity activity;
 
-    abstract class CommonVideoGotCallBack implements Callback<List<MyNews>> {
+    public static abstract class CommonVideoGotCallBack implements Callback<List<MyNews>> {
 
-        abstract void onVideoGotSuccess(List<MyNews> newses);
+        protected abstract void onVideoGotSuccess(List<MyNews> newses);
 
-        abstract void onVideoNotExist();
+        protected abstract void onVideoNotExist();
 
-        void onRequestError(int errCode) {}
+        protected void onRequestError(int errCode) {}
 
 
         @Override

@@ -14,7 +14,7 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
  * @author hayring
  * @date 11/26/20 11:38 PM
  */
-public class MagicVideoPlayViewModel extends VideoPlayViewModel {
+public class MagicVideoViewModel extends VideoViewModel {
 
     /**
      * 标题
@@ -24,13 +24,13 @@ public class MagicVideoPlayViewModel extends VideoPlayViewModel {
 
 
 
-    VideoPlayModel videoPlayModel = VideoPlayModel.getInstance();
+    VideoModel videoModel = VideoModel.getInstance();
 
 
 
-    public MagicVideoPlayViewModel(){}
+    public MagicVideoViewModel(){}
 
-    public MagicVideoPlayViewModel(Activity activity) {
+    public MagicVideoViewModel(Activity activity) {
         super(activity);
     }
 
@@ -44,17 +44,17 @@ public class MagicVideoPlayViewModel extends VideoPlayViewModel {
      * 更新上滑的视频
      */
     void getUpVideo() {
-        videoPlayModel.getTagVideoNews("学习",upVideoGot);
+        videoModel.getTagVideoNews("学习",upVideoGot);
     }
     CommonVideoGotCallBack upVideoGot = new  CommonVideoGotCallBack() {
         @Override
-        void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onVideoGotSuccess(List<MyNews> newses) {
             upNewses.addAll(newses);
 
         }
 
         @Override
-        void onVideoNotExist() {
+        protected void onVideoNotExist() {
 
         }
     };
@@ -68,17 +68,17 @@ public class MagicVideoPlayViewModel extends VideoPlayViewModel {
      * 更新下滑的视频
      */
     void getDownVideo() {
-        videoPlayModel.getVideoNews(downVideoGot);
+        videoModel.getVideoNews(downVideoGot);
     }
 
     CommonVideoGotCallBack downVideoGot = new  CommonVideoGotCallBack() {
         @Override
-        void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onVideoGotSuccess(List<MyNews> newses) {
             downNewses.addAll(newses);
         }
 
         @Override
-        void onVideoNotExist() {
+        protected void onVideoNotExist() {
 
         }
     };
@@ -89,16 +89,16 @@ public class MagicVideoPlayViewModel extends VideoPlayViewModel {
      * 更新左滑的视频
      */
     void getLeftVideo() {
-        videoPlayModel.getTagVideoNews("csgo",leftVideoGot);
+        videoModel.getTagVideoNews("csgo",leftVideoGot);
     }
     CommonVideoGotCallBack leftVideoGot = new  CommonVideoGotCallBack() {
         @Override
-        void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onVideoGotSuccess(List<MyNews> newses) {
             leftNewses.addAll(newses);
         }
 
         @Override
-        void onVideoNotExist() {
+        protected void onVideoNotExist() {
 
         }
     };
@@ -108,16 +108,16 @@ public class MagicVideoPlayViewModel extends VideoPlayViewModel {
      * 更新右滑的视频
      */
     void getRightVideo() {
-        videoPlayModel.getTagVideoNews("足球",rightVideoGot);
+        videoModel.getTagVideoNews("足球",rightVideoGot);
     }
     CommonVideoGotCallBack rightVideoGot = new  CommonVideoGotCallBack() {
         @Override
-        void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onVideoGotSuccess(List<MyNews> newses) {
             rightNewses.addAll(newses);
         }
 
         @Override
-        void onVideoNotExist() {
+        protected void onVideoNotExist() {
 
         }
     };

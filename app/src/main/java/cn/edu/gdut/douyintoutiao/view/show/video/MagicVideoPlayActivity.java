@@ -3,7 +3,6 @@ package cn.edu.gdut.douyintoutiao.view.show.video;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -35,7 +34,7 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
      */
     VideoPlayFragment videoPlayFragment;
 
-    MagicVideoPlayViewModel magicVideoPlayViewModel;
+    MagicVideoViewModel magicVideoPlayViewModel;
 
     /**
      * 滑动方向监听器
@@ -64,7 +63,7 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
         videoPlayFragment.setRecycleUse(true);
 
 
-        magicVideoPlayViewModel = new ViewModelProvider(this,videoViewModelFactory).get(MagicVideoPlayViewModel.class);
+        magicVideoPlayViewModel = new ViewModelProvider(this,videoViewModelFactory).get(MagicVideoViewModel.class);
 
 
 
@@ -202,7 +201,7 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
                 Constructor constructor = modelClass.getConstructor(Activity.class);
                 return (T) constructor.newInstance(MagicVideoPlayActivity.this);
             } catch (Exception e) {
-                IllegalArgumentException ile = new IllegalArgumentException("" + modelClass + "is not" + VideoPlayViewModel.class);
+                IllegalArgumentException ile = new IllegalArgumentException("" + modelClass + "is not" + VideoViewModel.class);
                 ile.initCause(e);
                 throw ile;
             }
@@ -241,7 +240,7 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
     }
 
 
-    public MagicVideoPlayViewModel getMagicVideoPlayViewModel() {
+    public MagicVideoViewModel getMagicVideoPlayViewModel() {
         return magicVideoPlayViewModel;
     }
 }

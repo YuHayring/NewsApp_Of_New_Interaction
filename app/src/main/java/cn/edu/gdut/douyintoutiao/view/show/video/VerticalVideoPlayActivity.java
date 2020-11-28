@@ -52,7 +52,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
 
 
 
-    VerticalVideoPlayViewModel verticalVideoPlayViewModel;
+    VerticalVideoViewModel verticalVideoPlayViewModel;
 
 
     @Override
@@ -60,7 +60,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
         //super 中已经设置了 setContentView
         super.onCreate(savedInstanceState);
 
-        verticalVideoPlayViewModel = new ViewModelProvider(this,videoViewModelFactory).get(VerticalVideoPlayViewModel.class);
+        verticalVideoPlayViewModel = new ViewModelProvider(this,videoViewModelFactory).get(VerticalVideoViewModel.class);
 
         adapter = new VideoStateAdapter(this, fragments, newses);
         viewBinding.videoViewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
@@ -109,7 +109,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
                 Constructor constructor = modelClass.getConstructor(Activity.class);
                 return (T) constructor.newInstance(VerticalVideoPlayActivity.this);
             } catch (Exception e) {
-                IllegalArgumentException ile = new IllegalArgumentException("" + modelClass + "is not" + VideoPlayViewModel.class);
+                IllegalArgumentException ile = new IllegalArgumentException("" + modelClass + "is not" + VideoViewModel.class);
                 ile.initCause(e);
                 throw ile;
             }

@@ -23,6 +23,7 @@ import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.videolist.VideoListFragment;
 
 /**
  * @author hayring
@@ -74,7 +75,7 @@ public class MainFragment extends Fragment {
             if (position == 0) {
                 return new NewsListFragment();
             } else if (position == 1) {
-                return new ViewPagerTestFragment(position);
+                return new VideoListFragment();
             } else if (position == 2) {
                 return new NewsFollowListFragment(tabs[position]);
             }

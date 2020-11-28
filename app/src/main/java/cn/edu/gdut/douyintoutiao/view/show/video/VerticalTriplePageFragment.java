@@ -26,7 +26,7 @@ public class VerticalTriplePageFragment extends Fragment {
     ViewPager2 verticalViewPager;
 
 
-    MagicVideoPlayViewModel magicVideoPlayViewModel;
+    MagicVideoViewModel magicVideoPlayViewModel;
 
 
     /**
@@ -101,7 +101,7 @@ public class VerticalTriplePageFragment extends Fragment {
     }
 
 
-    public void setMagicVideoPlayViewModel(MagicVideoPlayViewModel magicVideoPlayViewModel) {
+    public void setMagicVideoPlayViewModel(MagicVideoViewModel magicVideoPlayViewModel) {
         this.magicVideoPlayViewModel = magicVideoPlayViewModel;
     }
 
