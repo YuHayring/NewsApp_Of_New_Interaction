@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -13,13 +14,13 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import cn.edu.gdut.douyintoutiao.R;
+import cn.edu.gdut.douyintoutiao.databinding.ActivityVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
 import es.dmoral.toasty.Toasty;
 
-import static cn.edu.gdut.douyintoutiao.R.drawable.red_dianzan;
-import static cn.edu.gdut.douyintoutiao.R.drawable.yellow_guanzhu;
 
 /**
  * @author hayring
@@ -31,63 +32,24 @@ public class VideoPlayActivity extends FullScreenActivity {
     /**
      * 多久没操作悬浮窗就隐藏
      */
-    private static final long FLOAT_BUTTON_HIDE_TIME = 5000l;
+    private static final long FLOAT_BUTTON_HIDE_TIME = 5000L;
 
     /**
      * 当前正在播放的新闻
      */
     MyNews currentNews;
 
-    /**
-     * 举报按钮
-     */
-    FloatingActionButton reportButton;
 
 
     /**
-     * 点赞按钮
+     * ViewBinding
      */
-    FloatingActionButton likeButton;
-
-    /**
-     * 不感兴趣按钮
-     */
-    FloatingActionButton uninteredtedButton;
-
-    /**
-     * 作者按钮
-     */
-    FloatingActionButton authorButton;
-
-    /**
-     * 关注按钮
-     */
-    FloatingActionButton followButton;
-
-    /**
-     * 转换按钮
-     */
-    FloatingActionButton transformButton;
-
-    /**
-     * 评论按钮
-     */
-    FloatingActionButton commentButton;
-
-    /**
-     * 悬浮窗整体
-     */
-    RelativeLayout fullScreenFloatButton;
-
-    /**
-     * 悬浮窗唤醒区域
-     */
-    View floatButtonWaker;
+    ActivityVideoPlayBinding viewBinding;
 
     /**
      * 举报监听器
      */
-    View.OnClickListener ReportButtonListener = new View.OnClickListener(){
+    View.OnClickListener reportButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             Toasty.success(VideoPlayActivity.this, "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
@@ -97,41 +59,46 @@ public class VideoPlayActivity extends FullScreenActivity {
     /**
      * 点赞监听器
      */
-    View.OnClickListener LikeButtonListener = new View.OnClickListener(){
+    View.OnClickListener likeButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            if (v instanceof FloatingActionButton) {
-                boolean flag = true;
-                if(flag){
-                    ((FloatingActionButton)v).setIcon(R.drawable.red_dianzan);
-                    flag=false;
-                }else{
-                    flag=true;
-                    ((FloatingActionButton)v).setIcon(R.drawable.red_dianzan);
-                }
-                Toasty.success(VideoPlayActivity.this, "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
-            } else {
-                throw new IllegalStateException(v.toString() + "is not an instance of" + FloatingActionButton.class.toString());
+            boolean flag = true;
+            if(flag){
+                viewBinding.actionDianzan.setIcon(R.drawable.red_dianzan);
+                flag=false;
+            }else{
+                flag=true;
+                viewBinding.actionDianzan.setIcon(R.drawable.red_dianzan);
             }
+            Toasty.success(VideoPlayActivity.this, "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
+
         }
     };
 
-
-    View.OnClickListener UninterestedButtonListener = new View.OnClickListener(){
+    /**
+     * 不感兴趣监听器
+     */
+    View.OnClickListener uninterestedButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             Toasty.success(VideoPlayActivity.this, "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
         }
     };
 
-    View.OnClickListener AuthorButtonListener = new View.OnClickListener(){
+    /**
+     * 作者监听器
+     */
+    View.OnClickListener authorButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
         }
     };
 
-    View.OnClickListener FollowButtonListener = new View.OnClickListener(){
+    /**
+     * 关注监听器
+     */
+    View.OnClickListener followButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             if (v instanceof FloatingActionButton) {
@@ -145,13 +112,19 @@ public class VideoPlayActivity extends FullScreenActivity {
         }
     };
 
-    View.OnClickListener TransFormButtonListener = new View.OnClickListener(){
+    /**
+     * 转换监听器
+     */
+    View.OnClickListener transFormButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
             Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
         }
     };
 
+    /**
+     * 评论监听器
+     */
     View.OnClickListener commentButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
@@ -175,17 +148,29 @@ public class VideoPlayActivity extends FullScreenActivity {
     };
 
 
+    View.OnClickListener floatButtonWakerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (viewBinding.fullScreenFloatButton.getVisibility() == View.INVISIBLE) {
+                viewBinding.fullScreenFloatButton.setVisibility(View.VISIBLE);
+                viewBinding.floatButtonWaker.setClickable(false);
+                hiddenHandler.postDelayed(hideFloatButtonFunction, FLOAT_BUTTON_HIDE_TIME);
+            }
+        }
+    };
 
 
 
 
-    private Handler hiddenHandler = new Handler(Looper.myLooper());
 
-    private Runnable hideFloatButtonFunction = new Runnable() {
+
+    private final Handler hiddenHandler = new Handler(Looper.myLooper());
+
+    private final Runnable hideFloatButtonFunction = new Runnable() {
         @Override
         public void run() {
-            fullScreenFloatButton.setVisibility(View.INVISIBLE);
-            floatButtonWaker.setClickable(true);
+            viewBinding.fullScreenFloatButton.setVisibility(View.INVISIBLE);
+            viewBinding.floatButtonWaker.setClickable(true);
         }
     };
 
@@ -194,32 +179,56 @@ public class VideoPlayActivity extends FullScreenActivity {
     @CallSuper
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-
         //隐藏计时器
         hideFloatButtonFunction.run();
 
     }
 
 
+    @Override
+    @CallSuper
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewBinding = ActivityVideoPlayBinding.inflate(LayoutInflater.from(this));
+        setContentView(viewBinding.getRoot());
+        //悬浮窗按钮监听器注册
+        viewBinding.actionJinggao.setOnClickListener(reportButtonListener);
+        viewBinding.actionDianzan.setOnClickListener(likeButtonListener);
+        viewBinding.actionBuganxingqu.setOnClickListener(uninterestedButtonListener);
+        viewBinding.actionZuozhe.setOnClickListener(authorButtonListener);
+        viewBinding.actionGuanzhu.setOnClickListener(followButtonListener);
+        viewBinding.actionZhuanhuan.setOnClickListener(transFormButtonListener);
+        viewBinding.actionPinglun.setOnClickListener(commentButtonListener);
+        viewBinding.multipleActions.setOnFloatingActionsMenuUpdateListener(menuUpdateListener);
+        viewBinding.floatButtonWaker.setOnClickListener(floatButtonWakerListener);
 
+        //标题 text view 显示大小修改
+        int width = UIUtil.getScreenWidth(this) - UIUtil.dip2px(this,150) - 1;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewBinding.videoTitleTextView.getLayoutParams();
+        layoutParams.width = width;
+        viewBinding.videoTitleTextView.setLayoutParams(layoutParams);
+        layoutParams = (RelativeLayout.LayoutParams) viewBinding.videoDescriptionTextView.getLayoutParams();
+        layoutParams.width = width;
+        viewBinding.videoDescriptionTextView.setLayoutParams(layoutParams);
 
-
-
-
-
-
-
-
-
-
-
+    }
 
     public MyNews getCurrentNews() {
         return currentNews;
     }
 
+    @CallSuper
     public void setCurrentNews(MyNews currentNews) {
         this.currentNews = currentNews;
+        //设置显示
+        viewBinding.videoTitleTextView.setText(currentNews.getNewsName());
+        viewBinding.videoDescriptionTextView.setText(currentNews.getNewsAbstract());
     }
+
+
+
+
+
+
+
 }

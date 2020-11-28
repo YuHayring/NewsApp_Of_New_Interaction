@@ -6,14 +6,13 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     android:theme="@style/ThemeOverlay.DouYinTouTiao.FullscreenContainer"
-    tools:context=".view.show.video.MagicVideoPlayActivity">
+    tools:context=".view.show.video.VideoPlayActivity">
 
 
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/horizontal_video_view_pager"
-        android:orientation="horizontal" >
+        android:id="@+id/video_view_pager" >
 
 
     </androidx.viewpager2.widget.ViewPager2>
@@ -27,8 +26,17 @@
         <TextView
             android:id="@+id/video_title_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@id/video_description_text_view"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/video_description_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:textStyle="bold"/>

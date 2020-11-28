@@ -17,19 +17,21 @@ import retrofit2.Response;
  * @author hayring
  * @date 11/27/20 4:04 PM
  */
-public class VideoPlayerViewModel extends ViewModel {
+public class VideoPlayViewModel extends ViewModel {
 
 
 
-    public VideoPlayerViewModel () {}
+    public VideoPlayViewModel() {}
 
-    public VideoPlayerViewModel(Activity activity) {
+    public VideoPlayViewModel(Activity activity) {
         this.activity = activity;
     }
 
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+
+
 
     protected Activity activity;
 
@@ -39,6 +41,8 @@ public class VideoPlayerViewModel extends ViewModel {
 
         abstract void onVideoNotExist();
 
+        void onRequestError(int errCode) {}
+
 
         @Override
         public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
@@ -47,7 +51,7 @@ public class VideoPlayerViewModel extends ViewModel {
             } else if (response.code() == 404) {
                 onVideoNotExist();
             } else {
-                Toasty.error(activity, R.string.video_play_request_fail).show();
+                onRequestError(response.code());
             }
         }
 

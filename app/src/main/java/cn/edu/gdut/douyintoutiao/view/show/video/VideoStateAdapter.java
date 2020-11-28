@@ -1,17 +1,14 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -68,7 +65,7 @@ public class VideoStateAdapter extends FragmentStateAdapter {
         int start = newses.size();
         newses.add(news);
 
-        VideoPlayerFragment fragment = new VideoPlayerFragment();
+        VideoPlayFragment fragment = new VideoPlayFragment();
         fragment.setContext(context);
         fragment.setMyNews(news);
         fragments.add(fragment);
@@ -79,7 +76,7 @@ public class VideoStateAdapter extends FragmentStateAdapter {
         int start = newses.size();
         this.newses.addAll(newses);
         for (MyNews news : newses) {
-            VideoPlayerFragment fragment = new VideoPlayerFragment();
+            VideoPlayFragment fragment = new VideoPlayFragment();
             fragment.setContext(context);
             fragment.setMyNews(news);
             fragments.add(fragment);

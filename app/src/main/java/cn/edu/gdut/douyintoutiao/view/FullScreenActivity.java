@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.ActivityVerticalVideoPlayBinding;
 
 public class FullScreenActivity extends AppCompatActivity {
 

@@ -27,9 +27,11 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class VideoPlayerFragment extends Fragment {
+public class VideoPlayFragment extends Fragment {
 
 
+    //重复使用
+    private boolean recycleUse;
 
     private TextureView textureView;
 
@@ -46,7 +48,9 @@ public class VideoPlayerFragment extends Fragment {
     //当前新闻
     private MyNews news;
 
-    public VideoPlayerFragment() {}
+    public VideoPlayFragment() {}
+
+
 
 
     public void setContext(Context context) {
@@ -130,7 +134,9 @@ public class VideoPlayerFragment extends Fragment {
         public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
 //            textureView.setSurfaceTextureListener(null);
 //            textureView = null;
-            releasePlayer();
+            if (recycleUse) {
+                releasePlayer();
+            }
             mSurface = null;
             return true;
         }
@@ -239,19 +245,17 @@ public class VideoPlayerFragment extends Fragment {
         return news;
     }
 
+
+    /**
+     * 仅限于更换 url 时使用
+     * @param news
+     */
     public void setMyNews(MyNews news) {
         this.news = news;
-        //确保播放器已创建
-//        if (mPlayer != null) {
-//            try {
-//                mPlayer.setDataSource(news.getNewsDetailUrl());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(context,"Failed to set player src",Toast.LENGTH_LONG).show();
-//                //TODO
-//            }
-//        }
         if (mPlayer != null) {
+            if (!recycleUse) {
+                throw new IllegalStateException("The player is not supported to set datasource");
+            }
             try {
 //                mPlayer.setDataSource("http://v.ysbang.cn/data/video/2015/rkb/2015rkb01.mp4");
                 mPlayer.setDataSource(news.getNewsDetailUrl());
@@ -263,5 +267,10 @@ public class VideoPlayerFragment extends Fragment {
             mPlayer.prepareAsync();
         }
 
+    }
+
+
+    public void setRecycleUse(boolean recycleUse) {
+        this.recycleUse = recycleUse;
     }
 }
