@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,15 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
         String type = intent.getStringExtra("type");
         if (type == null) {
             status = DEFAULT;
-            verticalVideoPlayViewModel.getFollowVideoNews();
+            //获取附加的数据
+            List<MyNews> data;
+            if ((data = (List<MyNews>) intent.getSerializableExtra("data")) != null) {
+                adapter.addAllAndNotify(data);
+                int currentIndex = intent.getIntExtra("index",0);
+                viewBinding.videoViewPager.setCurrentItem(currentIndex, false);
+            } else {
+                verticalVideoPlayViewModel.getFollowVideoNews();
+            }
         } else if ("search".equals(type)){
             status = SEARCH;
             key = intent.getStringExtra("key");
@@ -194,6 +203,17 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
     }
 
 
-
-
+    /**
+     * 给 VideoList返回更新的数据
+     */
+    @Override
+    public void finish() {
+        Intent innerIntent = getIntent();
+        if (innerIntent.getSerializableExtra("data") != null) {
+            Intent intent = new Intent();
+            intent.putExtra("data", (Serializable) newses);
+            setResult(RESULT_OK, intent);
+        }
+        super.finish();
+    }
 }

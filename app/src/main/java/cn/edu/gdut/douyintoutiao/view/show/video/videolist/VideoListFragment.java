@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.show.video.videolist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.VideoViewModel;
 
 /**
@@ -123,15 +126,17 @@ public class VideoListFragment extends Fragment {
             View itemView = layoutInflater.inflate(R.layout.item_video_list, parent, false);
             viewHolder = new SingleVideoViewHolder(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
+
+                /**
+                 * 进入视频播放界面
+                 * @param v
+                 */
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(activity, NewsActivity.class);
-//                    intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-//                    intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-//                    intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-//                    intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-//                    startActivity(intent);
-                    //TODO
+                    Intent intent = new Intent(getContext(), VerticalVideoPlayActivity.class);
+                    intent.putExtra("data", (Serializable) adapter.getNewsList());
+                    intent.putExtra("index", parent.indexOfChild(v));
+                    ((Activity)getContext()).startActivityForResult(intent, 1);
                 }
             });
 
@@ -155,6 +160,17 @@ public class VideoListFragment extends Fragment {
         }
 
 
+        /**
+         * 清除
+         */
+        public void clear() {
+            newsList.clear();
+        }
+
+
+        public List<MyNews> getNewsList() {
+            return newsList;
+        }
     }
 
     //防止内存泄漏
@@ -189,4 +205,18 @@ public class VideoListFragment extends Fragment {
     };
 
 
+    /**
+     * 获取 VideoPlay 中刷新的数据
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //从视频播放 activity 返回时刷新数据
+        adapter.clear();
+        adapter.addToHead((List)data.getSerializableExtra("data"));
+        adapter.notifyDataSetChanged();
+    }
 }

@@ -150,7 +150,7 @@ public class VideoPlayFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        releasePlayer();
+        releasePlayer();
     }
 
     @Override
