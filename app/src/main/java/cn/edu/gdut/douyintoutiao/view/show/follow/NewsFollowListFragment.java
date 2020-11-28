@@ -49,8 +49,8 @@ public class NewsFollowListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsFollowListViewModel.class);
         adapter = new FollowNewsAdapter(getActivity());
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));

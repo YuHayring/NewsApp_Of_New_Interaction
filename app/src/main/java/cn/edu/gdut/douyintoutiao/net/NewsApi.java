@@ -42,10 +42,11 @@ public interface NewsApi {
     @GET("videoList")
     Call<List<MyNews>> searchMoreVideoList(@Query("index") int index, @Query("count") int count, @Query("key") String key);
 
-    //TODO 解决后台嵌套查询的问题
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
+    @GET("getAuthorNews")
+    Call<Result<MyNews>> getAuthorNewsList(@Query("userId") String userId);
 
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);

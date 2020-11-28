@@ -23,6 +23,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
+import cn.edu.gdut.douyintoutiao.view.show.follow.AuthorNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
@@ -77,7 +78,7 @@ public class MainFragment extends Fragment {
             if (position == 0) {
                 return new NewsListFragment();
             } else if (position == 1) {
-                return new ViewPagerTestFragment(position);
+                return new AuthorNewsFragment();
             } else if (position == 2) {
                 return new NewsFollowListFragment(tabs[position]);
             }
