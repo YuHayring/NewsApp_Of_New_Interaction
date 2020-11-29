@@ -62,7 +62,8 @@ public class CommentFragment extends Fragment {
         newsId = getArguments().getString("newsId");
         userId = getArguments().getString("userId");
         binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CommentAdapter();
+        adapter = new CommentAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.commentRecycleView.setAdapter(adapter);
         mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), discusses -> {
             adapter.setDiscussList(discusses);
@@ -75,18 +76,15 @@ public class CommentFragment extends Fragment {
         binding.comentRefreshLayout.setOnRefreshListener(listener);
         binding.postCommentButton.setOnClickListener(v -> new MaterialDialog.Builder(requireContext())
                 .title("评论发送")
-                .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
-                        String content = input.toString();
-                        if (content.length() == 0) {
-                            Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
-                            return;
-                        }
-                        mViewModel.postComment(newsId, userId, content);
-                        Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                        listener.onRefresh();
+                .input("请输入评论内容", "", (dialog, input) -> {
+                    String content = input.toString();
+                    if (content.length() == 0) {
+                        Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
+                        return;
                     }
+                    mViewModel.postComment(newsId, userId, content);
+                    Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
+                    listener.onRefresh();
                 }).show());
     }
 
