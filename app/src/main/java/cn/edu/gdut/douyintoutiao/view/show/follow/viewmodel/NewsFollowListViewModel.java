@@ -25,5 +25,8 @@ public class NewsFollowListViewModel extends AndroidViewModel {
         return newsRepository.getAllFollowLive(tag);
     }
 
+    public LiveData<List<MyNews>> getAllAuthorNews(String userId){
+        return newsRepository.getAuthorNewsLive(userId);
+    }
 
 }

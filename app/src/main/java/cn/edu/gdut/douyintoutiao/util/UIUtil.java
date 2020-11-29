@@ -17,7 +17,7 @@ public class UIUtil {
     //记录上次按下的时间
     private static long lastClickTime;
     //容许用户重复点击按钮的时间间隔
-    private static final int MIN_CLICK_DELAY_TIME = 1000;
+    private static final int MIN_CLICK_DELAY_TIME = 5000;
 
     /**
      * dip 转 pixel

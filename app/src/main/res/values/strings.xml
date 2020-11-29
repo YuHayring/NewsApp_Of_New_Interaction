@@ -32,6 +32,7 @@
     <string name="user_description">个性签名</string>
     <string name="following">关注</string>
     <string name="help">帮助反馈</string>
+    <string name="user_main_exit_msg">退出登录</string>
 
     <!-- 导航栏 -->
     <string name="setting">设置中心</string>

@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
+package cn.edu.gdut.douyintoutiao.view.show.follow.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,20 +20,21 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author : cypang
- * @description ：
+ * @description ： TODO:类的作用
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> {
+public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.ViewHolder> {
 
     private final Activity activity;
     private List<MyNews> newsList = new ArrayList<>();
 
 
-    public NewsSAdapter(Activity activity) {
+    public AuthorNewsAdapter(Activity activity) {
         this.activity = activity;
     }
 
@@ -51,12 +52,16 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, NewsActivity.class);
-                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-                activity.startActivity(intent);
+                if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(0)) {
+                    Intent intent = new Intent(activity, NewsActivity.class);
+                    intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
+                    intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
+                    intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
+                    intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                    activity.startActivity(intent);
+                }else {
+                    Toasty.normal(activity, "跳转到视频", Toasty.LENGTH_SHORT).show();
+                }
             }
         });
 

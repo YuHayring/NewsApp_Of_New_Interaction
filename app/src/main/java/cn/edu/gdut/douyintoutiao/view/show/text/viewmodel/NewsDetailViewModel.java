@@ -16,7 +16,7 @@ import cn.edu.gdut.douyintoutiao.view.user.login.Callback;
 
 /**
  * @author : cypang
- * @description ： TODO:类的作用
+ * @description ：
  * @email : 516585610@qq.com
  * @date : 11/17/20 11:09
  */
