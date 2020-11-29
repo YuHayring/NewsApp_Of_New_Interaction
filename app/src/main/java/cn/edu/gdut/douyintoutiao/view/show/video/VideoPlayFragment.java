@@ -156,13 +156,17 @@ public class VideoPlayFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-//        pause();
+        if (mPlayer != null && mPlayer.isPlaying()) {
+            pause();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        play();
+        if (mPlayer != null && mPlayer.isPlayable()) {
+            play();
+        }
     }
 
     /**

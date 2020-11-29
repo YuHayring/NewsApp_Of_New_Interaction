@@ -125,7 +125,21 @@ public class VideoListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             View itemView = layoutInflater.inflate(R.layout.item_video_list, parent, false);
             viewHolder = new SingleVideoViewHolder(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            return viewHolder;
+        }
+
+        //处理对holder上的一些操作
+        @Override
+        public void onBindViewHolder(@NonNull SingleVideoViewHolder holder, int position) {
+
+            MyNews cur = newsList.get(position);
+            holder.videoTitle.setText(""+position+cur.getNewsName());
+            //采用glide加载网络图片,采用了占位符方式优先展示。
+            Glide.with(holder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.videoPreview);
+            //设置 index
+            holder.position = position;
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
 
                 /**
                  * 进入视频播放界面
@@ -135,22 +149,10 @@ public class VideoListFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), VerticalVideoPlayActivity.class);
                     intent.putExtra("data", (Serializable) adapter.getNewsList());
-                    intent.putExtra("index", parent.indexOfChild(v));
+                    intent.putExtra("index", position);
                     ((Activity)getContext()).startActivityForResult(intent, 1);
                 }
             });
-
-            return viewHolder;
-        }
-
-        //处理对holder上的一些操作
-        @Override
-        public void onBindViewHolder(@NonNull SingleVideoViewHolder holder, int position) {
-
-            MyNews cur = newsList.get(position);
-            holder.videoTitle.setText(cur.getNewsName());
-            //采用glide加载网络图片,采用了占位符方式优先展示。
-            Glide.with(holder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.videoPreview);
         }
 
 
@@ -177,6 +179,7 @@ public class VideoListFragment extends Fragment {
     static class SingleVideoViewHolder extends RecyclerView.ViewHolder {
         TextView videoTitle;
         ImageView videoPreview;
+        int position;
 
         public SingleVideoViewHolder(@NonNull View itemView) {
             super(itemView);
