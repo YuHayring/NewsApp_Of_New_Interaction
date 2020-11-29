@@ -88,19 +88,14 @@ public class AuthorNewsFragment extends Fragment {
         adapter = new AuthorNewsAdapter(getActivity());
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);
-        mViewModel.getAllAuthorNews(userId).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> news) {
-                adapter.setNewsList(news);
-                adapter.notifyDataSetChanged();
-                binding.swipeRefreshLayout.setRefreshing(false);
-            }
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllAuthorNews(userId);
+        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
+        mViewModel.getAllAuthorNews(userId).observe(getViewLifecycleOwner(), news -> {
+            adapter.setNewsList(news);
+            adapter.notifyDataSetChanged();
+            binding.swipeRefreshLayout.setRefreshing(false);
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getAllAuthorNews(userId);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 }

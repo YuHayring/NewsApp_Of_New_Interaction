@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
@@ -85,21 +86,15 @@ public class NewsListFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         binding.recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewNews.setAdapter(adapter);
-        viewModel.getAllNewsLive().observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> news) {
-                adapter.setNewsList(news);
-                adapter.notifyDataSetChanged();
-                binding.swipeRefreshLayout.setRefreshing(false);
-            }
+        SwipeRefreshLayout.OnRefreshListener listener = () -> viewModel.getAllNewsLive();
+        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
+        viewModel.getAllNewsLive().observe(getViewLifecycleOwner(), news -> {
+            adapter.setNewsList(news);
+            adapter.notifyDataSetChanged();
+            binding.swipeRefreshLayout.setRefreshing(false);
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                viewModel.getAllNewsLive();
-            }
-        });
-
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
 }

@@ -55,20 +55,15 @@ public class NewsFollowListFragment extends Fragment {
         adapter = new FollowNewsAdapter(getActivity());
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewTagNews.setAdapter(adapter);
-        mViewModel.getAllFollowLive(tag).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> news) {
-                adapter.setNewsList(news);
-                adapter.notifyDataSetChanged();
-                binding.swipeRefreshLayout.setRefreshing(false);
-            }
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllFollowLive(tag);
+        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
+        mViewModel.getAllFollowLive(tag).observe(getViewLifecycleOwner(), news -> {
+            adapter.setNewsList(news);
+            adapter.notifyDataSetChanged();
+            binding.swipeRefreshLayout.setRefreshing(false);
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getAllFollowLive(tag);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
 }

@@ -64,41 +64,30 @@ public class CommentFragment extends Fragment {
         binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CommentAdapter();
         binding.commentRecycleView.setAdapter(adapter);
-        mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), new Observer<List<Discuss>>() {
-            @Override
-            public void onChanged(List<Discuss> discusses) {
-                adapter.setDiscussList(discusses);
-                adapter.notifyDataSetChanged();
-                binding.comentRefreshLayout.setRefreshing(false);
-            }
+        mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), discusses -> {
+            adapter.setDiscussList(discusses);
+            adapter.notifyDataSetChanged();
+            binding.comentRefreshLayout.setRefreshing(false);
         });
-        SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener(){
-            public void onRefresh(){
-                mViewModel.getAllDiscussData(newsId);
-            }
-        };
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllDiscussData(newsId);
+        binding.comentRefreshLayout.post(() -> binding.comentRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
         binding.comentRefreshLayout.setOnRefreshListener(listener);
-        binding.postCommentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MaterialDialog.Builder(requireContext())
-                        .title("评论发送")
-                        .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
-                            @Override
-                            public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
-                                // Do something
-                                String content = input.toString();
-                                if (content.length() == 0) {
-                                    Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                mViewModel.postComment(newsId, userId, content);
-                                Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                                listener.onRefresh();
-                            }
-                        }).show();
-            }
-        });
+        binding.postCommentButton.setOnClickListener(v -> new MaterialDialog.Builder(requireContext())
+                .title("评论发送")
+                .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
+                        String content = input.toString();
+                        if (content.length() == 0) {
+                            Toasty.warning(requireContext(), "请输入内容", Toasty.LENGTH_SHORT).show();
+                            return;
+                        }
+                        mViewModel.postComment(newsId, userId, content);
+                        Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
+                        listener.onRefresh();
+                    }
+                }).show());
     }
 
 
