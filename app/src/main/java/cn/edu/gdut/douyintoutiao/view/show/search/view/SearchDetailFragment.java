@@ -19,6 +19,7 @@ import cn.edu.gdut.douyintoutiao.databinding.SearchDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.search.adapter.SearchAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.search.viewmodel.SearchDetailViewModel;
+import es.dmoral.toasty.Toasty;
 
 public class SearchDetailFragment extends Fragment {
 
@@ -52,6 +53,9 @@ public class SearchDetailFragment extends Fragment {
                 adapter.setNewsList(myNews);
                 adapter.notifyDataSetChanged();
                 binding.searchSwipeRefreshLayout.setRefreshing(false);
+                if(myNews.isEmpty()){
+                    Toasty.error(requireContext(), "找不到你要搜索的内容").show();
+                }
             }
         });
         binding.searchSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

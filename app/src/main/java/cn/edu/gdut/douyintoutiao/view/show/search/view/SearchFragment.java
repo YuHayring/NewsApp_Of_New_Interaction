@@ -69,7 +69,6 @@ public class SearchFragment extends Fragment {
                     intent.putExtra("key",query);
                     startActivity(intent);
                 } else {
-                    Toasty.normal(requireContext(), query, Toasty.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
                     bundle.putString("key", query);
                     controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
