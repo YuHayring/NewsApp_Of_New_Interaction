@@ -44,7 +44,7 @@ public class VideoPlayActivity extends FullScreenActivity {
     /**
      * ViewBinding
      */
-    ActivityVideoPlayBinding viewBinding;
+    protected ActivityVideoPlayBinding viewBinding;
 
     /**
      * 举报监听器

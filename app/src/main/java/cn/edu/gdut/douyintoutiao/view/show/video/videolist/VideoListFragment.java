@@ -137,7 +137,6 @@ public class VideoListFragment extends Fragment {
             //采用glide加载网络图片,采用了占位符方式优先展示。
             Glide.with(holder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.videoPreview);
             //设置 index
-            holder.position = position;
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -149,7 +148,7 @@ public class VideoListFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), VerticalVideoPlayActivity.class);
                     intent.putExtra("data", (Serializable) adapter.getNewsList());
-                    intent.putExtra("index", position);
+                    intent.putExtra("index", holder.getAbsoluteAdapterPosition());
                     ((Activity)getContext()).startActivityForResult(intent, 1);
                 }
             });
@@ -179,7 +178,6 @@ public class VideoListFragment extends Fragment {
     static class SingleVideoViewHolder extends RecyclerView.ViewHolder {
         TextView videoTitle;
         ImageView videoPreview;
-        int position;
 
         public SingleVideoViewHolder(@NonNull View itemView) {
             super(itemView);

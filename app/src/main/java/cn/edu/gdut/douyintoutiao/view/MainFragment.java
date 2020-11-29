@@ -20,6 +20,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
 import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.mix.MixNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
@@ -77,7 +78,8 @@ public class MainFragment extends Fragment {
             } else if (position == 1) {
                 return new VideoListFragment();
             } else if (position == 2) {
-                return new NewsFollowListFragment(tabs[position]);
+//                return new NewsFollowListFragment(tabs[position]);
+                return new MixNewsFragment();
             }
             throw new IllegalArgumentException();
         }
