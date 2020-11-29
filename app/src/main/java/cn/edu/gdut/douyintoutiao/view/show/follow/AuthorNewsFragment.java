@@ -18,12 +18,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentAuthorNewsBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.AuthorNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.FollowNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.viewmodel.NewsFollowListViewModel;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
  * @author cypang
@@ -35,7 +33,7 @@ public class AuthorNewsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private NewsFollowListViewModel mViewModel;
+    private NewsViewModel mViewModel;
     private AuthorNewsAdapter adapter;
     private FragmentAuthorNewsBinding binding;
     private String userId;
@@ -86,7 +84,7 @@ public class AuthorNewsFragment extends Fragment {
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewsFollowListViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         adapter = new AuthorNewsAdapter(getActivity());
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);

@@ -18,14 +18,14 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.databinding.NewsFollowListFragmentBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.FollowNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.viewmodel.NewsFollowListViewModel;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
  * @author cypang
  */
 public class NewsFollowListFragment extends Fragment {
 
-    private NewsFollowListViewModel mViewModel;
+    private NewsViewModel mViewModel;
     private FollowNewsAdapter adapter;
     private NewsFollowListFragmentBinding binding;
     private String tag = "";
@@ -51,7 +51,7 @@ public class NewsFollowListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewsFollowListViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         adapter = new FollowNewsAdapter(getActivity());
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewTagNews.setAdapter(adapter);
