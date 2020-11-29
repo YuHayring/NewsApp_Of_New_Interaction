@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -57,6 +58,7 @@ public class CommentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
+        assert getArguments() != null;
         newsId = getArguments().getString("newsId");
         userId = getArguments().getString("userId");
         binding.commentRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,8 +69,15 @@ public class CommentFragment extends Fragment {
             public void onChanged(List<Discuss> discusses) {
                 adapter.setDiscussList(discusses);
                 adapter.notifyDataSetChanged();
+                binding.comentRefreshLayout.setRefreshing(false);
             }
         });
+        SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener(){
+            public void onRefresh(){
+                mViewModel.getAllDiscussData(newsId);
+            }
+        };
+        binding.comentRefreshLayout.setOnRefreshListener(listener);
         binding.postCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +94,7 @@ public class CommentFragment extends Fragment {
                                 }
                                 mViewModel.postComment(newsId, userId, content);
                                 Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                                //TODO 发送评论后自动刷新评论页
+                                listener.onRefresh();
                             }
                         }).show();
             }
