@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
 
 /**
  * @author hayring
@@ -65,15 +66,15 @@ public class VerticalVideoViewModel extends VideoViewModel {
     }
 
 
-    CommonVideoGotCallBack followVideoGot = new CommonVideoGotCallBack() {
+    CommonDataGotCallBack followVideoGot = new CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
             newsesFromServer.postValue(newses);
             errCode.postValue(0);
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
             errCode.postValue(404);
         }
 

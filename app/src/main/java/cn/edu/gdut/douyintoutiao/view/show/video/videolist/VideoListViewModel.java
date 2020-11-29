@@ -9,6 +9,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
 import cn.edu.gdut.douyintoutiao.view.show.video.VideoModel;
 import cn.edu.gdut.douyintoutiao.view.show.video.VideoViewModel;
 import es.dmoral.toasty.Toasty;
@@ -48,14 +49,14 @@ public class VideoListViewModel extends VideoViewModel {
 
 
 
-    CommonVideoGotCallBack videoListGotCallBack = new CommonVideoGotCallBack() {
+    CommonDataGotCallBack videoListGotCallBack = new CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
              newsList.postValue(newses);
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
             Toasty.info(activity, R.string.video_play_no_more).show();
         }
 

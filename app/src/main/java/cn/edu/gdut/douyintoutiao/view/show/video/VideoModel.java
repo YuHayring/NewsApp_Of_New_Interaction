@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
+import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
+import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +27,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void getVideoNews(VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void getVideoNews(CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
         NewsApi.getNewsApi().getVideoList().enqueue(commonVideoGotCallBack);
     }
 
@@ -34,7 +36,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void searchVideoNews(String key, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void searchVideoNews(String key, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
         NewsApi.getNewsApi().searchVideoList(key).enqueue(commonVideoGotCallBack);
     }
 
@@ -42,7 +44,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void getMoreVideoNews(int index, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void getMoreVideoNews(int index, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
         NewsApi.getNewsApi().getVideoList(index, 5).enqueue(commonVideoGotCallBack);
     }
 
@@ -51,7 +53,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void getMoreVideoNews(int index, int pageCount, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void getMoreVideoNews(int index, int pageCount, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
         NewsApi.getNewsApi().getVideoList(index, pageCount).enqueue(commonVideoGotCallBack);
     }
 
@@ -59,7 +61,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void searchMoreVideoNews(int index, String key, VideoViewModel.CommonVideoGotCallBack commonVideoGotCallBack) {
+    public void searchMoreVideoNews(int index, String key, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
         NewsApi.getNewsApi().searchMoreVideoList(index, 5, key).enqueue(commonVideoGotCallBack);
     }
 
@@ -79,7 +81,7 @@ public class VideoModel {
      * 模拟数据
      * @return
      */
-    public void getTagVideoNews(String tag, VideoViewModel.CommonVideoGotCallBack callBack) {
+    public void getTagVideoNews(String tag, CommonDataGotCallBack<MyNews> callBack) {
         NewsApi.getNewsApi().getTagVideo(tag).enqueue(callBack);
     }
 

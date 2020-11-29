@@ -34,6 +34,10 @@ public interface NewsApi {
     @GET("videoList")
     Call<List<MyNews>> getVideoList(@Query("index") int index, @Query("count") int count);
 
+
+    @GET("getMixNews")
+    Call<List<MyNews>> getMixList(@Query("index") int index, @Query("count") int count);
+
     @GET("videoList")
     Call<List<MyNews>> getVideoList();
 

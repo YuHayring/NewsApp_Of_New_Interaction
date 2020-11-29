@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
 
 /**
  * @author hayring
@@ -46,15 +47,15 @@ public class MagicVideoViewModel extends VideoViewModel {
     void getUpVideo() {
         videoModel.getTagVideoNews("学习",upVideoGot);
     }
-    CommonVideoGotCallBack upVideoGot = new  CommonVideoGotCallBack() {
+    CommonDataGotCallBack upVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
             upNewses.addAll(newses);
 
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
 
         }
     };
@@ -71,14 +72,14 @@ public class MagicVideoViewModel extends VideoViewModel {
         videoModel.getVideoNews(downVideoGot);
     }
 
-    CommonVideoGotCallBack downVideoGot = new  CommonVideoGotCallBack() {
+    CommonDataGotCallBack downVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
             downNewses.addAll(newses);
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
 
         }
     };
@@ -91,14 +92,14 @@ public class MagicVideoViewModel extends VideoViewModel {
     void getLeftVideo() {
         videoModel.getTagVideoNews("csgo",leftVideoGot);
     }
-    CommonVideoGotCallBack leftVideoGot = new  CommonVideoGotCallBack() {
+    CommonDataGotCallBack leftVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
             leftNewses.addAll(newses);
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
 
         }
     };
@@ -110,14 +111,14 @@ public class MagicVideoViewModel extends VideoViewModel {
     void getRightVideo() {
         videoModel.getTagVideoNews("足球",rightVideoGot);
     }
-    CommonVideoGotCallBack rightVideoGot = new  CommonVideoGotCallBack() {
+    CommonDataGotCallBack rightVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
-        protected void onVideoGotSuccess(List<MyNews> newses) {
+        protected void onGotSuccess(List<MyNews> newses) {
             rightNewses.addAll(newses);
         }
 
         @Override
-        protected void onVideoNotExist() {
+        protected void onNotExist() {
 
         }
     };
