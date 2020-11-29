@@ -15,7 +15,7 @@ public class MixNewsModel {
      * @return
      */
     public void getNews(CommonDataGotCallBack<MyNews> commonGotCallBack) {
-        NewsApi.getNewsApi().getMixList().enqueue(commonGotCallBack);
+        NewsApi.getNewsApi().getMixList(0,16).enqueue(commonGotCallBack);
     }
 
 
