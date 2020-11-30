@@ -102,7 +102,7 @@ public class NewsSAdapter extends RecyclerView.Adapter {
             Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
         }else {
             NewsSAdapter.VideoViewHolder mHolder = (NewsSAdapter.VideoViewHolder)holder;
-            mHolder.videoTitle.setText(""+position+cur.getNewsName());
+            mHolder.videoTitle.setText(cur.getNewsName());
             //采用glide加载网络图片,采用了占位符方式优先展示。
             Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);
         }
