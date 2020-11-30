@@ -76,11 +76,11 @@ public class MainFragment extends Fragment {
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
-                return new NewsListFragment();
+                return NewsListFragment.newInstance("","");
             } else if (position == 1) {
-                return new AuthorNewsFragment();
+                return AuthorNewsFragment.newInstance("","");
             } else if (position == 2) {
-                return new NewsFollowListFragment(tabs[position]);
+                return NewsFollowListFragment.newInstance(tabs[position]);
             }
             throw new IllegalArgumentException();
         }

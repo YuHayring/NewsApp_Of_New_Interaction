@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
+import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
@@ -42,8 +43,15 @@ public class NewsDetailFragment extends Fragment {
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
 
-    public static NewsDetailFragment newInstance() {
-        return new NewsDetailFragment();
+    public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
+        NewsDetailFragment fragment = new NewsDetailFragment();
+        Bundle args = new Bundle();
+        args.putString("tag", tag);
+        args.putString("uri", uri);
+        args.putString("newsId", newsId);
+        args.putString("authorId", authorId);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

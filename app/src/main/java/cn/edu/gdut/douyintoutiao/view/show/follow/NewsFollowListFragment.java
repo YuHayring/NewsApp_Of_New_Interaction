@@ -30,11 +30,16 @@ public class NewsFollowListFragment extends Fragment {
     private NewsFollowListFragmentBinding binding;
     private String tag = "";
 
-    public NewsFollowListFragment(String tag) {
-        this.tag = tag;
-    }
 
     public NewsFollowListFragment() {
+    }
+
+    public static NewsFollowListFragment newInstance(String param1) {
+        NewsFollowListFragment fragment = new NewsFollowListFragment();
+        Bundle args = new Bundle();
+        args.putString("tag", param1);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public static NewsFollowListFragment newInstance() {
@@ -45,6 +50,8 @@ public class NewsFollowListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = NewsFollowListFragmentBinding.inflate(inflater);
+        assert getArguments() != null;
+        tag = getArguments().getString("tag");
         return binding.getRoot();
     }
 
