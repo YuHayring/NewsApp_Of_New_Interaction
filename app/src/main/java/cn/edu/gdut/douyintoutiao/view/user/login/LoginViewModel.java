@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * @date : 2020年11月09日20:00:08
  */
 public class LoginViewModel extends ViewModel {
-    private MutableLiveData<String> username;
+    private MutableLiveData<String> telephone;
     private MutableLiveData<String> password;
     private LoginUserModel loginUserModel;
 
@@ -36,16 +36,16 @@ public class LoginViewModel extends ViewModel {
         mCallback = callback;
     }
 
-    public MutableLiveData<String> getUsername() {
-        if (username == null) {
-            username = new MutableLiveData<>();
-            username.setValue("admin");
+    public MutableLiveData<String> getTelephone() {
+        if (telephone == null) {
+            telephone = new MutableLiveData<>();
+            telephone.setValue("13444444444");
         }
-        return username;
+        return telephone;
     }
 
-    public void setUsername(MutableLiveData<String> username) {
-        this.username = username;
+    public void setTelephone(MutableLiveData<String> username) {
+        this.telephone = username;
     }
 
     public MutableLiveData<String> getPassword() {
@@ -61,7 +61,7 @@ public class LoginViewModel extends ViewModel {
 
     public void login() {
         User user = new User();
-        user.setUserName(username.getValue());
+        user.setUserTelephone(telephone.getValue());
         user.setUserPassword(password.getValue());
         Observable<Result<User>> resultObservable = loginUserModel.postLogin(user);
         resultObservable.subscribeOn(Schedulers.io())
