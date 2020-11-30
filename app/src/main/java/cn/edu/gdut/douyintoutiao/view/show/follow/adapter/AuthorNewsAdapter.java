@@ -20,6 +20,7 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -67,7 +68,9 @@ public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.Vi
                 intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
                 context.startActivity(intent);
             }else {
-                Toasty.normal(context, "跳转到视频", Toasty.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, SingleVideoPlayActivity.class);
+                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
+                context.startActivity(intent);
             }
         });
 

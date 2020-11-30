@@ -20,6 +20,7 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 
 /**
  * @author : cypang
@@ -58,12 +59,18 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
         View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
         viewHolder = new ViewHolder(itemView);
         itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, NewsActivity.class);
-            intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-            intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-            intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-            intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-            context.startActivity(intent);
+            if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(1)){
+                Intent intent = new Intent(context, SingleVideoPlayActivity.class);
+                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
+                context.startActivity(intent);
+            }else {
+                Intent intent = new Intent(context, NewsActivity.class);
+                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
+                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
+                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
+                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                context.startActivity(intent);
+            }
         });
 
         return viewHolder;

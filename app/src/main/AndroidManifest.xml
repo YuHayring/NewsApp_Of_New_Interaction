@@ -14,14 +14,19 @@
         <activity android:name=".view.show.video.MagicVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".view.show.video.singleplayer.SingleVideoPlayActivity" />
-        <activity android:name=".view.SingleFragmentContainerActivity" />
+        <activity android:name=".view.show.video.singleplayer.SingleVideoPlayActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".view.SingleFragmentContainerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".view.show.comment.commentinvideo.CommentFragmentContainerActivity" />
         <activity android:name=".view.user.follow.activity.ActivityFollowAuthorDetails" />
-        <activity android:name=".view.show.search.SearchMainActivity" />
+        <activity android:name=".view.show.search.SearchMainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".tmp.TestActivity" />
-        <activity android:name=".view.show.text.NewsActivity" /> <!-- 此处开启了强制竖屏的操作 -->
-        <activity android:name=".view.FirstActivity">
+        <activity android:name=".view.show.text.NewsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> <!-- 此处开启了强制竖屏的操作 -->
+        <activity android:name=".view.FirstActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
