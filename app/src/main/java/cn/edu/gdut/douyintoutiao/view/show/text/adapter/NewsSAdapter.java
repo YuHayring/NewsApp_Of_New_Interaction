@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,13 +29,17 @@ import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayAct
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> {
+public class NewsSAdapter extends RecyclerView.Adapter {
 
     private List<MyNews> newsList = new ArrayList<>();
-    // 普通的item ViewType
-    private static final int TYPE_ITEM = 1;
+
+    // 文字 ViewType
+    private static final int TYPE_TEXT = 0;
+    // 视频 ViewType
+    private static final int TYPE_VIDEO = 1;
     // 空布局的ViewType
     private static final int TYPE_EMPTY = 2;
+
 
     private Context context;
     // 是否显示空布局，默认不显示
@@ -50,14 +55,20 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType == TYPE_EMPTY){
             return new ViewHolder(getEmptyView(parent));
         }
-        ViewHolder viewHolder;
+        RecyclerView.ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
-        viewHolder = new ViewHolder(itemView);
+        View itemView ;
+        if(viewType == TYPE_TEXT) {
+            itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
+            viewHolder = new ViewHolder(itemView);
+        }else {
+            itemView = layoutInflater.inflate(R.layout.item_video_list, parent, false);
+            viewHolder = new VideoViewHolder(itemView);
+        }
         itemView.setOnClickListener(v -> {
             if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(1)){
                 Intent intent = new Intent(context, SingleVideoPlayActivity.class);
@@ -72,21 +83,29 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         });
-
         return viewHolder;
     }
 
     //处理对holder上的一些操作
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (isEmptyPosition(position)){
             return ;
         }
         MyNews cur = newsList.get(position);
-        holder.textViewHeader.setText(cur.getNewsName());
-        holder.textViewAbstract.setText(cur.getNewsAbstract());
-        //采用glide加载网络图片,采用了占位符方式优先展示。
-        Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
+        if(holder instanceof NewsSAdapter.ViewHolder) {
+            NewsSAdapter.ViewHolder mHolder = (NewsSAdapter.ViewHolder)holder;
+            mHolder.textViewHeader.setText(cur.getNewsName());
+            mHolder.textViewAbstract.setText(cur.getNewsAbstract());
+            //采用glide加载网络图片,采用了占位符方式优先展示。
+            Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
+        }else {
+            NewsSAdapter.VideoViewHolder mHolder = (NewsSAdapter.VideoViewHolder)holder;
+            mHolder.videoTitle.setText(""+position+cur.getNewsName());
+            //采用glide加载网络图片,采用了占位符方式优先展示。
+            Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);
+        }
     }
 
 
@@ -109,7 +128,7 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
             // 空布局
             return TYPE_EMPTY;
         } else {
-            return TYPE_ITEM;
+            return newsList.get(position).getType().equals(0)? TYPE_TEXT : TYPE_VIDEO;
         }
     }
     //防止内存泄漏
@@ -122,6 +141,18 @@ public class NewsSAdapter extends RecyclerView.Adapter<NewsSAdapter.ViewHolder> 
             textViewHeader = itemView.findViewById(R.id.textViewHeader);
             textViewAbstract = itemView.findViewById(R.id.textViewAbstract);
             imageViewPic = itemView.findViewById(R.id.imageViewPic);
+        }
+    }
+
+    static class VideoViewHolder extends RecyclerView.ViewHolder{
+        TextView videoTitle;
+        ImageView videoPreview;
+
+        public VideoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            videoTitle = itemView.findViewById(R.id.text_view_single_video_title);
+            videoPreview = itemView.findViewById(R.id.image_view_single_video_preview);
+            videoPreview.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
     /**

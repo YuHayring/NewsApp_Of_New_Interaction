@@ -8,24 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.databinding.SearchDetailFragmentBinding;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.search.adapter.SearchAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.search.viewmodel.SearchDetailViewModel;
-import es.dmoral.toasty.Toasty;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 
 public class SearchDetailFragment extends Fragment {
 
     private SearchDetailViewModel mViewModel;
     private SearchDetailFragmentBinding binding;
-    private SearchAdapter adapter;
+    private NewsSAdapter adapter;
 
     public static SearchDetailFragment newInstance() {
         return new SearchDetailFragment();
@@ -42,7 +36,7 @@ public class SearchDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchDetailViewModel.class);
-        adapter = new SearchAdapter(requireContext());
+        adapter = new NewsSAdapter(requireContext());
         adapter.showEmptyView(true);
         binding.searcbRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.searcbRecyclerView.setAdapter(adapter);

@@ -20,7 +20,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.databinding.FragmentAuthorNewsBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.AuthorNewsAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
@@ -34,7 +34,7 @@ public class AuthorNewsFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private NewsViewModel mViewModel;
-    private AuthorNewsAdapter adapter;
+    private NewsSAdapter adapter;
     private FragmentAuthorNewsBinding binding;
     private String userId;
 
@@ -85,7 +85,7 @@ public class AuthorNewsFragment extends Fragment {
         String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        adapter = new AuthorNewsAdapter(requireContext());
+        adapter = new NewsSAdapter(requireContext());
         adapter.showEmptyView(true);
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);
