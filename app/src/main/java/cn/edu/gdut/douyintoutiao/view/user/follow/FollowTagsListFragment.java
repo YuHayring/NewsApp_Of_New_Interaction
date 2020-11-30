@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
 
@@ -176,7 +179,9 @@ public class FollowTagsListFragment extends Fragment {
                 if(thisFollowNews.getFollowNews().get(0).getType() == 0){
                 startFollowTagsDetailsActivityToFragment(thisFollowNews);}
                 else if(thisFollowNews.getFollowNews().get(0).getType() == 1){
-                    Toast.makeText(getContext(),"点击了视频资讯",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
+                    intent.putExtra("news", thisFollowNews.getFollowNews().get(0));
+                    ((Activity)getContext()).startActivityForResult(intent, 1);
                 }
             }
 
