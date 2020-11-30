@@ -18,12 +18,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentAuthorNewsBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.AuthorNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.FollowNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.viewmodel.NewsFollowListViewModel;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
  * @author cypang
@@ -35,7 +33,7 @@ public class AuthorNewsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private NewsFollowListViewModel mViewModel;
+    private NewsViewModel mViewModel;
     private AuthorNewsAdapter adapter;
     private FragmentAuthorNewsBinding binding;
     private String userId;
@@ -86,23 +84,19 @@ public class AuthorNewsFragment extends Fragment {
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewsFollowListViewModel.class);
-        adapter = new AuthorNewsAdapter(getActivity());
+        mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        adapter = new AuthorNewsAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);
-        mViewModel.getAllAuthorNews(userId).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> news) {
-                adapter.setNewsList(news);
-                adapter.notifyDataSetChanged();
-                binding.swipeRefreshLayout.setRefreshing(false);
-            }
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllAuthorNews(userId);
+        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
+        mViewModel.getAllAuthorNews(userId).observe(getViewLifecycleOwner(), news -> {
+            adapter.setNewsList(news);
+            adapter.notifyDataSetChanged();
+            binding.swipeRefreshLayout.setRefreshing(false);
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getAllAuthorNews(userId);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 }

@@ -1,6 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.follow.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -30,12 +30,18 @@ import es.dmoral.toasty.Toasty;
  */
 public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.ViewHolder> {
 
-    private final Activity activity;
     private List<MyNews> newsList = new ArrayList<>();
+    // 普通的item ViewType
+    private static final int TYPE_ITEM = 1;
+    // 空布局的ViewType
+    private static final int TYPE_EMPTY = 2;
 
+    private Context context;
+    // 是否显示空布局，默认不显示
+    private boolean showEmptyView = false;
 
-    public AuthorNewsAdapter(Activity activity) {
-        this.activity = activity;
+    public AuthorNewsAdapter(Context context) {
+        this.context = context;
     }
 
     public void setNewsList(List<MyNews> newsList) {
@@ -45,23 +51,23 @@ public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == TYPE_EMPTY) {
+            return new ViewHolder(getEmptyView(parent));
+        }
         ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
         viewHolder = new ViewHolder(itemView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(0)) {
-                    Intent intent = new Intent(activity, NewsActivity.class);
-                    intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-                    intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-                    intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-                    intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-                    activity.startActivity(intent);
-                }else {
-                    Toasty.normal(activity, "跳转到视频", Toasty.LENGTH_SHORT).show();
-                }
+        itemView.setOnClickListener(v -> {
+            if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(0)) {
+                Intent intent = new Intent(context, NewsActivity.class);
+                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
+                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
+                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
+                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                context.startActivity(intent);
+            }else {
+                Toasty.normal(context, "跳转到视频", Toasty.LENGTH_SHORT).show();
             }
         });
 
@@ -71,7 +77,9 @@ public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.Vi
     //处理对holder上的一些操作
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        if (isEmptyPosition(position)){
+            return ;
+        }
         MyNews cur = newsList.get(position);
         holder.textViewHeader.setText(cur.getNewsName());
         holder.textViewAbstract.setText(cur.getNewsAbstract());
@@ -82,9 +90,25 @@ public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return newsList.size();
+        int count = newsList != null ? newsList.size() : 0;
+        if (count > 0) {
+            return count;
+        } else if (showEmptyView) {
+            // 显示空布局
+            return 1;
+        } else {
+            return 0;
+        }
     }
-
+    @Override
+    public int getItemViewType(int position) {
+        if (isEmptyPosition(position)) {
+            // 空布局
+            return TYPE_EMPTY;
+        } else {
+            return TYPE_ITEM;
+        }
+    }
     //防止内存泄漏
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewHeader, textViewAbstract;
@@ -95,6 +119,30 @@ public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.Vi
             textViewHeader = itemView.findViewById(R.id.textViewHeader);
             textViewAbstract = itemView.findViewById(R.id.textViewAbstract);
             imageViewPic = itemView.findViewById(R.id.imageViewPic);
+        }
+    }
+    /**
+     * 获取空布局
+     */
+    private View getEmptyView(ViewGroup parent) {
+        return LayoutInflater.from(context).inflate(R.layout.fragment_blank, parent, false);
+    }
+
+    /**
+     * 判断是否是空布局
+     */
+    public boolean isEmptyPosition(int position) {
+        int count = newsList != null ? newsList.size() : 0;
+        return position == 0 && showEmptyView && count == 0;
+    }
+
+    /**
+     * 设置空布局显示。默认不显示
+     */
+    public void showEmptyView(boolean isShow) {
+        if (isShow != showEmptyView) {
+            showEmptyView = isShow;
+            notifyDataSetChanged();
         }
     }
 }

@@ -37,8 +37,8 @@ public class FollowNewsRepository {
         call.enqueue(new Callback<Result<MyNews>>() {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
+                assert response.body() != null;
                 allFollowNewsLive.postValue(response.body().getData());
-                Log.d(TAG, "onResponse: " + response.body().getData().toString());
             }
 
             @Override
@@ -54,8 +54,8 @@ public class FollowNewsRepository {
         call.enqueue(new Callback<Result<MyNews>>() {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
+                assert response.body() != null;
                 allAuthorNewsLive.postValue(response.body().getData());
-                Log.d(TAG, "onResponse: " + response.body().getData().toString());
             }
 
             @Override

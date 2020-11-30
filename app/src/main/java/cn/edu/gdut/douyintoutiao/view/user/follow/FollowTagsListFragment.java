@@ -19,12 +19,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
@@ -43,8 +47,6 @@ public class FollowTagsListFragment extends Fragment {
 
     private View view;//定义view用来设置fragment的layout
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
-    //定义以News实体类为对象的数据集合
-    private List<News> tagsList = new ArrayList<News>();
 
     //自定义recyclerveiw的适配器
     private FollowTagsListAdapter followTagsListAdapter;
@@ -101,6 +103,16 @@ public class FollowTagsListFragment extends Fragment {
     }
 
 
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     *
+     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

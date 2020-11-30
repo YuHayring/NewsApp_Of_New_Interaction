@@ -15,8 +15,5 @@ public class NewsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        NavController controller = Navigation.findNavController(this, R.id.fragmentNewsList);
-
-
     }
 }

@@ -18,23 +18,28 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.databinding.NewsFollowListFragmentBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.FollowNewsAdapter;
-import cn.edu.gdut.douyintoutiao.view.show.follow.viewmodel.NewsFollowListViewModel;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
  * @author cypang
  */
 public class NewsFollowListFragment extends Fragment {
 
-    private NewsFollowListViewModel mViewModel;
+    private NewsViewModel mViewModel;
     private FollowNewsAdapter adapter;
     private NewsFollowListFragmentBinding binding;
     private String tag = "";
 
-    public NewsFollowListFragment(String tag) {
-        this.tag = tag;
-    }
 
     public NewsFollowListFragment() {
+    }
+
+    public static NewsFollowListFragment newInstance(String param1) {
+        NewsFollowListFragment fragment = new NewsFollowListFragment();
+        Bundle args = new Bundle();
+        args.putString("tag", param1);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public static NewsFollowListFragment newInstance() {
@@ -45,30 +50,28 @@ public class NewsFollowListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = NewsFollowListFragmentBinding.inflate(inflater);
+        assert getArguments() != null;
+        tag = getArguments().getString("tag");
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewsFollowListViewModel.class);
-        adapter = new FollowNewsAdapter(getActivity());
+        mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        adapter = new FollowNewsAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewTagNews.setAdapter(adapter);
-        mViewModel.getAllFollowLive(tag).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> news) {
-                adapter.setNewsList(news);
-                adapter.notifyDataSetChanged();
-                binding.swipeRefreshLayout.setRefreshing(false);
-            }
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllFollowLive(tag);
+        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
+        listener.onRefresh();
+        mViewModel.getAllFollowLive(tag).observe(getViewLifecycleOwner(), news -> {
+            adapter.setNewsList(news);
+            adapter.notifyDataSetChanged();
+            binding.swipeRefreshLayout.setRefreshing(false);
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getAllFollowLive(tag);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
 }

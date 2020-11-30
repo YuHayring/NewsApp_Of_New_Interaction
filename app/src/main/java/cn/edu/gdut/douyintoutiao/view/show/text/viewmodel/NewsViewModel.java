@@ -10,6 +10,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
+import cn.edu.gdut.douyintoutiao.view.show.follow.model.FollowNewsRepository;
 import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 
 /**
@@ -20,16 +21,25 @@ import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
  */
 public class NewsViewModel extends AndroidViewModel {
     private final NewsRepository newsRepository;
+    private final FollowNewsRepository followNewsRepository;
 
     public NewsViewModel(@NonNull Application application) {
         super(application);
         newsRepository = new NewsRepository(NewsApi.getNewsApi());
+        followNewsRepository = new FollowNewsRepository(NewsApi.getNewsApi());
     }
 
     public LiveData<List<MyNews>> getAllNewsLive() {
         return newsRepository.getAllNewsLive();
     }
 
+    public LiveData<List<MyNews>> getAllFollowLive(String tag) {
+        return followNewsRepository.getAllFollowLive(tag);
+    }
+
+    public LiveData<List<MyNews>> getAllAuthorNews(String userId){
+        return followNewsRepository.getAuthorNewsLive(userId);
+    }
 
     public void newsLike(MyNews news){
         newsRepository.newsLike(news);

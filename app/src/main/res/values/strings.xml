@@ -115,4 +115,7 @@
 
     <string name="video_comment_request_fail">网络请求失败,错误码:</string>
 
+
+    <string name="blank_result_msg">暂时无数据哦</string>
+
 </resources>
