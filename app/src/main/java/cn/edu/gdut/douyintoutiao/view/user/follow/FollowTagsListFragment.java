@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,14 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
 
@@ -43,9 +43,8 @@ public class FollowTagsListFragment extends Fragment {
 
     private View view;//定义view用来设置fragment的layout
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
-    //定义以News实体类为对象的数据集合
-    private List<News> tagsList = new ArrayList<News>();
 
+    private String userId;
     //自定义recyclerveiw的适配器
     private FollowTagsListAdapter followTagsListAdapter;
     //VW
@@ -112,7 +111,7 @@ public class FollowTagsListFragment extends Fragment {
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setAdapter(followTagsListAdapter);
         
         //LD 观察，刷新data
-        followTagsViewModel.getFollowTagsList().observe(getViewLifecycleOwner(), new Observer< List< FollowNews > >() {
+        followTagsViewModel.getFollowTagsList(userId).observe(getViewLifecycleOwner(), new Observer< List< FollowNews > >() {
             @Override
             public void onChanged(List< FollowNews > followNewsList) {
                 followTagsListAdapter.setDataList(followNewsList);
@@ -127,7 +126,7 @@ public class FollowTagsListFragment extends Fragment {
         fragmentFollowTagsListBinding.FollowTagsListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                followTagsViewModel.getFollowTagsList();
+                followTagsViewModel.getFollowTagsList(userId);
             }
         });
 
@@ -149,6 +148,8 @@ public class FollowTagsListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                                 followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
+                                followTagsViewModel.getFollowTagsList(userId);
+                                followTagsListAdapter.notifyDataSetChanged();
                             }
                         })
                         .create().show();
@@ -196,5 +197,14 @@ public class FollowTagsListFragment extends Fragment {
         //
 
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userId = ((FollowListActivity)context).getUserId();
+//        System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
+    }
+
+
 
 }

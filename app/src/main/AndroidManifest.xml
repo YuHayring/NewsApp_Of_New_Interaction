@@ -3,6 +3,9 @@
     package="cn.edu.gdut.douyintoutiao"
     android:versionName="0.0.1 alpha">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".DouYinTouTiaoApplication"
         android:allowBackup="true"
@@ -11,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".view.show.video.MagicVideoPlayActivity"
+        <activity android:name=".view.user.edit.activity.EditActivity"></activity>
+        <activity
+            android:name=".view.show.video.MagicVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".view.SingleFragmentContainerActivity" />
@@ -41,8 +46,5 @@
             android:name=".view.user.follow.activity.Activity_Follow_Author"
             android:screenOrientation="portrait" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -145,11 +145,13 @@ public class VerticalVideoPlayActivity extends FullScreenActivity {
                 Toasty.success(VerticalVideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
             }
         });
+
         //关注
         viewBinding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String userId = "5fa9f7f63d18b202258b5daf";
+
                 verticalVideoPlayerViewModel.insertTagsFollowByNewsIdUserId(newses.get(0).get_id(),userId);
                 // binding.actionGuanzhu.setIcon(yellow_guanzhu);
                 viewBinding.actionGuanzhu.setIcon(yellow_guanzhu);
@@ -195,6 +197,7 @@ public class VerticalVideoPlayActivity extends FullScreenActivity {
         });
 
     }
+
 
     private Handler hiddenHandler = new Handler(Looper.myLooper());
 
