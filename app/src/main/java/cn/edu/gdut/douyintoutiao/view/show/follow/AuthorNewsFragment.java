@@ -1,9 +1,8 @@
-package cn.edu.gdut.douyintoutiao.view.show.text;
+package cn.edu.gdut.douyintoutiao.view.show.follow;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,34 +12,36 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
+import cn.edu.gdut.douyintoutiao.databinding.FragmentAuthorNewsBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.follow.adapter.AuthorNewsAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
  * @author cypang
- * @date 2020年11月12日19:16:07
+ * @date 2020年11月28日 10:15:01
  */
-public class NewsListFragment extends Fragment {
+public class AuthorNewsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    private NewsViewModel mViewModel;
+    private AuthorNewsAdapter adapter;
+    private FragmentAuthorNewsBinding binding;
+    private String userId;
+
     private String mParam1;
     private String mParam2;
 
-    private NewsViewModel viewModel;
-    private NewsSAdapter adapter;
-    private FragmentNewsListBinding binding;
-
-    public NewsListFragment() {
+    public AuthorNewsFragment() {
         // Required empty public constructor
     }
 
@@ -50,10 +51,10 @@ public class NewsListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsListFragment.
+     * @return A new instance of fragment AuthorNewsFragment.
      */
-    public static NewsListFragment newInstance(String param1, String param2) {
-        NewsListFragment fragment = new NewsListFragment();
+    public static AuthorNewsFragment newInstance(String param1, String param2) {
+        AuthorNewsFragment fragment = new AuthorNewsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,27 +75,28 @@ public class NewsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentNewsListBinding.inflate(inflater);
+        binding = FragmentAuthorNewsBinding.inflate(inflater);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
-        adapter = new NewsSAdapter(requireContext());
+        mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        adapter = new AuthorNewsAdapter(requireContext());
         adapter.showEmptyView(true);
-        viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        binding.recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewNews.setAdapter(adapter);
-        SwipeRefreshLayout.OnRefreshListener listener = () -> viewModel.getAllNewsLive();
+        binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.authorNewsRecyclerView.setAdapter(adapter);
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllAuthorNews(userId);
         binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
         listener.onRefresh();
-        viewModel.getAllNewsLive().observe(getViewLifecycleOwner(), news -> {
+        mViewModel.getAllAuthorNews(userId).observe(getViewLifecycleOwner(), news -> {
             adapter.setNewsList(news);
             adapter.notifyDataSetChanged();
             binding.swipeRefreshLayout.setRefreshing(false);
         });
         binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
-
 }

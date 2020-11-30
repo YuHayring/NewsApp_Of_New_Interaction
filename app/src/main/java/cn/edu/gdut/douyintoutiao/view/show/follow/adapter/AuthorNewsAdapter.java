@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.show.search.adapter;
+package cn.edu.gdut.douyintoutiao.view.show.follow.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author : cypang
@@ -27,10 +28,9 @@ import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class AuthorNewsAdapter extends RecyclerView.Adapter<AuthorNewsAdapter.ViewHolder> {
 
     private List<MyNews> newsList = new ArrayList<>();
-
     // 普通的item ViewType
     private static final int TYPE_ITEM = 1;
     // 空布局的ViewType
@@ -40,7 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     // 是否显示空布局，默认不显示
     private boolean showEmptyView = false;
 
-    public SearchAdapter(Context context) {
+    public AuthorNewsAdapter(Context context) {
         this.context = context;
     }
 
@@ -51,7 +51,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == TYPE_EMPTY){
+        if(viewType == TYPE_EMPTY) {
             return new ViewHolder(getEmptyView(parent));
         }
         ViewHolder viewHolder;
@@ -59,13 +59,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
         viewHolder = new ViewHolder(itemView);
         itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, NewsActivity.class);
-            intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-            intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-            intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-            intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-            context.startActivity(intent);
+            if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(0)) {
+                Intent intent = new Intent(context, NewsActivity.class);
+                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
+                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
+                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
+                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                context.startActivity(intent);
+            }else {
+                Toasty.normal(context, "跳转到视频", Toasty.LENGTH_SHORT).show();
+            }
         });
+
         return viewHolder;
     }
 
@@ -82,6 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
     }
 
+
     @Override
     public int getItemCount() {
         int count = newsList != null ? newsList.size() : 0;
@@ -94,7 +100,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             return 0;
         }
     }
-
     @Override
     public int getItemViewType(int position) {
         if (isEmptyPosition(position)) {
@@ -104,7 +109,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             return TYPE_ITEM;
         }
     }
-
     //防止内存泄漏
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewHeader, textViewAbstract;
@@ -117,7 +121,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             imageViewPic = itemView.findViewById(R.id.imageViewPic);
         }
     }
-
     /**
      * 获取空布局
      */
@@ -141,9 +144,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             showEmptyView = isShow;
             notifyDataSetChanged();
         }
-    }
-
-    public boolean isShowEmptyView() {
-        return showEmptyView;
     }
 }

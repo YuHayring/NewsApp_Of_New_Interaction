@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.video.VideoPlayerFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.VideoPlayFragment;
 
 /**
  * @author : cypang
@@ -63,7 +63,7 @@ public class SearchVideosAdapter extends FragmentStateAdapter {
     public void addAndNotify(MyNews news) {
         int start = newses.size();
         newses.add(news);
-        VideoPlayerFragment fragment = new VideoPlayerFragment();
+        VideoPlayFragment fragment = new VideoPlayFragment();
         fragment.setContext(context);
         fragment.setMyNews(news);
 
@@ -75,7 +75,7 @@ public class SearchVideosAdapter extends FragmentStateAdapter {
         int start = newses.size();
         this.newses.addAll(newses);
         for (MyNews news : newses) {
-            VideoPlayerFragment fragment = new VideoPlayerFragment();
+            VideoPlayFragment fragment = new VideoPlayFragment();
             fragment.setContext(context);
             fragment.setMyNews(news);
             fragments.add(fragment);

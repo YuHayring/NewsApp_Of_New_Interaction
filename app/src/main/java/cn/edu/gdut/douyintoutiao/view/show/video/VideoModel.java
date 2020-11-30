@@ -1,17 +1,16 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
+import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +19,7 @@ import retrofit2.Response;
  * @author hayring
  * @date 11/17/20 3:10 PM
  */
-public class VideoPlayerModel {
+public class VideoModel {
 
     private Handler onVideoGotHandler;
     private static final String FollowTag = "follow";
@@ -28,8 +27,8 @@ public class VideoPlayerModel {
      * 模拟数据
      * @return
      */
-    public void getVideoNews() {
-        NewsApi.getNewsApi().getVideoList().enqueue(videoGetCallBack);
+    public void getVideoNews(CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
+        NewsApi.getNewsApi().getVideoList().enqueue(commonVideoGotCallBack);
     }
 
 
@@ -37,24 +36,33 @@ public class VideoPlayerModel {
      * 模拟数据
      * @return
      */
-    public void searchVideoNews(String key) {
-        NewsApi.getNewsApi().searchVideoList(key).enqueue(videoGetCallBack);
+    public void searchVideoNews(String key, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
+        NewsApi.getNewsApi().searchVideoList(key).enqueue(commonVideoGotCallBack);
     }
 
     /**
      * 模拟数据
      * @return
      */
-    public void getMoreVideoNews(int index) {
-        NewsApi.getNewsApi().getVideoList(index, 5).enqueue(videoGetCallBack);
+    public void getMoreVideoNews(int index, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
+        NewsApi.getNewsApi().getVideoList(index, 5).enqueue(commonVideoGotCallBack);
+    }
+
+
+    /**
+     * 模拟数据
+     * @return
+     */
+    public void getMoreVideoNews(int index, int pageCount, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
+        NewsApi.getNewsApi().getVideoList(index, pageCount).enqueue(commonVideoGotCallBack);
     }
 
     /**
      * 模拟数据
      * @return
      */
-    public void searchMoreVideoNews(int index, String key) {
-        NewsApi.getNewsApi().searchMoreVideoList(index, 5, key).enqueue(videoGetCallBack);
+    public void searchMoreVideoNews(int index, String key, CommonDataGotCallBack<MyNews> commonVideoGotCallBack) {
+        NewsApi.getNewsApi().searchMoreVideoList(index, 5, key).enqueue(commonVideoGotCallBack);
     }
 
 
@@ -64,35 +72,7 @@ public class VideoPlayerModel {
 
 
 
-    Callback<List<MyNews>> videoGetCallBack = new Callback<List<MyNews>>() {
-        @Override
-        public void onResponse(Call<List<MyNews>> call, Response<List<MyNews>> response) {
-            Message message = new Message();
-            if (response.code() == 200) {
-                message.arg1 = 200;
-                message.obj = response.body();
-            } else {
-                message.arg1 = response.code();
-            }
-            onVideoGotHandler.sendMessage(message);
-        }
 
-        @Override
-        public void onFailure(Call<List<MyNews>> call, Throwable t) {
-
-        }
-    };
-
-
-    private static class Singleton {
-        static VideoPlayerModel videoPlayerModel = new VideoPlayerModel();
-    }
-
-    public static VideoPlayerModel getInstance() {
-        return Singleton.videoPlayerModel;
-    }
-
-    private VideoPlayerModel(){}
 
 
 
@@ -101,15 +81,7 @@ public class VideoPlayerModel {
      * 模拟数据
      * @return
      */
-    public void getVideoNews(VideoPlayerViewModel.CommonVideoGotCallBack callBack) {
-        NewsApi.getNewsApi().getVideoList().enqueue(callBack);
-    }
-
-    /**
-     * 模拟数据
-     * @return
-     */
-    public void getTagVideoNews(String tag, VideoPlayerViewModel.CommonVideoGotCallBack callBack) {
+    public void getTagVideoNews(String tag, CommonDataGotCallBack<MyNews> callBack) {
         NewsApi.getNewsApi().getTagVideo(tag).enqueue(callBack);
     }
 
@@ -138,4 +110,19 @@ public class VideoPlayerModel {
             }
         });
     }
+
+
+
+
+
+
+    private static class Singleton {
+        static VideoModel videoModel = new VideoModel();
+    }
+
+    public static VideoModel getInstance() {
+        return Singleton.videoModel;
+    }
+
+    private VideoModel(){}
 }

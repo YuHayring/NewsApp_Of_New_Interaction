@@ -2,7 +2,11 @@ package cn.edu.gdut.douyintoutiao.view.user.main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 
+import com.bumptech.glide.Glide;
+
+import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import es.dmoral.toasty.Toasty;
@@ -30,7 +34,8 @@ public class UserMainViewModel {
         public void onSuccess(User user) {
             binding.userNameTag.setText(user.getUserName());
             binding.userDescriptionTag.setText(user.getUserDescription());
-            userMainModel.getImage(user.getUserImageUrl());
+            Glide.with(binding.userAvatars).load(Uri.parse(user.getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(binding.userAvatars);
+            //userMainModel.getImage(user.getUserImageUrl());
         }
 
         @Override

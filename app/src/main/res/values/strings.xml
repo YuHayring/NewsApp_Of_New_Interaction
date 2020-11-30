@@ -99,12 +99,21 @@
 
     <!-- 视频播放页 -->
     <string name="video_play_requesting">正在刷新中,请稍等...</string>
-
+    <string name="video_play_no_more">没有更多的视频了</string>
     <string name="video_play_request_fail">网络请求失败,错误码:</string>
+
+
+    <!-- 混合列表页页 -->
+    <string name="mix_list_requesting">正在刷新中,请稍等...</string>
+    <string name="mix_list_no_more">没有更多的资讯了</string>
+    <string name="mix_list_request_fail">网络请求失败,错误码:</string>
 
     <!-- 视频评论页 -->
 
     <string name="video_comment_request_fail">网络请求失败,错误码:</string>
     <string name="editInfoSaveButton">保存编辑信息</string>
+
+
+    <string name="blank_result_msg">暂时无数据哦</string>
 
 </resources>

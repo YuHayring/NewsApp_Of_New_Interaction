@@ -49,7 +49,7 @@ public class UIUtil {
      * @param context
      * @return pixel
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    //@RequiresApi(api = Build.VERSION_CODES.R)
     public static int getScreenWidth(@NonNull Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getDisplay().getMetrics(displayMetrics);

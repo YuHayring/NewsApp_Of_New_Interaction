@@ -30,6 +30,9 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
+import java.util.Objects;
+
+import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsDetailViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
@@ -43,8 +46,16 @@ public class NewsDetailFragment extends Fragment  {
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
-    public static NewsDetailFragment newInstance() {
-        return new NewsDetailFragment();
+
+    public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
+        NewsDetailFragment fragment = new NewsDetailFragment();
+        Bundle args = new Bundle();
+        args.putString("tag", tag);
+        args.putString("uri", uri);
+        args.putString("newsId", newsId);
+        args.putString("authorId", authorId);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -105,7 +116,6 @@ public class NewsDetailFragment extends Fragment  {
         binding.actionBuganxingqu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
             }
         });
         //作者
@@ -198,7 +208,6 @@ public class NewsDetailFragment extends Fragment  {
                                 }
                             })
                             .create().show();
-                  //  binding.actionGuanzhu.setIcon(guanzhu);
                 }
             });
         }else{
@@ -260,16 +269,14 @@ public class NewsDetailFragment extends Fragment  {
         binding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "文字转视频！", Toasty.LENGTH_SHORT, true).show();
             }
         });
         //评论
         binding.actionPinglun.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "评论！", Toasty.LENGTH_SHORT, true).show();
                 Bundle bundle = new Bundle();
-                bundle.putString("newsId", getActivity().getIntent().getStringExtra("newsId"));
+                bundle.putString("newsId", requireActivity().getIntent().getStringExtra("newsId"));
                 bundle.putString("userId", userId);
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.commentFragment, bundle);

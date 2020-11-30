@@ -26,12 +26,13 @@ public class VerticalTriplePageFragment extends Fragment {
     ViewPager2 verticalViewPager;
 
 
-    MagicVideoPlayViewModel magicVideoPlayViewModel;
+    MagicVideoViewModel magicVideoPlayViewModel;
+
 
     /**
      * 核心视频播放 Fragment
      */
-    VideoPlayerFragment videoPlayerFragment;
+    VideoPlayFragment videoPlayFragment;
 
     @Nullable
     @Override
@@ -41,7 +42,7 @@ public class VerticalTriplePageFragment extends Fragment {
         verticalViewPager.setAdapter(new VerticalFragmentAdapter(activity));
         verticalViewPager.setCurrentItem(1);
 
-        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager, videoPlayerFragment, magicVideoPlayViewModel);
+        MagicVideoPlayActivity.ResetPositionCallBack horizontalCallBack = new MagicVideoPlayActivity.ResetPositionCallBack(verticalViewPager, (MagicVideoPlayActivity) getActivity());
 
         verticalViewPager.registerOnPageChangeCallback(horizontalCallBack);
         return view;
@@ -68,7 +69,7 @@ public class VerticalTriplePageFragment extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            if (position == 1) return videoPlayerFragment;
+            if (position == 1) return videoPlayFragment;
             position += 3;
             ShowIndexFragment fragment = new ShowIndexFragment();
             fragment.setIndex(position);
@@ -89,8 +90,8 @@ public class VerticalTriplePageFragment extends Fragment {
     }
 
 
-    public void setVideoPlayerFragment(VideoPlayerFragment videoPlayerFragment) {
-        this.videoPlayerFragment = videoPlayerFragment;
+    public void setVideoPlayFragment(VideoPlayFragment videoPlayFragment) {
+        this.videoPlayFragment = videoPlayFragment;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class VerticalTriplePageFragment extends Fragment {
     }
 
 
-    public void setMagicVideoPlayViewModel(MagicVideoPlayViewModel magicVideoPlayViewModel) {
+    public void setMagicVideoPlayViewModel(MagicVideoViewModel magicVideoPlayViewModel) {
         this.magicVideoPlayViewModel = magicVideoPlayViewModel;
     }
 

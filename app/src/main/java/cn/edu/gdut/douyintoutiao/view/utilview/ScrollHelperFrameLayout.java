@@ -1,4 +1,4 @@
-package cn.edu.gdut.douyintoutiao.view.show.video;
+package cn.edu.gdut.douyintoutiao.view.utilview;
 
 import android.content.Context;
 import android.util.AttributeSet;

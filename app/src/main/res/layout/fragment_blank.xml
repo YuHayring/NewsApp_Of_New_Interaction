@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.show.video.VideoPlayFragment">
+    tools:context=".view.BlankFragment">
 
-    <TextureView
-        android:id="@+id/video_player_window"
-        android:layout_width="wrap_content"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/blankText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:text="@string/blank_result_msg"
+        android:textSize="50sp" />
 
 </FrameLayout>

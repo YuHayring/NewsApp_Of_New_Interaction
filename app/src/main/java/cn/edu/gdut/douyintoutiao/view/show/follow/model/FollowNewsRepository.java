@@ -24,10 +24,12 @@ public class FollowNewsRepository {
     private static final String TAG = "news";
     private final MutableLiveData<List<MyNews>> allFollowNewsLive;
     private final NewsApi api;
+    private final MutableLiveData<List<MyNews>> allAuthorNewsLive;
 
     public FollowNewsRepository(NewsApi api) {
         this.api = api;
         allFollowNewsLive = new MutableLiveData<>();
+        allAuthorNewsLive = new MutableLiveData<>();
     }
 
     public LiveData<List<MyNews>> getAllFollowLive(String tag) {
@@ -35,8 +37,8 @@ public class FollowNewsRepository {
         call.enqueue(new Callback<Result<MyNews>>() {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
+                assert response.body() != null;
                 allFollowNewsLive.postValue(response.body().getData());
-                Log.d(TAG, "onResponse: " + response.body().getData().toString());
             }
 
             @Override
@@ -47,5 +49,21 @@ public class FollowNewsRepository {
         return allFollowNewsLive;
     }
 
+    public LiveData<List<MyNews>> getAuthorNewsLive(String userId){
+        Call<Result<MyNews>> call = api.getAuthorNewsList(userId);
+        call.enqueue(new Callback<Result<MyNews>>() {
+            @Override
+            public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
+                assert response.body() != null;
+                allAuthorNewsLive.postValue(response.body().getData());
+            }
+
+            @Override
+            public void onFailure(Call<Result<MyNews>> call, Throwable t) {
+                Log.d(TAG, "onFailure: 请求失败");
+            }
+        });
+        return allAuthorNewsLive;
+    }
 
 }

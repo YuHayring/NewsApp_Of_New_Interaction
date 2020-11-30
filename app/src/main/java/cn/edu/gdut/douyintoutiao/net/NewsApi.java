@@ -34,6 +34,12 @@ public interface NewsApi {
     @GET("videoList")
     Call<List<MyNews>> getVideoList(@Query("index") int index, @Query("count") int count);
 
+    @GET("getMixNews")
+    Call<List<MyNews>> getMixList();
+
+    @GET("getMixNews")
+    Call<List<MyNews>> getMixList(@Query("index") int index, @Query("count") int count);
+
     @GET("videoList")
     Call<List<MyNews>> getVideoList();
 
@@ -57,6 +63,8 @@ public interface NewsApi {
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 
+    @GET("getAuthorNews")
+    Call<Result<MyNews>> getAuthorNewsList(@Query("userId") String userId);
 
     @POST("insert_tags_follow_table")
     Call<Result< FollowNews >> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
