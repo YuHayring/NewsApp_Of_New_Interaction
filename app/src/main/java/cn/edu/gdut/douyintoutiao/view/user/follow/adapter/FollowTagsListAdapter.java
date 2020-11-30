@@ -9,22 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.nio.Buffer;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.FollowTagsListFragment;
 
 public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAdapter.ViewHolder>{

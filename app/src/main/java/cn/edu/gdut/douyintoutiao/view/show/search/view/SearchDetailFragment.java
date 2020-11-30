@@ -42,28 +42,18 @@ public class SearchDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchDetailViewModel.class);
-        adapter = new SearchAdapter(getActivity());
+        adapter = new SearchAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.searcbRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.searcbRecyclerView.setAdapter(adapter);
         assert getArguments() != null;
         String key = getArguments().getString("key");
-        mViewModel.getAllSearchNewsLive(key).observe(getViewLifecycleOwner(), new Observer<List<MyNews>>() {
-            @Override
-            public void onChanged(List<MyNews> myNews) {
-                adapter.setNewsList(myNews);
-                adapter.notifyDataSetChanged();
-                binding.searchSwipeRefreshLayout.setRefreshing(false);
-                if(myNews.isEmpty()){
-                    Toasty.error(requireContext(), "找不到你要搜索的内容").show();
-                }
-            }
+        mViewModel.getAllSearchNewsLive(key).observe(getViewLifecycleOwner(), myNews -> {
+            adapter.setNewsList(myNews);
+            adapter.notifyDataSetChanged();
+            binding.searchSwipeRefreshLayout.setRefreshing(false);
         });
-        binding.searchSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mViewModel.getAllSearchNewsLive(key);
-            }
-        });
+        binding.searchSwipeRefreshLayout.setOnRefreshListener(() -> mViewModel.getAllSearchNewsLive(key));
 
     }
 

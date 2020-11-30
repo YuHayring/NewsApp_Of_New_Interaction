@@ -132,8 +132,4 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             notifyDataSetChanged();
         }
     }
-
-    public boolean isShowEmptyView() {
-        return showEmptyView;
-    }
 }

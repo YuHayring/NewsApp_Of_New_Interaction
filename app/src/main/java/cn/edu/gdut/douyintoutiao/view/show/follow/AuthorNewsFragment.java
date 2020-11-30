@@ -85,7 +85,8 @@ public class AuthorNewsFragment extends Fragment {
         String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        adapter = new AuthorNewsAdapter(getActivity());
+        adapter = new AuthorNewsAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);
         SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllAuthorNews(userId);

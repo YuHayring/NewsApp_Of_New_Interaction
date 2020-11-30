@@ -82,7 +82,8 @@ public class NewsListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new NewsSAdapter(getActivity());
+        adapter = new NewsSAdapter(requireContext());
+        adapter.showEmptyView(true);
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         binding.recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewNews.setAdapter(adapter);

@@ -52,7 +52,8 @@ public class NewsFollowListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        adapter = new FollowNewsAdapter(getActivity());
+        adapter = new FollowNewsAdapter(requireContext());
+        adapter.showEmptyView(true);
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewTagNews.setAdapter(adapter);
         SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllFollowLive(tag);
