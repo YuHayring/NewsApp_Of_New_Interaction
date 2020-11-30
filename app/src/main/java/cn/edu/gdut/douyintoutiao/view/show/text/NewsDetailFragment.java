@@ -25,6 +25,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
@@ -95,14 +97,12 @@ public class NewsDetailFragment extends Fragment {
                     flag=true;
                     binding.actionDianzan.setIcon(red_dianzan);
                 }
-                Toasty.success(requireContext(), "点赞按钮！", Toasty.LENGTH_SHORT, true).show();
             }
         });
         //不感兴趣
         binding.actionBuganxingqu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
             }
         });
         //作者
@@ -141,7 +141,6 @@ public class NewsDetailFragment extends Fragment {
                                 }
                             })
                             .create().show();
-                  //  binding.actionGuanzhu.setIcon(guanzhu);
                 }
             });
         }else{
@@ -150,58 +149,22 @@ public class NewsDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                   // binding.actionGuanzhu.setIcon(yellow_guanzhu);
-                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
                 }
             });
         }
-        //关注
-//        binding.actionGuanzhu.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                boolean flag = true;
-//
-//                if(flag){
-//                    viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-//                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
-//                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
-//                    flag=false;
-//                }else{
-//                    flag=true;
-//                    //取消关注警告窗口
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                    builder.setIcon(R.drawable.ic_baseline_warning_24)
-//                            .setTitle("取消关注?")
-//                            .setMessage("确定要取消关注"+newsId+"吗")
-//                            .setNegativeButton("取消", null)
-//                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
-//                                    Toast.makeText(getContext(),"取消关注了"+newsId, Toast.LENGTH_SHORT).show();
-//                                }
-//                            })
-//                            .create().show();
-//                    binding.actionGuanzhu.setIcon(guanzhu);
-//                }
-//
-//             //   Toasty.success(requireContext(), "关注！", Toasty.LENGTH_SHORT, true).show();
-//            }
-//        });
+
         //文字转视频
         binding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "文字转视频！", Toasty.LENGTH_SHORT, true).show();
             }
         });
         //评论
         binding.actionPinglun.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toasty.success(requireContext(), "评论！", Toasty.LENGTH_SHORT, true).show();
                 Bundle bundle = new Bundle();
-                bundle.putString("newsId", getActivity().getIntent().getStringExtra("newsId"));
+                bundle.putString("newsId", requireActivity().getIntent().getStringExtra("newsId"));
                 bundle.putString("userId", userId);
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.commentFragment, bundle);

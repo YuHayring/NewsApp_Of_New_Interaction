@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,13 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.News;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
@@ -45,8 +42,6 @@ public class FollowTagsListFragment extends Fragment {
 
     private View view;//定义view用来设置fragment的layout
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
-    //定义以News实体类为对象的数据集合
-    private List<News> tagsList = new ArrayList<News>();
 
     //自定义recyclerveiw的适配器
     private FollowTagsListAdapter followTagsListAdapter;
@@ -102,14 +97,6 @@ public class FollowTagsListFragment extends Fragment {
 
     }
 
-    private void initData() {
-        for (int i=1;i<=20;i++){
-            News goodsEntity=new News();
-            goodsEntity.setNewsName("模拟事件"+i);
-
-            tagsList.add(goodsEntity);
-        }
-    }
 
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}

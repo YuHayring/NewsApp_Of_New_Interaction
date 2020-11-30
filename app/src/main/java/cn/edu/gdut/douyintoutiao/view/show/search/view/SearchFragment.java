@@ -1,11 +1,13 @@
 package cn.edu.gdut.douyintoutiao.view.show.search.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -71,6 +73,7 @@ public class SearchFragment extends Fragment {
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("key", query);
+                    binding.searchView.clearFocus();
                     controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
                 }
                 return true;
