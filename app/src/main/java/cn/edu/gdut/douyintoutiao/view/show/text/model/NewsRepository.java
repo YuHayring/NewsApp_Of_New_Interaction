@@ -50,7 +50,6 @@ public class NewsRepository {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
                 allNewsLive.postValue(response.body().getData());
-                Log.d(TAG, "onResponse: " + response.body().getData().toString());
             }
 
             @Override
