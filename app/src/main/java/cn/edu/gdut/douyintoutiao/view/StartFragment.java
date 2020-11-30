@@ -1,6 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,8 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
-import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
-import cn.edu.gdut.douyintoutiao.util.UserUtil;
+// import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
+// import cn.edu.gdut.douyintoutiao.util.UserUtil;
 
 /**
  * @author cypang
@@ -88,11 +87,11 @@ public class StartFragment extends Fragment {
                 }
             }
         });
-
-        binding.buttonToTest.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), TestActivity.class);
-            startActivity(intent);
-        });
+//
+//        binding.buttonToTest.setOnClickListener(view -> {
+//            Intent intent = new Intent(getContext(), TestActivity.class);
+//            startActivity(intent);
+//        });
 
 
     }
