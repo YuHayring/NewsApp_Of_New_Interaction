@@ -39,6 +39,9 @@ public interface FollowApi {
 //    @POST("insert_tags_follow_table")
 //    Call<Result> insertTagsFollowByNewsIdUserId (@Body Map<String,String> newsIdUserId);
 
+
+
+
     /**
      * 单例内部类
      */
