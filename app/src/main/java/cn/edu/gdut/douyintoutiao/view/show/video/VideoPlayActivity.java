@@ -41,7 +41,7 @@ public class VideoPlayActivity extends FullScreenActivity {
      */
     MyNews currentNews;
 
-    VerticalVideoViewModel verticalVideoViewModel;
+    VideoViewModel videoViewModel;
 
     /**
      * ViewBinding
@@ -106,7 +106,7 @@ public class VideoPlayActivity extends FullScreenActivity {
                 MyNews thisNews =  currentNews;
                 SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
-                verticalVideoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
                 viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
                 Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
 
@@ -193,7 +193,7 @@ public class VideoPlayActivity extends FullScreenActivity {
         viewBinding = ActivityVideoPlayBinding.inflate(LayoutInflater.from(this));
         setContentView(viewBinding.getRoot());
         //VM
-        verticalVideoViewModel = new ViewModelProvider(this).get(VerticalVideoViewModel.class);
+        videoViewModel = new ViewModelProvider(this).get(VideoViewModel.class);
         //悬浮窗按钮监听器注册
         viewBinding.actionJinggao.setOnClickListener(reportButtonListener);
         viewBinding.actionDianzan.setOnClickListener(likeButtonListener);

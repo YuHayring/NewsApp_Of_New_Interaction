@@ -103,9 +103,6 @@ public class VerticalVideoViewModel extends VideoViewModel {
 
 
 
-    public void insertTagsFollowByNewsIdUserId(String newsId, String userId){
-        videoModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-    }
 
 
     public LiveData<List<MyNews>> getNewsesFromServer() {
