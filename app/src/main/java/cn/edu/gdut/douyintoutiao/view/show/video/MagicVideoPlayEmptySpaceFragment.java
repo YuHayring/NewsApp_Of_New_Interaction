@@ -1,11 +1,10 @@
-package cn.edu.gdut.douyintoutiao.tmp;
+package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,7 @@ import cn.edu.gdut.douyintoutiao.R;
  * @author hayring
  * @date 11/26/20 5:20 PM
  */
-public class ShowIndexFragment extends Fragment {
+public class MagicVideoPlayEmptySpaceFragment extends Fragment {
 
     int index;
 
@@ -26,16 +25,16 @@ public class ShowIndexFragment extends Fragment {
     }
 
 
-    TextView indexTag;
+//    TextView indexTag;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.test_fragment_show_index, container, false);
+        View view = inflater.inflate(R.layout.fragment_magic_video_empty_space, container, false);
 
-        indexTag = view.findViewById(R.id.index_tag);
-        indexTag.setText("index : " + index);
+//        indexTag = view.findViewById(R.id.index_tag);
+//        indexTag.setText("index : " + index);
         return view;
     }
 

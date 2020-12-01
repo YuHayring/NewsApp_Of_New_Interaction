@@ -37,6 +37,7 @@ import cn.edu.gdut.douyintoutiao.view.show.video.VideoViewModel;
  * @author hayring
  * @date 11/29/20 2:38 AM
  */
+@Deprecated
 public class VideoListFragment extends Fragment {
 
 

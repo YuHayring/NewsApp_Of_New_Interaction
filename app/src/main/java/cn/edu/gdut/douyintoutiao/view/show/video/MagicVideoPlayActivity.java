@@ -14,7 +14,6 @@ import android.os.Bundle;
 import java.lang.reflect.Constructor;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
 
 /**
  * @author hayring
@@ -101,8 +100,8 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
                 ((VerticalTriplePageFragment)fragment).setVideoPlayFragment(videoPlayFragment);
                 ((VerticalTriplePageFragment)fragment).setMagicVideoPlayViewModel(magicVideoPlayViewModel);
             } else {
-                fragment = new ShowIndexFragment();
-                ((ShowIndexFragment)fragment).setIndex(position);
+                fragment = new MagicVideoPlayEmptySpaceFragment();
+                ((MagicVideoPlayEmptySpaceFragment)fragment).setIndex(position);
             }
             fragments[position] = fragment;
             return fragment;

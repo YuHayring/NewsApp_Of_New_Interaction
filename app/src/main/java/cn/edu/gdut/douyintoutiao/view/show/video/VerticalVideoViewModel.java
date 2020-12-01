@@ -38,8 +38,15 @@ public class VerticalVideoViewModel extends VideoViewModel {
     /**
      * 获取关注视频
      */
-    void getFollowVideoNews() {
+    void getFollowVideoNewsByCount() {
         videoModel.getVideoNews(followVideoGot);
+    }
+
+    /**
+     * 按已知数量获取视频
+     */
+    void getFollowVideoNewsByCount(int count) {
+        videoModel.getMoreVideoNews(0, count, followVideoGot);
     }
 
 

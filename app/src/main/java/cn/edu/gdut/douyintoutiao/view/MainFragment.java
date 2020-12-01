@@ -24,6 +24,7 @@ import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.mix.MixNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.MagicVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.videolist.VideoListFragment;
 
@@ -119,7 +120,7 @@ public class MainFragment extends Fragment {
 
 
         binding.exchangeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), VerticalVideoPlayActivity.class);
+            Intent intent = new Intent(getActivity(), MagicVideoPlayActivity.class);
             startActivity(intent);
         });
 

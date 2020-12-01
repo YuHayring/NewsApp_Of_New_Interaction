@@ -14,7 +14,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
 
 /**
  * @author hayring
@@ -71,7 +70,7 @@ public class VerticalTriplePageFragment extends Fragment {
         public Fragment createFragment(int position) {
             if (position == 1) return videoPlayFragment;
             position += 3;
-            ShowIndexFragment fragment = new ShowIndexFragment();
+            MagicVideoPlayEmptySpaceFragment fragment = new MagicVideoPlayEmptySpaceFragment();
             fragment.setIndex(position);
             activity.getFragments()[position] = fragment;
             return fragment;

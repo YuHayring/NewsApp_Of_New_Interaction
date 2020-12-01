@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,8 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
     public static final String DEFAULT = "default";
 
     public static final String SEARCH = "search";
+
+    public static final String FLASHING_NO_SUPPORT = "flashingNoSupport";
 
     private int errorCode = 0;
 
@@ -83,18 +84,22 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
         super.onPostCreate(savedInstanceState);
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
-        if (type == null) {
-            status = DEFAULT;
+        if (!"search".equals(type)) {
+            status = FLASHING_NO_SUPPORT.equals(type) ? FLASHING_NO_SUPPORT : DEFAULT;
             //获取附加的数据
             List<MyNews> data;
             if ((data = (List<MyNews>) intent.getSerializableExtra("data")) != null) {
                 adapter.addAllAndNotify(data);
-                int currentIndex = intent.getIntExtra("index",0);
-                viewBinding.videoViewPager.setCurrentItem(currentIndex, false);
             } else {
-                verticalVideoPlayViewModel.getFollowVideoNews();
+                //视频列表有多少个视频了
+                int preCount = intent.getIntExtra("count",-1);
+                if (preCount != -1) {
+                    verticalVideoPlayViewModel.getFollowVideoNewsByCount(preCount + 2);
+                } else {
+                    verticalVideoPlayViewModel.getFollowVideoNewsByCount();
+                }
             }
-        } else if ("search".equals(type)){
+        } else {
             status = SEARCH;
             key = intent.getStringExtra("key");
             verticalVideoPlayViewModel.searchVideoNews(key);
@@ -126,6 +131,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
+            if (FLASHING_NO_SUPPORT.equals(status)) return;
             if (state == 1) {
                 if (adapter.getItemCount() == viewBinding.videoViewPager.getCurrentItem() + 1) {
                     if (errorCode == 0) {
@@ -166,6 +172,10 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
         @Override
         public void onChanged(List<MyNews> myNews) {
             adapter.addAllAndNotify(myNews);
+            if (adapter.getItemCount() == myNews.size() && -1 != getIntent().getIntExtra("index",-1)) {
+                    int currentIndex = getIntent().getIntExtra("index",-1);
+                    viewBinding.videoViewPager.setCurrentItem(currentIndex, false);
+            }
         }
     };
 
@@ -198,17 +208,17 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
     }
 
 
-    /**
-     * 给 VideoList返回更新的数据
-     */
-    @Override
-    public void finish() {
-        Intent innerIntent = getIntent();
-        if (innerIntent.getSerializableExtra("data") != null) {
-            Intent intent = new Intent();
-            intent.putExtra("data", (Serializable) newses);
-            setResult(RESULT_OK, intent);
-        }
-        super.finish();
-    }
+//    /**
+//     * 给 VideoList返回更新的数据
+//     */
+//    @Override
+//    public void finish() {
+//        Intent innerIntent = getIntent();
+//        if (innerIntent.getSerializableExtra("data") != null) {
+//            Intent intent = new Intent();
+//            intent.putExtra("data", (Serializable) newses);
+//            setResult(RESULT_OK, intent);
+//        }
+//        super.finish();
+//    }
 }
