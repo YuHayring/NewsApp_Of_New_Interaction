@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintGuide_percent="0.54"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -40,7 +40,7 @@
         android:layout_marginEnd="247dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/author_details_image"
-        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline24" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -66,7 +66,7 @@
         android:layout_marginEnd="247dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/author_details_image"
-        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintGuide_percent="0.37"
         app:layout_constraintStart_toEndOf="@+id/guideline24" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -94,15 +94,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
-        app:layout_constraintGuide_percent="0.37"
+        app:layout_constraintGuide_percent="0.34"
         app:layout_constraintStart_toEndOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView_author_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:text="@string/textView_author_name"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="#E53935"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -131,7 +132,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:backgroundTint="#F4511E"
         android:text="@string/button_authorList_unfollow"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
