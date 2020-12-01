@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityEditBinding;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.viewModel.EditViewModel;
 
@@ -72,8 +73,24 @@ public class EditActivity extends AppCompatActivity {
                 editViewModel.updateUserInfo(userId,name,describe);
                Toast.makeText(EditActivity.this, "编辑信息已提交！", Toast.LENGTH_SHORT).show();
                 //刷新页面,待修改
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+                //上面那样吗是错的，那个用新的 activity 入栈，不是出栈返回
+                //因为你上面调用了updateUserInfo，是更新到服务端，这里就不用返回本地数据
+                // RESULT_OK 表示保存了，需要刷新，RESULT_OK 这个值没有特殊含义，是你赋予它含义，也可以赋予其他意思
+                setResult(RESULT_OK);
+
+                //如果返回本地数据，就要这样写：
+//                Intent intent = new Intent();
+//                User user = new User();
+//                user.setUserName(name);
+//                user.setUserDescription(describe);
+//                //数据放进去
+//                intent.putExtra("user",user);
+//                // RESULT_OK 表示保存了，需要刷新，RESULT_OK 这个值没有特殊含义，是你赋予它含义，也可以赋予其他意思
+//                setResult(RESULT_OK,intent);
+//                //结束 activity
+//                finish();
 
             }
         });
@@ -81,5 +98,10 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void finish() {
+        //cancled 表示没有按保存键，UserMainFragment 不需要刷新
+        setResult(RESULT_CANCELED);
+        super.finish();
+    }
 }
