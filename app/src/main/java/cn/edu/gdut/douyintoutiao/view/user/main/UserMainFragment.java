@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +18,10 @@ import androidx.fragment.app.FragmentActivity;
 import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
 
 import java.io.File;
+import java.io.Serializable;
 
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
+import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
@@ -105,7 +108,8 @@ public class UserMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditActivity.class);
-                startActivity(intent);
+                //For result 会调用 onActivityResult, 如果不传参数的话，code 可以任意设计
+                startActivityForResult(intent,1);
             }
         });
 
@@ -143,5 +147,24 @@ public class UserMainFragment extends Fragment {
             MainActivity activity = (MainActivity) context;
             activity.setFileCallbackFromUserMain(null);
         }
+    }
+
+
+    /**
+     * 启动 activity 后回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //通过网络请求刷新
+        if (requestCode == Activity.RESULT_OK) { //表示更新了数据
+            userMainViewModel.userMainModel.getUser(userId);
+        }
+        //如果要使用本地返回的数据，这样写：
+        //User user = (User) data.getSerializableExtra("user");
+        //设置 text 等操作
     }
 }
