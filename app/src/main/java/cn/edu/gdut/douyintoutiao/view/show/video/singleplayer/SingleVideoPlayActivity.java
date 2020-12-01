@@ -41,6 +41,13 @@ public class SingleVideoPlayActivity extends VideoPlayActivity {
         //一个视频不允许滑动
         viewBinding.videoViewPager.setUserInputEnabled(false);
 
+        viewBinding.videoViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentNews(singleNews.get(0));
+            }
+        });
+
 
 
 
