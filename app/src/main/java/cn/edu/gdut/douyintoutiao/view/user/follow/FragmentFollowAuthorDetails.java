@@ -100,7 +100,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
                     fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
                     fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + list.get(0).getUserDescription());
-
+                    fragmentFollowAuthorDetailsBinding.textViewAuthorPhoneId.setText("id:"+list.get(0).getUserTelephone());
                     Glide.with(FragmentFollowAuthorDetails.this)//当前类
                             .load(list.get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
                             .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片

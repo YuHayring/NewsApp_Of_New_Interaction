@@ -118,5 +118,6 @@
     <string name="editPagerTitle">编辑用户信息</string>
     <string name="userPhoneId">用户账号</string>
     <string name="userMainText">粉丝：1   ｜关注：20    ｜获赞：5</string>
+    <string name="authorSpace">作品空间</string>
 
 </resources>
