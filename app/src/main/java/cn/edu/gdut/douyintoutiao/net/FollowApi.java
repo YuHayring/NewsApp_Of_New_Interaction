@@ -5,12 +5,10 @@ import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -20,8 +18,8 @@ import retrofit2.http.POST;
  */
 public interface FollowApi {
 
-    @GET("find_user_followList")
-    Call< Result< Follow > > getFollowAuthorList();
+    @POST("find_user_followList")
+    Call< Result< Follow > > getFollowAuthorList(@Body Map<String, String> userIdMap);
 
     @POST("delete_user_follow_list")
     @Headers("Content-Type: application/json;charset=UTF-8")

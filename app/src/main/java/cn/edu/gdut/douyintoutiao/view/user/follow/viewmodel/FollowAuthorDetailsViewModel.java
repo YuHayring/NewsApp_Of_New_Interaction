@@ -22,6 +22,7 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
 
     private FollowRepository followAuthorDetailsRepository;
 
+
     public FollowAuthorDetailsViewModel(@NonNull Application application) {
         super(application);
         followAuthorDetailsRepository =new FollowRepository(FollowApi.getFollowApi());

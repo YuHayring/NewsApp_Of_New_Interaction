@@ -72,6 +72,10 @@ public class VerticalVideoViewModel extends VideoViewModel {
         videoModel.searchMoreVideoNews(index, key, followVideoGot);
     }
 
+    //添加关注
+    void insertFollowByNewsIdUserId(String newsId,String userId){
+        videoModel.insertFollowByNewsIdUserId(newsId,userId);
+    }
 
     CommonDataGotCallBack followVideoGot = new CommonDataGotCallBack<MyNews>() {
         @Override

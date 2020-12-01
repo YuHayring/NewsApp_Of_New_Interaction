@@ -1,10 +1,10 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsViewModel;
@@ -21,8 +21,8 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_author_details);
-       // init();
-       // getUserInfo();
+        init();
+        getUserInfo();
 
     }
     //初始化
@@ -34,7 +34,6 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     private  void getUserInfo(){
         Intent in = getIntent();
        userId = in.getStringExtra("userId");
-      // textView.setText("获得了用户信息："+userId);
     }
 
     //给fragment提供userId

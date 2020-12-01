@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
 import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 
@@ -27,9 +26,9 @@ public class FollowTagsViewModel  extends AndroidViewModel {
     }
 
 
-    public LiveData<List<FollowNews>> getFollowTagsList (){
+    public LiveData<List<FollowNews>> getFollowTagsList (String userId){
 
-         String userId = "5fa9f7f63d18b202258b5daf";
+       //  String userId = "5fa9f7f63d18b202258b5daf";
        return followRepository.getFollowTagsList(userId);
     }
 

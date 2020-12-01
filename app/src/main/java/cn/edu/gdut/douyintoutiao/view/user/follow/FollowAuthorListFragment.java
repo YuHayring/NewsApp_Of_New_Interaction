@@ -1,8 +1,10 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +25,10 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
-//import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
+
 
 
 public class FollowAuthorListFragment extends Fragment {
@@ -42,6 +43,8 @@ public class FollowAuthorListFragment extends Fragment {
     private FollowAuthorListAdapter followListAdapter;
     private FragmentFollowAuthorListBinding fragmentFollowAuthorListBinding;
 
+    private String userId;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -50,8 +53,7 @@ public class FollowAuthorListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public FollowAuthorListFragment(Activity_Follow_Author activity_follow_author) {
-    }
+
 
     public static FollowAuthorListFragment newInstance(String param1, String param2) {
         FollowAuthorListFragment fragment = new FollowAuthorListFragment();
@@ -97,8 +99,11 @@ public class FollowAuthorListFragment extends Fragment {
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setAdapter(followListAdapter);
 
+        SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        userId = shp.getString("userId", "noContent");
+
         //LD 观察,刷新data
-        followAuthorViewModel.getFollowList().observe(getViewLifecycleOwner(), new Observer<List< Follow >>() {
+        followAuthorViewModel.getFollowList(userId).observe(getViewLifecycleOwner(), new Observer<List< Follow >>() {
             @Override
             public void onChanged(List<Follow> lists    ) {
                 followListAdapter.setFollows(lists);
@@ -112,7 +117,7 @@ public class FollowAuthorListFragment extends Fragment {
         fragmentFollowAuthorListBinding.FollowAuthorListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                followAuthorViewModel.getFollowList();
+                followAuthorViewModel.getFollowList(userId);
             }
         });
 

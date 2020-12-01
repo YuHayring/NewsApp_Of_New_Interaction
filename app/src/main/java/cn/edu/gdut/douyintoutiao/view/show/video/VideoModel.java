@@ -72,8 +72,12 @@ public class VideoModel {
 
 
 
-
-
+    public void insertFollowByNewsIdUserId(String newsId , String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        NewsApi.getNewsApi().insertTagsFollowByNewsIdUserId(newsIdUserId);
+    }
 
 
 

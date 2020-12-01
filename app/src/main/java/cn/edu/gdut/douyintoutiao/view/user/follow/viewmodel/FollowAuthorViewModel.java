@@ -9,10 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.Follow;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
-import cn.edu.gdut.douyintoutiao.net.NewsApi;
-import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 //
 public class FollowAuthorViewModel extends AndroidViewModel {
@@ -28,7 +25,7 @@ public class FollowAuthorViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Follow>> getFollowList() {return followRepository.getFollowList();}
+    public LiveData<List<Follow>> getFollowList(String userId) {return followRepository.getFollowList(userId);}
 
     public void deleteFollowListByFollowId(String followId){
        followRepository.deleteFollowListByFollowId(followId);
