@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_follow_author_list"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:layout_marginBottom="4dp"
+    android:background="@color/background"
     android:clickable="true"
     android:focusable="true">
 
@@ -14,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.88" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
@@ -25,7 +26,7 @@
 
     <ImageView
         android:id="@+id/author_image"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/comment_user_image_msg"
@@ -42,12 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="40dp"
-        android:text="@string/author_name"
-        android:textAlignment="inherit"
-        android:textSize="24sp"
         android:ellipsize="end"
         android:lines="1"
         android:maxLines="1"
+        android:text="@string/author_name"
+        android:textAlignment="inherit"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,12 +61,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="15dp"
-        android:text="@string/author_describe"
-        android:textAlignment="inherit"
-        android:textSize="14sp"
         android:ellipsize="end"
         android:lines="1"
         android:maxLines="1"
+        android:text="@string/author_describe"
+        android:textAlignment="inherit"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline28"
         app:layout_constraintHorizontal_bias="0.0"
@@ -89,11 +90,12 @@
 
     <Button
         android:id="@+id/button_unfollow_author_list"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="53dp"
+        android:layout_height="146dp"
+        android:background="@color/infoColor"
         android:text="@string/button_authorList_unfollow"
-        android:textSize="14sp"
+        android:textColor="@color/background"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

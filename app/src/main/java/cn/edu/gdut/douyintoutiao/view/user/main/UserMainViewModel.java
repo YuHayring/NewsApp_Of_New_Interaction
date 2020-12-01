@@ -34,6 +34,7 @@ public class UserMainViewModel {
         public void onSuccess(User user) {
             binding.userNameTag.setText(user.getUserName());
             binding.userDescriptionTag.setText(user.getUserDescription());
+            binding.userPhoneIdText.setText("id:"+user.getUserTelephone());
             Glide.with(binding.userAvatars).load(Uri.parse(user.getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(binding.userAvatars);
             //userMainModel.getImage(user.getUserImageUrl());
         }

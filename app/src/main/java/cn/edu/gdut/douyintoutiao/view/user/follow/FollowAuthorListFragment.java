@@ -157,6 +157,7 @@ public class FollowAuthorListFragment extends Fragment {
                 //传递当前item的数据信息
                 startIntent.putExtra("userId",userId);
                 startIntent.putExtra("followId",followId);
+                startIntent.putExtra("isFollow",true);
                 startActivity(startIntent);
             }
         });

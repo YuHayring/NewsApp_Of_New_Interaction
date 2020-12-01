@@ -13,6 +13,7 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
 
     private String userId;
     private String followId;
+    private Boolean isFollow;
 
     private TextView textView;
     private FollowAuthorDetailsViewModel followAuthorDetailsViewModel;
@@ -46,5 +47,15 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
         Intent in = getIntent();
         followId = in .getStringExtra("followId");
         return followId;
+    }
+
+    public Boolean getFollow() {
+        return isFollow;
+    }
+
+    public void setFollow(Boolean follow) {
+        Intent in = getIntent();
+        followId = in .getStringExtra("isFollow");
+        isFollow = follow;
     }
 }
