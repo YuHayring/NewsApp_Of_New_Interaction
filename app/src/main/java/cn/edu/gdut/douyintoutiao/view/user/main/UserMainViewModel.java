@@ -35,6 +35,7 @@ public class UserMainViewModel {
             binding.userNameTag.setText(user.getUserName());
             binding.userDescriptionTag.setText(user.getUserDescription());
             binding.userPhoneIdText.setText("id:"+user.getUserTelephone());
+            binding.textViewUserNum.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
             Glide.with(binding.userAvatars).load(Uri.parse(user.getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(binding.userAvatars);
             //userMainModel.getImage(user.getUserImageUrl());
         }

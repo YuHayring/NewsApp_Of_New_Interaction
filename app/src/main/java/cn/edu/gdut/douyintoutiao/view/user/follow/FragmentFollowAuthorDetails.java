@@ -99,21 +99,13 @@ public class FragmentFollowAuthorDetails extends Fragment {
             followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
                 @Override
                 public void onChanged(List< User > list) {
-
-                    fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
-                    fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + list.get(0).getUserDescription());
-                    fragmentFollowAuthorDetailsBinding.textViewAuthorPhoneId.setText("id:"+list.get(0).getUserTelephone());
-                    Glide.with(FragmentFollowAuthorDetails.this)//当前类
-                            .load(list.get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
-                            .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
-                            .error(R.drawable.friends) // 出错加载的图片
-                            .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+                    User thisUser = list.get(0);
+                    initUi(thisUser);
 
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          // followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setIcon(R.drawable.ic_baseline_warning_24)
                                     .setTitle("取消关注?")
@@ -129,8 +121,6 @@ public class FragmentFollowAuthorDetails extends Fragment {
                                     })
                                     .create().show();
 
-
-
                         }
                     });
                 }
@@ -139,19 +129,11 @@ public class FragmentFollowAuthorDetails extends Fragment {
             followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
                 @Override
                 public void onChanged(List< User > list) {
-
-                    fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
-                    fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + list.get(0).getUserDescription());
-
-                    Glide.with(FragmentFollowAuthorDetails.this)//当前类
-                            .load(list.get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
-                            .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
-                            .error(R.drawable.friends) // 出错加载的图片
-                            .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+                    User thisUser = list.get(0);
+                    initUi(thisUser);
 
                     SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                     String followerId = shp.getString("userId", "noContent");
-
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -164,8 +146,22 @@ public class FragmentFollowAuthorDetails extends Fragment {
                 }
             });
         }
+
+
     }
 
+    private  void initUi(User user){
+        fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(user.getUserName());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorNumber.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
+
+        Glide.with(FragmentFollowAuthorDetails.this)//当前类
+                .load(user.getUserImageUrl())// 请求图片的路径,可以是网络图片
+                .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
+                .error(R.drawable.friends) // 出错加载的图片
+                .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -175,6 +171,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
         isFollow= ((ActivityFollowAuthorDetails)context).getFollow();
 
     }
+
 
 
 
