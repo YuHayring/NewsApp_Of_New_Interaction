@@ -83,6 +83,12 @@ public class User implements Serializable {
     private int tabs;
 
 
+    /**
+     * 关注 tabs
+     */
+    private int tabs;
+
+
     public User() {
     }
 
@@ -165,6 +171,22 @@ public class User implements Serializable {
 
     public void setUserImageUrl(String userImageUrl) {
         this.userImageUrl = userImageUrl;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
     public int getTabs() {
