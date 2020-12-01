@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import cn.edu.gdut.douyintoutiao.databinding.SearchDetailFragmentBinding;
 import cn.edu.gdut.douyintoutiao.view.show.search.viewmodel.SearchDetailViewModel;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.OtherNewsAdapter;
 
 public class SearchDetailFragment extends Fragment {
 
     private SearchDetailViewModel mViewModel;
     private SearchDetailFragmentBinding binding;
-    private NewsSAdapter adapter;
+    private OtherNewsAdapter adapter;
 
     public static SearchDetailFragment newInstance() {
         return new SearchDetailFragment();
@@ -36,7 +36,7 @@ public class SearchDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchDetailViewModel.class);
-        adapter = new NewsSAdapter(requireContext());
+        adapter = new OtherNewsAdapter(requireContext());
         adapter.showEmptyView(true);
         binding.searcbRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.searcbRecyclerView.setAdapter(adapter);

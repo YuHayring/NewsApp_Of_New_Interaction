@@ -3,24 +3,19 @@ package cn.edu.gdut.douyintoutiao.view.show.follow;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import cn.edu.gdut.douyintoutiao.databinding.FragmentAuthorNewsBinding;
-import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.OtherNewsAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
@@ -34,7 +29,7 @@ public class AuthorNewsFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private NewsViewModel mViewModel;
-    private NewsSAdapter adapter;
+    private OtherNewsAdapter adapter;
     private FragmentAuthorNewsBinding binding;
     private String userId;
 
@@ -85,7 +80,7 @@ public class AuthorNewsFragment extends Fragment {
         String userId = shp.getString("userId", "noContent");
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        adapter = new NewsSAdapter(requireContext());
+        adapter = new OtherNewsAdapter(requireContext());
         adapter.showEmptyView(true);
         binding.authorNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.authorNewsRecyclerView.setAdapter(adapter);

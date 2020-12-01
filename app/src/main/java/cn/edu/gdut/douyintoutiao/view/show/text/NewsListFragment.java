@@ -10,15 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
@@ -37,7 +36,7 @@ public class NewsListFragment extends Fragment {
     private String mParam2;
 
     private NewsViewModel viewModel;
-    private NewsSAdapter adapter;
+    private NewsAdapter adapter;
     private FragmentNewsListBinding binding;
 
     public NewsListFragment() {
@@ -71,7 +70,7 @@ public class NewsListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentNewsListBinding.inflate(inflater);
@@ -81,20 +80,20 @@ public class NewsListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new NewsSAdapter(requireContext());
-        adapter.showEmptyView(true);
+        adapter = new NewsAdapter(requireContext());
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         binding.recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewNews.setAdapter(adapter);
-        SwipeRefreshLayout.OnRefreshListener listener = () -> viewModel.getAllNewsLive();
-        binding.swipeRefreshLayout.post(() -> binding.swipeRefreshLayout.setRefreshing(true));
-        listener.onRefresh();
-        viewModel.getAllNewsLive().observe(getViewLifecycleOwner(), news -> {
-            adapter.setNewsList(news);
-            adapter.notifyDataSetChanged();
-            binding.swipeRefreshLayout.setRefreshing(false);
+        viewModel.newsPagedList.observe(getViewLifecycleOwner(), new Observer<PagedList<MyNews>>() {
+            @Override
+            public void onChanged(PagedList<MyNews> myNews) {
+                adapter.submitList(myNews);
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
         });
-        binding.swipeRefreshLayout.setOnRefreshListener(listener);
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            viewModel.reset();
+        });
     }
 
 }

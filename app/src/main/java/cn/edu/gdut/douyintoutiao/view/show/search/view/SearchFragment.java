@@ -1,14 +1,10 @@
 package cn.edu.gdut.douyintoutiao.view.show.search.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +15,6 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.SearchFragmentBinding;
-import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -42,11 +37,6 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
-
-    boolean searchForVideo = false;
-
-
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -64,34 +54,16 @@ public class SearchFragment extends Fragment {
                     Toasty.warning(requireContext(), "请输入搜索内容").show();
                     return false;
                 }
-                if (searchForVideo) {
-                    Intent intent = new Intent(getContext(), VerticalVideoPlayActivity.class);
-                    intent.putExtra("type","search");
-                    intent.putExtra("key",query);
-                    startActivity(intent);
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("key", query);
-                    binding.searchView.clearFocus();
-                    controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString("key", query);
+                binding.searchView.clearFocus();
+                controller.navigate(R.id.action_searchFragment_to_searchDeatilFragment, bundle);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
-            }
-        });
-
-
-        //搜索视频切换按钮
-        binding.buttonSwitchType.setChecked(false);
-        binding.buttonSwitchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                searchForVideo = isChecked;
             }
         });
 

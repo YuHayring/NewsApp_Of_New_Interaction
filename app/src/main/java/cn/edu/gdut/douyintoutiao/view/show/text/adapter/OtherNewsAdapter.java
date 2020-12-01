@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +31,7 @@ import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayAct
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class NewsSAdapter extends RecyclerView.Adapter {
+public class OtherNewsAdapter extends RecyclerView.Adapter {
 
     private List<MyNews> newsList = new ArrayList<>();
 
@@ -45,7 +47,7 @@ public class NewsSAdapter extends RecyclerView.Adapter {
     // 是否显示空布局，默认不显示
     private boolean showEmptyView = false;
 
-    public NewsSAdapter(Context context) {
+    public OtherNewsAdapter(Context context) {
         this.context = context;
     }
 
@@ -94,14 +96,14 @@ public class NewsSAdapter extends RecyclerView.Adapter {
             return ;
         }
         MyNews cur = newsList.get(position);
-        if(holder instanceof NewsSAdapter.ViewHolder) {
-            NewsSAdapter.ViewHolder mHolder = (NewsSAdapter.ViewHolder)holder;
+        if(holder instanceof OtherNewsAdapter.ViewHolder) {
+            OtherNewsAdapter.ViewHolder mHolder = (OtherNewsAdapter.ViewHolder)holder;
             mHolder.textViewHeader.setText(cur.getNewsName());
             mHolder.textViewAbstract.setText(cur.getNewsAbstract());
             //采用glide加载网络图片,采用了占位符方式优先展示。
             Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
         }else {
-            NewsSAdapter.VideoViewHolder mHolder = (NewsSAdapter.VideoViewHolder)holder;
+            OtherNewsAdapter.VideoViewHolder mHolder = (OtherNewsAdapter.VideoViewHolder)holder;
             mHolder.videoTitle.setText(cur.getNewsName());
             //采用glide加载网络图片,采用了占位符方式优先展示。
             Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);

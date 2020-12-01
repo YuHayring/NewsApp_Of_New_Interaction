@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import cn.edu.gdut.douyintoutiao.databinding.NewsFollowListFragmentBinding;
-import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsSAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.adapter.OtherNewsAdapter;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
@@ -22,7 +22,7 @@ import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 public class NewsFollowListFragment extends Fragment {
 
     private NewsViewModel mViewModel;
-    private NewsSAdapter adapter;
+    private OtherNewsAdapter adapter;
     private NewsFollowListFragmentBinding binding;
     private String tag = "";
 
@@ -55,7 +55,7 @@ public class NewsFollowListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        adapter = new NewsSAdapter(requireContext());
+        adapter = new OtherNewsAdapter(requireContext());
         adapter.showEmptyView(true);
         binding.recyclerViewTagNews.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewTagNews.setAdapter(adapter);
