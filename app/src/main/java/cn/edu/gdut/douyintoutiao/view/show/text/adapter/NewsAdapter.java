@@ -63,6 +63,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
         super(DIFF_CALLBACK);
         this.context = context;
         hideFooter();
+
     }
 
 
@@ -118,6 +119,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
                     int index = videoNewsIndex.get(absoluteIndex);
                     Log.i("NewsAdapter", "Select absoluteIndex: " + absoluteIndex);
                     Log.i("NewsAdapter", "Select index: " + index);
+                    if (index == -1) throw new IllegalStateException("this is not a video");
                     intent.putExtra("index", index);
                     intent.putExtra("count", videoCount);
                     context.startActivity(intent);
@@ -129,6 +131,8 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
 
 
 
+
+
     /**
      * newsList 中的视频在 videoList 中的下标
      */
@@ -137,8 +141,15 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
     /**
      * 视频数量
      */
-    private int videoCount;
+    private int videoCount = 0;
 
+    /**
+     * 清除
+     */
+    public void cleanVideoIndex() {
+        videoCount = 0;
+        videoNewsIndex = null;
+    }
 
 
 
