@@ -20,6 +20,7 @@ import cn.edu.gdut.douyintoutiao.databinding.ActivityVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
+import cn.edu.gdut.douyintoutiao.view.show.WebViewActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
@@ -130,7 +131,15 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener transFormButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+//            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+            if (currentNews.getUrlOfTextOfVideo() == null
+            || currentNews.getUrlOfTextOfVideo().isEmpty()) {
+                Toasty.error(VideoPlayActivity.this, R.string.video_play_transform_no_support).show();
+            } else {
+                Intent intent = new Intent(VideoPlayActivity.this, WebViewActivity.class);
+                intent.putExtra("url", currentNews.getUrlOfTextOfVideo());
+                startActivity(intent);
+            }
         }
     };
 
