@@ -22,15 +22,10 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_author_details);
-        init();
         getUserInfo();
 
     }
-    //初始化
-    private void init(){
-        //textView = findViewById(R.id.author_details_textView);
 
-    }
     //拿到被访问的userId
     private  void getUserInfo(){
         Intent in = getIntent();
@@ -50,12 +45,10 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     }
 
     public Boolean getFollow() {
+        Intent in = getIntent();
+        isFollow = in.getExtras().getBoolean("isFollow");
         return isFollow;
     }
 
-    public void setFollow(Boolean follow) {
-        Intent in = getIntent();
-        followId = in .getStringExtra("isFollow");
-        isFollow = follow;
-    }
+
 }

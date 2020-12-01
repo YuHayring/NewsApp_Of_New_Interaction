@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,10 +83,6 @@ public class FragmentFollowAuthorDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         fragmentFollowAuthorDetailsBinding =  FragmentFollowAuthorDetailsBinding.inflate(inflater);
-//        Bundle bundle =this.getArguments();//得到从Activity传来的数据
-//        if(bundle!=null){
-//            userId = bundle.getString("UserId");
-//        }
         return fragmentFollowAuthorDetailsBinding.getRoot();
 
     }
@@ -95,6 +92,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         followAuthorDetailsViewModel = new ViewModelProvider(this).get(FollowAuthorDetailsViewModel.class);
+
         if (isFollow) {
             followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
                 @Override
@@ -116,6 +114,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
                             followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
                             Toast.makeText(getContext(), "已取消关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
                             fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+
                         }
                     });
                 }
@@ -134,13 +133,16 @@ public class FragmentFollowAuthorDetails extends Fragment {
                             .error(R.drawable.friends) // 出错加载的图片
                             .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
 
+                    SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                    String followerId = shp.getString("userId", "noContent");
+
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           // followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
+                           followAuthorDetailsViewModel.insertUserFollowList(followerId,userId);
                             Toast.makeText(getContext(), "已关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-                           //fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+
                         }
                     });
                 }
@@ -148,26 +150,6 @@ public class FragmentFollowAuthorDetails extends Fragment {
         }
     }
 
-//     if(isFollow){
-//        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
-//        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
-//                Toast.makeText(getContext(),"已取消关注"+list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-//                fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-//            }
-//        });}
-//                else {
-//        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-//        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
-//                Toast.makeText(getContext(),"已取消关注"+list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-//                //fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-//            }
-//        });}
 
     @Override
     public void onAttach(Context context) {
@@ -175,7 +157,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
         userId = ((ActivityFollowAuthorDetails)context).getUserId();
         followId = ((ActivityFollowAuthorDetails)context).getFollowId();
         isFollow= ((ActivityFollowAuthorDetails)context).getFollow();
-     //   System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
+
     }
 
 
