@@ -53,11 +53,10 @@ public class SingleVideoPlayActivity extends VideoPlayActivity {
 
     }
 
-
-
-
-
-
+    @Override
+    public void removeVideo() {
+        finish();
+    }
 
 
     @Override

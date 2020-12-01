@@ -72,11 +72,13 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
 
     }
 
-
-
-
-
-
+    @Override
+    public void removeVideo() {
+        int position = viewBinding.videoViewPager.getCurrentItem();
+        fragments.remove(position);
+        newses.remove(position);
+        adapter.notifyDataSetChanged();
+    }
 
 
     @Override

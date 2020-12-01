@@ -29,7 +29,7 @@ import es.dmoral.toasty.Toasty;
  * @author hayring
  * @date 11/27/20 4:07 PM
  */
-public class VideoPlayActivity extends FullScreenActivity {
+public abstract class VideoPlayActivity extends FullScreenActivity {
 
 
     /**
@@ -55,7 +55,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener reportButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_reported), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -84,7 +85,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener uninterestedButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_uninterested), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -116,7 +118,7 @@ public class VideoPlayActivity extends FullScreenActivity {
                 String userId = shp.getString("userId", "noContent");
                 videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
                 viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
-                Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
 
         }
     };
@@ -238,6 +240,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     }
 
 
+
+    public abstract void removeVideo();
 
 
 
