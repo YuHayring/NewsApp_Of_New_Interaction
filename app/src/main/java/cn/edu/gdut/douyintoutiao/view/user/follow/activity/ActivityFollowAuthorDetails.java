@@ -11,7 +11,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsV
 
 public class ActivityFollowAuthorDetails extends AppCompatActivity  {
 
-//    private String userId;
+    private String userId;
     private String followId;
 
     private TextView textView;
@@ -21,26 +21,26 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_author_details);
-       // init();
-       // getUserInfo();
+        init();
+        getUserInfo();
 
     }
-//    //初始化
-//    private void init(){
-//        //textView = findViewById(R.id.author_details_textView);
-//
-//    }
-//    //拿到被访问的userId
-//    private  void getUserInfo(){
-//        Intent in = getIntent();
-//       userId = in.getStringExtra("userId");
-//    }
-//
-//    //给fragment提供userId
-//    public String getUserId() {
-//        getUserInfo();
-//        return userId;
-//    }
+    //初始化
+    private void init(){
+        //textView = findViewById(R.id.author_details_textView);
+
+    }
+    //拿到被访问的userId
+    private  void getUserInfo(){
+        Intent in = getIntent();
+       userId = in.getStringExtra("userId");
+    }
+
+    //给fragment提供userId
+    public String getUserId() {
+        getUserInfo();
+        return userId;
+    }
 
     public String getFollowId() {
         Intent in = getIntent();

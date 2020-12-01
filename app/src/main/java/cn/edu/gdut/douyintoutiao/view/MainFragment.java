@@ -18,14 +18,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
-import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.AuthorNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
-import cn.edu.gdut.douyintoutiao.view.show.mix.MixNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
-import cn.edu.gdut.douyintoutiao.view.show.video.videolist.VideoListFragment;
 
 /**
  * @author hayring
