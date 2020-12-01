@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.CallSuper;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -39,7 +40,7 @@ public class VideoPlayActivity extends FullScreenActivity {
      */
     MyNews currentNews;
 
-
+    VerticalVideoViewModel verticalVideoViewModel;
 
     /**
      * ViewBinding
@@ -102,11 +103,10 @@ public class VideoPlayActivity extends FullScreenActivity {
         @Override
         public void onClick(View v) {
             if (v instanceof FloatingActionButton) {
-
-//                String userId = "5fa9f7f63d18b202258b5daf";
-//                verticalVideoPlayerViewModel.insertTagsFollowByNewsIdUserId(newses.get(0).get_id(), userId);
-//                // binding.actionGuanzhu.setIcon(yellow_guanzhu);
-//                v.setIcon(yellow_guanzhu);
+                MyNews thisNews =  currentNews;
+                String userId = "5fa9f7f63d18b202258b5daf";
+                verticalVideoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
                 Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
             }
         }
@@ -191,6 +191,8 @@ public class VideoPlayActivity extends FullScreenActivity {
         super.onCreate(savedInstanceState);
         viewBinding = ActivityVideoPlayBinding.inflate(LayoutInflater.from(this));
         setContentView(viewBinding.getRoot());
+        //VM
+        verticalVideoViewModel = new ViewModelProvider(this).get(VerticalVideoViewModel.class);
         //悬浮窗按钮监听器注册
         viewBinding.actionJinggao.setOnClickListener(reportButtonListener);
         viewBinding.actionDianzan.setOnClickListener(likeButtonListener);
