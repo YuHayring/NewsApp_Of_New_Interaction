@@ -8,13 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/image_view_single_video_preview"/>
+
     <TextView
+        android:id="@+id/text_view_single_video_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:layout_gravity="bottom"
         android:textColor="@color/white"
-        android:id="@+id/text_view_single_video_title"
-        android:layout_gravity="bottom" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
 

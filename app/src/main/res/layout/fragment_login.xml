@@ -80,7 +80,7 @@
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/input"></TextView>
+                android:background="@drawable/input" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName"
@@ -89,7 +89,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:background="@null"
-                android:text="@={data.username}"
+                android:text="@={data.telephone}"
                 android:inputType="phone"
                 android:paddingLeft="10dp"
                 android:textColorHint="#95A1AA" />
@@ -99,7 +99,7 @@
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/phone_icon"
-                android:background="#D3D3D3"></TextView>
+                android:background="#D3D3D3" />
 
             <ImageView
                 android:id="@+id/phone_icon"
@@ -129,7 +129,7 @@
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/input"></TextView>
+                android:background="@drawable/input" />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
