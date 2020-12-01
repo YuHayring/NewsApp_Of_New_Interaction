@@ -95,6 +95,7 @@ public class MyTabSettingActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
+                    //设置 tabs 是否关注，每一个位代表一个 tab
                     SwitchCompat switchCompat = (SwitchCompat) v;
                     if (switchCompat.isChecked()) {
                         tabFollow -= mode;
@@ -133,6 +134,7 @@ public class MyTabSettingActivity extends AppCompatActivity {
     Observer<String[]> tabsObserver = new Observer<String[]>() {
         @Override
         public void onChanged(String[] strings) {
+            //更新 tabs
             adapter.setTabs(Arrays.asList(strings));
             adapter.notifyDataSetChanged();
         }
@@ -150,6 +152,7 @@ public class MyTabSettingActivity extends AppCompatActivity {
                 //TODO 保存到 服务端
                 MyTabSettingActivity.super.finish();
             } else {
+                //保存失败，询问用户是否退出
                 AlertDialog alertDialog = new AlertDialog.Builder(MyTabSettingActivity.this)
                         .setTitle(R.string.tab_setting_save_failed_title)
                         .setMessage(R.string.tab_setting_save_failed)
@@ -172,6 +175,7 @@ public class MyTabSettingActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        //尝试保存
         SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId","");
         tabViewModel.setTabFollow(userId, tabFollow);

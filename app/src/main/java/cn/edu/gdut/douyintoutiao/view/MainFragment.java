@@ -152,6 +152,20 @@ public class MainFragment extends Fragment {
                                 return true;
                             }
                         }).build();
+                SharedPreferences scrollSHP = requireActivity().getSharedPreferences(MagicVideoPlayActivity.SHP_KEY,Context.MODE_PRIVATE);
+                if (scrollSHP.getAll().isEmpty()) {
+                    SharedPreferences.Editor editor = scrollSHP.edit();
+                    if (followTabs.isEmpty()) {
+                        editor.putString(MagicVideoPlayActivity.UP,"足球");
+                        editor.putString(MagicVideoPlayActivity.LEFT,"csgo");
+                        editor.putString(MagicVideoPlayActivity.RIGHT,"二次元");
+                    } else {
+                        editor.putString(MagicVideoPlayActivity.UP,followTabs.get(0));
+                        editor.putString(MagicVideoPlayActivity.LEFT,followTabs.get(followTabs.size() / 2));
+                        editor.putString(MagicVideoPlayActivity.RIGHT,followTabs.get(followTabs.size() - 1));
+                    }
+                    editor.apply();
+                }
             }
         });
 

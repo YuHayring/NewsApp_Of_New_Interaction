@@ -23,6 +23,7 @@ import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.CrossScrollSettingActivity;
 import cn.edu.gdut.douyintoutiao.view.user.setting.MyTabSettingActivity;
 
 /**
@@ -125,6 +126,11 @@ public class UserMainFragment extends Fragment {
 
         mUserInfoBinding.tabSettingButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), MyTabSettingActivity.class);
+            startActivity(intent);
+        });
+
+        mUserInfoBinding.userMainCrossSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CrossScrollSettingActivity.class);
             startActivity(intent);
         });
 
