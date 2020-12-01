@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.user.follow.activity.ActivityFollowAuthorDetails">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_follow_author_details"
         android:name="cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails"
         android:layout_width="0dp"

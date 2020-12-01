@@ -40,8 +40,10 @@ public class FollowRepository {
     }
 
 
-    public LiveData<List<Follow>> getFollowList() {
-        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowAuthorList();
+    public LiveData<List<Follow>> getFollowList(String userId) {
+        Map<String, String> userIdMap = new HashMap<>();
+        userIdMap.put("_id",userId );
+        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowAuthorList(userIdMap);
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
@@ -140,6 +142,27 @@ public class FollowRepository {
                 Log.d(followTAG, "onFailure: deleteFollowTagsByFollowNewsId ");
             }
         });
+    }
+
+    public void insertUserFollowList(String followerId, String authorId){
+        Map<String, String> followerIdAuthorId = new HashMap<>();
+        followerIdAuthorId.put("followerId", followerId);
+        followerIdAuthorId.put("authorId",authorId);
+        Call<Result> call = (Call<Result>) followApi.insertUserFollowList(followerIdAuthorId);
+        call.enqueue(new Callback< Result >() {
+            @Override
+            public void onResponse(Call< Result > call, Response< Result > response) {
+                Log.d(newsTag, "insertUserFollowList: " + response.body().getCode() + " " + response.body().getMsg());
+
+            }
+
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+                Log.d(followTAG, "onFailure: insertUserFollowList ");
+
+            }
+        });
+
     }
 
 

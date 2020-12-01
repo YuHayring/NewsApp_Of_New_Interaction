@@ -2,8 +2,10 @@ package cn.edu.gdut.douyintoutiao.view.user.follow;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -51,6 +46,7 @@ public class FollowTagsListFragment extends Fragment {
     private View view;//定义view用来设置fragment的layout
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
 
+    private String userId;
     //自定义recyclerveiw的适配器
     private FollowTagsListAdapter followTagsListAdapter;
     //VW
@@ -106,16 +102,6 @@ public class FollowTagsListFragment extends Fragment {
     }
 
 
-    /**
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -125,9 +111,12 @@ public class FollowTagsListFragment extends Fragment {
         followTagsViewModel = new ViewModelProvider(this).get(FollowTagsViewModel.class);
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setAdapter(followTagsListAdapter);
+
+        SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        userId = shp.getString("userId", "noContent");
         
         //LD 观察，刷新data
-        followTagsViewModel.getFollowTagsList().observe(getViewLifecycleOwner(), new Observer< List< FollowNews > >() {
+        followTagsViewModel.getFollowTagsList(userId).observe(getViewLifecycleOwner(), new Observer< List< FollowNews > >() {
             @Override
             public void onChanged(List< FollowNews > followNewsList) {
                 followTagsListAdapter.setDataList(followNewsList);
@@ -142,7 +131,7 @@ public class FollowTagsListFragment extends Fragment {
         fragmentFollowTagsListBinding.FollowTagsListRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                followTagsViewModel.getFollowTagsList();
+                followTagsViewModel.getFollowTagsList(userId);
             }
         });
 
@@ -164,6 +153,8 @@ public class FollowTagsListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                                 followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
+                                followTagsViewModel.getFollowTagsList(userId);
+                                followTagsListAdapter.notifyDataSetChanged();
                             }
                         })
                         .create().show();
@@ -177,11 +168,11 @@ public class FollowTagsListFragment extends Fragment {
              //   Toast.makeText(getContext(),"点击了"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                 FollowNews thisFollowNews = followTagsListAdapter.getDataList().get(position);
                 if(thisFollowNews.getFollowNews().get(0).getType() == 0){
-                startFollowTagsDetailsActivityToFragment(thisFollowNews);}
+                    //跳转文字资讯
+                    startFollowTagsDetailsActivityToTextFragment(thisFollowNews);}
                 else if(thisFollowNews.getFollowNews().get(0).getType() == 1){
-                    Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
-                    intent.putExtra("news", thisFollowNews.getFollowNews().get(0));
-                    ((Activity)getContext()).startActivityForResult(intent, 1);
+                    //跳转视频资讯
+                    startFollowTagsDetailsActivityToSingleVideoPlayActivity(thisFollowNews);
                 }
             }
 
@@ -189,14 +180,20 @@ public class FollowTagsListFragment extends Fragment {
 
 
     }
-
-    private void startFollowTagsDetailsActivityToFragment (FollowNews data){
+        //文字资讯
+    private void startFollowTagsDetailsActivityToTextFragment (FollowNews data){
         Intent intent = new Intent(getActivity(), NewsActivity.class);
         intent.putExtra("uri", data.getFollowNews().get(0).getNewsDetailUrl());
         intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
         intent.putExtra("tag", data.getFollowNews().get(0).getTag());
         intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
         getActivity().startActivity(intent);
+    }
+    //视频资讯
+    private void startFollowTagsDetailsActivityToSingleVideoPlayActivity(FollowNews data){
+        Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
+        intent.putExtra("news", data.getFollowNews().get(0));
+        ((Activity)getContext()).startActivityForResult(intent, 1);
     }
 
 
@@ -213,5 +210,14 @@ public class FollowTagsListFragment extends Fragment {
         //
 
     }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        userId = ((FollowListActivity)context).getUserId();
+////        System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
+//    }
+
+
 
 }

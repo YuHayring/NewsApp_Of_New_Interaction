@@ -11,21 +11,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
-import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 
 import java.io.File;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
-//import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
 
 /**
  * @author hayring
@@ -83,10 +80,12 @@ public class UserMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FollowListActivity.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -100,6 +99,14 @@ public class UserMainFragment extends Fragment {
                     .tag("optional-identifier")
                     .goUpLabel("Up") // custom go up label, default label is "..."
                     .show((FragmentActivity)context); // an AppCompatActivity which implements FileCallback
+        });
+
+        mUserInfoBinding.userAvatars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditActivity.class);
+                startActivity(intent);
+            }
         });
 
         mUserInfoBinding.buttonLogout.setOnClickListener(new View.OnClickListener() {
@@ -116,19 +123,6 @@ public class UserMainFragment extends Fragment {
         });
 
     }
-
-//    static class MyFolderChooserDialog extends FolderChooserDialog {
-//        @Override
-//        public void onAttach(Context context) {
-//            try {
-//                super.onAttach(context);
-//            } catch (IllegalStateException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
-
 
     private FileChooserDialog.FileCallback fileCallback = new FileChooserDialog.FileCallback() {
         @Override

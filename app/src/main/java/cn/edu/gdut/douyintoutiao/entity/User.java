@@ -83,6 +83,16 @@ public class User implements Serializable {
      */
     private int tabs;
 
+    /**
+     * 粉丝数
+     */
+    private int fans;
+
+    /**
+     * 获赞数
+     */
+    private int likeNumber;
+
 
     public User() {
     }
@@ -192,6 +202,22 @@ public class User implements Serializable {
         this.tabs = tabs;
     }
 
+    public int getFans() {
+        return fans;
+    }
+
+    public void setFans(int fans) {
+        this.fans = fans;
+    }
+
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -199,7 +225,7 @@ public class User implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", userTelephone='" + userTelephone + '\'' +
                 ", userPassword='" + userPassword + '\'' +
-                ", RsaPassword=" + RsaPassword +
+                ", RsaPassword=" + Arrays.toString(RsaPassword) +
                 ", userAge=" + userAge +
                 ", userLocation='" + userLocation + '\'' +
                 ", userDescription='" + userDescription + '\'' +
@@ -207,6 +233,9 @@ public class User implements Serializable {
                 ", userImageUrl='" + userImageUrl + '\'' +
                 ", createdTime=" + createdTime +
                 ", updatedTime=" + updatedTime +
+                ", tabs=" + tabs +
+                ", fans=" + fans +
+                ", likeNumber=" + likeNumber +
                 '}';
     }
 }
