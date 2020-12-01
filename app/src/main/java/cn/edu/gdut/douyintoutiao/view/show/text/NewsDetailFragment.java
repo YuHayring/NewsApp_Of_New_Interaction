@@ -115,6 +115,7 @@ public class NewsDetailFragment extends Fragment  {
                 String userId = shp.getString("userId", "noContent");
                 Intent intent = new Intent(requireActivity(), ActivityFollowAuthorDetails.class);
                 intent.putExtra("userId", authorId);
+                intent.putExtra("isFollow",false);
                 intent.putExtra("followId", userId);
                 startActivity(intent);
             }

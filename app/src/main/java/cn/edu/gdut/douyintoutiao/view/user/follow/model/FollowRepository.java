@@ -144,5 +144,26 @@ public class FollowRepository {
         });
     }
 
+    public void insertUserFollowList(String followerId, String authorId){
+        Map<String, String> followerIdAuthorId = new HashMap<>();
+        followerIdAuthorId.put("followerId", followerId);
+        followerIdAuthorId.put("authorId",authorId);
+        Call<Result> call = (Call<Result>) followApi.insertUserFollowList(followerIdAuthorId);
+        call.enqueue(new Callback< Result >() {
+            @Override
+            public void onResponse(Call< Result > call, Response< Result > response) {
+                Log.d(newsTag, "insertUserFollowList: " + response.body().getCode() + " " + response.body().getMsg());
+
+            }
+
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+                Log.d(followTAG, "onFailure: insertUserFollowList ");
+
+            }
+        });
+
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +46,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     private @NonNull FragmentFollowAuthorDetailsBinding fragmentFollowAuthorDetailsBinding;
     private String userId;
     private String followId;
+    private Boolean isFollow;
   //  private OnFragmentInteractionListener mListener;
 
     public FragmentFollowAuthorDetails() {
@@ -81,14 +85,8 @@ public class FragmentFollowAuthorDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         fragmentFollowAuthorDetailsBinding =  FragmentFollowAuthorDetailsBinding.inflate(inflater);
-//        Bundle bundle =this.getArguments();//得到从Activity传来的数据
-//        if(bundle!=null){
-//            userId = bundle.getString("UserId");
-//        }
         return fragmentFollowAuthorDetailsBinding.getRoot();
 
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_follow_author_detail, container, false);
     }
 
     @Override
@@ -97,44 +95,83 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
         followAuthorDetailsViewModel = new ViewModelProvider(this).get(FollowAuthorDetailsViewModel.class);
 
-        followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
-            @Override
-            public void onChanged(List< User > list) {
+        if (isFollow) {
+            followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
+                @Override
+                public void onChanged(List< User > list) {
+                    User thisUser = list.get(0);
+                    initUi(thisUser);
 
-                fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(list.get(0).getUserName());
-                fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名："+list.get(0).getUserDescription());
+                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
+                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setIcon(R.drawable.ic_baseline_warning_24)
+                                    .setTitle("取消关注?")
+                                    .setMessage("确定要取消关注"+list.get(0).getUserName()+"吗")
+                                    .setNegativeButton("取消", null)
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
+                                            Toast.makeText(getContext(), "已取消关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                                            fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+                                        }
+                                    })
+                                    .create().show();
 
+                        }
+                    });
+                }
+            });
+        } else {
+            followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
+                @Override
+                public void onChanged(List< User > list) {
+                    User thisUser = list.get(0);
+                    initUi(thisUser);
 
-                if (list.get(0).getUserImageUrl() != null)
-                Glide.with(FragmentFollowAuthorDetails.this)//当前类
-                        .load(list.get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
-                        .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
-                        .error(R.drawable.friends) // 出错加载的图片
-                        .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+                    SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                    String followerId = shp.getString("userId", "noContent");
+                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                           followAuthorDetailsViewModel.insertUserFollowList(followerId,userId);
+                            Toast.makeText(getContext(), "已关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                            fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
+                        }
+                    });
+                }
+            });
+        }
 
-                fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
-                fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
-                        Toast.makeText(getContext(),"已取消关注"+list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-                        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-                    }
-                });
-            }
-
-        });
 
     }
 
+    private  void initUi(User user){
+        fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(user.getUserName());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorNumber.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
+
+        Glide.with(FragmentFollowAuthorDetails.this)//当前类
+                .load(user.getUserImageUrl())// 请求图片的路径,可以是网络图片
+                .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
+                .error(R.drawable.friends) // 出错加载的图片
+                .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
+
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         userId = ((ActivityFollowAuthorDetails)context).getUserId();
         followId = ((ActivityFollowAuthorDetails)context).getFollowId();
-     //   System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
+        isFollow= ((ActivityFollowAuthorDetails)context).getFollow();
+
     }
+
 
 
 

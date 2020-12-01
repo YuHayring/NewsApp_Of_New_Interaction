@@ -35,4 +35,9 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
     public void deleteFollowListByFollowId(String followId){
         followAuthorDetailsRepository.deleteFollowListByFollowId(followId);
     }
+
+    public void insertUserFollowList (String followerId,String authorId){
+        followAuthorDetailsRepository.insertUserFollowList(followerId,authorId);
+    }
+
 }

@@ -97,7 +97,10 @@ public class MyNews implements Serializable {
     }
 
     public String getNewsAbstract() {
-        return newsAbstract;
+        if(!newsAbstract.isEmpty() ){ return newsAbstract;}
+        else {
+            return ("这个作者很懒，没有提供概述。");
+        }
     }
 
     public void setNewsAbstract(String newsAbstract) {

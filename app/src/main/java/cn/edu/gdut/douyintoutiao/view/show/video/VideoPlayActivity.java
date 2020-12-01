@@ -102,6 +102,7 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
             String userId = shp.getString("userId", "noContent");
             Intent intent = new Intent(VideoPlayActivity.this, ActivityFollowAuthorDetails.class);
             intent.putExtra("userId", authorId);
+            intent.putExtra("isFollow",false);
             intent.putExtra("followId", userId);
             startActivity(intent);
         }
