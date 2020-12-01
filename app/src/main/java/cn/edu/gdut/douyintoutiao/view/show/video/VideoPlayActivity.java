@@ -21,6 +21,7 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
 
 
@@ -93,7 +94,16 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener authorButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+           // Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+            String authorId = currentNews.getAuthor().get(0).getUserId();
+
+            SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+            String userId = shp.getString("userId", "noContent");
+            Intent intent = new Intent(VideoPlayActivity.this, ActivityFollowAuthorDetails.class);
+            intent.putExtra("userId", authorId);
+            intent.putExtra("isFollow",false);
+            intent.putExtra("followId", userId);
+            startActivity(intent);
         }
     };
 
@@ -109,7 +119,6 @@ public class VideoPlayActivity extends FullScreenActivity {
                 verticalVideoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
                 viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
                 Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
-
         }
     };
 
