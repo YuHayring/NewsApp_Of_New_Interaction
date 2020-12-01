@@ -75,6 +75,14 @@ public class MyNews implements Serializable {
      */
     private Integer like;
 
+
+
+    /**
+     * 视频转文字专用 url
+     */
+    private String urlOfTextOfVideo;
+
+
     public MyNews() {
     }
 
@@ -182,5 +190,13 @@ public class MyNews implements Serializable {
 
     public void setLike(Integer like) {
         this.like = like;
+    }
+
+    public String getUrlOfTextOfVideo() {
+        return urlOfTextOfVideo;
+    }
+
+    public void setUrlOfTextOfVideo(String urlOfTextOfVideo) {
+        this.urlOfTextOfVideo = urlOfTextOfVideo;
     }
 }
