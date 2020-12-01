@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +11,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentMainBinding;
-import cn.edu.gdut.douyintoutiao.tmp.ViewPagerTestFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.AuthorNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.follow.NewsFollowListFragment;
-import cn.edu.gdut.douyintoutiao.view.show.mix.MixNewsFragment;
 import cn.edu.gdut.douyintoutiao.view.show.search.SearchMainActivity;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsListFragment;
-import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
-import cn.edu.gdut.douyintoutiao.view.show.video.videolist.VideoListFragment;
+import cn.edu.gdut.douyintoutiao.view.show.video.MagicVideoPlayActivity;
 
 /**
  * @author hayring
@@ -38,6 +42,17 @@ public class MainFragment extends Fragment {
 
     ViewPager2 newsViewPager;
 
+    /**
+     * 所有的 Tab
+     */
+    String[] tabs;
+
+    /**
+     * 用户关注的 tab
+     */
+    List<String> followTabs;
+
+    NewsFollowListFragment tabFragment;
 
 
     public void setContext(Context context) {
@@ -51,6 +66,12 @@ public class MainFragment extends Fragment {
 
     private TabLayout newsNavigationTab;
 
+    private TabLayout.TabView followTabView;
+
+    private MaterialDialog tabSelectDialog;
+
+    private TabViewModel mainViewModel;
+
     private final int pages = 3;
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
@@ -63,7 +84,7 @@ public class MainFragment extends Fragment {
 
     private TabLayoutMediator mediator;
 
-    final String[] tabs = {"推荐", "关注", "足球"};
+    final String[] tabTitle = {"推荐", "关注", "足球"};
     private FragmentMainBinding binding;
 
 
@@ -79,9 +100,9 @@ public class MainFragment extends Fragment {
             } else if (position == 1) {
                 return AuthorNewsFragment.newInstance("","");
             } else if (position == 2) {
-                return NewsFollowListFragment.newInstance(tabs[position]);
+                return (tabFragment = NewsFollowListFragment.newInstance(tabTitle[position]));
             }
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Illegal Position "+ position);
         }
 
         @Override
@@ -106,6 +127,54 @@ public class MainFragment extends Fragment {
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
 
+        mainViewModel = new ViewModelProvider(this).get(TabViewModel.class);
+        mainViewModel.getTabs().observe(getViewLifecycleOwner(), new Observer<String[]>() {
+            @Override
+            public void onChanged(String[] strings) {
+                tabs = strings;
+                followTabs.clear();
+                SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                int followTabsInt = shp.getInt("followTabs", 0);
+                int mark = 1;
+                for (int i = 0; i < strings.length; i++) {
+                    if ((mark & followTabsInt) == mark) {
+                        followTabs.add(tabs[i]);
+                    }
+                    mark = mark << 1;
+                }
+                tabSelectDialog = new MaterialDialog.Builder(context).title(getString(R.string.main_fragment_select_your_tab))
+                        .items(followTabs).itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {//0 表示第一个选中 -1 不选
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                                tabTitle[2] = followTabs.get(which);
+                                newsNavigationTab.getTabAt(2).setText(tabTitle[2]);
+                                tabFragment.changeTag(tabTitle[2]);
+                                return true;
+                            }
+                        }).build();
+                SharedPreferences scrollSHP = requireActivity().getSharedPreferences(MagicVideoPlayActivity.SHP_KEY,Context.MODE_PRIVATE);
+                if (scrollSHP.getAll().isEmpty()) {
+                    SharedPreferences.Editor editor = scrollSHP.edit();
+                    if (followTabs.isEmpty()) {
+                        editor.putString(MagicVideoPlayActivity.UP,"足球");
+                        editor.putString(MagicVideoPlayActivity.LEFT,"csgo");
+                        editor.putString(MagicVideoPlayActivity.RIGHT,"二次元");
+                    } else {
+                        editor.putString(MagicVideoPlayActivity.UP,followTabs.get(0));
+                        editor.putString(MagicVideoPlayActivity.LEFT,followTabs.get(followTabs.size() / 2));
+                        editor.putString(MagicVideoPlayActivity.RIGHT,followTabs.get(followTabs.size() - 1));
+                    }
+                    editor.apply();
+                }
+            }
+        });
+
+
+        followTabs = new ArrayList<>();
+
+
+
+
 
 
 
@@ -119,7 +188,7 @@ public class MainFragment extends Fragment {
 
 
         binding.exchangeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), VerticalVideoPlayActivity.class);
+            Intent intent = new Intent(getActivity(), MagicVideoPlayActivity.class);
             startActivity(intent);
         });
 
@@ -127,13 +196,18 @@ public class MainFragment extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 //这里可以自定义TabView
-                tab.setText(tabs[position]);
+                tab.setText(tabTitle[position]);
             }
         });
         //要执行这一句才是真正将两者绑定起来
         mediator.attach();
 
-
+        followTabView = newsNavigationTab.getTabAt(2).view;
+        followTabView.setOnLongClickListener(v -> {
+            tabSelectDialog.show();
+            //不触发 onclicklistener
+            return true;
+        });
 
 
         return binding.getRoot();
@@ -147,7 +221,11 @@ public class MainFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainViewModel.getTabsFromNet();
+    }
 }
 
 

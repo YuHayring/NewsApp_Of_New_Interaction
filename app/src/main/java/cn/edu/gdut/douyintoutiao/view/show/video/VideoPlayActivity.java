@@ -1,6 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,8 +11,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.CallSuper;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import cn.edu.gdut.douyintoutiao.R;
@@ -18,7 +20,9 @@ import cn.edu.gdut.douyintoutiao.databinding.ActivityVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
+import cn.edu.gdut.douyintoutiao.view.show.WebViewActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
 
 
@@ -26,7 +30,7 @@ import es.dmoral.toasty.Toasty;
  * @author hayring
  * @date 11/27/20 4:07 PM
  */
-public class VideoPlayActivity extends FullScreenActivity {
+public abstract class VideoPlayActivity extends FullScreenActivity {
 
 
     /**
@@ -39,7 +43,7 @@ public class VideoPlayActivity extends FullScreenActivity {
      */
     MyNews currentNews;
 
-
+    VideoViewModel videoViewModel;
 
     /**
      * ViewBinding
@@ -52,7 +56,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener reportButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_reported), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -81,7 +86,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener uninterestedButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_uninterested), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -91,7 +97,15 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener authorButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+//            Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+            String authorId = currentNews.getAuthor().get(0).getUserId();
+            SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+            String userId = shp.getString("userId", "noContent");
+            Intent intent = new Intent(VideoPlayActivity.this, ActivityFollowAuthorDetails.class);
+            intent.putExtra("userId", authorId);
+            intent.putExtra("isFollow",false);
+            intent.putExtra("followId", userId);
+            startActivity(intent);
         }
     };
 
@@ -101,14 +115,13 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener followButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            if (v instanceof FloatingActionButton) {
+                MyNews thisNews =  currentNews;
+                SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                String userId = shp.getString("userId", "noContent");
+                videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
+                Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
 
-//                String userId = "5fa9f7f63d18b202258b5daf";
-//                verticalVideoPlayerViewModel.insertTagsFollowByNewsIdUserId(newses.get(0).get_id(), userId);
-//                // binding.actionGuanzhu.setIcon(yellow_guanzhu);
-//                v.setIcon(yellow_guanzhu);
-                Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
-            }
         }
     };
 
@@ -118,7 +131,15 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener transFormButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+//            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+            if (currentNews.getUrlOfTextOfVideo() == null
+            || currentNews.getUrlOfTextOfVideo().isEmpty()) {
+                Toasty.error(VideoPlayActivity.this, R.string.video_play_transform_no_support).show();
+            } else {
+                Intent intent = new Intent(VideoPlayActivity.this, WebViewActivity.class);
+                intent.putExtra("url", currentNews.getUrlOfTextOfVideo());
+                startActivity(intent);
+            }
         }
     };
 
@@ -191,6 +212,8 @@ public class VideoPlayActivity extends FullScreenActivity {
         super.onCreate(savedInstanceState);
         viewBinding = ActivityVideoPlayBinding.inflate(LayoutInflater.from(this));
         setContentView(viewBinding.getRoot());
+        //VM
+        videoViewModel = new ViewModelProvider(this).get(VideoViewModel.class);
         //悬浮窗按钮监听器注册
         viewBinding.actionJinggao.setOnClickListener(reportButtonListener);
         viewBinding.actionDianzan.setOnClickListener(likeButtonListener);
@@ -211,6 +234,7 @@ public class VideoPlayActivity extends FullScreenActivity {
         layoutParams.width = width;
         viewBinding.videoDescriptionTextView.setLayoutParams(layoutParams);
 
+
     }
 
     public MyNews getCurrentNews() {
@@ -226,6 +250,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     }
 
 
+
+    public abstract void removeVideo();
 
 
 

@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.net.CommentApi;
+import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
-import cn.edu.gdut.douyintoutiao.view.show.comment.model.CommentRepository;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsDetailFragment;
 import cn.edu.gdut.douyintoutiao.view.show.text.model.NewsRepository;
 import cn.edu.gdut.douyintoutiao.view.user.login.Callback;
@@ -96,36 +94,5 @@ public class NewsDetailViewModel extends ViewModel {
        return newsRepository.checkTagsFollowByNewsIdUserId(newsId,userId);
     }
 
-//    public void checkTagsFollowByNewsIdUserId(String newsId,String userId) {
-//        newsRepository.checkTagsFollowByNewsIdUserId(newsId, userId).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())//把下面操作切换到主线程
-//                .subscribe(new Observer< Result >() {
-//                    @Override
-//                    public void onSubscribe(@NonNull Disposable d) {
-//                        Log.d(TAG, "checkTagsFollowOnSubscribe run");
-//                    }
-//
-//                    @Override
-//                    public void onNext(@NonNull Result response) {
-//                        Log.d(TAG, response.getMsg() + response.getData());
-//                        System.out.println("获取到data："+response.getData());
-//                            checkFollowListener.checkFollow(response.getMsg());
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(@NonNull Throwable e) {
-//                        Log.d(TAG, "checkTagsFollowOnError run");
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        Log.d(TAG, "checkTagsFollowOnComplete run");
-//
-//                    }
-//                });
-//
-//    }
 
 }

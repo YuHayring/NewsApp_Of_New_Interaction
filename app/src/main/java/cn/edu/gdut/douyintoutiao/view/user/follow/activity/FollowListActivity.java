@@ -1,11 +1,12 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,6 +33,7 @@ public class FollowListActivity extends AppCompatActivity {
     private Fragment firstFragment, secondFragment;
     private FollowListAdapter adapter;//适配器
     FollowAuthorViewModel viewModel;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class FollowListActivity extends AppCompatActivity {
             fragment_list.add(firstFragment);
             fragment_list.add(secondFragment);
 
-
+            getUserInfo();
 
             adapter = new FollowListAdapter(getSupportFragmentManager(), tab_title_list, fragment_list);
             viewPager.setAdapter(adapter);
@@ -70,5 +72,15 @@ public class FollowListActivity extends AppCompatActivity {
 
 
         }
+
+    //拿到userId
+    private  void getUserInfo(){
+        Intent in = getIntent();
+        userId = in.getStringExtra("userId");
     }
+
+    public String getUserId() {
+        return userId;
+    }
+}
 

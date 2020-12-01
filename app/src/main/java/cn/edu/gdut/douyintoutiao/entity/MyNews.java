@@ -216,6 +216,7 @@ public class MyNews implements Serializable {
         this.like = like;
     }
 
+
     public String getUrlOfTextOfVideo() {
         return urlOfTextOfVideo;
     }

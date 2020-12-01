@@ -11,21 +11,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
-import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
 
 import java.io.File;
 
-import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
+import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
-//import cn.edu.gdut.douyintoutiao.view.user.follow.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.CrossScrollSettingActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.MyTabSettingActivity;
 
 /**
  * @author hayring
@@ -83,10 +82,12 @@ public class UserMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mUserInfoBinding.followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FollowListActivity.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -102,6 +103,15 @@ public class UserMainFragment extends Fragment {
                     .show((FragmentActivity)context); // an AppCompatActivity which implements FileCallback
         });
 
+        mUserInfoBinding.userAvatars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditActivity.class);
+                //For result 会调用 onActivityResult
+                startActivityForResult(intent,1);
+            }
+        });
+
         mUserInfoBinding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,20 +125,17 @@ public class UserMainFragment extends Fragment {
             }
         });
 
+        mUserInfoBinding.tabSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MyTabSettingActivity.class);
+            startActivity(intent);
+        });
+
+        mUserInfoBinding.userMainCrossSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CrossScrollSettingActivity.class);
+            startActivity(intent);
+        });
+
     }
-
-//    static class MyFolderChooserDialog extends FolderChooserDialog {
-//        @Override
-//        public void onAttach(Context context) {
-//            try {
-//                super.onAttach(context);
-//            } catch (IllegalStateException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
-
 
     private FileChooserDialog.FileCallback fileCallback = new FileChooserDialog.FileCallback() {
         @Override
@@ -148,6 +155,23 @@ public class UserMainFragment extends Fragment {
         if (context instanceof MainActivity) {
             MainActivity activity = (MainActivity) context;
             activity.setFileCallbackFromUserMain(null);
+        }
+    }
+
+
+    /**
+     * 启动 activity 后回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //通过网络请求刷新
+        //当EditAct启动了updateUserInfo返回时，resultCode为1
+        if (requestCode == 1 && resultCode == 1) { //表示更新了数据
+            userMainViewModel.userMainModel.getUser(userId);
         }
     }
 }

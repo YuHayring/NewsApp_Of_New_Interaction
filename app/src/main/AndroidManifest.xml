@@ -11,21 +11,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".view.show.video.MagicVideoPlayActivity"
+        <activity android:name=".view.user.setting.MyTabSettingActivity"></activity>
+        <activity android:name=".view.user.setting.CrossScrollSettingActivity"
+            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
+            android:name=".view.show.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.user.edit.activity.EditActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.show.video.MagicVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".view.show.video.singleplayer.SingleVideoPlayActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".view.SingleFragmentContainerActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".view.show.video.singleplayer.SingleVideoPlayActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.SingleFragmentContainerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".view.show.comment.commentinvideo.CommentFragmentContainerActivity" />
-        <activity android:name=".view.user.follow.activity.ActivityFollowAuthorDetails" />
-        <activity android:name=".view.show.search.SearchMainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".view.user.follow.activity.ActivityFollowAuthorDetails"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.show.search.SearchMainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".tmp.TestActivity" />
-        <activity android:name=".view.show.text.NewsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> <!-- 此处开启了强制竖屏的操作 -->
-        <activity android:name=".view.FirstActivity"
+        <activity
+            android:name=".view.show.text.NewsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- 此处开启了强制竖屏的操作 -->
+        <activity
+            android:name=".view.FirstActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,20 +53,18 @@
         <activity
             android:name=".view.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".view.show.video.VerticalVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.user.follow.activity.FollowListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.user.follow.activity.Activity_Follow_Author"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

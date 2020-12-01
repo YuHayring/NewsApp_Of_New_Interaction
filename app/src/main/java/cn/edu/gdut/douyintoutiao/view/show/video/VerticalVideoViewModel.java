@@ -38,8 +38,15 @@ public class VerticalVideoViewModel extends VideoViewModel {
     /**
      * 获取关注视频
      */
-    void getFollowVideoNews() {
+    void getFollowVideoNewsByCount() {
         videoModel.getVideoNews(followVideoGot);
+    }
+
+    /**
+     * 按已知数量获取视频
+     */
+    void getFollowVideoNewsByCount(int count) {
+        videoModel.getMoreVideoNews(0, count, followVideoGot);
     }
 
 
@@ -65,6 +72,10 @@ public class VerticalVideoViewModel extends VideoViewModel {
         videoModel.searchMoreVideoNews(index, key, followVideoGot);
     }
 
+    //添加关注
+    void insertFollowByNewsIdUserId(String newsId,String userId){
+        videoModel.insertFollowByNewsIdUserId(newsId,userId);
+    }
 
     CommonDataGotCallBack followVideoGot = new CommonDataGotCallBack<MyNews>() {
         @Override
@@ -92,9 +103,6 @@ public class VerticalVideoViewModel extends VideoViewModel {
 
 
 
-    public void insertTagsFollowByNewsIdUserId(String newsId, String userId){
-        videoModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-    }
 
 
     public LiveData<List<MyNews>> getNewsesFromServer() {

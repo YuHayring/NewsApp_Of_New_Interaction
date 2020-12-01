@@ -1,15 +1,14 @@
 package cn.edu.gdut.douyintoutiao.net;
 
+import java.util.Map;
+
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.Token;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -45,6 +44,13 @@ public interface UserApi {
 
     @POST("tokenreflashtest")
     Call<Token> getToken(@Body Token token);
+
+    /**
+     * @author dengJL
+     * 编辑用户信息
+     */
+    @POST("updateUserInfo")
+    Call<Result> updateUser(@Body Map<String,String> userInfoMap);
 
     /**
      * 单例内部类

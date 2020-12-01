@@ -22,6 +22,7 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
 
     private FollowRepository followAuthorDetailsRepository;
 
+
     public FollowAuthorDetailsViewModel(@NonNull Application application) {
         super(application);
         followAuthorDetailsRepository =new FollowRepository(FollowApi.getFollowApi());
@@ -34,4 +35,9 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
     public void deleteFollowListByFollowId(String followId){
         followAuthorDetailsRepository.deleteFollowListByFollowId(followId);
     }
+
+    public void insertUserFollowList (String followerId,String authorId){
+        followAuthorDetailsRepository.insertUserFollowList(followerId,authorId);
+    }
+
 }

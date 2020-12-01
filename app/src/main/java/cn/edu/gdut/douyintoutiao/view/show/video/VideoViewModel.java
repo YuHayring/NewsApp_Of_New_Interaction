@@ -18,6 +18,7 @@ import retrofit2.Response;
 public class VideoViewModel extends ViewModel {
 
 
+    private VideoModel videoModel = VideoModel.getInstance();
 
     public VideoViewModel() {}
 
@@ -33,6 +34,9 @@ public class VideoViewModel extends ViewModel {
 
     protected Activity activity;
 
+    public void insertTagsFollowByNewsIdUserId(String newsId, String userId){
+        videoModel.insertTagsFollowByNewsIdUserId(newsId,userId);
+    }
 
 
 

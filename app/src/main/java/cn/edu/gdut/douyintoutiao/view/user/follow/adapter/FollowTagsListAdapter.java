@@ -125,6 +125,7 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
        holder.textViewAbstract.setText(data.getFollowNews().get(0).getNewsAbstract());
     
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
+        if (data.getFollowNews().get(0).getNewsPhotoUrl() != null)
         Glide.with(holder.itemView).load(Uri.parse(data.getFollowNews().get(0).getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
         holder.unFollowButton.setText("已关注");
         //holder.unFollowButton.setBackgroundColor(R.color.light_blue_600);

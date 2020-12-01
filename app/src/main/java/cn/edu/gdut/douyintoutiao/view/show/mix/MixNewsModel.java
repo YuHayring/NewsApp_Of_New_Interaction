@@ -8,6 +8,7 @@ import cn.edu.gdut.douyintoutiao.util.CommonDataGotCallBack;
  * @author hayring
  * @date 11/29/20 2:31 PM
  */
+@Deprecated
 public class MixNewsModel {
 
     /**

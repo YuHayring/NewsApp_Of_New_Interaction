@@ -15,6 +15,9 @@ import cn.edu.gdut.douyintoutiao.R;
 
 public class FullScreenActivity extends AppCompatActivity {
 
+
+    private int systemUiVisibility;
+
     @Override
     @CallSuper
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class FullScreenActivity extends AppCompatActivity {
             getWindow().setAttributes(lp);
         }
         View decorView = getWindow().getDecorView();
-        int systemUiVisibility = decorView.getSystemUiVisibility();
+        systemUiVisibility = decorView.getSystemUiVisibility();
         Log.d("systemUiVisibility pre",""+systemUiVisibility);
         int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 
@@ -40,7 +43,13 @@ public class FullScreenActivity extends AppCompatActivity {
 
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         systemUiVisibility |= flags;
-        decorView.setSystemUiVisibility(systemUiVisibility);
         Log.d("systemUiVisibility set",""+systemUiVisibility);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(systemUiVisibility);
     }
 }

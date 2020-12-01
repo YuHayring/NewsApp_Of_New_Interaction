@@ -1,6 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -33,6 +35,10 @@ public class MagicVideoViewModel extends VideoViewModel {
 
     public MagicVideoViewModel(Activity activity) {
         super(activity);
+        SharedPreferences shp = activity.getSharedPreferences(MagicVideoPlayActivity.SHP_KEY, Context.MODE_PRIVATE);
+        upTab = shp.getString(MagicVideoPlayActivity.UP,"");
+        leftTab = shp.getString(MagicVideoPlayActivity.LEFT, "");
+        rightTab = shp.getString(MagicVideoPlayActivity.RIGHT, "");
     }
 
 
@@ -41,11 +47,16 @@ public class MagicVideoViewModel extends VideoViewModel {
     int upVideoIndex;
 
     LinkedList<MyNews> upNewses = new LinkedList<>();
+
+    /**
+     * 上滑 tab
+     */
+    String upTab;
     /**
      * 更新上滑的视频
      */
     void getUpVideo() {
-        videoModel.getTagVideoNews("学习",upVideoGot);
+        videoModel.getTagVideoNews(upTab, upVideoGot);
     }
     CommonDataGotCallBack upVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
@@ -65,6 +76,8 @@ public class MagicVideoViewModel extends VideoViewModel {
 
 
     LinkedList<MyNews> downNewses = new LinkedList<>();
+
+
     /**
      * 更新下滑的视频
      */
@@ -76,6 +89,8 @@ public class MagicVideoViewModel extends VideoViewModel {
         @Override
         protected void onGotSuccess(List<MyNews> newses) {
             downNewses.addAll(newses);
+            if (downNewses.size() == newses.size())
+                ((MagicVideoPlayActivity)activity).setCurrentNews(downNewses.pop());
         }
 
         @Override
@@ -87,10 +102,15 @@ public class MagicVideoViewModel extends VideoViewModel {
 
     LinkedList<MyNews> leftNewses = new LinkedList<>();
     /**
+     * 左滑 tab
+     */
+    String leftTab;
+
+    /**
      * 更新左滑的视频
      */
     void getLeftVideo() {
-        videoModel.getTagVideoNews("csgo",leftVideoGot);
+        videoModel.getTagVideoNews(leftTab, leftVideoGot);
     }
     CommonDataGotCallBack leftVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override
@@ -106,10 +126,14 @@ public class MagicVideoViewModel extends VideoViewModel {
 
     LinkedList<MyNews> rightNewses = new LinkedList<>();
     /**
+     * 右滑 tab
+     */
+    String rightTab;
+    /**
      * 更新右滑的视频
      */
     void getRightVideo() {
-        videoModel.getTagVideoNews("足球",rightVideoGot);
+        videoModel.getTagVideoNews(rightTab,rightVideoGot);
     }
     CommonDataGotCallBack rightVideoGot = new  CommonDataGotCallBack<MyNews>() {
         @Override

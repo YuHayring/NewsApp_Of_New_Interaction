@@ -112,6 +112,7 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
             SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = shp.edit();
             editor.putString("userId", result.getData().get(0).getUserId());
+            editor.putInt("followTabs", result.getData().get(0).getTabs());
             editor.apply();
             Toasty.success(requireContext(), result.getMsg(), Toasty.LENGTH_SHORT, true).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);

@@ -8,6 +8,9 @@
     </array>
 
 
+    <!--主页tab-->
+    <string name="main_fragment_select_your_tab">选择你关注的tab</string>
+
     <!--启动界面-->
     <string name="app_name">抖音头条版</string>
     <string name="start_to_login_msg">去登录</string>
@@ -30,9 +33,11 @@
     <!-- 个人资料页面 -->
     <string name="user_name">用户名</string>
     <string name="user_description">个性签名</string>
-    <string name="following">关注</string>
+    <string name="following">关  注</string>
     <string name="help">帮助反馈</string>
     <string name="user_main_exit_msg">退出登录</string>
+    <string name="user_main_cross_setting">十字滑动设置</string>
+    <string name="user_main_tab_setting">TAB设置</string>
 
     <!-- 导航栏 -->
     <string name="setting">设置中心</string>
@@ -97,13 +102,14 @@
     <string name="button_newsDetails_follow">关注按钮</string>
 
 
-
-
-
     <!-- 视频播放页 -->
     <string name="video_play_requesting">正在刷新中,请稍等...</string>
     <string name="video_play_no_more">没有更多的视频了</string>
     <string name="video_play_request_fail">网络请求失败,错误码:</string>
+    <string name="video_play_followed">关注了 </string>
+    <string name="video_play_uninterested">以后不会在为您推荐类似视频</string>
+    <string name="video_play_reported">已举报！</string>
+    <string name="video_play_transform_no_support">此视频不支持转换！</string>
 
 
     <!-- 混合列表页页 -->
@@ -114,8 +120,21 @@
     <!-- 视频评论页 -->
 
     <string name="video_comment_request_fail">网络请求失败,错误码:</string>
+    <string name="editInfoSaveButton">保存编辑信息</string>
 
 
     <string name="blank_result_msg">暂时无数据哦</string>
+    <string name="editPagerTitle">编辑用户信息</string>
+    <string name="userPhoneId">用户账号</string>
+    <string name="userMainText">粉丝：1   ｜关注：20    ｜获赞：5</string>
+    <string name="authorSpace">作品空间</string>
+
+
+    <!-- tab 设置-->
+    <string name="tab_setting_save_failed">保存失败，是否继续退出？</string>
+    <string name="tab_setting_save_failed_title">保存失败</string>
+    <string name="tab_setting_quit">退出</string>
+    <string name="tab_setting_stay">取消</string>
+    <string name="tab_setting_saving">正在保存</string>
 
 </resources>
