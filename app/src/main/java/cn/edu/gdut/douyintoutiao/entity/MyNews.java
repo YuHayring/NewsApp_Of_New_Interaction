@@ -2,7 +2,6 @@ package cn.edu.gdut.douyintoutiao.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author : cypang
@@ -128,10 +127,7 @@ public class MyNews implements Serializable {
     }
 
     public String getNewsAbstract() {
-        if(!newsAbstract.isEmpty() ){ return newsAbstract;}
-        else {
-            return ("这个作者很懒，没有提供概述。");
-        }
+        return newsAbstract;
     }
 
     public void setNewsAbstract(String newsAbstract) {

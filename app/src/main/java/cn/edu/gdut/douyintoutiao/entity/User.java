@@ -238,4 +238,22 @@ public class User implements Serializable {
                 ", likeNumber=" + likeNumber +
                 '}';
     }
+
+    public User(String userId, String userName, String userTelephone, String userPassword, byte[] rsaPassword, Integer userAge, String userLocation, String userDescription, byte[] userBackground, String userImageUrl, Date createdTime, Date updatedTime, int tabs, int fans, int likeNumber) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userTelephone = userTelephone;
+        this.userPassword = userPassword;
+        RsaPassword = rsaPassword;
+        this.userAge = userAge;
+        this.userLocation = userLocation;
+        this.userDescription = userDescription;
+        this.userBackground = userBackground;
+        this.userImageUrl = userImageUrl;
+        this.createdTime = createdTime;
+        this.updatedTime = updatedTime;
+        this.tabs = tabs;
+        this.fans = fans;
+        this.likeNumber = likeNumber;
+    }
 }

@@ -153,6 +153,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     private  void initUi(User user){
         fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(user.getUserName());
         fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorPhoneId.setText("id:"+user.getUserTelephone());
         fragmentFollowAuthorDetailsBinding.textViewAuthorNumber.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
 
         Glide.with(FragmentFollowAuthorDetails.this)//当前类
