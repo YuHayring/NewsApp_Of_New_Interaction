@@ -18,6 +18,7 @@ import es.dmoral.toasty.Toasty;
  * @author hayring
  * @date 11/29/20 3:28 AM
  */
+@Deprecated
 public class VideoListViewModel extends VideoViewModel {
 
     public VideoListViewModel() {}

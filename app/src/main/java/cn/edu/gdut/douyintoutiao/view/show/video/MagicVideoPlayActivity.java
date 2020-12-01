@@ -14,7 +14,6 @@ import android.os.Bundle;
 import java.lang.reflect.Constructor;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
-import cn.edu.gdut.douyintoutiao.tmp.ShowIndexFragment;
 
 /**
  * @author hayring
@@ -43,6 +42,12 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
 
 
 
+    int lastScrollDirection = DOWN;
+
+    private static final int DOWN = 0;
+    private static final int UP = 1;
+    private static final int LEFT = 2;
+    private static final int RIGHT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +106,8 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
                 ((VerticalTriplePageFragment)fragment).setVideoPlayFragment(videoPlayFragment);
                 ((VerticalTriplePageFragment)fragment).setMagicVideoPlayViewModel(magicVideoPlayViewModel);
             } else {
-                fragment = new ShowIndexFragment();
-                ((ShowIndexFragment)fragment).setIndex(position);
+                fragment = new MagicVideoPlayEmptySpaceFragment();
+                ((MagicVideoPlayEmptySpaceFragment)fragment).setIndex(position);
             }
             fragments[position] = fragment;
             return fragment;
@@ -154,32 +159,24 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
             //        若当前为第一张，设置页面为倒数第二张
             if (prePosition == 0) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
+                    activity.lastScrollDirection = UP;
                     //触发上滑操作
-                    activity.setCurrentNews(activity.getMagicVideoPlayViewModel().upNewses.pop());
-                    if (activity.getMagicVideoPlayViewModel().upNewses.size() == 1) {
-                        activity.getMagicVideoPlayViewModel().getUpVideo();
-                    }
+                    activity.scrollToDirection(UP);
                 } else {
+                    activity.lastScrollDirection = LEFT;
                     //触发左滑操作
-                    activity.setCurrentNews(activity.getMagicVideoPlayViewModel().leftNewses.pop());
-                    if (activity.getMagicVideoPlayViewModel().leftNewses.size() == 1) {
-                        activity.getMagicVideoPlayViewModel().getLeftVideo();
-                    }
+                    activity.scrollToDirection(LEFT);
                 }
 
             } else if (prePosition == 2) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
+                    activity.lastScrollDirection = DOWN;
                     //触发下滑操作
-                    activity.setCurrentNews(activity.getMagicVideoPlayViewModel().downNewses.pop());
-                    if (activity.getMagicVideoPlayViewModel().downNewses.size() == 1) {
-                        activity.getMagicVideoPlayViewModel().getDownVideo();
-                    }
+                    activity.scrollToDirection(DOWN);
                 } else {
+                    activity.lastScrollDirection = RIGHT;
                     //触发右滑操作
-                    activity.setCurrentNews(activity.getMagicVideoPlayViewModel().rightNewses.pop());
-                    if (activity.getMagicVideoPlayViewModel().rightNewses.size() == 1) {
-                        activity.getMagicVideoPlayViewModel().getRightVideo();
-                    }
+                    activity.scrollToDirection(RIGHT);
                 }
             }
         }
@@ -239,9 +236,62 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
         videoPlayFragment.setMyNews(currentNews);
     }
 
+    /**
+     * 移除视频，并显示动画（举报，不感兴趣）
+     */
+    @Override
+    public void removeVideo() {
+        switch (lastScrollDirection) {
+            case UP:{
+                ((VerticalTriplePageFragment)fragments[1]).getVerticalViewPager().setCurrentItem(0,true);
+            }break;
+            case DOWN:{
+                ((VerticalTriplePageFragment)fragments[1]).getVerticalViewPager().setCurrentItem(2,true);
+            }break;
+            case LEFT:{
+                horizontalViewPager.setCurrentItem(0,true);
+            }break;
+            case RIGHT:{
+                horizontalViewPager.setCurrentItem(2,true);
+            }
+        }
+
+    }
+
 
     public MagicVideoViewModel getMagicVideoPlayViewModel() {
         return magicVideoPlayViewModel;
+    }
+
+
+    private void scrollToDirection(int direction) {
+        viewBinding.videoViewPager.setCurrentItem(1,false);
+        switch (direction) {
+            case UP:{
+                setCurrentNews(getMagicVideoPlayViewModel().upNewses.pop());
+                if (getMagicVideoPlayViewModel().upNewses.size() == 1) {
+                    getMagicVideoPlayViewModel().getUpVideo();
+                }
+            }break;
+            case DOWN:{
+                setCurrentNews(getMagicVideoPlayViewModel().downNewses.pop());
+                if (getMagicVideoPlayViewModel().downNewses.size() == 1) {
+                    getMagicVideoPlayViewModel().getDownVideo();
+                }
+            }break;
+            case LEFT:{
+                setCurrentNews(getMagicVideoPlayViewModel().leftNewses.pop());
+                if (getMagicVideoPlayViewModel().leftNewses.size() == 1) {
+                    getMagicVideoPlayViewModel().getLeftVideo();
+                }
+            }break;
+            case RIGHT:{
+                setCurrentNews(getMagicVideoPlayViewModel().rightNewses.pop());
+                if (getMagicVideoPlayViewModel().rightNewses.size() == 1) {
+                    getMagicVideoPlayViewModel().getRightVideo();
+                }
+            }
+        }
     }
 }
 

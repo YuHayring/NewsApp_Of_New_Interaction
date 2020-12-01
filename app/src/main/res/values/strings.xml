@@ -8,6 +8,9 @@
     </array>
 
 
+    <!--主页tab-->
+    <string name="main_fragment_select_your_tab">选择你关注的tab</string>
+
     <!--启动界面-->
     <string name="app_name">抖音头条版</string>
     <string name="start_to_login_msg">去登录</string>
@@ -101,6 +104,10 @@
     <string name="video_play_requesting">正在刷新中,请稍等...</string>
     <string name="video_play_no_more">没有更多的视频了</string>
     <string name="video_play_request_fail">网络请求失败,错误码:</string>
+    <string name="video_play_followed">关注了 </string>
+    <string name="video_play_uninterested">以后不会在为您推荐类似视频</string>
+    <string name="video_play_reported">已举报！</string>
+    <string name="video_play_transform_no_support">此视频不支持转换！</string>
 
 
     <!-- 混合列表页页 -->

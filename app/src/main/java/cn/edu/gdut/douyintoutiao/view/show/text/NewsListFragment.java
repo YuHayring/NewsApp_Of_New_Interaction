@@ -92,6 +92,8 @@ public class NewsListFragment extends Fragment {
             }
         });
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            //清除视频下标
+            adapter.cleanVideoIndex();
             viewModel.reset();
         });
     }

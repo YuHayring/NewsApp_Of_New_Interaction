@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 
 /**
@@ -34,6 +37,13 @@ import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayAct
 public class OtherNewsAdapter extends RecyclerView.Adapter {
 
     private List<MyNews> newsList = new ArrayList<>();
+
+    private List<MyNews> videoList = null;
+
+    /**
+     * newsList 中的视频在 videoList 中的下标
+     */
+    private int[] videoNewsIndex = null;
 
     // 文字 ViewType
     private static final int TYPE_TEXT = 0;
@@ -53,6 +63,8 @@ public class OtherNewsAdapter extends RecyclerView.Adapter {
 
     public void setNewsList(List<MyNews> newsList) {
         this.newsList = newsList;
+        this.videoList = null;
+        this.videoNewsIndex = null;
     }
 
     @NonNull
@@ -73,9 +85,33 @@ public class OtherNewsAdapter extends RecyclerView.Adapter {
         }
         itemView.setOnClickListener(v -> {
             if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(1)){
-                Intent intent = new Intent(context, SingleVideoPlayActivity.class);
-                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
+                if (videoList == null) {
+                    videoList = new ArrayList<>();
+                    videoNewsIndex = new int[newsList.size()];
+                    MyNews curNews;
+                    int videoIndex = 0;
+                    //将视频取出，并设置下标
+
+                    for (int i = 0; i < newsList.size() ; i++) {
+                        if ((curNews = newsList.get(i)).getType() == 1) {
+                            videoList.add(curNews);
+                            videoNewsIndex[i] = videoIndex++;
+                        } else {
+                            videoNewsIndex[i] = -1;
+                        }
+                    }
+
+                }
+
+                Intent intent = new Intent(context, VerticalVideoPlayActivity.class);
+                intent.putExtra("type", VerticalVideoPlayActivity.FLASHING_NO_SUPPORT);
+                intent.putExtra("data", (Serializable) videoList);
+                intent.putExtra("index", videoNewsIndex[viewHolder.getAbsoluteAdapterPosition()]);
                 context.startActivity(intent);
+
+//                Intent intent = new Intent(context, SingleVideoPlayActivity.class);
+//                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
+//                context.startActivity(intent);
             }else {
                 Intent intent = new Intent(context, NewsActivity.class);
                 intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
@@ -101,11 +137,13 @@ public class OtherNewsAdapter extends RecyclerView.Adapter {
             mHolder.textViewHeader.setText(cur.getNewsName());
             mHolder.textViewAbstract.setText(cur.getNewsAbstract());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+            if (cur.getNewsPhotoUrl() != null)
             Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
         }else {
             OtherNewsAdapter.VideoViewHolder mHolder = (OtherNewsAdapter.VideoViewHolder)holder;
             mHolder.videoTitle.setText(cur.getNewsName());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+            if (cur.getNewsPhotoUrl() != null)
             Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);
         }
     }

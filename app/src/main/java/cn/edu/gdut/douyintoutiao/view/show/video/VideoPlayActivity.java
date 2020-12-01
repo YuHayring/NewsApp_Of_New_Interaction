@@ -20,6 +20,7 @@ import cn.edu.gdut.douyintoutiao.databinding.ActivityVideoPlayBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.FullScreenActivity;
+import cn.edu.gdut.douyintoutiao.view.show.WebViewActivity;
 import cn.edu.gdut.douyintoutiao.view.show.comment.commentinvideo.CommentFragmentContainerActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import es.dmoral.toasty.Toasty;
@@ -29,7 +30,7 @@ import es.dmoral.toasty.Toasty;
  * @author hayring
  * @date 11/27/20 4:07 PM
  */
-public class VideoPlayActivity extends FullScreenActivity {
+public abstract class VideoPlayActivity extends FullScreenActivity {
 
 
     /**
@@ -42,7 +43,7 @@ public class VideoPlayActivity extends FullScreenActivity {
      */
     MyNews currentNews;
 
-    VerticalVideoViewModel verticalVideoViewModel;
+    VideoViewModel videoViewModel;
 
     /**
      * ViewBinding
@@ -55,7 +56,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener reportButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "按了举报按钮！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_reported), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -84,7 +86,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener uninterestedButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "不感兴趣！", Toasty.LENGTH_SHORT, true).show();
+            removeVideo();
+            Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_uninterested), Toasty.LENGTH_SHORT, true).show();
         }
     };
 
@@ -94,9 +97,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener authorButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-           // Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
+//            Toasty.success(VideoPlayActivity.this, "作者！", Toasty.LENGTH_SHORT, true).show();
             String authorId = currentNews.getAuthor().get(0).getUserId();
-
             SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
             String userId = shp.getString("userId", "noContent");
             Intent intent = new Intent(VideoPlayActivity.this, ActivityFollowAuthorDetails.class);
@@ -116,9 +118,10 @@ public class VideoPlayActivity extends FullScreenActivity {
                 MyNews thisNews =  currentNews;
                 SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
-                verticalVideoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
                 viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
-                Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+
         }
     };
 
@@ -128,7 +131,15 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener transFormButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+//            Toasty.success(VideoPlayActivity.this, "功能开发中", Toasty.LENGTH_SHORT, true).show();
+            if (currentNews.getUrlOfTextOfVideo() == null
+            || currentNews.getUrlOfTextOfVideo().isEmpty()) {
+                Toasty.error(VideoPlayActivity.this, R.string.video_play_transform_no_support).show();
+            } else {
+                Intent intent = new Intent(VideoPlayActivity.this, WebViewActivity.class);
+                intent.putExtra("url", currentNews.getUrlOfTextOfVideo());
+                startActivity(intent);
+            }
         }
     };
 
@@ -202,7 +213,7 @@ public class VideoPlayActivity extends FullScreenActivity {
         viewBinding = ActivityVideoPlayBinding.inflate(LayoutInflater.from(this));
         setContentView(viewBinding.getRoot());
         //VM
-        verticalVideoViewModel = new ViewModelProvider(this).get(VerticalVideoViewModel.class);
+        videoViewModel = new ViewModelProvider(this).get(VideoViewModel.class);
         //悬浮窗按钮监听器注册
         viewBinding.actionJinggao.setOnClickListener(reportButtonListener);
         viewBinding.actionDianzan.setOnClickListener(likeButtonListener);
@@ -239,6 +250,8 @@ public class VideoPlayActivity extends FullScreenActivity {
     }
 
 
+
+    public abstract void removeVideo();
 
 
 

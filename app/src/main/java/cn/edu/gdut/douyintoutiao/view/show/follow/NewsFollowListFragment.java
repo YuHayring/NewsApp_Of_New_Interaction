@@ -70,4 +70,13 @@ public class NewsFollowListFragment extends Fragment {
         binding.swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
+
+    public void changeTag(String tag) {
+        this.tag = tag;
+        SwipeRefreshLayout.OnRefreshListener listener = () -> mViewModel.getAllFollowLive(tag);
+        listener.onRefresh();
+        binding.swipeRefreshLayout.setOnRefreshListener(listener);
+
+    }
+
 }

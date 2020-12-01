@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.show.follow.NewsFollowListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <cn.edu.gdut.douyintoutiao.view.show.text.RecyclerViewAtViewPager2
         android:id="@+id/recyclerViewTagNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -67,6 +67,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.textViewUsername.setText(cur.getUser().get(0).getUserName());
         holder.textViewCommentContent.setText(cur.getText());
         holder.textViewCommentTime.setText(dtf.format(cur.getTime()));
+        if (cur.getUser().get(0).getUserImageUrl() != null)
         Glide.with(holder.itemView).load(Uri.parse(cur.getUser().get(0).getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewUserPic);
     }
 
