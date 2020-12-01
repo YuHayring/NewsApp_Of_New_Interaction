@@ -36,7 +36,7 @@
         <activity
             android:name=".view.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".view.show.video.VerticalVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
