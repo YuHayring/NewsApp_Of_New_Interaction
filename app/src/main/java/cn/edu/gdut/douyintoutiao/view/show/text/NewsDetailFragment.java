@@ -16,12 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
-import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.NewsDetailFragmentBinding;
@@ -39,6 +36,7 @@ public class NewsDetailFragment extends Fragment  {
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
+    private Boolean flag;
 
     public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
         NewsDetailFragment fragment = new NewsDetailFragment();
@@ -125,17 +123,9 @@ public class NewsDetailFragment extends Fragment  {
             }
         });
 
-
-        viewModel.checkTagsFollowByNewsIdUserId(newsId,userId).observe(getViewLifecycleOwner(), new Observer< List< Boolean > >() {
-            @Override
-            public void onChanged(List< Boolean > booleans) {
-                viewModel.setCheckFollowFlag(booleans.get(0));
-                System.out.println("获取到数据:"+viewModel.getCheckFollowFlag());
-            }
-        });
-
-        if(viewModel.getCheckFollowFlag()){
-            System.out.printf("运行到了true");
+        //关注按钮
+       flag = false;
+        if(flag){
             //已关注，点击执行取消关注
             binding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
@@ -155,18 +145,18 @@ public class NewsDetailFragment extends Fragment  {
                                 }
                             })
                             .create().show();
+                    flag = false;
                 }
             });
         }else{
-            System.out.printf("运行到了false");
             binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                   // binding.actionGuanzhu.setIcon(yellow_guanzhu);
                     Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
                     binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                    flag = true;
                 }
             });
         }

@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityEditBinding;
+import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.viewModel.EditViewModel;
-import cn.edu.gdut.douyintoutiao.view.user.main.UserMainViewModel;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -25,7 +25,6 @@ public class EditActivity extends AppCompatActivity {
     private ActivityEditBinding activityEditBinding;
     private EditViewModel editViewModel;
 
-    UserMainViewModel userMainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,10 @@ public class EditActivity extends AppCompatActivity {
                 name = activityEditBinding.editUserNameText.getText().toString();
                 editViewModel.updateUserInfo(userId,name,describe);
                Toast.makeText(EditActivity.this, "编辑信息已提交！", Toast.LENGTH_SHORT).show();
-                //接下来如何刷新页面（
+                //接下来刷新页面
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -79,4 +81,6 @@ public class EditActivity extends AppCompatActivity {
         Intent in = getIntent();
         userId = in.getStringExtra("userId");
     }
+
+
 }
