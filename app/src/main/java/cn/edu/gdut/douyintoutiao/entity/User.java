@@ -77,11 +77,6 @@ public class User implements Serializable {
     @SerializedName("updatedAt")
     private Date updatedTime;
 
-    /**
-     * 关注 tabs
-     */
-    private int tabs;
-
 
     /**
      * 关注 tabs
@@ -214,6 +209,4 @@ public class User implements Serializable {
                 ", updatedTime=" + updatedTime +
                 '}';
     }
-
-
 }
