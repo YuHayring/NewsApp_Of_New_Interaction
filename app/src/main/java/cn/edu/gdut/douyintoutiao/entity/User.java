@@ -77,6 +77,11 @@ public class User implements Serializable {
     @SerializedName("updatedAt")
     private Date updatedTime;
 
+    /**
+     * 关注 tabs
+     */
+    private int tabs;
+
 
     public User() {
     }
@@ -162,6 +167,14 @@ public class User implements Serializable {
         this.userImageUrl = userImageUrl;
     }
 
+    public int getTabs() {
+        return tabs;
+    }
+
+    public void setTabs(int tabs) {
+        this.tabs = tabs;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -179,4 +192,6 @@ public class User implements Serializable {
                 ", updatedTime=" + updatedTime +
                 '}';
     }
+
+
 }
