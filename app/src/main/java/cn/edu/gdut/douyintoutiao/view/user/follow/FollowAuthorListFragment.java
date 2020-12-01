@@ -23,7 +23,6 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorListBinding;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.Activity_Follow_Author;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
@@ -50,8 +49,7 @@ public class FollowAuthorListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public FollowAuthorListFragment(Activity_Follow_Author activity_follow_author) {
-    }
+
 
     public static FollowAuthorListFragment newInstance(String param1, String param2) {
         FollowAuthorListFragment fragment = new FollowAuthorListFragment();

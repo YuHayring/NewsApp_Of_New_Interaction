@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.HashMap;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -149,24 +148,6 @@ public class NewsRepository {
         return checkFollowFlag;
     }
 
-//    public Observable<Result<Boolean>> checkTagsFollowByNewsIdUserId(String newsId, String userId){
-//        Map<String, String> newsIdUserId = new HashMap<>();
-//        newsIdUserId.put("newsId", newsId);
-//        newsIdUserId.put("userId",userId);
-//       return api.checkTagsFollowByNewsIdUserId(newsIdUserId);
-//    }
-
-
-//    public static NewsRepository getInstance(){
-//        if(instance == null){
-//            synchronized (LoginUserModel.class) {
-//                if(instance == null) {
-//                    instance = new NewsRepository(NewsApi.getNewsApi());
-//                }
-//            }
-//        }
-//        return instance;
-//    }
 
 
 

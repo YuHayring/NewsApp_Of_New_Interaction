@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -13,18 +14,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityEditBinding;
-import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.view.user.edit.viewModel.EditViewModel;
 import cn.edu.gdut.douyintoutiao.view.user.main.UserMainViewModel;
 
 public class EditActivity extends AppCompatActivity {
 
     private String userId;
+    private String name;
     private String describe;
     private ActivityEditBinding activityEditBinding;
     private EditViewModel editViewModel;
-
-    private FragmentUserMainBinding mUserInfoBinding;
 
     UserMainViewModel userMainViewModel;
 
@@ -37,7 +36,6 @@ public class EditActivity extends AppCompatActivity {
 
         activityEditBinding= DataBindingUtil.setContentView(this, R.layout.activity_edit);
         editViewModel = new ViewModelProvider(this).get(EditViewModel.class);
-        userMainViewModel = new UserMainViewModel(mUserInfoBinding,getApplicationContext());
 
         //设置按钮
         activityEditBinding.editSaveButton.setEnabled(false);
@@ -50,7 +48,8 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                     String describe =  activityEditBinding.editUserDescribeText.getText().toString().trim();
-                    activityEditBinding.editSaveButton.setEnabled(!describe.isEmpty());
+                    String name = activityEditBinding.editUserNameText.getText().toString().trim();
+                    activityEditBinding.editSaveButton.setEnabled(!describe.isEmpty()||!name.isEmpty());
             }
 
             @Override
@@ -64,18 +63,16 @@ public class EditActivity extends AppCompatActivity {
         activityEditBinding.editSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                describe =activityEditBinding.editUserDescribeText.getText().toString();
 
-                editViewModel.updateUserInfo(userId,describe);
-               // Toast.makeText(EditActivity.this, "按钮被点击"+describe, Toast.LENGTH_SHORT).show();
-                //有问题
-               // userMainViewModel.userMainModel.getUser(userId);
+                describe = activityEditBinding.editUserDescribeText.getText().toString();
+                name = activityEditBinding.editUserNameText.getText().toString();
+                editViewModel.updateUserInfo(userId,name,describe);
+               Toast.makeText(EditActivity.this, "编辑信息已提交！", Toast.LENGTH_SHORT).show();
+                //接下来如何刷新页面（
             }
         });
 
-
     }
-
 
     //拿到当前的userId
     private  void getUserInfo(){

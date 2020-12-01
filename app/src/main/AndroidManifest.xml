@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".view.user.edit.activity.EditActivity"></activity>
+        <activity android:name=".view.user.edit.activity.EditActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".view.show.video.MagicVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -24,7 +26,8 @@
         <activity android:name=".view.SingleFragmentContainerActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".view.show.comment.commentinvideo.CommentFragmentContainerActivity" />
-        <activity android:name=".view.user.follow.activity.ActivityFollowAuthorDetails" />
+        <activity android:name=".view.user.follow.activity.ActivityFollowAuthorDetails"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />/>
         <activity android:name=".view.show.search.SearchMainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".tmp.TestActivity" />
@@ -48,10 +51,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.user.follow.activity.FollowListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.user.follow.activity.Activity_Follow_Author"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
     </application>
 
 </manifest>

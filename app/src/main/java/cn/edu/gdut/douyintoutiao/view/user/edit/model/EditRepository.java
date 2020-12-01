@@ -21,10 +21,11 @@ public class EditRepository {
 
     }
 
-    public void updateUser(String userId , String userDescribe) {
+    public void updateUser(String userId , String userName,String userDescribe) {
         Map<String, String> userInfoMap = new HashMap<>();
         userInfoMap.put("userId",userId );
         userInfoMap.put("userDescription",userDescribe);
+        userInfoMap.put("userName",userName);
         Call< Result > call = userApi.updateUser(userInfoMap);
        call.enqueue(new Callback< Result >() {
            @Override

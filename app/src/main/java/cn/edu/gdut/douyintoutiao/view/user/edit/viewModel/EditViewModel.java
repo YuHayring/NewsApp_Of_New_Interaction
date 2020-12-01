@@ -17,7 +17,7 @@ public class EditViewModel extends AndroidViewModel {
         editRepository = new EditRepository(UserApi.getUserApi());
     }
 
-    public void updateUserInfo(String userId , String userDescribe){
-        editRepository.updateUser(userId,userDescribe);
+    public void updateUserInfo(String userId , String userName ,String userDescribe){
+        editRepository.updateUser(userId,userName,userDescribe);
     }
 }

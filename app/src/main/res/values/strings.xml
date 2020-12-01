@@ -115,5 +115,6 @@
 
 
     <string name="blank_result_msg">暂时无数据哦</string>
+    <string name="editPagerTitle">编辑用户信息</string>
 
 </resources>

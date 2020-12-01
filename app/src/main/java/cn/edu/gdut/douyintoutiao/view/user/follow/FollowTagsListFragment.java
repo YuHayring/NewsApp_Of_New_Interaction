@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
@@ -163,9 +165,11 @@ public class FollowTagsListFragment extends Fragment {
              //   Toast.makeText(getContext(),"点击了"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                 FollowNews thisFollowNews = followTagsListAdapter.getDataList().get(position);
                 if(thisFollowNews.getFollowNews().get(0).getType() == 0){
-                startFollowTagsDetailsActivityToFragment(thisFollowNews);}
+                    //跳转文字资讯
+                    startFollowTagsDetailsActivityToTextFragment(thisFollowNews);}
                 else if(thisFollowNews.getFollowNews().get(0).getType() == 1){
-                    Toast.makeText(getContext(),"点击了视频资讯",Toast.LENGTH_SHORT).show();
+                    //跳转视频资讯
+                    startFollowTagsDetailsActivityToSingleVideoPlayActivity(thisFollowNews);
                 }
             }
 
@@ -173,14 +177,20 @@ public class FollowTagsListFragment extends Fragment {
 
 
     }
-
-    private void startFollowTagsDetailsActivityToFragment (FollowNews data){
+        //文字资讯
+    private void startFollowTagsDetailsActivityToTextFragment (FollowNews data){
         Intent intent = new Intent(getActivity(), NewsActivity.class);
         intent.putExtra("uri", data.getFollowNews().get(0).getNewsDetailUrl());
         intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
         intent.putExtra("tag", data.getFollowNews().get(0).getTag());
         intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
         getActivity().startActivity(intent);
+    }
+    //视频资讯
+    private void startFollowTagsDetailsActivityToSingleVideoPlayActivity(FollowNews data){
+        Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
+        intent.putExtra("news", data.getFollowNews().get(0));
+        ((Activity)getContext()).startActivityForResult(intent, 1);
     }
 
 

@@ -125,19 +125,6 @@ public class UserMainFragment extends Fragment {
 
     }
 
-//    static class MyFolderChooserDialog extends FolderChooserDialog {
-//        @Override
-//        public void onAttach(Context context) {
-//            try {
-//                super.onAttach(context);
-//            } catch (IllegalStateException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
-
-
     private FileChooserDialog.FileCallback fileCallback = new FileChooserDialog.FileCallback() {
         @Override
         public void onFileSelection(@NonNull FileChooserDialog dialog, @NonNull File file) {

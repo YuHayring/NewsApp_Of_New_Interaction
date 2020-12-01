@@ -12,25 +12,24 @@
         android:layout_height="match_parent"
         tools:context=".view.user.edit.activity.EditActivity">
 
-        <TextView
-            android:id="@+id/textView6"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="104dp"
-            android:text="@string/user_description"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
 
         <EditText
             android:id="@+id/editUserDescribeText"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginStart="10dp"
+            android:autofillHints=""
+            android:hint="@string/user_description"
+
+            android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/guideline30"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline30" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -38,16 +37,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
 
         <Button
             android:id="@+id/editSaveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:shadowColor="#FFFFFF"
             android:text="@string/editInfoSaveButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.781" />
+
+        <EditText
+            android:id="@+id/editUserNameText"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="@string/author_name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/guideline31"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+        <TextView
+            android:id="@+id/editPagerTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editPagerTitle"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline34"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline34" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
