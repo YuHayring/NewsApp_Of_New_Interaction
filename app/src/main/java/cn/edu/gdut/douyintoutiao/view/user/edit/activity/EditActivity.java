@@ -1,7 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.user.edit.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,7 +33,9 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_edit);
-        getUserInfo();
+
+        SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        userId = shp.getString("userId", "noContent");
 
         activityEditBinding= DataBindingUtil.setContentView(this, R.layout.activity_edit);
         editViewModel = new ViewModelProvider(this).get(EditViewModel.class);
@@ -67,7 +71,7 @@ public class EditActivity extends AppCompatActivity {
                 name = activityEditBinding.editUserNameText.getText().toString();
                 editViewModel.updateUserInfo(userId,name,describe);
                Toast.makeText(EditActivity.this, "编辑信息已提交！", Toast.LENGTH_SHORT).show();
-                //接下来刷新页面
+                //刷新页面,待修改
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
 
@@ -76,11 +80,6 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
-    //拿到当前的userId
-    private  void getUserInfo(){
-        Intent in = getIntent();
-        userId = in.getStringExtra("userId");
-    }
 
 
 }

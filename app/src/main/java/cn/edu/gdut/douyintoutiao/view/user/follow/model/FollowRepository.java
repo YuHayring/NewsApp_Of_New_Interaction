@@ -40,8 +40,10 @@ public class FollowRepository {
     }
 
 
-    public LiveData<List<Follow>> getFollowList() {
-        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowAuthorList();
+    public LiveData<List<Follow>> getFollowList(String userId) {
+        Map<String, String> userIdMap = new HashMap<>();
+        userIdMap.put("_id",userId );
+        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.getFollowAuthorList(userIdMap);
         call.enqueue(new Callback<Result<Follow>>() {
             @Override
             public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {

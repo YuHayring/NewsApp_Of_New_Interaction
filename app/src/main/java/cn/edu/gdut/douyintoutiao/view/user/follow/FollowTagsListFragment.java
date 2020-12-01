@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,6 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowTagsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
 
@@ -111,6 +111,9 @@ public class FollowTagsListFragment extends Fragment {
         followTagsViewModel = new ViewModelProvider(this).get(FollowTagsViewModel.class);
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setAdapter(followTagsListAdapter);
+
+        SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+        userId = shp.getString("userId", "noContent");
         
         //LD 观察，刷新data
         followTagsViewModel.getFollowTagsList(userId).observe(getViewLifecycleOwner(), new Observer< List< FollowNews > >() {
@@ -208,12 +211,12 @@ public class FollowTagsListFragment extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        userId = ((FollowListActivity)context).getUserId();
-//        System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        userId = ((FollowListActivity)context).getUserId();
+////        System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
+//    }
 
 
 

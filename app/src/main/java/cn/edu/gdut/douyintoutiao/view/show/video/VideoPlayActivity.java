@@ -1,6 +1,8 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +13,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.CallSuper;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import cn.edu.gdut.douyintoutiao.R;
@@ -102,13 +103,13 @@ public class VideoPlayActivity extends FullScreenActivity {
     View.OnClickListener followButtonListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            if (v instanceof FloatingActionButton) {
                 MyNews thisNews =  currentNews;
-                String userId = "5fa9f7f63d18b202258b5daf";
+                SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
+                String userId = shp.getString("userId", "noContent");
                 verticalVideoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
                 viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
                 Toasty.success(VideoPlayActivity.this, "关注了" + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
-            }
+
         }
     };
 
@@ -212,6 +213,7 @@ public class VideoPlayActivity extends FullScreenActivity {
         layoutParams = (RelativeLayout.LayoutParams) viewBinding.videoDescriptionTextView.getLayoutParams();
         layoutParams.width = width;
         viewBinding.videoDescriptionTextView.setLayoutParams(layoutParams);
+
 
     }
 

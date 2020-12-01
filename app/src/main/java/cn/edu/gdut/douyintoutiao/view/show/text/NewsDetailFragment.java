@@ -2,7 +2,6 @@ package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -36,7 +34,6 @@ public class NewsDetailFragment extends Fragment  {
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
-    private Boolean flag;
 
     public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
         NewsDetailFragment fragment = new NewsDetailFragment();
@@ -124,31 +121,6 @@ public class NewsDetailFragment extends Fragment  {
         });
 
         //关注按钮
-       flag = false;
-        if(flag){
-            //已关注，点击执行取消关注
-            binding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
-            binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //取消关注警告窗口
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setIcon(R.drawable.ic_baseline_warning_24)
-                            .setTitle("取消关注?")
-                            .setMessage("确定要取消关注NewsId为"+newsId+"的资讯吗")
-                            .setNegativeButton("取消", null)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
-                                    Toast.makeText(getContext(),"取消关注了"+newsId, Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .create().show();
-                    flag = false;
-                }
-            });
-        }else{
             binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -156,10 +128,9 @@ public class NewsDetailFragment extends Fragment  {
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
                     Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
                     binding.actionGuanzhu.setIcon(yellow_guanzhu);
-                    flag = true;
                 }
             });
-        }
+
 
         //文字转视频
         binding.actionZhuanhuan.setOnClickListener(new View.OnClickListener(){

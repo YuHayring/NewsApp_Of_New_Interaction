@@ -129,7 +129,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        userId = ((ActivityFollowAuthorDetails)context).getUserId();
+      //  userId = ((ActivityFollowAuthorDetails)context).getUserId();
         followId = ((ActivityFollowAuthorDetails)context).getFollowId();
      //   System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
     }
