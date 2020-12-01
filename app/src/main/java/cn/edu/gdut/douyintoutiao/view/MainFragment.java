@@ -70,7 +70,7 @@ public class MainFragment extends Fragment {
 
     private MaterialDialog tabSelectDialog;
 
-    private MainViewModel mainViewModel;
+    private TabViewModel mainViewModel;
 
     private final int pages = 3;
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -127,7 +127,7 @@ public class MainFragment extends Fragment {
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
 
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(this).get(TabViewModel.class);
         mainViewModel.getTabs().observe(getViewLifecycleOwner(), new Observer<String[]>() {
             @Override
             public void onChanged(String[] strings) {

@@ -23,6 +23,7 @@ import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.MyTabSettingActivity;
 
 /**
  * @author hayring
@@ -120,6 +121,11 @@ public class UserMainFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
+        });
+
+        mUserInfoBinding.tabSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MyTabSettingActivity.class);
+            startActivity(intent);
         });
 
     }
