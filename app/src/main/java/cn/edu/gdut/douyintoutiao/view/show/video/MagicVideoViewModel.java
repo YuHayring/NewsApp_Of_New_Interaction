@@ -76,6 +76,8 @@ public class MagicVideoViewModel extends VideoViewModel {
         @Override
         protected void onGotSuccess(List<MyNews> newses) {
             downNewses.addAll(newses);
+            if (downNewses.size() == newses.size())
+                ((MagicVideoPlayActivity)activity).setCurrentNews(downNewses.pop());
         }
 
         @Override

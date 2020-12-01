@@ -90,6 +90,8 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
             List<MyNews> data;
             if ((data = (List<MyNews>) intent.getSerializableExtra("data")) != null) {
                 adapter.addAllAndNotify(data);
+                int currentIndex = getIntent().getIntExtra("index",-1);
+                viewBinding.videoViewPager.setCurrentItem(currentIndex, false);
             } else {
                 //视频列表有多少个视频了
                 int preCount = intent.getIntExtra("count",-1);

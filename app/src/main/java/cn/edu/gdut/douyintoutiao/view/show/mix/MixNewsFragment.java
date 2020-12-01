@@ -40,6 +40,7 @@ import cn.edu.gdut.douyintoutiao.view.show.video.videolist.VideoListFragment;
  * @author hayring
  * @date 11/29/20 3:05 PM
  */
+@Deprecated
 public class MixNewsFragment extends Fragment {
 
 
