@@ -278,25 +278,25 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
         switch (direction) {
             case _UP:{
                 setCurrentNews(getMagicVideoPlayViewModel().upNewses.pop());
-                if (getMagicVideoPlayViewModel().upNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().upNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getUpVideo();
                 }
             }break;
             case _DOWN:{
                 setCurrentNews(getMagicVideoPlayViewModel().downNewses.pop());
-                if (getMagicVideoPlayViewModel().downNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().downNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getDownVideo();
                 }
             }break;
             case _LEFT:{
                 setCurrentNews(getMagicVideoPlayViewModel().leftNewses.pop());
-                if (getMagicVideoPlayViewModel().leftNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().leftNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getLeftVideo();
                 }
             }break;
             case _RIGHT:{
                 setCurrentNews(getMagicVideoPlayViewModel().rightNewses.pop());
-                if (getMagicVideoPlayViewModel().rightNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().rightNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getRightVideo();
                 }
             }
