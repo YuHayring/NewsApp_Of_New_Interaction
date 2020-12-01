@@ -23,6 +23,8 @@ import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.CrossScrollSettingActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.MyTabSettingActivity;
 
 /**
  * @author hayring

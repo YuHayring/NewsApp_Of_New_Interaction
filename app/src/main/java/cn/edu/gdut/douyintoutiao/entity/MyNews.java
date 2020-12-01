@@ -2,6 +2,7 @@ package cn.edu.gdut.douyintoutiao.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author : cypang
@@ -215,29 +216,7 @@ public class MyNews implements Serializable {
         this.like = like;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyNews myNews = (MyNews) o;
-        return Objects.equals(_id, myNews._id) &&
-                Objects.equals(newsName, myNews.newsName) &&
-                Objects.equals(newsAbstract, myNews.newsAbstract) &&
-                Objects.equals(newsPhotoUrl, myNews.newsPhotoUrl) &&
-                Objects.equals(createdAt, myNews.createdAt) &&
-                Objects.equals(updatedAt, myNews.updatedAt) &&
-                Objects.equals(newsDetailUrl, myNews.newsDetailUrl) &&
-                Objects.equals(type, myNews.type) &&
-                Objects.equals(author, myNews.author) &&
-                Objects.equals(tag, myNews.tag) &&
-                Objects.equals(like, myNews.like);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like);
-    }
-    
     public String getUrlOfTextOfVideo() {
         return urlOfTextOfVideo;
     }
