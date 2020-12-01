@@ -117,6 +117,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
         holder.followName.setText(s.getAuthor().get(0).getUserName());
         holder.followDescribe.setText(s.getAuthor().get(0).getUserDescription());
         holder.unfollowButton.setText("已关注");
+        if (s.getAuthor().get(0).getUserImageUrl() != null)
         Glide.with(holder.itemView)//当前类context
                 .load(s.getAuthor().get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片
                 .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片

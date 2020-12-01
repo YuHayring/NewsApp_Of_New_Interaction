@@ -237,6 +237,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
             textViewHeader.setText(myNews.getNewsName());
             textViewAbstract.setText(myNews.getNewsAbstract());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+            if (myNews.getNewsPhotoUrl() != null)
             Glide.with(itemView).load(Uri.parse(myNews.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(imageViewPic);
         }
 
@@ -281,6 +282,8 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
         public void bindWithMyNews(MyNews myNews) {
             videoTitle.setText(myNews.getNewsName());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+
+            if (myNews.getNewsPhotoUrl() != null)
             Glide.with(itemView).load(Uri.parse(myNews.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(videoPreview);
         }
     }

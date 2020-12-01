@@ -157,6 +157,7 @@ public class MixNewsFragment extends Fragment {
                 holder.textViewHeader.setText(cur.getNewsName());
                 holder.textViewAbstract.setText(cur.getNewsAbstract());
                 //采用glide加载网络图片,采用了占位符方式优先展示。
+                if (cur.getNewsPhotoUrl() != null)
                 Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -174,6 +175,7 @@ public class MixNewsFragment extends Fragment {
                 MyNews cur = newsList.get(position);
                 holder.videoTitle.setText(""+position+cur.getNewsName());
                 //采用glide加载网络图片,采用了占位符方式优先展示。
+                if (cur.getNewsPhotoUrl() != null)
                 Glide.with(holder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.videoPreview);
 
 

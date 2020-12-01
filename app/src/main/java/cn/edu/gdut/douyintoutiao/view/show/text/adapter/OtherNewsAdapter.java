@@ -137,11 +137,13 @@ public class OtherNewsAdapter extends RecyclerView.Adapter {
             mHolder.textViewHeader.setText(cur.getNewsName());
             mHolder.textViewAbstract.setText(cur.getNewsAbstract());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+            if (cur.getNewsPhotoUrl() != null)
             Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
         }else {
             OtherNewsAdapter.VideoViewHolder mHolder = (OtherNewsAdapter.VideoViewHolder)holder;
             mHolder.videoTitle.setText(cur.getNewsName());
             //采用glide加载网络图片,采用了占位符方式优先展示。
+            if (cur.getNewsPhotoUrl() != null)
             Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);
         }
     }
