@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 public interface NewsApi {
 
     @GET("newsList")
-    Call<Result<MyNews>> getNewsList();
+    Call<Result<MyNews>> getNewsList(@Query("pageIndex")int pageIndex, @Query("pageSize")int pageSize);
 
     //@author hudp
     @POST("new_like")

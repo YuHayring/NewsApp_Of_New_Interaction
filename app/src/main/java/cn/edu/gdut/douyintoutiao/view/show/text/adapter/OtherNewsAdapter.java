@@ -1,5 +1,6 @@
-package cn.edu.gdut.douyintoutiao.view.show.search.adapter;
+package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,24 +27,27 @@ import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayAct
 
 /**
  * @author : cypang
- * @description ： TODO:类的作用
+ * @description ：
  * @email : 516585610@qq.com
  * @date : 2020/11/11 11:10
  */
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class OtherNewsAdapter extends RecyclerView.Adapter {
 
     private List<MyNews> newsList = new ArrayList<>();
 
-    // 普通的item ViewType
-    private static final int TYPE_ITEM = 1;
+    // 文字 ViewType
+    private static final int TYPE_TEXT = 0;
+    // 视频 ViewType
+    private static final int TYPE_VIDEO = 1;
     // 空布局的ViewType
     private static final int TYPE_EMPTY = 2;
+
 
     private Context context;
     // 是否显示空布局，默认不显示
     private boolean showEmptyView = false;
 
-    public SearchAdapter(Context context) {
+    public OtherNewsAdapter(Context context) {
         this.context = context;
     }
 
@@ -51,20 +57,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_EMPTY) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == TYPE_EMPTY){
             return new ViewHolder(getEmptyView(parent));
         }
-        ViewHolder viewHolder;
+        RecyclerView.ViewHolder viewHolder;
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
-        viewHolder = new ViewHolder(itemView);
+        View itemView ;
+        if(viewType == TYPE_TEXT) {
+            itemView = layoutInflater.inflate(R.layout.item_news_list, parent, false);
+            viewHolder = new ViewHolder(itemView);
+        }else {
+            itemView = layoutInflater.inflate(R.layout.item_video_list, parent, false);
+            viewHolder = new VideoViewHolder(itemView);
+        }
         itemView.setOnClickListener(v -> {
-            if (newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(1)) {
+            if(newsList.get(viewHolder.getAbsoluteAdapterPosition()).getType().equals(1)){
                 Intent intent = new Intent(context, SingleVideoPlayActivity.class);
                 intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
                 context.startActivity(intent);
-            } else {
+            }else {
                 Intent intent = new Intent(context, NewsActivity.class);
                 intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
                 intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
@@ -77,17 +89,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     //处理对holder上的一些操作
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (isEmptyPosition(position)) {
-            return;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (isEmptyPosition(position)){
+            return ;
         }
         MyNews cur = newsList.get(position);
-        holder.textViewHeader.setText(cur.getNewsName());
-        holder.textViewAbstract.setText(cur.getNewsAbstract());
-        //采用glide加载网络图片,采用了占位符方式优先展示。
-        Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
+        if(holder instanceof OtherNewsAdapter.ViewHolder) {
+            OtherNewsAdapter.ViewHolder mHolder = (OtherNewsAdapter.ViewHolder)holder;
+            mHolder.textViewHeader.setText(cur.getNewsName());
+            mHolder.textViewAbstract.setText(cur.getNewsAbstract());
+            //采用glide加载网络图片,采用了占位符方式优先展示。
+            Glide.with(holder.itemView).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.imageViewPic);
+        }else {
+            OtherNewsAdapter.VideoViewHolder mHolder = (OtherNewsAdapter.VideoViewHolder)holder;
+            mHolder.videoTitle.setText(cur.getNewsName());
+            //采用glide加载网络图片,采用了占位符方式优先展示。
+            Glide.with(mHolder.videoPreview).load(Uri.parse(cur.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(mHolder.videoPreview);
+        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -108,10 +130,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             // 空布局
             return TYPE_EMPTY;
         } else {
-            return TYPE_ITEM;
+            return newsList.get(position).getType().equals(0)? TYPE_TEXT : TYPE_VIDEO;
         }
     }
-
     //防止内存泄漏
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewHeader, textViewAbstract;
@@ -125,6 +146,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
     }
 
+    static class VideoViewHolder extends RecyclerView.ViewHolder{
+        TextView videoTitle;
+        ImageView videoPreview;
+
+        public VideoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            videoTitle = itemView.findViewById(R.id.text_view_single_video_title);
+            videoPreview = itemView.findViewById(R.id.image_view_single_video_preview);
+            videoPreview.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+    }
     /**
      * 获取空布局
      */
@@ -149,8 +181,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             notifyDataSetChanged();
         }
     }
-
-    public boolean isShowEmptyView() {
-        return showEmptyView;
-    }
 }
+

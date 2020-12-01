@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal"
-    tools:context=".view.show.search.view.SearchFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <SearchView
-        android:id="@+id/searchView"
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"/>
-
-    <CheckBox
-        android:id="@+id/button_switch_type"
-        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:button="@android:drawable/ic_popup_sync"
-         />
-</RelativeLayout>
+        android:orientation="vertical"
+        tools:context=".view.show.search.view.SearchFragment">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp" />
+
+    </LinearLayout>
+</layout>

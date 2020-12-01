@@ -28,11 +28,6 @@ import es.dmoral.toasty.Toasty;
  */
 public class VerticalVideoPlayActivity extends VideoPlayActivity {
 
-
-
-
-
-
     private String status;
 
     private String key;

@@ -40,7 +40,7 @@ public class NewsRepository {
 
 
     public LiveData<List<MyNews>> getAllNewsLive() {
-        Call<Result<MyNews>> call = api.getNewsList();
+        Call<Result<MyNews>> call = api.getNewsList(0, 10);
         call.enqueue(new Callback<Result<MyNews>>() {
             @Override
             public void onResponse(Call<Result<MyNews>> call, Response<Result<MyNews>> response) {
