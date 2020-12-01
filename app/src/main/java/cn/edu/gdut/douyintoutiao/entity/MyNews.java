@@ -76,6 +76,14 @@ public class MyNews implements Serializable {
      */
     private Integer like;
 
+
+
+    /**
+     * 视频转文字专用 url
+     */
+    private String urlOfTextOfVideo;
+
+
     public MyNews() {
     }
 
@@ -209,5 +217,13 @@ public class MyNews implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like);
+    }
+    
+    public String getUrlOfTextOfVideo() {
+        return urlOfTextOfVideo;
+    }
+
+    public void setUrlOfTextOfVideo(String urlOfTextOfVideo) {
+        this.urlOfTextOfVideo = urlOfTextOfVideo;
     }
 }
