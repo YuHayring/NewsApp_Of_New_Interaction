@@ -54,32 +54,32 @@ public class CommentFragmentContainerActivity extends SingleFragmentContainerAct
         viewModel = new CommentViewModel(this);
         model = new CommentModel(viewModel);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,fragment).show(fragment).commitNow();
-        viewBinding.buttonAddComment.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-            @Override
-            public void onMenuExpanded() {
-                new MaterialDialog.Builder(CommentFragmentContainerActivity.this)
-                        .title("评论发送")
-                        .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
-                            @Override
-                            public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
-                                // Do something
-                                String content = input.toString();
-                                if (content.length() == 0) {
-                                    Toasty.warning(CommentFragmentContainerActivity.this, "请输入内容", Toasty.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                model.postComment(newsId, userId, content);
-                                Toasty.success(CommentFragmentContainerActivity.this, "发送成功", Toasty.LENGTH_SHORT, true).show();
-                                viewBinding.buttonAddComment.collapse();
-                            }
-                        }).show();
-            }
-
-            @Override
-            public void onMenuCollapsed() {
-
-            }
-        });
+//        viewBinding.buttonAddComment.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+//            @Override
+//            public void onMenuExpanded() {
+//                new MaterialDialog.Builder(CommentFragmentContainerActivity.this)
+//                        .title("评论发送")
+//                        .input("请输入评论内容", "", new MaterialDialog.InputCallback() {
+//                            @Override
+//                            public void onInput(@NotNull MaterialDialog dialog, CharSequence input) {
+//                                // Do something
+//                                String content = input.toString();
+//                                if (content.length() == 0) {
+//                                    Toasty.warning(CommentFragmentContainerActivity.this, "请输入内容", Toasty.LENGTH_SHORT).show();
+//                                    return;
+//                                }
+//                                model.postComment(newsId, userId, content);
+//                                Toasty.success(CommentFragmentContainerActivity.this, "发送成功", Toasty.LENGTH_SHORT, true).show();
+//                                viewBinding.buttonAddComment.collapse();
+//                            }
+//                        }).show();
+//            }
+//
+//            @Override
+//            public void onMenuCollapsed() {
+//
+//            }
+//        });
     }
 
 

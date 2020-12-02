@@ -36,6 +36,8 @@
     <string name="following">关  注</string>
     <string name="help">帮助反馈</string>
     <string name="user_main_exit_msg">退出登录</string>
+    <string name="user_main_cross_setting">十字滑动设置</string>
+    <string name="user_main_tab_setting">TAB设置</string>
 
     <!-- 导航栏 -->
     <string name="setting">设置中心</string>
@@ -126,5 +128,13 @@
     <string name="userPhoneId">用户账号</string>
     <string name="userMainText">粉丝：1   ｜关注：20    ｜获赞：5</string>
     <string name="authorSpace">作品空间</string>
+
+
+    <!-- tab 设置-->
+    <string name="tab_setting_save_failed">保存失败，是否继续退出？</string>
+    <string name="tab_setting_save_failed_title">保存失败</string>
+    <string name="tab_setting_quit">退出</string>
+    <string name="tab_setting_stay">取消</string>
+    <string name="tab_setting_saving">正在保存</string>
 
 </resources>

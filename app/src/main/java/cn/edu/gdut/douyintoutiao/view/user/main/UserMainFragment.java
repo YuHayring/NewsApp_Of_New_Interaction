@@ -21,8 +21,10 @@ import java.io.File;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
 import cn.edu.gdut.douyintoutiao.view.FirstActivity;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
-import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.activity.EditActivity;
+import cn.edu.gdut.douyintoutiao.view.user.follow.activity.FollowListActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.CrossScrollSettingActivity;
+import cn.edu.gdut.douyintoutiao.view.user.setting.MyTabSettingActivity;
 
 /**
  * @author hayring
@@ -105,7 +107,8 @@ public class UserMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditActivity.class);
-                startActivity(intent);
+                //For result 会调用 onActivityResult
+                startActivityForResult(intent,1);
             }
         });
 
@@ -120,6 +123,16 @@ public class UserMainFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
+        });
+
+        mUserInfoBinding.tabSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MyTabSettingActivity.class);
+            startActivity(intent);
+        });
+
+        mUserInfoBinding.userMainCrossSettingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CrossScrollSettingActivity.class);
+            startActivity(intent);
         });
 
     }
@@ -142,6 +155,23 @@ public class UserMainFragment extends Fragment {
         if (context instanceof MainActivity) {
             MainActivity activity = (MainActivity) context;
             activity.setFileCallbackFromUserMain(null);
+        }
+    }
+
+
+    /**
+     * 启动 activity 后回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //通过网络请求刷新
+        //当EditAct启动了updateUserInfo返回时，resultCode为1
+        if (requestCode == 1 && resultCode == 1) { //表示更新了数据
+            userMainViewModel.userMainModel.getUser(userId);
         }
     }
 }

@@ -70,7 +70,7 @@ public class MainFragment extends Fragment {
 
     private MaterialDialog tabSelectDialog;
 
-    private MainViewModel mainViewModel;
+    private TabViewModel mainViewModel;
 
     private final int pages = 3;
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -127,7 +127,7 @@ public class MainFragment extends Fragment {
 
         newsNavigationTab = binding.getRoot().findViewById(R.id.news_navigation);
 
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(this).get(TabViewModel.class);
         mainViewModel.getTabs().observe(getViewLifecycleOwner(), new Observer<String[]>() {
             @Override
             public void onChanged(String[] strings) {
@@ -152,6 +152,20 @@ public class MainFragment extends Fragment {
                                 return true;
                             }
                         }).build();
+                SharedPreferences scrollSHP = requireActivity().getSharedPreferences(MagicVideoPlayActivity.SHP_KEY,Context.MODE_PRIVATE);
+                if (scrollSHP.getAll().isEmpty()) {
+                    SharedPreferences.Editor editor = scrollSHP.edit();
+                    if (followTabs.isEmpty()) {
+                        editor.putString(MagicVideoPlayActivity.UP,"足球");
+                        editor.putString(MagicVideoPlayActivity.LEFT,"csgo");
+                        editor.putString(MagicVideoPlayActivity.RIGHT,"二次元");
+                    } else {
+                        editor.putString(MagicVideoPlayActivity.UP,followTabs.get(0));
+                        editor.putString(MagicVideoPlayActivity.LEFT,followTabs.get(followTabs.size() / 2));
+                        editor.putString(MagicVideoPlayActivity.RIGHT,followTabs.get(followTabs.size() - 1));
+                    }
+                    editor.apply();
+                }
             }
         });
 

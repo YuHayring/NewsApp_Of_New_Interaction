@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouYinTouTiao">
-        <activity android:name=".view.show.WebViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
+        <activity android:name=".view.user.setting.MyTabSettingActivity"></activity>
+        <activity android:name=".view.user.setting.CrossScrollSettingActivity"
+            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
+            android:name=".view.show.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.user.edit.activity.EditActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

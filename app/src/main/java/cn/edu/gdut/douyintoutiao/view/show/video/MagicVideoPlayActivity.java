@@ -22,6 +22,15 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
 public class MagicVideoPlayActivity extends VideoPlayActivity {
 
 
+    public static final String UP = "up";
+
+    public static final String LEFT = "left";
+
+    public static final String RIGHT = "right";
+
+    public static final String SHP_KEY = "CROSS_SCROLL_TAB";
+
+
     ViewPager2 horizontalViewPager;
 //
 //    VideoPlayerFragment[] fragments = new VideoPlayerFragment[4];
@@ -42,12 +51,12 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
 
 
 
-    int lastScrollDirection = DOWN;
+    int lastScrollDirection = _DOWN;
 
-    private static final int DOWN = 0;
-    private static final int UP = 1;
-    private static final int LEFT = 2;
-    private static final int RIGHT = 3;
+    private static final int _DOWN = 0;
+    private static final int _UP = 1;
+    private static final int _LEFT = 2;
+    private static final int _RIGHT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,24 +168,24 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
             //        若当前为第一张，设置页面为倒数第二张
             if (prePosition == 0) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
-                    activity.lastScrollDirection = UP;
+                    activity.lastScrollDirection = _UP;
                     //触发上滑操作
-                    activity.scrollToDirection(UP);
+                    activity.scrollToDirection(_UP);
                 } else {
-                    activity.lastScrollDirection = LEFT;
+                    activity.lastScrollDirection = _LEFT;
                     //触发左滑操作
-                    activity.scrollToDirection(LEFT);
+                    activity.scrollToDirection(_LEFT);
                 }
 
             } else if (prePosition == 2) {
                 if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_VERTICAL) {
-                    activity.lastScrollDirection = DOWN;
+                    activity.lastScrollDirection = _DOWN;
                     //触发下滑操作
-                    activity.scrollToDirection(DOWN);
+                    activity.scrollToDirection(_DOWN);
                 } else {
-                    activity.lastScrollDirection = RIGHT;
+                    activity.lastScrollDirection = _RIGHT;
                     //触发右滑操作
-                    activity.scrollToDirection(RIGHT);
+                    activity.scrollToDirection(_RIGHT);
                 }
             }
         }
@@ -242,16 +251,16 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
     @Override
     public void removeVideo() {
         switch (lastScrollDirection) {
-            case UP:{
+            case _UP:{
                 ((VerticalTriplePageFragment)fragments[1]).getVerticalViewPager().setCurrentItem(0,true);
             }break;
-            case DOWN:{
+            case _DOWN:{
                 ((VerticalTriplePageFragment)fragments[1]).getVerticalViewPager().setCurrentItem(2,true);
             }break;
-            case LEFT:{
+            case _LEFT:{
                 horizontalViewPager.setCurrentItem(0,true);
             }break;
-            case RIGHT:{
+            case _RIGHT:{
                 horizontalViewPager.setCurrentItem(2,true);
             }
         }
@@ -267,27 +276,27 @@ public class MagicVideoPlayActivity extends VideoPlayActivity {
     private void scrollToDirection(int direction) {
         viewBinding.videoViewPager.setCurrentItem(1,false);
         switch (direction) {
-            case UP:{
+            case _UP:{
                 setCurrentNews(getMagicVideoPlayViewModel().upNewses.pop());
-                if (getMagicVideoPlayViewModel().upNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().upNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getUpVideo();
                 }
             }break;
-            case DOWN:{
+            case _DOWN:{
                 setCurrentNews(getMagicVideoPlayViewModel().downNewses.pop());
-                if (getMagicVideoPlayViewModel().downNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().downNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getDownVideo();
                 }
             }break;
-            case LEFT:{
+            case _LEFT:{
                 setCurrentNews(getMagicVideoPlayViewModel().leftNewses.pop());
-                if (getMagicVideoPlayViewModel().leftNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().leftNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getLeftVideo();
                 }
             }break;
-            case RIGHT:{
+            case _RIGHT:{
                 setCurrentNews(getMagicVideoPlayViewModel().rightNewses.pop());
-                if (getMagicVideoPlayViewModel().rightNewses.size() == 1) {
+                if (getMagicVideoPlayViewModel().rightNewses.size() < 1) {
                     getMagicVideoPlayViewModel().getRightVideo();
                 }
             }

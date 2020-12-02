@@ -17,6 +17,29 @@ public class MyNews implements Serializable {
     public static final int VIDEO = 1;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyNews myNews = (MyNews) o;
+        return Objects.equals(_id, myNews._id) &&
+                Objects.equals(newsName, myNews.newsName) &&
+                Objects.equals(newsAbstract, myNews.newsAbstract) &&
+                Objects.equals(newsPhotoUrl, myNews.newsPhotoUrl) &&
+                Objects.equals(createdAt, myNews.createdAt) &&
+                Objects.equals(updatedAt, myNews.updatedAt) &&
+                Objects.equals(newsDetailUrl, myNews.newsDetailUrl) &&
+                Objects.equals(type, myNews.type) &&
+                Objects.equals(author, myNews.author) &&
+                Objects.equals(tag, myNews.tag) &&
+                Objects.equals(like, myNews.like) &&
+                Objects.equals(urlOfTextOfVideo, myNews.urlOfTextOfVideo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like, urlOfTextOfVideo);
+    }
 
     /**
      * 资讯 id
@@ -105,10 +128,7 @@ public class MyNews implements Serializable {
     }
 
     public String getNewsAbstract() {
-        if(!newsAbstract.isEmpty() ){ return newsAbstract;}
-        else {
-            return ("这个作者很懒，没有提供概述。");
-        }
+        return newsAbstract;
     }
 
     public void setNewsAbstract(String newsAbstract) {
@@ -196,29 +216,6 @@ public class MyNews implements Serializable {
         this.like = like;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyNews myNews = (MyNews) o;
-        return Objects.equals(_id, myNews._id) &&
-                Objects.equals(newsName, myNews.newsName) &&
-                Objects.equals(newsAbstract, myNews.newsAbstract) &&
-                Objects.equals(newsPhotoUrl, myNews.newsPhotoUrl) &&
-                Objects.equals(createdAt, myNews.createdAt) &&
-                Objects.equals(updatedAt, myNews.updatedAt) &&
-                Objects.equals(newsDetailUrl, myNews.newsDetailUrl) &&
-                Objects.equals(type, myNews.type) &&
-                Objects.equals(author, myNews.author) &&
-                Objects.equals(tag, myNews.tag) &&
-                Objects.equals(like, myNews.like) &&
-                Objects.equals(urlOfTextOfVideo, myNews.urlOfTextOfVideo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like, urlOfTextOfVideo);
-    }
 
     public String getUrlOfTextOfVideo() {
         return urlOfTextOfVideo;

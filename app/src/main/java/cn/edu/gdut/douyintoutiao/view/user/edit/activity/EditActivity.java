@@ -2,7 +2,6 @@ package cn.edu.gdut.douyintoutiao.view.user.edit.activity;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.ActivityEditBinding;
-import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import cn.edu.gdut.douyintoutiao.view.user.edit.viewModel.EditViewModel;
 
 public class EditActivity extends AppCompatActivity {
@@ -71,9 +69,8 @@ public class EditActivity extends AppCompatActivity {
                 name = activityEditBinding.editUserNameText.getText().toString();
                 editViewModel.updateUserInfo(userId,name,describe);
                Toast.makeText(EditActivity.this, "编辑信息已提交！", Toast.LENGTH_SHORT).show();
-                //刷新页面,待修改
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                setResult(1);
+                finish();
 
             }
         });
@@ -81,5 +78,10 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void finish() {
+        //cancled 表示没有按保存键，UserMainFragment 不需要刷新
+        //setResult(RESULT_CANCELED);
+        super.finish();
+    }
 }
