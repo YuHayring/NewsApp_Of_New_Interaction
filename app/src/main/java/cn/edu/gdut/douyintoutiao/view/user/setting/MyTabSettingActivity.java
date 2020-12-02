@@ -97,10 +97,11 @@ public class MyTabSettingActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     //设置 tabs 是否关注，每一个位代表一个 tab
                     SwitchCompat switchCompat = (SwitchCompat) v;
+                    //isChecked 是 check 之后的状态，所以要反过来
                     if (switchCompat.isChecked()) {
-                        tabFollow -= mode;
-                    } else {
                         tabFollow += mode;
+                    } else {
+                        tabFollow -= mode;
                     }
                     Log.i("tabFollow" , ""+ tabFollow);
                 }
