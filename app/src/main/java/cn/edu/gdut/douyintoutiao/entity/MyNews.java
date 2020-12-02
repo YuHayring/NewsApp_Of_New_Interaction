@@ -211,14 +211,15 @@ public class MyNews implements Serializable {
                 Objects.equals(type, myNews.type) &&
                 Objects.equals(author, myNews.author) &&
                 Objects.equals(tag, myNews.tag) &&
-                Objects.equals(like, myNews.like);
+                Objects.equals(like, myNews.like) &&
+                Objects.equals(urlOfTextOfVideo, myNews.urlOfTextOfVideo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like);
+        return Objects.hash(_id, newsName, newsAbstract, newsPhotoUrl, createdAt, updatedAt, newsDetailUrl, type, author, tag, like, urlOfTextOfVideo);
     }
-    
+
     public String getUrlOfTextOfVideo() {
         return urlOfTextOfVideo;
     }
