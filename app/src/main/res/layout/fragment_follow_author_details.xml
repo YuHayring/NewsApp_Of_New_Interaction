@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline39"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.26" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline37"
@@ -57,7 +57,7 @@
         android:layout_marginEnd="247dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/author_details_image"
-        app:layout_constraintGuide_percent="0.29"
+        app:layout_constraintGuide_percent="0.32"
         app:layout_constraintStart_toEndOf="@+id/guideline24" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.08"
+        app:layout_constraintGuide_percent="0.06"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
-        app:layout_constraintGuide_percent="0.14"
+        app:layout_constraintGuide_percent="0.13"
         app:layout_constraintStart_toEndOf="@+id/guideline25" />
 
     <TextView
@@ -119,7 +119,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="30dp"
         android:text="@string/textView_author_name"
         android:textAlignment="textStart"
         android:textColor="@color/black"
@@ -128,7 +127,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline24"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toStartOf="@+id/guideline36"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView_author_details_describe"
