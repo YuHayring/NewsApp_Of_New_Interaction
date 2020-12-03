@@ -300,16 +300,17 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
         if(changeFlag == null){
             changeFlag = false;
         }
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //如果关注列表发生了改变，则resultCode赋值为1
-            if(changeFlag) {
-                Intent i = new Intent();
-                setResult(1, i);
-            }
-            finish();
-            return true;
-        } else {
+        if(changeFlag){
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //如果关注列表发生了改变，则resultCode赋值为1
+                if(changeFlag) {
+                    Intent i = new Intent();
+                    setResult(1, i);
+                }
+                finish();
+                return true;
+            } }
             return super.onKeyDown(keyCode, event);
-        }
+
     }
 }

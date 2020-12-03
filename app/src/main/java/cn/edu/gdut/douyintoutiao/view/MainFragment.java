@@ -189,6 +189,7 @@ public class MainFragment extends Fragment {
 
         binding.exchangeButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), MagicVideoPlayActivity.class);
+            intent.putExtra("isFollow",true);
             startActivity(intent);
         });
 
