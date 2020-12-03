@@ -44,7 +44,7 @@ public class NewsViewModel extends AndroidViewModel {
                         //设置初始获取数据大小
                 setInitialLoadSizeHint(NewsDataSource.PAGE_SIZE * 2).
                         //设置最大容量
-                setMaxSize(65536 *NewsDataSource.PAGE_SIZE).build();
+                setMaxSize(65536 * NewsDataSource.PAGE_SIZE).build();
         newsPagedList = new LivePagedListBuilder<>(new NewsDataSourceFactory(), config).build();
     }
 

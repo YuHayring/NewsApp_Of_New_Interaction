@@ -38,6 +38,7 @@ public class NewsDetailFragment extends Fragment  {
 
     private OnFragmentListener mOnFragmentListener;
 
+
     public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
         NewsDetailFragment fragment = new NewsDetailFragment();
         Bundle args = new Bundle();
@@ -53,7 +54,7 @@ public class NewsDetailFragment extends Fragment  {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = NewsDetailFragmentBinding.inflate(inflater);
-        String uri = requireActivity().getIntent().getStringExtra("uri");
+        String uri = ((MyNews)requireActivity().getIntent().getSerializableExtra("news")).getNewsDetailUrl();
         init(uri);
         return binding.getRoot();
     }
@@ -65,12 +66,12 @@ public class NewsDetailFragment extends Fragment  {
         super.onActivityCreated(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(NewsDetailViewModel.class);
         // 提取用户登录的id
-        String newsId = requireActivity().getIntent().getStringExtra("newsId");
+        String newsId = ((MyNews)requireActivity().getIntent().getSerializableExtra("news")).get_id();
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         String userId = shp.getString("userId", "noContent");
         binding.floatButton.bringToFront();
         //设置tag
-        binding.buttonSeeTags.setText(requireActivity().getIntent().getStringExtra("tag"));
+        binding.buttonSeeTags.setText(((MyNews)requireActivity().getIntent().getSerializableExtra("news")).getTag());
 
         //悬浮窗测试
         //举报按钮
@@ -87,7 +88,7 @@ public class NewsDetailFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 MyNews news = new MyNews();
-                news.set_id(getActivity().getIntent().getStringExtra("newsId"));
+                news.set_id(((MyNews)requireActivity().getIntent().getSerializableExtra("news")).get_id());
                 //图标的变化
                 if(float_botton_flag[0]){
                     //图标变红
@@ -113,7 +114,7 @@ public class NewsDetailFragment extends Fragment  {
         binding.actionZuozhe.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String authorId = requireActivity().getIntent().getStringExtra("authorId");
+                String authorId = ((MyNews)requireActivity().getIntent().getSerializableExtra("news")).getAuthor().get(0).getUserId();
                 SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
                 Intent intent = new Intent(requireActivity(), ActivityFollowAuthorDetails.class);
@@ -177,7 +178,7 @@ public class NewsDetailFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("newsId", requireActivity().getIntent().getStringExtra("newsId"));
+                bundle.putString("newsId", ((MyNews)requireActivity().getIntent().getSerializableExtra("news")).get_id());
                 bundle.putString("userId", userId);
                 NavController controller = Navigation.findNavController(v);
                 controller.navigate(R.id.commentFragment, bundle);
