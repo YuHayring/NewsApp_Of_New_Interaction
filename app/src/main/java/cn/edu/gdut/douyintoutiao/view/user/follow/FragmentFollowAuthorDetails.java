@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +24,7 @@ import cn.edu.gdut.douyintoutiao.databinding.FragmentFollowAuthorDetailsBinding;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsViewModel;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author : DengJL
@@ -112,17 +112,17 @@ public class FragmentFollowAuthorDetails extends Fragment {
                 public void onClick(View v) {
                     //根据关注关系判断字符isFollow决定点击事件
                     if(isFollow){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setIcon(R.drawable.ic_baseline_warning_24)
-                            .setTitle("取消关注?")
-                            .setMessage("确定要取消关注"+list.get(0).getUserName()+"吗")
-                            .setNegativeButton("取消", null)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setIcon(R.drawable.ic_baseline_warning_24)
+                                .setTitle(getString(R.string.alertDialog_follow_title))
+                                .setMessage(getString(R.string.alertDialog_follow_message_start)+list.get(0).getUserName()+getString(R.string.alertDialog_follow_message_end))
+                                .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                                .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
-                                    Toast.makeText(getContext(), "已取消关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-                                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+                                    Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +list.get(0).getUserName() , Toasty.LENGTH_SHORT, true).show();
+                                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText(getString(R.string.button_text_insert_follow));
                                     //关注列表发生改变，传信息到act
                                     if(mOnFragmentListener != null){
                                         mOnFragmentListener.onFragmentGetChange(true);
@@ -134,8 +134,8 @@ public class FragmentFollowAuthorDetails extends Fragment {
                             .create().show(); }
                     else{
                         followAuthorDetailsViewModel.insertUserFollowList(followerId,userId);
-                            Toast.makeText(getContext(), "已关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-                            fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
+                        Toasty.success(getContext(), getString(R.string.toasty_follow_start) +list.get(0).getUserName() , Toasty.LENGTH_SHORT, true).show();
+                        fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText(getString(R.string.button_text_del_follow));
                         //关注列表发生改变，传信息到act
                         if(mOnFragmentListener != null){
                             mOnFragmentListener.onFragmentGetChange(true);
@@ -155,8 +155,8 @@ public class FragmentFollowAuthorDetails extends Fragment {
         fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
         fragmentFollowAuthorDetailsBinding.textViewAuthorPhoneId.setText("id:"+user.getUserTelephone());
         fragmentFollowAuthorDetailsBinding.textViewAuthorNumber.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
-        String buttonText = "关注";
-        if(isFollow){ buttonText = "已关注"; }
+        String buttonText = getString(R.string.button_text_insert_follow);
+        if(isFollow){ buttonText = getString(R.string.button_text_del_follow); }
         fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText(buttonText);
 
         Glide.with(FragmentFollowAuthorDetails.this)//当前类

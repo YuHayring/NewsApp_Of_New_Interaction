@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +26,7 @@ import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
+import es.dmoral.toasty.Toasty;
 
 
 public class FollowAuthorListFragment extends Fragment {
@@ -125,14 +125,14 @@ public class FollowAuthorListFragment extends Fragment {
                 //补充取消关注警告窗口
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setIcon(R.drawable.ic_baseline_warning_24)
-                        .setTitle("取消关注?")
-                        .setMessage("确定要取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName()+"吗")
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.alertDialog_follow_title))
+                        .setMessage(getString(R.string.alertDialog_follow_message_start)+followListAdapter.getFollows().get(0).getAuthor().get(0).getUserName()+getString(R.string.alertDialog_follow_message_end))
+                        .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                        .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener()  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
-                                Toast.makeText(getContext(),"取消关注了"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                                Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) + followListAdapter.getFollows().get(0).getAuthor().get(0).getUserName() , Toasty.LENGTH_SHORT, true).show();
                                 followAuthorViewModel.getFollowList(userId);
                             }
                         })

@@ -100,6 +100,10 @@
     <string name="button_authorList_unfollow">取消关注按钮</string>
     <string name="button_news_details_follow" />
     <string name="button_newsDetails_follow">关注按钮</string>
+    <string name="toasty_unFollow_start">取消关注了</string>
+    <string name="toasty_follow_start">关注了</string>
+    <string name="button_text_insert_follow">关注</string>
+    <string name="button_text_del_follow">已关注</string>
 
 
     <!-- 视频播放页 -->
@@ -137,5 +141,12 @@
     <string name="tab_setting_quit">退出</string>
     <string name="tab_setting_stay">取消</string>
     <string name="tab_setting_saving">正在保存</string>
+
+    <!-- 警告窗口 -->
+    <string name="alertDialog_follow_title">取消关注?</string>
+    <string name="alertDialog_follow_message_start">确定要取消关注</string>
+    <string name="alertDialog_follow_message_end">吗？</string>
+    <string name="alertDialog_follow_navigationButton">取消</string>
+    <string name="alertDialog_follow_positiveButton">确定</string>
 
 </resources>

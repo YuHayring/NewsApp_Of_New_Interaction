@@ -129,10 +129,10 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
                     //已经关注
                     AlertDialog.Builder builder = new AlertDialog.Builder(VideoPlayActivity.this);
                     builder.setIcon(R.drawable.ic_baseline_warning_24)
-                            .setTitle("取消关注?")
-                            .setMessage("确定要取消关注"+currentNews.getNewsName()+"吗")
-                            .setNegativeButton("取消", null)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            .setTitle(getString(R.string.alertDialog_follow_title))
+                            .setMessage(getString(R.string.alertDialog_follow_message_start)+currentNews.getNewsName()+getString(R.string.alertDialog_follow_message_end))
+                            .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                            .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     videoViewModel.deleteTagsFollowByNewsIdUserId(thisNews.get_id(), userId);

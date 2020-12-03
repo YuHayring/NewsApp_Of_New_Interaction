@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +28,7 @@ import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowTagsListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowTagsViewModel;
+import es.dmoral.toasty.Toasty;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,7 +93,6 @@ public class FollowTagsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        
         //定义binding
         fragmentFollowTagsListBinding =  FragmentFollowTagsListBinding.inflate(inflater);
         return fragmentFollowTagsListBinding.getRoot();
@@ -144,13 +143,13 @@ public class FollowTagsListFragment extends Fragment {
                 //补充取消关注警告窗口
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setIcon(R.drawable.ic_baseline_warning_24)
-                        .setTitle("取消关注?")
-                        .setMessage("确定要取消关注"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName()+"吗")
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.alertDialog_follow_title))
+                        .setMessage(getString(R.string.alertDialog_follow_message_start)+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName()+getString(R.string.alertDialog_follow_message_end))
+                        .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                        .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
+                                Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName() , Toasty.LENGTH_SHORT, true).show();
                                 followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
                                 followTagsViewModel.getFollowTagsList(userId);
 

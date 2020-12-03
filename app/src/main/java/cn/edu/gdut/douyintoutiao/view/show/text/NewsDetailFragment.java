@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -134,8 +133,8 @@ public class NewsDetailFragment extends Fragment  {
                 public void onClick(View v) {
                    if(!isFollow[0]){
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                    Toast.makeText(getContext(),"关注了"+newsName, Toast.LENGTH_SHORT).show();
-                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                       Toasty.success(getContext(), getString(R.string.toasty_follow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
+                       binding.actionGuanzhu.setIcon(yellow_guanzhu);
                         isFollow[0] = true;
                        //关注列表发生改变，传信息到act
                        if(mOnFragmentListener != null){
@@ -145,14 +144,14 @@ public class NewsDetailFragment extends Fragment  {
                    else {
                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                        builder.setIcon(R.drawable.ic_baseline_warning_24)
-                               .setTitle("取消关注?")
-                               .setMessage("确定要取消关注"+newsName+"吗")
-                               .setNegativeButton("取消", null)
-                               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                               .setTitle(getString(R.string.alertDialog_follow_title))
+                               .setMessage(getString(R.string.alertDialog_follow_message_start)+newsName+getString(R.string.alertDialog_follow_message_end))
+                               .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                               .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
                                        viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
-                                       Toast.makeText(getContext(),"取消关注了"+newsName, Toast.LENGTH_SHORT).show();
+                                       Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
                                        binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
                                        isFollow[0] = false;
                                        //关注列表发生改变，传信息到act
