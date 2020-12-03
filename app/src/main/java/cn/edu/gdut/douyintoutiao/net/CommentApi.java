@@ -4,6 +4,7 @@ import java.util.Map;
 
 import cn.edu.gdut.douyintoutiao.entity.Discuss;
 import cn.edu.gdut.douyintoutiao.entity.Result;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,7 +27,7 @@ public interface CommentApi {
 
     @POST("postComment")
     @Headers("Content-Type: application/json;charset=UTF-8")
-    Call<Result<Void>> postComment(@Body Map<String, String> followIdMap);
+    Observable<Result<Void>> postComment(@Body Map<String, String> followIdMap);
 
     /**
      * 单例内部类

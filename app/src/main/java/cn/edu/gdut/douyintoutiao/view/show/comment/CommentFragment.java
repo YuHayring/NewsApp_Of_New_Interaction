@@ -27,7 +27,7 @@ import es.dmoral.toasty.Toasty;
  * @author cypang
  * @date 2020年11月13日11:05:44
  */
-public class CommentFragment extends Fragment {
+public class CommentFragment extends Fragment implements CommentCallBack{
 
     private CommentViewModel mViewModel;
     private CommentAdapter adapter;
@@ -55,6 +55,7 @@ public class CommentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
+        mViewModel.setCallBack(this);
         assert getArguments() != null;
         newsId = getArguments().getString("newsId");
         userId = getArguments().getString("userId");
@@ -84,7 +85,7 @@ public class CommentFragment extends Fragment {
                 }).show());
     }
 
-
+    @Override
     public void updateComment() {
         mViewModel.getAllDiscussData(newsId).observe(getViewLifecycleOwner(), new Observer<List<Discuss>>() {
             @Override

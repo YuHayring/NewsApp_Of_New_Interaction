@@ -72,11 +72,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, NewsActivity.class);
-                    intent.putExtra("uri", getItem(newsViewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-                    intent.putExtra("newsId", getItem(newsViewHolder.getAbsoluteAdapterPosition()).get_id());
-                    intent.putExtra("tag", getItem(newsViewHolder.getAbsoluteAdapterPosition()).getTag());
-                    intent.putExtra("authorId", getItem(newsViewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
-                    intent.putExtra("newsName",getItem(newsViewHolder.getAbsoluteAdapterPosition()).getNewsName());
+                    intent.putExtra("news", getItem(newsViewHolder.getAbsoluteAdapterPosition()));
                     intent.putExtra("isFollow",false);
                     context.startActivity(intent);
                 }
@@ -89,28 +85,6 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(context, SingleVideoPlayActivity.class);
-//                    intent.putExtra("news", getItem(viewHolder.getAbsoluteAdapterPosition()));
-//                    context.startActivity(intent);
-//
-
-
-//                    if ( videoNewsIndex == null || videoNewsIndex.length != NewsAdapter.super.getItemCount()) {
-//                        final int len = NewsAdapter.super.getItemCount();
-//                        videoNewsIndex = new int[len];
-//                        videoCount = 0;
-//                        MyNews curNews;
-//                        //将视频取出，并设置下标
-//                        for (int i = 0; i < len ; i++) {
-//                            if (getItem(i).getType() == 1) {
-//                                videoNewsIndex[i] = videoCount++;
-//                            } else {
-//                                videoNewsIndex[i] = -1;
-//                            }
-//                        }
-//
-//                    }
-
                     Intent intent = new Intent(context, VerticalVideoPlayActivity.class);
                     int absoluteIndex = viewHolder.getAbsoluteAdapterPosition();
                     int index = videoNewsIndex.get(absoluteIndex);
