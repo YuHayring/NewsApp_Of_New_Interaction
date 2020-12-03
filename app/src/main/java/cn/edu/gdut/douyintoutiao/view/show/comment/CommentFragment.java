@@ -81,7 +81,6 @@ public class CommentFragment extends Fragment {
                     }
                     mViewModel.postComment(newsId, userId, content);
                     Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
-                    mViewModel.getAllDiscussData(newsId);
                 }).show());
     }
 
