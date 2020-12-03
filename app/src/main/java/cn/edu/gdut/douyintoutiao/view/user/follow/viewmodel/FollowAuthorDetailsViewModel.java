@@ -21,7 +21,6 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 public class FollowAuthorDetailsViewModel extends AndroidViewModel {
 
     private FollowRepository followAuthorDetailsRepository;
-    private Boolean isChangeFollow;
 
 
     public FollowAuthorDetailsViewModel(@NonNull Application application) {

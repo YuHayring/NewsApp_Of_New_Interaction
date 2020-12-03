@@ -28,7 +28,6 @@ public class FollowTagsViewModel  extends AndroidViewModel {
 
     public LiveData<List<FollowNews>> getFollowTagsList (String userId){
 
-       //  String userId = "5fa9f7f63d18b202258b5daf";
        return followRepository.getFollowTagsList(userId);
     }
 

@@ -63,6 +63,11 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
 
     }
 
+
+     /**
+      * 拦截press事件，这里只对back键进行判断
+      *
+      **/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(isChange == null){
@@ -85,7 +90,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
 
     /**
      * object需要实现Serializable或Parcelable接口
-     *
+     * 获取change判断关注关系是否发生了变化
      * @param change
      **/
     @Override

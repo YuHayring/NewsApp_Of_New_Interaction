@@ -70,8 +70,6 @@ public class FollowAuthorListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
     
 
@@ -79,8 +77,6 @@ public class FollowAuthorListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
         //定义binding
         fragmentFollowAuthorListBinding = FragmentFollowAuthorListBinding.inflate(inflater);
         return fragmentFollowAuthorListBinding.getRoot();
@@ -91,12 +87,13 @@ public class FollowAuthorListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //定义adapater,VM,RV
+        //定义adapter,VM,RV
         followListAdapter = new FollowAuthorListAdapter(getActivity());
         followAuthorViewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setAdapter(followListAdapter);
 
+        //获取userId
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         userId = shp.getString("userId", "noContent");
 
@@ -145,7 +142,7 @@ public class FollowAuthorListFragment extends Fragment {
 
             @Override
             public void onItemViewClick(int position) {
-                //启动被关注者activity
+                //启动被关注者页面（作者页面）activity
                 startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId(),followListAdapter.getFollows().get(position).getFollowId());
             }
 
