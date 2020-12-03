@@ -2,21 +2,19 @@ package cn.edu.gdut.douyintoutiao.view.user.follow.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.KeyEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import cn.edu.gdut.douyintoutiao.R;
-import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorDetailsViewModel;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
 
-public class ActivityFollowAuthorDetails extends AppCompatActivity  {
+ public class ActivityFollowAuthorDetails extends AppCompatActivity implements FragmentFollowAuthorDetails.OnFragmentListener  {
 
     private String userId;
     private String followId;
     private Boolean isFollow;
-
-    private TextView textView;
-    private FollowAuthorDetailsViewModel followAuthorDetailsViewModel;
+    private Boolean isChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +48,49 @@ public class ActivityFollowAuthorDetails extends AppCompatActivity  {
         return isFollow;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        Intent intent = new Intent();
+//        this.setResult(1,intent);
+//        finish();
+    }
 
+
+    @Override
+    public void finish() {
+        super.finish();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(isChange == null){
+            isChange = false;
+        }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            System.out.println("isChange:"+isChange);
+            //如果关注列表发生了改变，则resultCode赋值为1
+            if(isChange) {
+                Intent i = new Intent();
+                setResult(1, i);
+            }
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+
+    }
+
+    /**
+     * object需要实现Serializable或Parcelable接口
+     *
+     * @param change
+     **/
+    @Override
+    public void onFragmentGetChange(Boolean change) {
+       // System.out.println("isChange:"+change);
+        isChange = change;
+    }
 }

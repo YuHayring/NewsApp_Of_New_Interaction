@@ -47,7 +47,8 @@ public class FragmentFollowAuthorDetails extends Fragment {
     private String userId;
     private String followId;
     private Boolean isFollow;
-  //  private OnFragmentInteractionListener mListener;
+
+    private OnFragmentListener mOnFragmentListener;
 
     public FragmentFollowAuthorDetails() {
         // Required empty public constructor
@@ -106,6 +107,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
                     fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setIcon(R.drawable.ic_baseline_warning_24)
                                     .setTitle("取消关注?")
@@ -117,6 +119,10 @@ public class FragmentFollowAuthorDetails extends Fragment {
                                             followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
                                             Toast.makeText(getContext(), "已取消关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
                                             fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
+                                            //关注列表发生改变，传信息到act
+                                            if(mOnFragmentListener != null){
+                                                mOnFragmentListener.onFragmentGetChange(true);
+                                            }
                                         }
                                     })
                                     .create().show();
@@ -141,6 +147,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
                            followAuthorDetailsViewModel.insertUserFollowList(followerId,userId);
                             Toast.makeText(getContext(), "已关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
                             fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
+
                         }
                     });
                 }
@@ -171,9 +178,15 @@ public class FragmentFollowAuthorDetails extends Fragment {
         followId = ((ActivityFollowAuthorDetails)context).getFollowId();
         isFollow= ((ActivityFollowAuthorDetails)context).getFollow();
 
+        //当前fragment从activity重写了回调接口  得到接口的实例化对象(很重要)
+        mOnFragmentListener = (OnFragmentListener) getActivity();
     }
 
-
+    /**fragment给activity回传值的接口**/
+    public interface OnFragmentListener{
+        /**object需要实现Serializable或Parcelable接口**/
+        void onFragmentGetChange(Boolean change);
+    }
 
 
 }

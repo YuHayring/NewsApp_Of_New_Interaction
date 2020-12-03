@@ -35,8 +35,6 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     //层布局， 那么我们就可以通过findViewByid()方法来获取到布局中的ImageView 和TextView
     //的实例了
     static class ViewHolder extends RecyclerView.ViewHolder {
-//        ImageView newsImage;
-//        TextView newsName;
         TextView textViewHeader, textViewAbstract;
         ImageView imageViewPic;
         Button unFollowButton;

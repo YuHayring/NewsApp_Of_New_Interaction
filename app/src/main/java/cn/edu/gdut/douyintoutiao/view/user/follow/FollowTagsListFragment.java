@@ -154,13 +154,11 @@ public class FollowTagsListFragment extends Fragment {
                                 Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
                                 followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
                                 followTagsViewModel.getFollowTagsList(userId);
-                                followTagsListAdapter.notifyDataSetChanged();
+
                             }
                         })
                         .create().show();
-//
-//                Toast.makeText(getContext(),"取消关注事件"+followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName(),Toast.LENGTH_SHORT).show();
-//                followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
+
             }
 
             @Override

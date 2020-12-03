@@ -203,9 +203,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#D81B60"
+            android:hapticFeedbackEnabled="false"
             android:text="@string/user_main_exit_msg"
             android:textColor="@color/background"
             android:textSize="30sp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

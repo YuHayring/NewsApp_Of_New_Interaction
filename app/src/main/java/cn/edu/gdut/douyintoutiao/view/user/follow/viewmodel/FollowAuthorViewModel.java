@@ -16,7 +16,7 @@ public class FollowAuthorViewModel extends AndroidViewModel {
 
     private FollowRepository followRepository;
     private String followId;
-
+    private Boolean isChangeFollow;
 
 
     public FollowAuthorViewModel(@NonNull Application application) {

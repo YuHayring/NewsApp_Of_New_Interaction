@@ -29,8 +29,6 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapte
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 
-
-
 public class FollowAuthorListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -138,11 +136,11 @@ public class FollowAuthorListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
                                 Toast.makeText(getContext(),"取消关注了"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                                followAuthorViewModel.getFollowList(userId);
                             }
                         })
                         .create().show();
-                //Toast.makeText(getContext(),"取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
-               //  followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
+
             }
 
             @Override
@@ -158,7 +156,7 @@ public class FollowAuthorListFragment extends Fragment {
                 startIntent.putExtra("userId",userId);
                 startIntent.putExtra("followId",followId);
                 startIntent.putExtra("isFollow",true);
-                startActivity(startIntent);
+                startActivityForResult(startIntent,1);
             }
         });
 
@@ -182,6 +180,15 @@ public class FollowAuthorListFragment extends Fragment {
         void onItemViewClick(int position);
         // void onItemLongClick(View view);
         //
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //在作者页面改变关注列表时，resultCode的值为1，返回时刷新数据
+        if (requestCode == 1 && resultCode == 1) {
+            followAuthorViewModel.getFollowList(userId);
+        }
     }
 }
