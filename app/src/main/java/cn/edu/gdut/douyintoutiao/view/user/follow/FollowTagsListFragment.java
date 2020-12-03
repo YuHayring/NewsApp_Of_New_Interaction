@@ -179,11 +179,7 @@ public class FollowTagsListFragment extends Fragment {
         //文字资讯
     private void startFollowTagsDetailsActivityToTextFragment (FollowNews data){
         Intent intent = new Intent(getActivity(), NewsActivity.class);
-        intent.putExtra("uri", data.getFollowNews().get(0).getNewsDetailUrl());
-        intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
-        intent.putExtra("tag", data.getFollowNews().get(0).getTag());
-        intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
-        intent.putExtra("newsName",data.getFollowNews().get(0).getNewsName());
+        intent.putExtra("news",data.getFollowNews().get(0));
         intent.putExtra("isFollow",true);
          startActivityForResult(intent,2);
     }

@@ -127,14 +127,15 @@ public class NewsDetailFragment extends Fragment  {
         //关注按钮
             binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
         final Boolean[] isFollow = {requireActivity().getIntent().getExtras().getBoolean("isFollow")};
-        String newsName = requireActivity().getIntent().getStringExtra("newsName");
+        MyNews thisNews = ((MyNews)requireActivity().getIntent().getSerializableExtra("news"));
+
             if(isFollow[0]){ binding.actionGuanzhu.setIcon(yellow_guanzhu); }
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                    if(!isFollow[0]){
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                       Toasty.success(getContext(), getString(R.string.toasty_follow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
+                       Toasty.success(getContext(), getString(R.string.toasty_follow_start) +thisNews.getNewsName() , Toasty.LENGTH_SHORT, true).show();
                        binding.actionGuanzhu.setIcon(yellow_guanzhu);
                         isFollow[0] = true;
                        //关注列表发生改变，传信息到act
@@ -146,13 +147,13 @@ public class NewsDetailFragment extends Fragment  {
                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                        builder.setIcon(R.drawable.ic_baseline_warning_24)
                                .setTitle(getString(R.string.alertDialog_follow_title))
-                               .setMessage(getString(R.string.alertDialog_follow_message_start)+newsName+getString(R.string.alertDialog_follow_message_end))
+                               .setMessage(getString(R.string.alertDialog_follow_message_start)+thisNews.getNewsName()+getString(R.string.alertDialog_follow_message_end))
                                .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
                                .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
                                        viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
-                                       Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
+                                       Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +thisNews.getNewsName() , Toasty.LENGTH_SHORT, true).show();
                                        binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
                                        isFollow[0] = false;
                                        //关注列表发生改变，传信息到act
