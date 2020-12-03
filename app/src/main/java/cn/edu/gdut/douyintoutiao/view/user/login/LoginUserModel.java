@@ -44,6 +44,5 @@ public class LoginUserModel {
     public Observable<Result<User>> postLogin(User user){
         api = UserApi.getUserApi();
         return api.validateUser(user);
-
     }
 }

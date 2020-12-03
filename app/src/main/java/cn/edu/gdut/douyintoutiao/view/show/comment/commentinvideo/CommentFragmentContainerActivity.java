@@ -31,8 +31,6 @@ public class CommentFragmentContainerActivity extends SingleFragmentContainerAct
 
     ActivityCommentFragmentContainerBinding viewBinding;
 
-    //评论 m
-    private CommentModel model;
     //评论 vm
     private CommentViewModel viewModel;
 
@@ -52,7 +50,6 @@ public class CommentFragmentContainerActivity extends SingleFragmentContainerAct
         userId = shp.getString("userId", "noContent");
 
         viewModel = new CommentViewModel(this);
-        model = new CommentModel(viewModel);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,fragment).show(fragment).commitNow();
 //        viewBinding.buttonAddComment.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
 //            @Override
