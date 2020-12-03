@@ -96,66 +96,6 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
         followAuthorDetailsViewModel = new ViewModelProvider(this).get(FollowAuthorDetailsViewModel.class);
 
-//        if (isFollow) {
-//            followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
-//                @Override
-//                public void onChanged(List< User > list) {
-//                    User thisUser = list.get(0);
-//                    initUi(thisUser);
-//
-//                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
-//                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                            builder.setIcon(R.drawable.ic_baseline_warning_24)
-//                                    .setTitle("取消关注?")
-//                                    .setMessage("确定要取消关注"+list.get(0).getUserName()+"吗")
-//                                    .setNegativeButton("取消", null)
-//                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
-//                                            Toast.makeText(getContext(), "已取消关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-//                                            fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-//                                            //关注列表发生改变，传信息到act
-//                                            if(mOnFragmentListener != null){
-//                                                mOnFragmentListener.onFragmentGetChange(true);
-//                                            }
-//                                        }
-//                                    })
-//                                    .create().show();
-//
-//                        }
-//                    });
-//                }
-//            });
-//        } else {
-//            followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
-//                @Override
-//                public void onChanged(List< User > list) {
-//                    User thisUser = list.get(0);
-//                    initUi(thisUser);
-//
-//                    SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
-//                    String followerId = shp.getString("userId", "noContent");
-//                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("关注");
-//                    fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                           followAuthorDetailsViewModel.insertUserFollowList(followerId,userId);
-//                            Toast.makeText(getContext(), "已关注" + list.get(0).getUserName(), Toast.LENGTH_SHORT).show();
-//                            fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText("已关注");
-//
-//                        }
-//                    });
-//                }
-//            });
-//        }
-//
-//    }
-
     followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
         @Override
         public void onChanged(List< User > list) {
@@ -166,10 +106,11 @@ public class FragmentFollowAuthorDetails extends Fragment {
             SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
             String followerId = shp.getString("userId", "noContent");
 
+            //关注按钮点击事件
             fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //根据关注关系判断字符isFollow决定点击事件
                     if(isFollow){
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setIcon(R.drawable.ic_baseline_warning_24)
@@ -208,7 +149,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
     });
 }
 
-
+    //初始化ui
     private  void initUi(User user){
         fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(user.getUserName());
         fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
@@ -226,7 +167,9 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
     }
 
-
+    /**
+     * fragment与activity产生关联的方法
+     **/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -238,9 +181,13 @@ public class FragmentFollowAuthorDetails extends Fragment {
         mOnFragmentListener = (OnFragmentListener) getActivity();
     }
 
-    /**fragment给activity回传值的接口**/
+    /**
+     * fragment给activity回传值的接口
+     **/
     public interface OnFragmentListener{
-        /**object需要实现Serializable或Parcelable接口**/
+        /**
+         * object需要实现Serializable或Parcelable接口
+         **/
         void onFragmentGetChange(Boolean change);
     }
 

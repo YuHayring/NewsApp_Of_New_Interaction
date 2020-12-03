@@ -1,6 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,15 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +24,6 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
-import cn.edu.gdut.douyintoutiao.view.show.video.singleplayer.SingleVideoPlayActivity;
 
 /**
  * @ProjectName: DouYinTouTiao
@@ -81,6 +76,8 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
                     intent.putExtra("newsId", getItem(newsViewHolder.getAbsoluteAdapterPosition()).get_id());
                     intent.putExtra("tag", getItem(newsViewHolder.getAbsoluteAdapterPosition()).getTag());
                     intent.putExtra("authorId", getItem(newsViewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                    intent.putExtra("newsName",getItem(newsViewHolder.getAbsoluteAdapterPosition()).getNewsName());
+                    intent.putExtra("isFollow",false);
                     context.startActivity(intent);
                 }
             });
@@ -122,6 +119,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
                     if (index == -1) throw new IllegalStateException("this is not a video");
                     intent.putExtra("index", index);
                     intent.putExtra("count", videoCount);
+                    intent.putExtra("isFollow",false);
                     context.startActivity(intent);
                 }
             });

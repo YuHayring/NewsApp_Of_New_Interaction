@@ -1,7 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -120,15 +122,37 @@ public class NewsDetailFragment extends Fragment  {
                 startActivity(intent);
             }
         });
-
         //关注按钮
             binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+        final Boolean[] isFollow = {requireActivity().getIntent().getExtras().getBoolean("isFollow")};
+        String newsName = requireActivity().getIntent().getStringExtra("newsName");
+            if(isFollow[0]){ binding.actionGuanzhu.setIcon(yellow_guanzhu); }
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                   if(!isFollow[0]){
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"关注了"+newsName, Toast.LENGTH_SHORT).show();
                     binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                        isFollow[0] = true;
+                   }
+                   else {
+                       AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                       builder.setIcon(R.drawable.ic_baseline_warning_24)
+                               .setTitle("取消关注?")
+                               .setMessage("确定要取消关注"+newsName+"吗")
+                               .setNegativeButton("取消", null)
+                               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
+                                       Toast.makeText(getContext(),"取消关注了"+newsName, Toast.LENGTH_SHORT).show();
+                                       binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+                                       isFollow[0] = false;
+                                   }
+                               })
+                               .create().show();
+                   }
                 }
             });
 
@@ -164,15 +188,5 @@ public class NewsDetailFragment extends Fragment  {
     }
 
 
-
-    /**
-     * 定义回调接口
-     */
-    public interface CheckFollowListener{
-
-        //拿到msg
-        void checkFollow(String msg);
-
-    }
 
 }

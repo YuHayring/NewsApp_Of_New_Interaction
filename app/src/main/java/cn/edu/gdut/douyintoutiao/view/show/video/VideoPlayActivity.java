@@ -112,15 +112,27 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
     /**
      * 关注监听器
      */
+
+    private Boolean isFollow;//初始化在onCreate
     View.OnClickListener followButtonListener = new View.OnClickListener(){
+
         @Override
         public void onClick(View v) {
                 MyNews thisNews =  currentNews;
                 SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
-                videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
-                viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
-                Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+
+                if(isFollow){
+                    videoViewModel.deleteTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                    viewBinding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+                    Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_unFollowed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                    isFollow = false;
+                }else {
+                    videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                    viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
+                    Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                    isFollow = true;
+                }
 
         }
     };
@@ -196,6 +208,8 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
     };
 
 
+
+
     @Override
     @CallSuper
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -234,7 +248,12 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
         layoutParams.width = width;
         viewBinding.videoDescriptionTextView.setLayoutParams(layoutParams);
 
-
+        //初始化关注按钮
+        viewBinding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+        isFollow = getIntent().getExtras().getBoolean("isFollow");
+        if(isFollow){
+            viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
+        }
     }
 
     public MyNews getCurrentNews() {

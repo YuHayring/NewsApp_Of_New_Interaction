@@ -185,12 +185,15 @@ public class FollowTagsListFragment extends Fragment {
         intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
         intent.putExtra("tag", data.getFollowNews().get(0).getTag());
         intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
+        intent.putExtra("newsName",data.getFollowNews().get(0).getNewsName());
+        intent.putExtra("isFollow",true);
         getActivity().startActivity(intent);
     }
     //视频资讯
     private void startFollowTagsDetailsActivityToSingleVideoPlayActivity(FollowNews data){
         Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
         intent.putExtra("news", data.getFollowNews().get(0));
+        intent.putExtra("isFollow",true);
         ((Activity)getContext()).startActivityForResult(intent, 1);
     }
 

@@ -96,7 +96,7 @@ public class VideoModel {
 
 
 
-    //关注
+    //添加关注
     public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
         Map<String, String> newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
@@ -114,7 +114,24 @@ public class VideoModel {
             }
         });
     }
+    //取消关注
+    public void deleteTagsFollowByNewsIdUserId(String newsId,String userId){
+        Map<String, String> newsIdUserId = new HashMap<>();
+        newsIdUserId.put("newsId", newsId);
+        newsIdUserId.put("userId",userId);
+        Call< Result > call = NewsApi.getNewsApi().deleteTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result >() {
+            @Override
+            public void onResponse(Call< Result> call, Response< Result > response) {
+                Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
+            }
 
+            @Override
+            public void onFailure(Call< Result > call, Throwable t) {
+                Log.d(FollowTag, "onFailure: deleteTagsFollowByNewsIdUserId失败 ");
+            }
+        });
+    }
 
 
 

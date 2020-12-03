@@ -107,6 +107,7 @@
     <string name="video_play_no_more">没有更多的视频了</string>
     <string name="video_play_request_fail">网络请求失败,错误码:</string>
     <string name="video_play_followed">关注了 </string>
+    <string name="video_play_unFollowed">取消关注了 </string>
     <string name="video_play_uninterested">以后不会在为您推荐类似视频</string>
     <string name="video_play_reported">已举报！</string>
     <string name="video_play_transform_no_support">此视频不支持转换！</string>
