@@ -185,9 +185,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
      * fragment给activity回传值的接口
      **/
     public interface OnFragmentListener{
-        /**
-         * object需要实现Serializable或Parcelable接口
-         **/
+
         void onFragmentGetChange(Boolean change);
     }
 

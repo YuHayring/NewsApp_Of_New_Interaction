@@ -1,6 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -187,14 +186,14 @@ public class FollowTagsListFragment extends Fragment {
         intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
         intent.putExtra("newsName",data.getFollowNews().get(0).getNewsName());
         intent.putExtra("isFollow",true);
-        getActivity().startActivity(intent);
+         startActivityForResult(intent,2);
     }
     //视频资讯
     private void startFollowTagsDetailsActivityToSingleVideoPlayActivity(FollowNews data){
         Intent intent = new Intent(getContext(), SingleVideoPlayActivity.class);
         intent.putExtra("news", data.getFollowNews().get(0));
         intent.putExtra("isFollow",true);
-        ((Activity)getContext()).startActivityForResult(intent, 1);
+        startActivityForResult(intent, 1);
     }
 
 
@@ -212,13 +211,18 @@ public class FollowTagsListFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        userId = ((FollowListActivity)context).getUserId();
-////        System.out.println("onAttach:"+((ActivityFollowAuthorDetails)context).getUserId());
-//    }
 
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //resultCode只有发生了改变关注关系后才会赋值为1
+        //视频资讯
+        if(requestCode == 1 && resultCode == 1){
+            followTagsViewModel.getFollowTagsList(userId);
+        } else
+            //文字资讯
+            if(requestCode == 2 && resultCode == 1){
+            followTagsViewModel.getFollowTagsList(userId);
+        }
+    }
 }

@@ -37,6 +37,8 @@ public class NewsDetailFragment extends Fragment  {
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
 
+    private OnFragmentListener mOnFragmentListener;
+
     public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
         NewsDetailFragment fragment = new NewsDetailFragment();
         Bundle args = new Bundle();
@@ -135,6 +137,10 @@ public class NewsDetailFragment extends Fragment  {
                     Toast.makeText(getContext(),"关注了"+newsName, Toast.LENGTH_SHORT).show();
                     binding.actionGuanzhu.setIcon(yellow_guanzhu);
                         isFollow[0] = true;
+                       //关注列表发生改变，传信息到act
+                       if(mOnFragmentListener != null){
+                           mOnFragmentListener.onFragmentGetChange(true);
+                       }
                    }
                    else {
                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -149,6 +155,10 @@ public class NewsDetailFragment extends Fragment  {
                                        Toast.makeText(getContext(),"取消关注了"+newsName, Toast.LENGTH_SHORT).show();
                                        binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
                                        isFollow[0] = false;
+                                       //关注列表发生改变，传信息到act
+                                       if(mOnFragmentListener != null){
+                                           mOnFragmentListener.onFragmentGetChange(true);
+                                       }
                                    }
                                })
                                .create().show();
@@ -187,6 +197,21 @@ public class NewsDetailFragment extends Fragment  {
         binding.webView.loadUrl(uri);
     }
 
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mOnFragmentListener = (NewsDetailFragment.OnFragmentListener) getActivity();
+    }
+
+    /**
+     * fragment给activity回传值的接口
+     **/
+    public interface OnFragmentListener{
+
+        void onFragmentGetChange(Boolean change);
+    }
 
 
 }
