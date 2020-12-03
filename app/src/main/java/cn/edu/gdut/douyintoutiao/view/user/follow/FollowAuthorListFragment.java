@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +26,7 @@ import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.activity.ActivityFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.user.follow.adapter.FollowAuthorListAdapter;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
-
-
+import es.dmoral.toasty.Toasty;
 
 
 public class FollowAuthorListFragment extends Fragment {
@@ -72,8 +70,6 @@ public class FollowAuthorListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
     
 
@@ -81,8 +77,6 @@ public class FollowAuthorListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
         //定义binding
         fragmentFollowAuthorListBinding = FragmentFollowAuthorListBinding.inflate(inflater);
         return fragmentFollowAuthorListBinding.getRoot();
@@ -93,12 +87,13 @@ public class FollowAuthorListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //定义adapater,VM,RV
+        //定义adapter,VM,RV
         followListAdapter = new FollowAuthorListAdapter(getActivity());
         followAuthorViewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setAdapter(followListAdapter);
 
+        //获取userId
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         userId = shp.getString("userId", "noContent");
 
@@ -130,24 +125,24 @@ public class FollowAuthorListFragment extends Fragment {
                 //补充取消关注警告窗口
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setIcon(R.drawable.ic_baseline_warning_24)
-                        .setTitle("取消关注?")
-                        .setMessage("确定要取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName()+"吗")
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.alertDialog_follow_title))
+                        .setMessage(getString(R.string.alertDialog_follow_message_start)+followListAdapter.getFollows().get(0).getAuthor().get(0).getUserName()+getString(R.string.alertDialog_follow_message_end))
+                        .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                        .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener()  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
-                                Toast.makeText(getContext(),"取消关注了"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
+                                Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) + followListAdapter.getFollows().get(0).getAuthor().get(0).getUserName() , Toasty.LENGTH_SHORT, true).show();
+                                followAuthorViewModel.getFollowList(userId);
                             }
                         })
                         .create().show();
-                //Toast.makeText(getContext(),"取消关注"+followListAdapter.getFollows().get(position).getAuthor().get(0).getUserName(), Toast.LENGTH_SHORT).show();
-               //  followAuthorViewModel.deleteFollowListByFollowId(followListAdapter.getFollows().get(position).getFollowId());
+
             }
 
             @Override
             public void onItemViewClick(int position) {
-                //启动被关注者activity
+                //启动被关注者页面（作者页面）activity
                 startActivityAuthorDetails(followListAdapter.getFollows().get(position).getAuthor().get(0).getUserId(),followListAdapter.getFollows().get(position).getFollowId());
             }
 
@@ -158,7 +153,7 @@ public class FollowAuthorListFragment extends Fragment {
                 startIntent.putExtra("userId",userId);
                 startIntent.putExtra("followId",followId);
                 startIntent.putExtra("isFollow",true);
-                startActivity(startIntent);
+                startActivityForResult(startIntent,1);
             }
         });
 
@@ -182,6 +177,15 @@ public class FollowAuthorListFragment extends Fragment {
         void onItemViewClick(int position);
         // void onItemLongClick(View view);
         //
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //在作者页面改变关注列表时，resultCode的值为1，返回时刷新数据
+        if (requestCode == 1 && resultCode == 1) {
+            followAuthorViewModel.getFollowList(userId);
+        }
     }
 }

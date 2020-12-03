@@ -1,6 +1,5 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -35,8 +34,6 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     //层布局， 那么我们就可以通过findViewByid()方法来获取到布局中的ImageView 和TextView
     //的实例了
     static class ViewHolder extends RecyclerView.ViewHolder {
-//        ImageView newsImage;
-//        TextView newsName;
         TextView textViewHeader, textViewAbstract;
         ImageView imageViewPic;
         Button unFollowButton;
@@ -110,7 +107,6 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
     //onBindViewHolder() 方法是用于对RecyclerView 子项的数据进行赋值的，
     //会在每个子项被滚动到屏幕内的时候执行， 这里我们通过position 参数得到当前项的s
     //实例， 然后再将数据设置到ViewHolder 的ImageView 和TextView 当中即可
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        News s = newsList.get(position);
@@ -127,8 +123,7 @@ public class FollowTagsListAdapter extends RecyclerView.Adapter<FollowTagsListAd
         //采用glide加载网络图片,采用了占位符方式优先展示。TODO 引入shimmerlayout做闪光效果
         if (data.getFollowNews().get(0).getNewsPhotoUrl() != null)
         Glide.with(holder.itemView).load(Uri.parse(data.getFollowNews().get(0).getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(holder.imageViewPic);
-        holder.unFollowButton.setText("已关注");
-        //holder.unFollowButton.setBackgroundColor(R.color.light_blue_600);
+        holder.unFollowButton.setText(R.string.button_text_del_follow);
     }
 
     //getItemCount() 方法就非常简单了， 它用于告诉RecyclerView 一共有多少子项， 直接返回数据源的长度就可以了

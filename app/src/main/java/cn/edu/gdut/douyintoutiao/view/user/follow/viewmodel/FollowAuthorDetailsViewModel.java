@@ -40,4 +40,6 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
         followAuthorDetailsRepository.insertUserFollowList(followerId,authorId);
     }
 
+
+
 }

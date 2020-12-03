@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentUserMainBinding;
@@ -38,7 +40,11 @@ public class UserMainViewModel {
             binding.textViewUserNum.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
         
             if (user.getUserImageUrl() != null)
-            Glide.with(binding.userAvatars).load(Uri.parse(user.getUserImageUrl())).placeholder(R.drawable.photo_placeholder).into(binding.userAvatars);
+            Glide.with(binding.userAvatars)
+                    .load(Uri.parse(user.getUserImageUrl()))
+                    .placeholder(R.drawable.photo_placeholder)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))//设置圆形
+                    .into(binding.userAvatars);
             //userMainModel.getImage(user.getUserImageUrl());
         }
 

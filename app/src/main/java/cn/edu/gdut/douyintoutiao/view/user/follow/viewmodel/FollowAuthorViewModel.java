@@ -15,8 +15,6 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 public class FollowAuthorViewModel extends AndroidViewModel {
 
     private FollowRepository followRepository;
-    private String followId;
-
 
 
     public FollowAuthorViewModel(@NonNull Application application) {

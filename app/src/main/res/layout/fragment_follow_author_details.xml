@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context=".view.user.follow.FragmentFollowAuthorDetails">
 
     <androidx.constraintlayout.widget.Guideline
@@ -13,8 +12,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintGuide_percent="0.41"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/guideline37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTextViewUserMain2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline39"
@@ -22,7 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.54"
+        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,7 +48,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.21" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline37"
@@ -40,7 +57,7 @@
         android:layout_marginEnd="247dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/author_details_image"
-        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintGuide_percent="0.32"
         app:layout_constraintStart_toEndOf="@+id/guideline24" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -56,7 +73,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintGuide_percent="0.27"
+        app:layout_constraintGuide_percent="0.06"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -66,7 +83,7 @@
         android:layout_marginEnd="247dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/author_details_image"
-        app:layout_constraintGuide_percent="0.37"
+        app:layout_constraintGuide_percent="0.17"
         app:layout_constraintStart_toEndOf="@+id/guideline24" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -74,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.77" />
 
     <ImageView
         android:id="@+id/author_details_image"
@@ -83,7 +100,7 @@
         android:layout_marginStart="5dp"
         android:contentDescription="@string/FollowAuthorDetailsImage"
         android:src="@drawable/ic_baseline_emoji_people_24"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTextViewUserMain"
         app:layout_constraintEnd_toStartOf="@+id/guideline36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,63 +111,65 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
-        app:layout_constraintGuide_percent="0.34"
+        app:layout_constraintGuide_percent="0.13"
         app:layout_constraintStart_toEndOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView_author_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:text="@string/textView_author_name"
         android:textAlignment="textStart"
-        android:textColor="#E53935"
+        android:textColor="@color/black"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline24"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/author_details_image" />
+        app:layout_constraintStart_toStartOf="@+id/guideline36"
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView_author_details_describe"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="20dp"
         android:text="@string/follow_author_details_describe"
         android:textAlignment="textStart"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline37"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTextViewUserMain2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline36"
         app:layout_constraintTop_toTopOf="@+id/guideline22" />
 
     <Button
         android:id="@+id/button_unfollow_auhor_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#F4511E"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/radius_button"
+        android:backgroundTint="@color/holo_orange_light"
         android:text="@string/button_authorList_unfollow"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline23"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView_author_phoneId"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:text="@string/userPhoneId"
         app:layout_constraintBottom_toTopOf="@+id/guideline22"
-        app:layout_constraintEnd_toStartOf="@+id/guideline36"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline36"
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
 
     <TextView

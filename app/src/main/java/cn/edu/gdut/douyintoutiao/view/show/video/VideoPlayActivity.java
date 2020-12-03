@@ -1,11 +1,14 @@
 package cn.edu.gdut.douyintoutiao.view.show.video;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -112,15 +115,43 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
     /**
      * 关注监听器
      */
+    private Boolean isFollow;//初始化在onCreate
+    private Boolean changeFlag;//判断关注关系是否发生变化的字符
     View.OnClickListener followButtonListener = new View.OnClickListener(){
+
         @Override
         public void onClick(View v) {
                 MyNews thisNews =  currentNews;
                 SharedPreferences shp = getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
                 String userId = shp.getString("userId", "noContent");
-                videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
-                viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
-                Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+
+                if(isFollow){
+                    //已经关注
+                    AlertDialog.Builder builder = new AlertDialog.Builder(VideoPlayActivity.this);
+                    builder.setIcon(R.drawable.ic_baseline_warning_24)
+                            .setTitle(getString(R.string.alertDialog_follow_title))
+                            .setMessage(getString(R.string.alertDialog_follow_message_start)+currentNews.getNewsName()+getString(R.string.alertDialog_follow_message_end))
+                            .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                            .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    videoViewModel.deleteTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                                    viewBinding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+                                    Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_unFollowed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                                    isFollow = false;
+                                    changeFlag = true;
+                                }
+                            })
+                            .create().show();
+
+                }else {
+                    //未关注
+                    videoViewModel.insertTagsFollowByNewsIdUserId(thisNews.get_id(), userId);
+                    viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
+                    Toasty.success(VideoPlayActivity.this, getString(R.string.video_play_followed) + currentNews.getNewsName(), Toasty.LENGTH_SHORT, true).show();
+                    isFollow = true;
+                    changeFlag = true;
+                }
 
         }
     };
@@ -196,6 +227,8 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
     };
 
 
+
+
     @Override
     @CallSuper
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -234,7 +267,12 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
         layoutParams.width = width;
         viewBinding.videoDescriptionTextView.setLayoutParams(layoutParams);
 
-
+        //初始化关注按钮
+        viewBinding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+        isFollow = getIntent().getExtras().getBoolean("isFollow");
+        if(isFollow){
+            viewBinding.actionGuanzhu.setIcon(R.drawable.yellow_guanzhu);
+        }
     }
 
     public MyNews getCurrentNews() {
@@ -253,8 +291,25 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
 
     public abstract void removeVideo();
 
-
-
-
-
+    /**
+     * 拦截press事件，这里只对back键事件进行判断
+     * @dengJL
+     **/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(changeFlag == null){
+            changeFlag = false;
+        }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //如果关注列表发生了改变，则resultCode赋值为1
+            if(changeFlag) {
+                Intent i = new Intent();
+                setResult(1, i);
+            }
+            finish();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 }

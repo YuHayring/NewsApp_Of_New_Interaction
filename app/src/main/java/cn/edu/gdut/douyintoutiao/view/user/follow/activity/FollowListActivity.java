@@ -82,5 +82,6 @@ public class FollowListActivity extends AppCompatActivity {
     public String getUserId() {
         return userId;
     }
+
 }
 

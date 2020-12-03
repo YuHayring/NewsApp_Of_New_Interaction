@@ -1,13 +1,11 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow.adapter;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +20,6 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.view.user.follow.FollowAuthorListFragment;
-import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
 import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewModel;
 
 /**
@@ -116,7 +113,7 @@ public class FollowAuthorListAdapter extends RecyclerView.Adapter<FollowAuthorLi
         Follow s = follows.get(position);
         holder.followName.setText(s.getAuthor().get(0).getUserName());
         holder.followDescribe.setText(s.getAuthor().get(0).getUserDescription());
-        holder.unfollowButton.setText("已关注");
+        holder.unfollowButton.setText(R.string.button_text_del_follow);
         if (s.getAuthor().get(0).getUserImageUrl() != null)
         Glide.with(holder.itemView)//当前类context
                 .load(s.getAuthor().get(0).getUserImageUrl())// 请求图片的路径,可以是网络图片

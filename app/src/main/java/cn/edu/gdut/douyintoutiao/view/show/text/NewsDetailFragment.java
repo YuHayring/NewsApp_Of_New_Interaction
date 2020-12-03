@@ -1,7 +1,9 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ public class NewsDetailFragment extends Fragment  {
     private NewsDetailFragmentBinding binding;
     private WebSettings webSettings;
     private NewsDetailViewModel viewModel;
+
+    private OnFragmentListener mOnFragmentListener;
 
     public static NewsDetailFragment newInstance(String uri, String newsId, String tag, String authorId) {
         NewsDetailFragment fragment = new NewsDetailFragment();
@@ -120,15 +123,45 @@ public class NewsDetailFragment extends Fragment  {
                 startActivity(intent);
             }
         });
-
         //关注按钮
             binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+        final Boolean[] isFollow = {requireActivity().getIntent().getExtras().getBoolean("isFollow")};
+        String newsName = requireActivity().getIntent().getStringExtra("newsName");
+            if(isFollow[0]){ binding.actionGuanzhu.setIcon(yellow_guanzhu); }
             binding.actionGuanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                   if(!isFollow[0]){
                     viewModel.insertTagsFollowByNewsIdUserId(newsId,userId);
-                    Toast.makeText(getContext(),"关注了"+newsId, Toast.LENGTH_SHORT).show();
-                    binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                       Toasty.success(getContext(), getString(R.string.toasty_follow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
+                       binding.actionGuanzhu.setIcon(yellow_guanzhu);
+                        isFollow[0] = true;
+                       //关注列表发生改变，传信息到act
+                       if(mOnFragmentListener != null){
+                           mOnFragmentListener.onFragmentGetChange(true);
+                       }
+                   }
+                   else {
+                       AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                       builder.setIcon(R.drawable.ic_baseline_warning_24)
+                               .setTitle(getString(R.string.alertDialog_follow_title))
+                               .setMessage(getString(R.string.alertDialog_follow_message_start)+newsName+getString(R.string.alertDialog_follow_message_end))
+                               .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
+                               .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       viewModel.deleteTagsFollowByNewsIdUserId(newsId,userId);
+                                       Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +newsName , Toasty.LENGTH_SHORT, true).show();
+                                       binding.actionGuanzhu.setIcon(R.drawable.guanzhu);
+                                       isFollow[0] = false;
+                                       //关注列表发生改变，传信息到act
+                                       if(mOnFragmentListener != null){
+                                           mOnFragmentListener.onFragmentGetChange(true);
+                                       }
+                                   }
+                               })
+                               .create().show();
+                   }
                 }
             });
 
@@ -165,14 +198,19 @@ public class NewsDetailFragment extends Fragment  {
 
 
 
-    /**
-     * 定义回调接口
-     */
-    public interface CheckFollowListener{
-
-        //拿到msg
-        void checkFollow(String msg);
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mOnFragmentListener = (NewsDetailFragment.OnFragmentListener) getActivity();
     }
+
+    /**
+     * fragment给activity回传值的接口
+     **/
+    public interface OnFragmentListener{
+
+        void onFragmentGetChange(Boolean change);
+    }
+
 
 }
