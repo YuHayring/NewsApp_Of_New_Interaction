@@ -1,7 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.comment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -84,6 +81,7 @@ public class CommentFragment extends Fragment {
                     }
                     mViewModel.postComment(newsId, userId, content);
                     Toasty.success(requireContext(), "发送成功", Toasty.LENGTH_SHORT, true).show();
+                    mViewModel.getAllDiscussData(newsId);
                 }).show());
     }
 

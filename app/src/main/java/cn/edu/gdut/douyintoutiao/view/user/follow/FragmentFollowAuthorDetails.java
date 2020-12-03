@@ -1,5 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.user.follow;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -108,6 +111,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
             //关注按钮点击事件
             fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View v) {
                     //根据关注关系判断字符isFollow决定点击事件
@@ -118,6 +122,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
                                 .setMessage(getString(R.string.alertDialog_follow_message_start)+list.get(0).getUserName()+getString(R.string.alertDialog_follow_message_end))
                                 .setNegativeButton(getString(R.string.alertDialog_follow_navigationButton), null)
                                 .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
+                                @SuppressLint("ResourceAsColor")
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     followAuthorDetailsViewModel.deleteFollowListByFollowId(followId);
@@ -152,17 +157,21 @@ public class FragmentFollowAuthorDetails extends Fragment {
     //初始化ui
     private  void initUi(User user){
         fragmentFollowAuthorDetailsBinding.textViewAuthorName.setText(user.getUserName());
-        fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText("个性签名：" + user.getUserDescription());
+        fragmentFollowAuthorDetailsBinding.textViewAuthorDetailsDescribe.setText(user.getUserDescription());
         fragmentFollowAuthorDetailsBinding.textViewAuthorPhoneId.setText("id:"+user.getUserTelephone());
         fragmentFollowAuthorDetailsBinding.textViewAuthorNumber.setText("粉丝："+user.getFans()+"   |关注："+user.getTabs()+"   |获赞:"+user.getLikeNumber());
         String buttonText = getString(R.string.button_text_insert_follow);
-        if(isFollow){ buttonText = getString(R.string.button_text_del_follow); }
+
+        if(isFollow){ buttonText = getString(R.string.button_text_del_follow);
+
+           }
         fragmentFollowAuthorDetailsBinding.buttonUnfollowAuhorDetails.setText(buttonText);
 
         Glide.with(FragmentFollowAuthorDetails.this)//当前类
                 .load(user.getUserImageUrl())// 请求图片的路径,可以是网络图片
                 .placeholder(R.drawable.photo_placeholder)//加载过程显示的图片
                 .error(R.drawable.friends) // 出错加载的图片
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(fragmentFollowAuthorDetailsBinding.authorDetailsImage);// 显示到ImageView控件的对象
 
     }
