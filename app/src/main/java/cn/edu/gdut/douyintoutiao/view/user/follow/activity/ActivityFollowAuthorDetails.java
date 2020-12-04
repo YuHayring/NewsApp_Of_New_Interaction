@@ -80,7 +80,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
                 Intent i = new Intent();
                 setResult(1, i);
             }
-            finish();
+            onBackPressed();
             return true;
         } else {
             return super.onKeyDown(keyCode, event);

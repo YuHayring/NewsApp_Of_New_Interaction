@@ -307,7 +307,7 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
                     Intent i = new Intent();
                     setResult(1, i);
                 }
-                finish();
+                onBackPressed();
                 return true;
             } }
             return super.onKeyDown(keyCode, event);

@@ -35,7 +35,7 @@ public class NewsActivity extends AppCompatActivity implements NewsDetailFragmen
                 Intent i = new Intent();
                 setResult(1, i);
             }
-            finish();
+            onBackPressed();
             return true;
         } }
             return super.onKeyDown(keyCode, event);
