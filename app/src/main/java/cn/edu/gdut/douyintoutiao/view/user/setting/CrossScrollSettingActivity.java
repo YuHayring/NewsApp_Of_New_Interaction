@@ -171,9 +171,9 @@ public class CrossScrollSettingActivity extends AppCompatActivity {
             if (v.equals(selectedButton)) return;
             selectedButton = (RadioButton) v;
             //取消选中
-            if (!selectedButton.equals(viewBinding.upButton)) viewBinding.upButton.setSelected(false);
-            if (!selectedButton.equals(viewBinding.leftButton)) viewBinding.leftButton.setSelected(false);
-            if (!selectedButton.equals(viewBinding.rightButton)) viewBinding.rightButton.setSelected(false);
+            if (!selectedButton.equals(viewBinding.upButton)) viewBinding.upButton.setChecked(false);
+            if (!selectedButton.equals(viewBinding.leftButton)) viewBinding.leftButton.setChecked(false);
+            if (!selectedButton.equals(viewBinding.rightButton)) viewBinding.rightButton.setChecked(false);
             //选中
             selectedButton.setSelected(true);
         }
