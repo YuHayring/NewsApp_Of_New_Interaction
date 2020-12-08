@@ -188,7 +188,7 @@ public class FollowAuthorListFragment extends Fragment implements FollowCallBack
         super.onActivityResult(requestCode, resultCode, data);
         //在作者页面改变关注列表时，resultCode的值为1，返回时刷新数据
         if (requestCode == 1 && resultCode == 1) {
-           updateData();
+            followAuthorViewModel.getFollowList(userId);
         }
     }
 

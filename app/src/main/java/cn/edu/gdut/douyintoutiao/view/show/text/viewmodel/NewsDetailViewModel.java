@@ -1,9 +1,6 @@
 package cn.edu.gdut.douyintoutiao.view.show.text.viewmodel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
-import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
@@ -23,9 +20,6 @@ public class NewsDetailViewModel extends ViewModel {
     public NewsDetailViewModel() {
         newsRepository = new NewsRepository(NewsApi.getNewsApi());
     }
-
-
-
 
 
     public void newsLike(MyNews news){
@@ -48,10 +42,5 @@ public class NewsDetailViewModel extends ViewModel {
     public void deleteTagsFollowByNewsIdUserId(String newsId,String userId){
         newsRepository.deleteTagsFollowByNewsIdUserId(newsId,userId);
     }
-
-    public LiveData<List<Boolean>> checkTagsFollowByNewsIdUserId (String newsId, String userId){
-       return newsRepository.checkTagsFollowByNewsIdUserId(newsId,userId);
-    }
-
 
 }

@@ -33,7 +33,7 @@ import es.dmoral.toasty.Toasty;
  * @author : DengJL
  *@description : 被关注者详细信息的Fragment
  */
-public class FragmentFollowAuthorDetails extends Fragment {
+public class FragmentFollowAuthorDetails extends Fragment implements FollowCallBack {
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,6 +98,7 @@ public class FragmentFollowAuthorDetails extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         followAuthorDetailsViewModel = new ViewModelProvider(this).get(FollowAuthorDetailsViewModel.class);
+        followAuthorDetailsViewModel.setCallBack(this::updateData);
 
     followAuthorDetailsViewModel.queryUserByUserId(userId).observe(getViewLifecycleOwner(), new Observer< List< User > >() {
         @Override
@@ -188,6 +189,11 @@ public class FragmentFollowAuthorDetails extends Fragment {
 
         //当前fragment从activity重写了回调接口  得到接口的实例化对象(很重要！)
         mOnFragmentListener = (OnFragmentListener) getActivity();
+    }
+
+    @Override
+    public void updateData() {
+
     }
 
     /**

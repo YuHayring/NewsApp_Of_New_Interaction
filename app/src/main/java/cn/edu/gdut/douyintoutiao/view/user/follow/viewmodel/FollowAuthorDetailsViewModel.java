@@ -11,6 +11,7 @@ import java.util.List;
 
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowCallBack;
 import cn.edu.gdut.douyintoutiao.view.user.follow.model.FollowRepository;
 
 /**
@@ -26,6 +27,10 @@ public class FollowAuthorDetailsViewModel extends AndroidViewModel {
     public FollowAuthorDetailsViewModel(@NonNull Application application) {
         super(application);
         followAuthorDetailsRepository =new FollowRepository(FollowApi.getFollowApi());
+    }
+
+    public void setCallBack(FollowCallBack followCallBack){
+        followAuthorDetailsRepository.setFollowCallBack(followCallBack);
     }
 
     public LiveData< List< User > > queryUserByUserId (String userId){

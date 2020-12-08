@@ -29,8 +29,8 @@ public class FollowAuthorViewModel extends AndroidViewModel {
 
     public LiveData<List<Follow>> getFollowList(String userId) {return followRepository.getFollowList(userId);}
 
-    public void deleteFollowListByFollowId(String followId){
-       followRepository.deleteFollowListByFollowId1(followId);
-    }
 
+    public void deleteFollowListByFollowId(String followId){
+        followRepository.deleteFollowListByFollowId(followId);
+    }
 }
