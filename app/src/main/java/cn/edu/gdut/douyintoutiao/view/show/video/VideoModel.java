@@ -6,7 +6,6 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
@@ -90,26 +89,20 @@ public class VideoModel {
     }
 
 
-
-
-
-
-
-
     //添加关注
     public void insertTagsFollowByNewsIdUserId(String newsId,String userId){
         Map<String, String> newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
         newsIdUserId.put("userId",userId);
-        Call< Result< FollowNews > > call = NewsApi.getNewsApi().insertTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result< FollowNews > >() {
+        Call< Result> call = NewsApi.getNewsApi().insertTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result>() {
             @Override
-            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+            public void onResponse(Call< Result > call, Response< Result> response) {
                 Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
-            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
+            public void onFailure(Call< Result> call, Throwable t) {
                 Log.d(FollowTag, "onFailure: insertTagsFollowByNewsIdUserId失败 ");
             }
         });

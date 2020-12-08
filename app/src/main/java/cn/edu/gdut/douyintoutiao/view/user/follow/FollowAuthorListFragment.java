@@ -29,7 +29,7 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.viewmodel.FollowAuthorViewMode
 import es.dmoral.toasty.Toasty;
 
 
-public class FollowAuthorListFragment extends Fragment {
+public class FollowAuthorListFragment extends Fragment implements FollowCallBack {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,6 +92,7 @@ public class FollowAuthorListFragment extends Fragment {
         followAuthorViewModel = new ViewModelProvider(this).get(FollowAuthorViewModel.class);
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowAuthorListBinding.followAuthorListRecyclerView.setAdapter(followListAdapter);
+        followAuthorViewModel.setCallBack(this);
 
         //获取userId
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
@@ -166,6 +167,8 @@ public class FollowAuthorListFragment extends Fragment {
 
     }
 
+
+
     /**
      * 定义RecyclerView选项单击事件的回调接口
      */
@@ -185,7 +188,15 @@ public class FollowAuthorListFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         //在作者页面改变关注列表时，resultCode的值为1，返回时刷新数据
         if (requestCode == 1 && resultCode == 1) {
-            followAuthorViewModel.getFollowList(userId);
+           updateData();
         }
     }
+
+
+
+    @Override
+    public void updateData() {
+        followAuthorViewModel.getFollowList(userId);
+    }
+
 }
