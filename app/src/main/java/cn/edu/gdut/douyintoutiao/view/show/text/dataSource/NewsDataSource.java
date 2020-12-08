@@ -92,7 +92,6 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, MyNews> {
                 myCallback = callback;
                 type = 1;
                 netWorkStatusMutableLiveData.postValue(NetWorkStatus.FAILED);
-                callback.onResult(new ArrayList<>(), null, FIRST_PAGE);
             }
         });
     }
