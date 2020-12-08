@@ -59,7 +59,6 @@ public interface NewsApi {
     Call<List<MyNews>> getTagVideo(@Query("tag") String tag);
 
 
-    //TODO 解决后台嵌套查询的问题
     @GET("getNewsWithOption")
     Call<Result<MyNews>> getFollowNewsList(@Query("tag") String tag);
 

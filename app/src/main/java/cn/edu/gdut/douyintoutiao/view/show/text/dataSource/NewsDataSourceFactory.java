@@ -21,6 +21,11 @@ import cn.edu.gdut.douyintoutiao.entity.MyNews;
 public class NewsDataSourceFactory extends DataSource.Factory<Integer, MyNews> {
 
     private MutableLiveData<NewsDataSource> liveDataSource = new MutableLiveData<>();
+
+    public MutableLiveData<NewsDataSource> getLiveDataSource() {
+        return liveDataSource;
+    }
+
     @NonNull
     @Override
     public DataSource<Integer, MyNews> create() {

@@ -1,6 +1,7 @@
 package cn.edu.gdut.douyintoutiao.view.show.text;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentNewsListBinding;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.adapter.NewsAdapter;
+import cn.edu.gdut.douyintoutiao.view.show.text.dataSource.NewsDataSource;
 import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 
 /**
@@ -80,15 +82,23 @@ public class NewsListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new NewsAdapter(requireContext());
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         binding.recyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new NewsAdapter(requireContext(), viewModel);
+        adapter.showEmptyView(true);
         binding.recyclerViewNews.setAdapter(adapter);
         viewModel.newsPagedList.observe(getViewLifecycleOwner(), new Observer<PagedList<MyNews>>() {
             @Override
             public void onChanged(PagedList<MyNews> myNews) {
                 adapter.submitList(myNews);
                 binding.swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        viewModel.netWorkStatus.observe(getViewLifecycleOwner(), new Observer<NewsDataSource.NetWorkStatus>() {
+            @Override
+            public void onChanged(NewsDataSource.NetWorkStatus netWorkStatus) {
+                Log.d("news", "onChanged: " + netWorkStatus);
+                adapter.setNetWorkStatus(netWorkStatus);
             }
         });
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {

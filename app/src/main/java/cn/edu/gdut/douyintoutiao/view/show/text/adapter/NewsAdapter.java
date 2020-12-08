@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 
@@ -23,6 +25,8 @@ import java.util.List;
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.view.show.text.NewsActivity;
+import cn.edu.gdut.douyintoutiao.view.show.text.dataSource.NewsDataSource;
+import cn.edu.gdut.douyintoutiao.view.show.text.viewmodel.NewsViewModel;
 import cn.edu.gdut.douyintoutiao.view.show.video.VerticalVideoPlayActivity;
 
 /**
@@ -53,15 +57,27 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
     };
     private Context context;
     private boolean hasFooter = false;
+    // 是否显示空布局，默认不显示
+    private boolean showEmptyView = false;
+    private NewsDataSource.NetWorkStatus netWorkStatus = null;
 
-    public NewsAdapter(Context context) {
+    private NewsViewModel mViewModel;
+
+
+    public NewsAdapter(Context context, NewsViewModel mViewModel) {
         super(DIFF_CALLBACK);
         this.context = context;
-        hideFooter();
-
+        this.mViewModel = mViewModel;
     }
 
-
+    public void setNetWorkStatus(NewsDataSource.NetWorkStatus netWorkStatus) {
+        this.netWorkStatus = netWorkStatus;
+        if(netWorkStatus == NewsDataSource.NetWorkStatus.INITIAL){
+            hideFooter();
+        }else {
+            showFooter();
+        }
+    }
 
     @NonNull
     @Override
@@ -79,8 +95,15 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
             });
             return newsViewHolder;
         } else if (viewType == R.layout.news_footer) {
-            return FooterViewHolder.newInstance(parent);
-        } else {
+            FooterViewHolder viewHolder = FooterViewHolder.newInstance(parent);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mViewModel.retry();
+                }
+            });
+            return viewHolder;
+        } else if(viewType == R.layout.item_video_list){
             VideoViewHolder viewHolder = VideoViewHolder.newInstance(parent);
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,10 +121,10 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
                 }
             });
             return viewHolder;
+        }else {
+            return EmptyViewHolder.newInstance(parent);
         }
     }
-
-
 
 
 
@@ -124,31 +147,23 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
     }
 
 
-
-//    /**
-//     * 更新数据后清除视频下标和数量信息
-//     * @param pagedList
-//     */
-//    @Override
-//    public void submitList(@Nullable PagedList<MyNews> pagedList) {
-//        super.submitList(pagedList);
-//
-//    }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (videoNewsIndex == null) videoNewsIndex = new ArrayList<>();
         if (holder.getItemViewType() == R.layout.news_footer) {
             FooterViewHolder viewHolder = (FooterViewHolder) holder;
-            viewHolder.bind();
+            viewHolder.bindWithNetWorkStatus(netWorkStatus);
         } else if (holder.getItemViewType() == R.layout.item_news_list) {
             NewsViewHolder viewHolder = (NewsViewHolder) holder;
             viewHolder.bindWithMyNews(getItem(position));
             if (videoNewsIndex.size() == position) videoNewsIndex.add(-1);
-        } else {
+        } else if(holder.getItemViewType() == R.layout.item_video_list){
             VideoViewHolder viewHolder = (VideoViewHolder) holder;
             viewHolder.bindWithMyNews(getItem(position));
             if (videoNewsIndex.size() == position) videoNewsIndex.add(videoCount++);
+        }else if(isEmptyPosition(position)){
+            EmptyViewHolder viewHolder = (EmptyViewHolder)holder;
+            viewHolder.bind();
         }
     }
 
@@ -160,13 +175,12 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         if (hasFooter && position == getItemCount() - 1) {
-            showFooter();
             return R.layout.news_footer;
-        } else if (getItem(position).getType().equals(0)) {
-            hideFooter();
+        }else if (isEmptyPosition(position)){
+            return R.layout.fragment_blank;
+        }else if (getItem(position).getType().equals(0)) {
             return R.layout.item_news_list;
-        } else {
-            hideFooter();
+        } else{
             return R.layout.item_video_list;
         }
     }
@@ -218,10 +232,12 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
     static class FooterViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTextView;
+        ProgressBar progressBar;
 
-        public FooterViewHolder(@NonNull View itemView) {
+        private FooterViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.textViewFooter);
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
 
         private static FooterViewHolder newInstance(ViewGroup parent) {
@@ -229,8 +245,20 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
             return new FooterViewHolder(itemView);
         }
 
-        public void bind() {
-            mTextView.setText("正在加载");
+        public void bindWithNetWorkStatus(NewsDataSource.NetWorkStatus netWorkStatus) {
+            if(netWorkStatus == NewsDataSource.NetWorkStatus.FAILED){
+                mTextView.setText("点击重试");
+                progressBar.setVisibility(View.GONE);
+                itemView.setClickable(true);
+            }else if(netWorkStatus == NewsDataSource.NetWorkStatus.COMPLETED){
+                mTextView.setText("加载完毕");
+                progressBar.setVisibility(View.GONE);
+                itemView.setClickable(false);
+            }else {
+                mTextView.setText("正在加载");
+                progressBar.setVisibility(View.VISIBLE);
+                itemView.setClickable(false);
+            }
         }
     }
 
@@ -239,7 +267,7 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
         TextView videoTitle;
         ImageView videoPreview;
 
-        public VideoViewHolder(@NonNull View itemView) {
+        private VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             videoTitle = itemView.findViewById(R.id.text_view_single_video_title);
             videoPreview = itemView.findViewById(R.id.image_view_single_video_preview);
@@ -257,6 +285,40 @@ public class NewsAdapter extends PagedListAdapter<MyNews, RecyclerView.ViewHolde
 
             if (myNews.getNewsPhotoUrl() != null)
             Glide.with(itemView).load(Uri.parse(myNews.getNewsPhotoUrl())).placeholder(R.drawable.photo_placeholder).into(videoPreview);
+        }
+    }
+
+    static class EmptyViewHolder extends RecyclerView.ViewHolder{
+
+        private EmptyViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+        public static EmptyViewHolder newInstance(ViewGroup parent){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video_list, parent, false);
+            return new EmptyViewHolder(itemView);
+        }
+
+        public void bind(){
+
+        }
+    }
+
+
+    /**
+     * 判断是否是空布局
+     */
+    public boolean isEmptyPosition(int position) {
+        int count = getItemCount();
+        return position == 0 && showEmptyView && count == 0;
+    }
+
+    /**
+     * 设置空布局显示。默认不显示
+     */
+    public void showEmptyView(boolean isShow) {
+        if (isShow != showEmptyView) {
+            showEmptyView = isShow;
+            notifyDataSetChanged();
         }
     }
 }
