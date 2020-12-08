@@ -108,16 +108,9 @@ public class OtherNewsAdapter extends RecyclerView.Adapter {
                 intent.putExtra("data", (Serializable) videoList);
                 intent.putExtra("index", videoNewsIndex[viewHolder.getAbsoluteAdapterPosition()]);
                 context.startActivity(intent);
-
-//                Intent intent = new Intent(context, SingleVideoPlayActivity.class);
-//                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
-//                context.startActivity(intent);
             }else {
                 Intent intent = new Intent(context, NewsActivity.class);
-                intent.putExtra("uri", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getNewsDetailUrl());
-                intent.putExtra("newsId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).get_id());
-                intent.putExtra("tag", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getTag());
-                intent.putExtra("authorId", newsList.get(viewHolder.getAbsoluteAdapterPosition()).getAuthor().get(0).getUserId());
+                intent.putExtra("news", newsList.get(viewHolder.getAbsoluteAdapterPosition()));
                 context.startActivity(intent);
             }
         });
