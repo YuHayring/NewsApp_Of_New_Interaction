@@ -8,11 +8,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Follow;
 import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
 import cn.edu.gdut.douyintoutiao.net.FollowApi;
+import cn.edu.gdut.douyintoutiao.view.user.follow.FollowCallBack;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +37,12 @@ public class FollowRepository {
     private static final String newsTag = "newsList";
     private final MutableLiveData<List< User >> authorData;
     private final MutableLiveData<List< FollowNews >>  newsData;
+
+    private FollowCallBack followCallBack;
+
+    public void setFollowCallBack(FollowCallBack followCallBack) {
+        this.followCallBack = followCallBack;
+    }
 
     public FollowRepository(FollowApi followApi) {
         this.followApi = followApi;
@@ -64,22 +76,36 @@ public class FollowRepository {
         return data;
     }
 
+
     public void deleteFollowListByFollowId(String followId){
         Map<String, String> followIdMap = new HashMap<>();
         followIdMap.put("_id", followId);
-        Call<Result<Follow>> call = (Call<Result<Follow>>) followApi.deleteFollowListByFollowId(followIdMap);
-        call.enqueue(new Callback<Result<Follow>>() {
-            @Override
-            public void onResponse(Call<Result<Follow>> call, Response<Result<Follow>> response) {
-                Log.d(followTAG, "deleteFollowResponse: " + response.body().getCode() + " " + response.body().getMsg());
-            }
+        Observable< Result > call = followApi.deleteFollowTagsByFollowNewsId (followIdMap);
+        call.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ObserverManager<Result>() {
+                    @Override
+                    public void onSuccess(Result result) {
+                        Log.d(followTAG, "onSuccess: " + result.toString());
+                    }
 
-            @Override
-            public void onFailure(Call<Result<Follow>> call, Throwable t) {
-                Log.d(followTAG, "onFailure: deleteFollowListByFollowId请求失败 ");
-            }
-        });
+                    @Override
+                    public void onFail(Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Log.d(followTAG, "onFinish: 请求完成");
+                        followCallBack.updateData();
+                    }
+
+                    @Override
+                    public void onDisposable(Disposable disposable) {
+
+                    }
+                });
     }
+
 
     public LiveData<List<User>> queryUserByUserId(String userId) {
         Map<String, String> userIdMap = new HashMap<>();
@@ -89,9 +115,6 @@ public class FollowRepository {
             @Override
             public void onResponse(Call<Result<User>> call, Response<Result<User>> response) {
                 authorData.postValue(response.body().getData());
-                //检查
-                System.out.println("response:"+response.body().getData());
-
                 Log.d(authorTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
@@ -130,19 +153,33 @@ public class FollowRepository {
     public void deleteFollowTagsByFollowNewsId(String followNewsId){
         Map<String, String> followNewsIdMap = new HashMap<>();
         followNewsIdMap.put("_id", followNewsId);
-        Call<Result<FollowNews>> call = (Call<Result<FollowNews>>) followApi.deleteFollowTagsByFollowNewsId(followNewsIdMap);
-        call.enqueue(new Callback< Result< FollowNews > >() {
-            @Override
-            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
-                Log.d(newsTag, "deleteTagsResponse: " + response.body().getCode() + " " + response.body().getMsg());
 
-            }
+        Observable< Result > call = followApi.deleteFollowTagsByFollowNewsId(followNewsIdMap);
+        call.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ObserverManager<Result>() {
+                    @Override
+                    public void onSuccess(Result result) {
+                        Log.d(followTAG, "onSuccess: " + result.toString());
+                    }
 
-            @Override
-            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
-                Log.d(followTAG, "onFailure: deleteFollowTagsByFollowNewsId ");
-            }
-        });
+
+                    @Override
+                    public void onFail(Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Log.d(followTAG, "onFinish: 请求完成");
+                        followCallBack.updateData();
+
+                    }
+
+                    @Override
+                    public void onDisposable(Disposable disposable) {
+
+                    }
+                });
     }
 
     public void insertUserFollowList(String followerId, String authorId){

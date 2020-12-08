@@ -74,13 +74,13 @@ import cn.edu.gdut.douyintoutiao.view.user.follow.FragmentFollowAuthorDetails;
             isChange = false;
         }
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            System.out.println("isChange:"+isChange);
+            //System.out.println("isChange:"+isChange);
             //如果关注列表发生了改变，则resultCode赋值为1
             if(isChange) {
                 Intent i = new Intent();
                 setResult(1, i);
             }
-            finish();
+            onBackPressed();
             return true;
         } else {
             return super.onKeyDown(keyCode, event);

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.gdut.douyintoutiao.entity.FollowNews;
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
@@ -92,15 +91,15 @@ public class NewsRepository {
         Map<String, String> newsIdUserId = new HashMap<>();
         newsIdUserId.put("newsId", newsId);
         newsIdUserId.put("userId",userId);
-        Call< Result< FollowNews > > call = api.insertTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result< FollowNews > >() {
+        Call< Result> call = api.insertTagsFollowByNewsIdUserId(newsIdUserId);
+        call.enqueue(new Callback< Result>() {
             @Override
-            public void onResponse(Call< Result< FollowNews > > call, Response< Result< FollowNews > > response) {
+            public void onResponse(Call< Result > call, Response< Result> response) {
                Log.d(FollowTag, "onResponse: " + response.body().getCode() + " " + response.body().getMsg());
             }
 
             @Override
-            public void onFailure(Call< Result< FollowNews > > call, Throwable t) {
+            public void onFailure(Call< Result > call, Throwable t) {
                 Log.d(FollowTag, "onFailure: insertTagsFollowByNewsIdUserId失败 ");
             }
         });
@@ -126,27 +125,6 @@ public class NewsRepository {
         });
     }
 
-
-    public LiveData<List<Boolean>> checkTagsFollowByNewsIdUserId (String newsId , String userId) {
-        Map< String, String > newsIdUserId = new HashMap<>();
-        newsIdUserId.put("newsId", newsId);
-        newsIdUserId.put("userId", userId);
-
-        Call< Result<Boolean> > call = api.checkTagsFollowByNewsIdUserId(newsIdUserId);
-        call.enqueue(new Callback< Result<Boolean>>() {
-            @Override
-            public void onResponse(Call< Result<Boolean>> call, Response< Result<Boolean> > response) {
-                Log.d(FollowTag, "检查Response:" + response.body().getCode() + " " + response.body().getMsg()+response.body().getData());
-                checkFollowFlag.postValue(response.body().getData());
-            }
-            @Override
-            public void onFailure(Call< Result<Boolean> > call, Throwable t) {
-             //   latch.countDown();
-                System.out.println("检查失败");
-            }
-        });
-        return checkFollowFlag;
-    }
 
 
 

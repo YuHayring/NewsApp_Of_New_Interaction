@@ -35,7 +35,7 @@ import es.dmoral.toasty.Toasty;
  * Use the {@link FollowTagsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FollowTagsListFragment extends Fragment {
+public class FollowTagsListFragment extends Fragment implements FollowCallBack{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -109,6 +109,7 @@ public class FollowTagsListFragment extends Fragment {
         followTagsViewModel = new ViewModelProvider(this).get(FollowTagsViewModel.class);
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         fragmentFollowTagsListBinding.followTagsListRecyclerView.setAdapter(followTagsListAdapter);
+        followTagsViewModel.setCallBack(this::updateData);
 
         SharedPreferences shp = requireActivity().getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         userId = shp.getString("userId", "noContent");
@@ -149,9 +150,9 @@ public class FollowTagsListFragment extends Fragment {
                         .setPositiveButton(R.string.alertDialog_follow_positiveButton, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName() , Toasty.LENGTH_SHORT, true).show();
                                 followTagsViewModel.deleteFollowTagsByFollowNewsId(followTagsListAdapter.getDataList().get(position).getFollowNewsId());
                                 followTagsViewModel.getFollowTagsList(userId);
+                                Toasty.success(getContext(), getString(R.string.toasty_unFollow_start) +followTagsListAdapter.getDataList().get(position).getFollowNews().get(0).getNewsName() , Toasty.LENGTH_SHORT, true).show();
 
                             }
                         })
@@ -179,11 +180,7 @@ public class FollowTagsListFragment extends Fragment {
         //文字资讯
     private void startFollowTagsDetailsActivityToTextFragment (FollowNews data){
         Intent intent = new Intent(getActivity(), NewsActivity.class);
-        intent.putExtra("uri", data.getFollowNews().get(0).getNewsDetailUrl());
-        intent.putExtra("newsId", data.getFollowNews().get(0).get_id());
-        intent.putExtra("tag", data.getFollowNews().get(0).getTag());
-        intent.putExtra("authorId",data.getFollowNews().get(0).getAuthor().get(0).getUserId());
-        intent.putExtra("newsName",data.getFollowNews().get(0).getNewsName());
+        intent.putExtra("news",data.getFollowNews().get(0));
         intent.putExtra("isFollow",true);
          startActivityForResult(intent,2);
     }
@@ -194,6 +191,7 @@ public class FollowTagsListFragment extends Fragment {
         intent.putExtra("isFollow",true);
         startActivityForResult(intent, 1);
     }
+
 
 
     /**
@@ -223,5 +221,11 @@ public class FollowTagsListFragment extends Fragment {
             if(requestCode == 2 && resultCode == 1){
             followTagsViewModel.getFollowTagsList(userId);
         }
+    }
+
+
+    @Override
+    public void updateData() {
+        followTagsViewModel.getFollowTagsList(userId);
     }
 }
