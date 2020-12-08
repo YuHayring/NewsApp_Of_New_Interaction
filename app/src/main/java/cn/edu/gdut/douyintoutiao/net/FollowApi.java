@@ -40,8 +40,6 @@ public interface FollowApi {
 
 
 
-
-
     /**
      * 单例内部类
      */

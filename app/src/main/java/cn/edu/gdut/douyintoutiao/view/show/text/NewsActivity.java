@@ -31,10 +31,8 @@ public class NewsActivity extends AppCompatActivity implements NewsDetailFragmen
         if(isChange){
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //如果关注列表发生了改变，则resultCode赋值为1
-            if(isChange) {
                 Intent i = new Intent();
                 setResult(1, i);
-            }
             onBackPressed();
             return true;
         } }

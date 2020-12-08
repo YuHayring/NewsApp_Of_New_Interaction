@@ -303,10 +303,8 @@ public abstract class VideoPlayActivity extends FullScreenActivity {
         if(changeFlag){
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 //如果关注列表发生了改变，则resultCode赋值为1
-                if(changeFlag) {
                     Intent i = new Intent();
                     setResult(1, i);
-                }
                 onBackPressed();
                 return true;
             } }
