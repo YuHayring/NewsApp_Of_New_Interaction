@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.edu.gdut.douyintoutiao.base.ObserverManager;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
+import cn.edu.gdut.douyintoutiao.util.MyUtil;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -61,6 +64,16 @@ public class LoginViewModel extends ViewModel {
 
     public void login() {
         User user = new User();
+        Pattern CHINA_PATTERN = Pattern.compile("^((13[0-9])|(14[0,1,4-9])|(15[0-3,5-9])|(16[2,5,6,7])|(17[0-8])|(18[0-9])|(19[0-3,5-9]))\\d{8}$");
+        if(telephone.getValue() == null || telephone.getValue().length() == 0 || password.getValue() == null || password.getValue().length() == 0){
+            mCallback.returnResult(new Result<User>("用户名或密码为空", "", false, new ArrayList<>()));
+            return;
+        }
+        Matcher m = CHINA_PATTERN.matcher(telephone.getValue());
+        if(!m.matches()){
+            mCallback.returnResult(new Result<User>("手机号格式不正常", "", false, new ArrayList<>()));
+            return;
+        }
         user.setUserTelephone(telephone.getValue());
         user.setUserPassword(password.getValue());
         Observable<Result<User>> resultObservable = loginUserModel.postLogin(user);
@@ -75,7 +88,7 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onFail(Throwable throwable) {
-                        mCallback.returnResult(new Result<User>("", "网络请求失败", false, new ArrayList<>()));
+                        mCallback.returnResult(new Result<User>("网络请求失败", "400", false, new ArrayList<>()));
                     }
 
                     @Override

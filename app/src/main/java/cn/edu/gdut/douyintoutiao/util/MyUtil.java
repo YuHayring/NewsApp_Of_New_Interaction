@@ -2,6 +2,8 @@ package cn.edu.gdut.douyintoutiao.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 /**
  * @ProjectName: DouYinTouTiao
@@ -15,10 +17,23 @@ import android.content.SharedPreferences;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class UserUtil {
+public class MyUtil {
 
     public static boolean isLogin(Context context){
         SharedPreferences shp = context.getSharedPreferences("LOGIN_USER", Context.MODE_PRIVATE);
         return shp.contains("userId");
     }
+
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
 }

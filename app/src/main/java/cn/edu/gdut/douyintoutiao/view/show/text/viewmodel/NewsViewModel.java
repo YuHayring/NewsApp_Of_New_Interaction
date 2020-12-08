@@ -5,10 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import java.util.List;
+import java.util.Objects;
 
 import cn.edu.gdut.douyintoutiao.entity.MyNews;
 import cn.edu.gdut.douyintoutiao.net.NewsApi;
@@ -28,7 +31,11 @@ public class NewsViewModel extends AndroidViewModel {
     private final NewsRepository newsRepository;
     private final FollowNewsRepository followNewsRepository;
 
+    private NewsDataSourceFactory newsDataSourceFactory;
+
     public LiveData<PagedList<MyNews>> newsPagedList;
+
+    public LiveData<NewsDataSource.NetWorkStatus> netWorkStatus;
 
     public NewsViewModel(@NonNull Application application) {
         super(application);
@@ -45,7 +52,9 @@ public class NewsViewModel extends AndroidViewModel {
                 setInitialLoadSizeHint(NewsDataSource.PAGE_SIZE * 2).
                         //设置最大容量
                 setMaxSize(65536 * NewsDataSource.PAGE_SIZE).build();
-        newsPagedList = new LivePagedListBuilder<>(new NewsDataSourceFactory(), config).build();
+        newsDataSourceFactory = new NewsDataSourceFactory();
+        newsPagedList = new LivePagedListBuilder<>(newsDataSourceFactory, config).build();
+        netWorkStatus = Transformations.switchMap(newsDataSourceFactory.getLiveDataSource(), NewsDataSource::getNetWorkStatusMutableLiveData);
     }
 
 
@@ -65,5 +74,8 @@ public class NewsViewModel extends AndroidViewModel {
         newsRepository.newsLike(news);
     }
 
+    public void retry(){
+        Objects.requireNonNull(newsDataSourceFactory.getLiveDataSource().getValue()).retry();
+    }
 
 }

@@ -21,6 +21,7 @@ import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentLoginBinding;
 import cn.edu.gdut.douyintoutiao.entity.Result;
 import cn.edu.gdut.douyintoutiao.entity.User;
+import cn.edu.gdut.douyintoutiao.util.MyUtil;
 import cn.edu.gdut.douyintoutiao.util.UIUtil;
 import cn.edu.gdut.douyintoutiao.view.MainActivity;
 import es.dmoral.toasty.Toasty;
@@ -100,7 +101,11 @@ public class LoginFragment extends Fragment implements Callback<Result<User>> {
             if (UIUtil.isFastDoubleClick()) {
                 Toasty.warning(requireContext(), "请不要重复提交请求").show();
             } else {
-                viewModel.login();
+                if(MyUtil.isNetworkConnected(requireContext())) {
+                    viewModel.login();
+                }else {
+                    Toasty.error(requireContext(), "网络连接错误", Toasty.LENGTH_SHORT, true).show();
+                }
             }
         });
     }

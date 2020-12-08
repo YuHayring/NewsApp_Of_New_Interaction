@@ -13,8 +13,8 @@ import androidx.navigation.Navigation;
 
 import cn.edu.gdut.douyintoutiao.R;
 import cn.edu.gdut.douyintoutiao.databinding.FragmentStartBinding;
- import cn.edu.gdut.douyintoutiao.tmp.TestActivity;
- import cn.edu.gdut.douyintoutiao.util.UserUtil;
+import cn.edu.gdut.douyintoutiao.util.MyUtil;
+import es.dmoral.toasty.Toasty;
 
 /**
  * @author cypang
@@ -78,7 +78,11 @@ public class StartFragment extends Fragment {
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(UserUtil.isLogin(getContext())) {
+                if(!MyUtil.isNetworkConnected(requireContext())){
+                    Toasty.error(requireContext(), "请连接网络后再使用本应用", Toasty.LENGTH_SHORT, true).show();
+                    return;
+                }
+                if(MyUtil.isLogin(getContext())) {
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
