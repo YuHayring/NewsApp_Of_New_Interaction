@@ -80,7 +80,7 @@ public class FollowRepository {
     public void deleteFollowListByFollowId(String followId){
         Map<String, String> followIdMap = new HashMap<>();
         followIdMap.put("_id", followId);
-        Observable< Result > call = followApi.deleteFollowTagsByFollowNewsId (followIdMap);
+        Observable< Result > call = followApi.deleteFollowListByFollowId (followIdMap);
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserverManager<Result>() {
