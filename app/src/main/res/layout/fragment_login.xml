@@ -70,7 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:id="@+id/area1"
-            android:layout_below="@+id/text1"
             android:layout_marginTop="50dp"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
