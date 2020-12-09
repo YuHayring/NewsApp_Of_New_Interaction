@@ -22,9 +22,6 @@ public class NewsDetailViewModel extends ViewModel {
     }
 
 
-
-
-
     public void newsLike(MyNews news){
         newsRepository.newsLike(news);
     }
