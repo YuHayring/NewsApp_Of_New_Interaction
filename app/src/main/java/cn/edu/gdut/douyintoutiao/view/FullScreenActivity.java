@@ -25,23 +25,20 @@ public class FullScreenActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             WindowManager.LayoutParams lp = getWindow().getAttributes();
+            //允许延伸到刘海区域
             lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             getWindow().setAttributes(lp);
         }
         View decorView = getWindow().getDecorView();
         systemUiVisibility = decorView.getSystemUiVisibility();
         Log.d("systemUiVisibility pre",""+systemUiVisibility);
-        int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-
+        int flags = //布局延伸到状态栏
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    //隐藏状态栏
+               |  View.SYSTEM_UI_FLAG_FULLSCREEN
+                    //点击事件发生后后不显示状态栏
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        //存储全屏显示 flags
         systemUiVisibility |= flags;
         Log.d("systemUiVisibility set",""+systemUiVisibility);
     }
@@ -50,6 +47,7 @@ public class FullScreenActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //每次启动或返回界面时设置全屏显示
         getWindow().getDecorView().setSystemUiVisibility(systemUiVisibility);
     }
 }

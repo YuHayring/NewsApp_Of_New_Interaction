@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @date 2020/11/6 16:13
  * 事件实体(tag)
  */
+@Deprecated
 public class Tag implements Serializable {
 
     /**
