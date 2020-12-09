@@ -43,11 +43,12 @@ public class VideoStateAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        try {
+        try {//根据资讯的unix时间作为 fragment 的 id
             fragmentIdSet.add(sdf.parse(newses.get(position).getCreatedAt()).getTime());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+        //取出 fragment
         return fragments.get(position);
     }
 

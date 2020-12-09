@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @date 2020/11/6 16:27
  * 关注资讯
  */
+@Deprecated
 public class Focus implements Serializable {
 
     /**

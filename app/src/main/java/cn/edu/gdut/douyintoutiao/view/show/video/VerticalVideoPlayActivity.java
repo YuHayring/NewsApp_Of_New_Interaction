@@ -92,7 +92,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
             List<MyNews> data;
             if ((data = (List<MyNews>) intent.getSerializableExtra("data")) != null) {
                 adapter.addAllAndNotify(data);
-                int currentIndex = getIntent().getIntExtra("index",-1);
+                int currentIndex = intent.getIntExtra("index",-1);
                 viewBinding.videoViewPager.setCurrentItem(currentIndex, false);
             } else {
                 //视频列表有多少个视频了
@@ -141,6 +141,12 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
                     if (errorCode == 0) {
                         Toasty.info(VerticalVideoPlayActivity.this, R.string.video_play_requesting, Toasty.LENGTH_SHORT, true).show();
                     } else {
+                        if (errorCode == 404) {
+                            Toasty.error(VerticalVideoPlayActivity.this,
+                                    getString(R.string.video_play_no_more) + errorCode,
+                                    Toasty.LENGTH_SHORT, true).show();
+                            return;
+                        }
                         Toasty.error(VerticalVideoPlayActivity.this,
                                 getString(R.string.video_play_request_fail) + errorCode,
                                 Toasty.LENGTH_SHORT, true).show();
@@ -150,6 +156,7 @@ public class VerticalVideoPlayActivity extends VideoPlayActivity {
                 }
             } else if (state == 0) {
                 if (adapter.getItemCount() == viewBinding.videoViewPager.getCurrentItem() + 2) {
+                    if (errorCode == 404) return;
                     if (DEFAULT.equals(status)) {
                         verticalVideoPlayViewModel.getMoreFollowVideoNews(newses.size());
                     } else if (SEARCH.equals(status)) {
