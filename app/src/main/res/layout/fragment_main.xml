@@ -5,35 +5,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_search_24"
-            android:layout_alignParentStart="true"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_search_24"/>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/news_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_alignStart="@id/imageButton"
-            android:layout_alignEnd="@id/exchange_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"/>
 
         <ImageButton
             android:id="@+id/exchange_button"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/stat_notify_sync"
-            android:layout_marginBottom="0dp"
-            android:layout_alignParentEnd="true"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/stat_notify_sync"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 <!--    <ImageButton-->
 <!--        android:id="@+id/imageButton"-->
@@ -47,8 +41,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_main_news_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="2dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal" />
 
 </LinearLayout>
